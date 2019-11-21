@@ -93,7 +93,7 @@ export default {
                 ||
                 registro.c0541_apellido2.toUpperCase().includes(this.bempleado.toUpperCase())
                 ||
-                registro.c0541_ipppppp.toUpperCase().includes(this.bempleado.toUpperCase())                
+                registro.c0541_id.toUpperCase().includes(this.bempleado.toUpperCase())                
             })
         }
     }    
