@@ -88,6 +88,8 @@ export default {
         mbuscar: function(){
             return this.registros.filter((registro) => {
                 return registro.c0541_nombres.toUpperCase().includes(this.bempleado.toUpperCase())
+                ||
+                registro.c0541_id.toUpperCase().includes(this.bempleado.toUpperCase())
             })
         }
     }    
