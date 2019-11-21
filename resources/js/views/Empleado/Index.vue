@@ -90,6 +90,8 @@ export default {
                 return registro.c0541_nombres.toUpperCase().includes(this.bempleado.toUpperCase())
                 ||
                 registro.c0541_id.toUpperCase().includes(this.bempleado.toUpperCase())
+                ||
+                registro.c0541_apellido1.toUpperCase().includes(this.bempleado.toUpperCase())
             })
         }
     }    
