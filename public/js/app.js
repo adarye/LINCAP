@@ -2031,7 +2031,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this2 = this;
 
       return this.registros.filter(function (registro) {
-        return registro.c0541_nombres.toUpperCase().includes(_this2.bempleado.toUpperCase());
+        return registro.c0541_nombres.toUpperCase().includes(_this2.bempleado.toUpperCase()) || registro.c0541_apellido1.toUpperCase().includes(_this2.bempleado.toUpperCase()) || registro.c0541_apellido2.toUpperCase().includes(_this2.bempleado.toUpperCase()) || registro.c0541_id.toUpperCase().includes(_this2.bempleado.toUpperCase());
       });
     }
   }
@@ -35444,8 +35444,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\xampp\htdocs\Lincap\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\Lincap\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\xampp\htdocs\lincap\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\lincap\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
