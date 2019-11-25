@@ -18,4 +18,25 @@ class RolesController extends Controller
        
           return z2_roles::where('cz2_id', $id)->get();
     }
+
+    public function update(Request $request, $cz2_id){
+        $rol = z2_roles::find($cz2_id);
+        $rol->cz2_nombre = $request->nombre;
+        $rol->cz2_descripcion = $request->descripcion;
+        $rol->save();
+        return $rol;
+    }
+    public function create(Request $request){
+        $rol = new z2_roles();
+        $rol->cz2_nombre = $request->nombre;
+        $rol->cz2_descripcion = $request->descripcion;
+        $rol->save();
+    
+        return $rol;        
+    }
+    public function delete($id)
+{
+    $rol = z2_roles::find($id);
+    $rol->delete();
+}
 }

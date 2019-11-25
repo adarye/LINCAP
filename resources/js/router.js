@@ -9,7 +9,7 @@ import Show from './views/empleados/Show';
 
 import IndexRoles from './views/roles/Index';
 import ShowRoles from './views/roles/Show';
-
+import CreateRoles from './views/roles/Create';
 
 Vue.component('Index', Index)
 
@@ -25,8 +25,12 @@ export default new Router({
             path:'/roles', name:'Roles', component: IndexRoles, props:true
         },
         {
-            path:'/roles/show', name:'ShowRol', component: ShowRoles, props:true
+            path:'/roles/show/:id', name:'ShowRol', component: ShowRoles, props:true
+        },
+        {
+            path:'/roles/create', name:'CreateRol', component: CreateRoles, props:true
         }
+
 
 
        

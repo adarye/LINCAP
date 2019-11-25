@@ -20,4 +20,6 @@ Route::get('/show/{id}' ,'ApiController@show');
 
 Route::get('roles', 'RolesController@index');
 Route::get('roles/show/{id}', 'RolesController@show');
-
+Route::put('roles/update/{cz2_id}', 'RolesController@update');
+Route::post('roles/create', 'RolesController@create');
+Route::delete('roles/delete/{id}', 'RolesController@delete');
