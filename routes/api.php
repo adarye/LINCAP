@@ -16,3 +16,8 @@ use Illuminate\Http\Request;
 Route::get('registros', 'ApiController@index');
 Route::get('/show/{id}' ,'ApiController@show');
 
+//CRUD DE LA TABLA ROLES
+
+Route::get('roles', 'RolesController@index');
+Route::get('roles/show/{id}', 'RolesController@show');
+
