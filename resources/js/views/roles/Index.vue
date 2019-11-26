@@ -27,14 +27,16 @@
                     <td>
                         {{ item.cz2_nombre }}
                     </td>
-                    <td>{{ item.cz2_descripcion }}</td>
                     <td>
-                      <a @click="eliminar(item.cz2_id, indice)">
+                        {{ item.cz2_descripcion }}
+                        </td>
+                    <td>
+                        <a @click="eliminar(item.cz2_id, indice)">
                             <i class="material-icons">
                                 edit
                             </i>
-                       </a>
-                        
+                        </a>
+
                         <router-link
                             :to="{
                                 name: 'ShowRol',
@@ -66,13 +68,12 @@ export default {
             this.roles = res.data;
         });
     },
-    methods:{
-
-    eliminar(id, indice) {
-        axios.delete(`/api/roles/delete/${id}`).then(res => {
-           this.roles.splice(indice, 1);
-        });
-    }
+    methods: {
+        eliminar(id, indice) {
+            axios.delete(`/api/roles/delete/${id}`).then(res => {
+                this.roles.splice(indice, 1);
+            });
+        }
     }
 };
 </script>

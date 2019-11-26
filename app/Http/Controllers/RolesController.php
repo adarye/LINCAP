@@ -32,7 +32,8 @@ class RolesController extends Controller
         $rol->cz2_descripcion = $request->descripcion;
         $rol->save();
     
-        return $rol;        
+        return $rol;     
+        
     }
     public function delete($id)
 {

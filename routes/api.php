@@ -23,3 +23,7 @@ Route::get('roles/show/{id}', 'RolesController@show');
 Route::put('roles/update/{cz2_id}', 'RolesController@update');
 Route::post('roles/create', 'RolesController@create');
 Route::delete('roles/delete/{id}', 'RolesController@delete');
+
+//CRUD DE LA TABLA USUARIOS
+
+Route::get('usuarios', 'UsuariosController@index');
