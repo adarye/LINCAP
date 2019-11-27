@@ -2476,8 +2476,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2523,7 +2521,7 @@ __webpack_require__.r(__webpack_exports__);
     agregarUsuario: function agregarUsuario() {
       var _this3 = this;
 
-      if (this.nombre_rol != 'Rol') {
+      if (this.nombre_rol != "Rol") {
         var params = this.usuario;
         console.log(this.usuario);
         axios.post("/api/usuarios/create", params).then(function (res) {
@@ -2532,7 +2530,7 @@ __webpack_require__.r(__webpack_exports__);
           _this3.limpiar();
         });
       } else {
-        console.log('Seleccione un Rol');
+        console.log("Seleccione un Rol");
       }
     },
     buscarTercero: function buscarTercero() {
@@ -2545,7 +2543,7 @@ __webpack_require__.r(__webpack_exports__);
         if (_this4.usuario.cz1_ts_id == null) {
           console.log("el Usuario no existe");
         } else {
-          _this4.agregarUsuario();
+          _this4.validarCCExistente();
         }
       });
     },
@@ -2589,14 +2587,33 @@ __webpack_require__.r(__webpack_exports__);
     },
     limpiar: function limpiar() {
       this.modoEditar = false;
-      this.usuario.cz1_password = '';
-      this.usuario.cz1_cc = '';
-      this.nombre_rol = 'Rol';
+      this.usuario.cz1_password = "";
+      this.usuario.cz1_cc = "";
+      this.nombre_rol = "Rol";
+    },
+    validarCCExistente: function validarCCExistente() {
+      var i = 0;
+      var estado = 0;
+
+      for (i = 0; this.usuarios.length > i; i++) {
+        console.log(this.usuarios[i].cz1_cc);
+        console.log(this.usuario.cz1_cc);
+
+        if (this.usuarios[i].cz1_cc === this.usuario.cz1_cc) {
+          this.estado = 1;
+        }
+      }
+
+      if (this.estado === 1) {
+        console.log('ya se encuentra en el sistema');
+      } else {
+        this.agregarUsuario();
+      }
+
+      console.log(this.estado);
     }
   },
-  computed: {
-    validarCCExistente: function validarCCExistente() {}
-  }
+  computed: {}
 });
 
 /***/ }),

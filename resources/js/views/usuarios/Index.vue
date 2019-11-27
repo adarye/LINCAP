@@ -9,12 +9,12 @@
                 readonly="readonly"
                 v-model="usuario.cz1_cc"
             />
-              <input
+            <input
                 type="text"
                 class="form-control mb-2"
                 v-model="usuario.cz1_password"
             />
-           
+
             <button class="btn btn-warning" type="submit">Actualizar</button>
             <button class="btn btn-danger" @click="cancelar()">
                 Cancelar
@@ -35,32 +35,30 @@
                 placeholder="Contraseña"
                 v-model="usuario.cz1_password"
             />
-           
+
             <button class="btn btn-primary" type="submit">Agregar</button>
         </form>
-         <div class="dropdown mb-2">
-                <button
-                    class="btn btn-secondary dropdown-toggle"
-                    type="button"
-                    id="dropdownMenuButton"
-                    data-toggle="dropdown"
-                    aria-haspopup="true"
-                    aria-expanded="false"
-                >
-                    <label>{{ this.nombre_rol }}</label>
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <li v-for="(item, indice) in roles" :key="indice">
-                        <a
-                            class="dropdown-item"
-                            @click="
-                                seleccionarRol(item.cz2_nombre, item.cz2_id)
-                            "
-                            >{{ item.cz2_nombre }}</a
-                        >
-                    </li>
-                </div>
+        <div class="dropdown mb-2">
+            <button
+                class="btn btn-secondary dropdown-toggle"
+                type="button"
+                id="dropdownMenuButton"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+            >
+                <label>{{ this.nombre_rol }}</label>
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <li v-for="(item, indice) in roles" :key="indice">
+                    <a
+                        class="dropdown-item"
+                        @click="seleccionarRol(item.cz2_nombre, item.cz2_id)"
+                        >{{ item.cz2_nombre }}</a
+                    >
+                </li>
             </div>
+        </div>
         <hr />
 
         <div class="card-body">
@@ -113,7 +111,7 @@ export default {
                 cz1_id_rol: 0,
                 cz1_ts_id: 0
             },
-            cz1_id:0
+            cz1_id: 0
         };
     },
     mounted() {
@@ -125,9 +123,6 @@ export default {
             axios.get("/api/usuarios").then(res => {
                 console.log(res.data);
                 this.usuarios = res.data;
-               
-
-                 
             });
         },
 
@@ -142,16 +137,15 @@ export default {
             this.usuario.cz1_id_rol = id_rol;
         },
         agregarUsuario() {
-            if(this.nombre_rol != 'Rol'){
-            const params = this.usuario;
-            console.log(this.usuario);
-            axios.post("/api/usuarios/create", params).then(res => {
-                this.created();
-                this.limpiar();
-            });
-            }
-            else{
-                console.log('Seleccione un Rol')
+            if (this.nombre_rol != "Rol") {
+                const params = this.usuario;
+                console.log(this.usuario);
+                axios.post("/api/usuarios/create", params).then(res => {
+                    this.created();
+                    this.limpiar();
+                });
+            } else {
+                console.log("Seleccione un Rol");
             }
         },
         buscarTercero() {
@@ -163,7 +157,7 @@ export default {
                     if (this.usuario.cz1_ts_id == null) {
                         console.log("el Usuario no existe");
                     } else {
-                        this.agregarUsuario();
+                        this.validarCCExistente();
                     }
                 }
             );
@@ -174,44 +168,61 @@ export default {
                 this.limpiar();
             });
         },
-        editar(id){
-            this.modoEditar = true
-            axios.get(`/api/usuarios/show/${id}`)
-            .then(res=> {
-               const usuarioService = res.data
+        editar(id) {
+            this.modoEditar = true;
+            axios.get(`/api/usuarios/show/${id}`).then(res => {
+                const usuarioService = res.data;
                 this.usuario.cz1_password = usuarioService.cz1_contrasena;
                 this.usuario.cz1_cc = usuarioService.cz1_cc;
                 this.usuario.cz1_id_rol = usuarioService.cz1_id_rol;
                 this.usuario.cz1_ts_id = usuarioService.cz1_ts_id;
                 this.cz1_id = usuarioService.cz1_id;
-                console.log(this.usuario)
-                
-            })
+                console.log(this.usuario);
+            });
         },
-        update(){
-            const params = this.usuario
-            axios.put(`/api/usuarios/update/${this.cz1_id}`, params )
-            .then(res=> {
-                console.log(res)
-                this.created();
-                this.limpiar()
-                
-            })
+        update() {
+            const params = this.usuario;
+            axios
+                .put(`/api/usuarios/update/${this.cz1_id}`, params)
+                .then(res => {
+                    console.log(res);
+                    this.created();
+                    this.limpiar();
+                });
         },
-        cancelar(){
-           this.limpiar()
+        cancelar() {
+            this.limpiar();
         },
-        limpiar(){
-            this.modoEditar= false
-                this.usuario.cz1_password = ''
-                this.usuario.cz1_cc = ''
-                this.nombre_rol = 'Rol'
-        }
+        limpiar() {
+            this.modoEditar = false;
+            this.usuario.cz1_password = "";
+            this.usuario.cz1_cc = "";
+            this.nombre_rol = "Rol";
+        },
+         validarCCExistente() {           
+                var i = 0;
+                var estado = 0;
+                for (i = 0; this.usuarios.length > i; i ++) {
+                    console.log(this.usuarios[i].cz1_cc)
+                    console.log(this.usuario.cz1_cc)
+                    if (this.usuarios[i].cz1_cc === this.usuario.cz1_cc) {                        
+                        this.estado = 1
+                    }             
+                }
+                if(this.estado === 1){
+                    console.log('ya se encuentra en el sistema')
+                }
+                else{
+                    this.agregarUsuario();
+                    
+                }
+                console.log(this.estado)
+            } 
     },
-    computed:{
-        validarCCExistente(){
-            
-        }
+
+    computed: {
+        
+       
     }
 };
 </script>
