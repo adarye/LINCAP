@@ -91,5 +91,9 @@ class ApiController extends Controller
         )->get();
         
     }
+    public function buscarTercero($id){
+
+        return Terceros::select('c0541_rowid')->where('c0541_id', '=', $id)->first();
+    }
 
 }

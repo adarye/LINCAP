@@ -2469,15 +2469,35 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       usuarios: [],
-      modoEditar: false
+      modoEditar: false,
+      roles: [],
+      nombre_rol: "Rol",
+      rowid: {},
+      usuario: {
+        cz1_cc: null,
+        cz1_password: "",
+        cz1_id_rol: 0,
+        cz1_ts_id: 0
+      },
+      cz1_id: 0
     };
   },
   mounted: function mounted() {
     this.created();
+    this.cargarRoles();
   },
   methods: {
     created: function created() {
@@ -2488,7 +2508,94 @@ __webpack_require__.r(__webpack_exports__);
         _this.usuarios = res.data;
       });
     },
-    cargarRoles: function cargarRoles() {}
+    cargarRoles: function cargarRoles() {
+      var _this2 = this;
+
+      axios.get("/api/roles").then(function (res) {
+        _this2.roles = res.data;
+        console.log(_this2.roles);
+      });
+    },
+    seleccionarRol: function seleccionarRol(nombre, id_rol) {
+      this.nombre_rol = nombre;
+      this.usuario.cz1_id_rol = id_rol;
+    },
+    agregarUsuario: function agregarUsuario() {
+      var _this3 = this;
+
+      if (this.nombre_rol != 'Rol') {
+        var params = this.usuario;
+        console.log(this.usuario);
+        axios.post("/api/usuarios/create", params).then(function (res) {
+          _this3.created();
+
+          _this3.limpiar();
+        });
+      } else {
+        console.log('Seleccione un Rol');
+      }
+    },
+    buscarTercero: function buscarTercero() {
+      var _this4 = this;
+
+      axios("/api/usuarios/verificar/".concat(this.usuario.cz1_cc)).then(function (res) {
+        _this4.rowid = res.data;
+        _this4.usuario.cz1_ts_id = _this4.rowid.c0541_rowid;
+
+        if (_this4.usuario.cz1_ts_id == null) {
+          console.log("el Usuario no existe");
+        } else {
+          _this4.agregarUsuario();
+        }
+      });
+    },
+    eliminar: function eliminar(id, indice) {
+      var _this5 = this;
+
+      axios["delete"]("/api/usuarios/delete/".concat(id)).then(function (res) {
+        _this5.usuarios.splice(indice, 1);
+
+        _this5.limpiar();
+      });
+    },
+    editar: function editar(id) {
+      var _this6 = this;
+
+      this.modoEditar = true;
+      axios.get("/api/usuarios/show/".concat(id)).then(function (res) {
+        var usuarioService = res.data;
+        _this6.usuario.cz1_password = usuarioService.cz1_contrasena;
+        _this6.usuario.cz1_cc = usuarioService.cz1_cc;
+        _this6.usuario.cz1_id_rol = usuarioService.cz1_id_rol;
+        _this6.usuario.cz1_ts_id = usuarioService.cz1_ts_id;
+        _this6.cz1_id = usuarioService.cz1_id;
+        console.log(_this6.usuario);
+      });
+    },
+    update: function update() {
+      var _this7 = this;
+
+      var params = this.usuario;
+      axios.put("/api/usuarios/update/".concat(this.cz1_id), params).then(function (res) {
+        console.log(res);
+
+        _this7.created();
+
+        _this7.limpiar();
+      });
+    },
+    cancelar: function cancelar() {
+      this.limpiar();
+    },
+    limpiar: function limpiar() {
+      this.modoEditar = false;
+      this.usuario.cz1_password = '';
+      this.usuario.cz1_cc = '';
+      this.nombre_rol = 'Rol';
+    }
+  },
+  computed: {
+    validarCCExistente: function validarCCExistente() {}
   }
 });
 
@@ -21125,7 +21232,7 @@ var render = function() {
             on: {
               submit: function($event) {
                 $event.preventDefault()
-                return _vm.update(_vm.indice)
+                return _vm.update()
               }
             }
           },
@@ -21133,27 +21240,64 @@ var render = function() {
             _c("h3", [_vm._v("Editar Usuario")]),
             _vm._v(" "),
             _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.usuario.cz1_cc,
+                  expression: "usuario.cz1_cc"
+                }
+              ],
               staticClass: "form-control mb-2",
-              attrs: { type: "text", placeholder: "Nombre de la nota" }
+              attrs: { type: "text", readonly: "readonly" },
+              domProps: { value: _vm.usuario.cz1_cc },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.usuario, "cz1_cc", $event.target.value)
+                }
+              }
             }),
             _vm._v(" "),
             _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.usuario.cz1_password,
+                  expression: "usuario.cz1_password"
+                }
+              ],
               staticClass: "form-control mb-2",
-              attrs: { type: "text", placeholder: "Descripción de la nota" }
+              attrs: { type: "text" },
+              domProps: { value: _vm.usuario.cz1_password },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.usuario, "cz1_password", $event.target.value)
+                }
+              }
             }),
             _vm._v(" "),
             _c(
               "button",
               { staticClass: "btn btn-warning", attrs: { type: "submit" } },
-              [_vm._v("Editar")]
+              [_vm._v("Actualizar")]
             ),
             _vm._v(" "),
             _c(
               "button",
               {
                 staticClass: "btn btn-danger",
-                attrs: { type: "submit" },
-                on: { click: _vm.cancelarEdicion }
+                on: {
+                  click: function($event) {
+                    return _vm.cancelar()
+                  }
+                }
               },
               [_vm._v("\n            Cancelar\n        ")]
             )
@@ -21165,7 +21309,7 @@ var render = function() {
             on: {
               submit: function($event) {
                 $event.preventDefault()
-                return _vm.agregar($event)
+                return _vm.buscarTercero()
               }
             }
           },
@@ -21173,16 +21317,48 @@ var render = function() {
             _c("h3", [_vm._v("Agregar Usuario")]),
             _vm._v(" "),
             _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.usuario.cz1_cc,
+                  expression: "usuario.cz1_cc"
+                }
+              ],
               staticClass: "form-control mb-2",
-              attrs: { type: "text", placeholder: "Numero de cedula" }
+              attrs: { type: "text", placeholder: "Numero de cedula" },
+              domProps: { value: _vm.usuario.cz1_cc },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.usuario, "cz1_cc", $event.target.value)
+                }
+              }
             }),
             _vm._v(" "),
             _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.usuario.cz1_password,
+                  expression: "usuario.cz1_password"
+                }
+              ],
               staticClass: "form-control mb-2",
-              attrs: { type: "password", placeholder: "Contraseña" }
+              attrs: { type: "password", placeholder: "Contraseña" },
+              domProps: { value: _vm.usuario.cz1_password },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.usuario, "cz1_password", $event.target.value)
+                }
+              }
             }),
-            _vm._v(" "),
-            _vm._m(0),
             _vm._v(" "),
             _c(
               "button",
@@ -21192,6 +21368,48 @@ var render = function() {
           ]
         ),
     _vm._v(" "),
+    _c("div", { staticClass: "dropdown mb-2" }, [
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-secondary dropdown-toggle",
+          attrs: {
+            type: "button",
+            id: "dropdownMenuButton",
+            "data-toggle": "dropdown",
+            "aria-haspopup": "true",
+            "aria-expanded": "false"
+          }
+        },
+        [_c("label", [_vm._v(_vm._s(this.nombre_rol))])]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass: "dropdown-menu",
+          attrs: { "aria-labelledby": "dropdownMenuButton" }
+        },
+        _vm._l(_vm.roles, function(item, indice) {
+          return _c("li", { key: indice }, [
+            _c(
+              "a",
+              {
+                staticClass: "dropdown-item",
+                on: {
+                  click: function($event) {
+                    return _vm.seleccionarRol(item.cz2_nombre, item.cz2_id)
+                  }
+                }
+              },
+              [_vm._v(_vm._s(item.cz2_nombre))]
+            )
+          ])
+        }),
+        0
+      )
+    ]),
+    _vm._v(" "),
     _c("hr"),
     _vm._v(" "),
     _c("div", { staticClass: "card-body" }, [
@@ -21200,8 +21418,8 @@ var render = function() {
       _c(
         "ul",
         { staticClass: "list-group" },
-        _vm._l(_vm.usuarios, function(item, index) {
-          return _c("li", { key: index, staticClass: "list-group-item" }, [
+        _vm._l(_vm.usuarios, function(item, indice) {
+          return _c("li", { key: indice, staticClass: "list-group-item" }, [
             _c("span", { staticClass: "badge badge-primary float-right" }, [
               _vm._v(
                 "\n                    " +
@@ -21231,7 +21449,7 @@ var render = function() {
                   staticClass: "btn btn-warning btn-sm",
                   on: {
                     click: function($event) {
-                      return _vm.editarFormulario(item)
+                      return _vm.editar(item.cz1_id)
                     }
                   }
                 },
@@ -21248,7 +21466,7 @@ var render = function() {
                   staticClass: "btn btn-danger btn-sm",
                   on: {
                     click: function($event) {
-                      return _vm.eliminarNota(item, index)
+                      return _vm.eliminar(item.cz1_id, indice)
                     }
                   }
                 },
@@ -21266,42 +21484,7 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "dropdown mb-2" }, [
-      _c(
-        "button",
-        {
-          staticClass: "btn btn-secondary dropdown-toggle",
-          attrs: {
-            type: "button",
-            id: "dropdownMenuButton",
-            "data-toggle": "dropdown",
-            "aria-haspopup": "true",
-            "aria-expanded": "false"
-          }
-        },
-        [_vm._v("\n                Dropdown button\n            ")]
-      ),
-      _vm._v(" "),
-      _c(
-        "div",
-        {
-          staticClass: "dropdown-menu",
-          attrs: { "aria-labelledby": "dropdownMenuButton" }
-        },
-        [
-          _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
-            _vm._v("Action")
-          ])
-        ]
-      )
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -36880,14 +37063,15 @@ __webpack_require__.r(__webpack_exports__);
 /*!***********************************************!*\
   !*** ./resources/js/views/usuarios/Index.vue ***!
   \***********************************************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Index_vue_vue_type_template_id_5cd36832___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Index.vue?vue&type=template&id=5cd36832& */ "./resources/js/views/usuarios/Index.vue?vue&type=template&id=5cd36832&");
 /* harmony import */ var _Index_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Index.vue?vue&type=script&lang=js& */ "./resources/js/views/usuarios/Index.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _Index_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _Index_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -36917,7 +37101,7 @@ component.options.__file = "resources/js/views/usuarios/Index.vue"
 /*!************************************************************************!*\
   !*** ./resources/js/views/usuarios/Index.vue?vue&type=script&lang=js& ***!
   \************************************************************************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

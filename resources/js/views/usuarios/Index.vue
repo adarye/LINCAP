@@ -1,40 +1,44 @@
 <template>
     <div>
         <div class="card-header">LINCAP</div>
-        <form @submit.prevent="update(indice)" v-if="modoEditar">
+        <form @submit.prevent="update()" v-if="modoEditar">
             <h3>Editar Usuario</h3>
             <input
                 type="text"
                 class="form-control mb-2"
-                placeholder="Nombre de la nota"
+                readonly="readonly"
+                v-model="usuario.cz1_cc"
             />
-            <input
+              <input
                 type="text"
                 class="form-control mb-2"
-                placeholder="Descripción de la nota"
+                v-model="usuario.cz1_password"
             />
-            <button class="btn btn-warning" type="submit">Editar</button>
-            <button
-                class="btn btn-danger"
-                type="submit"
-                @click="cancelarEdicion"
-            >
+           
+            <button class="btn btn-warning" type="submit">Actualizar</button>
+            <button class="btn btn-danger" @click="cancelar()">
                 Cancelar
             </button>
         </form>
-        <form @submit.prevent="agregar" v-else>
+
+        <form @submit.prevent="buscarTercero()" v-else>
             <h3>Agregar Usuario</h3>
             <input
                 type="text"
                 class="form-control mb-2"
                 placeholder="Numero de cedula"
+                v-model="usuario.cz1_cc"
             />
             <input
                 type="password"
                 class="form-control mb-2"
                 placeholder="Contraseña"
+                v-model="usuario.cz1_password"
             />
-            <div class="dropdown mb-2">
+           
+            <button class="btn btn-primary" type="submit">Agregar</button>
+        </form>
+         <div class="dropdown mb-2">
                 <button
                     class="btn btn-secondary dropdown-toggle"
                     type="button"
@@ -43,15 +47,20 @@
                     aria-haspopup="true"
                     aria-expanded="false"
                 >
-                    Dropdown button
+                    <label>{{ this.nombre_rol }}</label>
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="#">Action</a>
-                    
+                    <li v-for="(item, indice) in roles" :key="indice">
+                        <a
+                            class="dropdown-item"
+                            @click="
+                                seleccionarRol(item.cz2_nombre, item.cz2_id)
+                            "
+                            >{{ item.cz2_nombre }}</a
+                        >
+                    </li>
                 </div>
             </div>
-            <button class="btn btn-primary" type="submit">Agregar</button>
-        </form>
         <hr />
 
         <div class="card-body">
@@ -59,8 +68,8 @@
             <ul class="list-group">
                 <li
                     class="list-group-item"
-                    v-for="(item, index) in usuarios"
-                    :key="index"
+                    v-for="(item, indice) in usuarios"
+                    :key="indice"
                 >
                     <span class="badge badge-primary float-right">
                         {{ item.cz1_cc }}
@@ -73,13 +82,13 @@
                     <p>
                         <button
                             class="btn btn-warning btn-sm"
-                            @click="editarFormulario(item)"
+                            @click="editar(item.cz1_id)"
                         >
                             Editar
                         </button>
                         <button
                             class="btn btn-danger btn-sm"
-                            @click="eliminarNota(item, index)"
+                            @click="eliminar(item.cz1_id, indice)"
                         >
                             Eliminar
                         </button>
@@ -94,20 +103,113 @@ export default {
     data() {
         return {
             usuarios: [],
-            modoEditar: false
+            modoEditar: false,
+            roles: [],
+            nombre_rol: "Rol",
+            rowid: {},
+            usuario: {
+                cz1_cc: null,
+                cz1_password: "",
+                cz1_id_rol: 0,
+                cz1_ts_id: 0
+            },
+            cz1_id:0
         };
     },
     mounted() {
         this.created();
+        this.cargarRoles();
     },
     methods: {
         created() {
             axios.get("/api/usuarios").then(res => {
                 console.log(res.data);
                 this.usuarios = res.data;
+               
+
+                 
             });
         },
-        cargarRoles(){
+
+        cargarRoles() {
+            axios.get("/api/roles").then(res => {
+                this.roles = res.data;
+                console.log(this.roles);
+            });
+        },
+        seleccionarRol(nombre, id_rol) {
+            this.nombre_rol = nombre;
+            this.usuario.cz1_id_rol = id_rol;
+        },
+        agregarUsuario() {
+            if(this.nombre_rol != 'Rol'){
+            const params = this.usuario;
+            console.log(this.usuario);
+            axios.post("/api/usuarios/create", params).then(res => {
+                this.created();
+                this.limpiar();
+            });
+            }
+            else{
+                console.log('Seleccione un Rol')
+            }
+        },
+        buscarTercero() {
+            axios(`/api/usuarios/verificar/${this.usuario.cz1_cc}`).then(
+                res => {
+                    this.rowid = res.data;
+                    this.usuario.cz1_ts_id = this.rowid.c0541_rowid;
+
+                    if (this.usuario.cz1_ts_id == null) {
+                        console.log("el Usuario no existe");
+                    } else {
+                        this.agregarUsuario();
+                    }
+                }
+            );
+        },
+        eliminar(id, indice) {
+            axios.delete(`/api/usuarios/delete/${id}`).then(res => {
+                this.usuarios.splice(indice, 1);
+                this.limpiar();
+            });
+        },
+        editar(id){
+            this.modoEditar = true
+            axios.get(`/api/usuarios/show/${id}`)
+            .then(res=> {
+               const usuarioService = res.data
+                this.usuario.cz1_password = usuarioService.cz1_contrasena;
+                this.usuario.cz1_cc = usuarioService.cz1_cc;
+                this.usuario.cz1_id_rol = usuarioService.cz1_id_rol;
+                this.usuario.cz1_ts_id = usuarioService.cz1_ts_id;
+                this.cz1_id = usuarioService.cz1_id;
+                console.log(this.usuario)
+                
+            })
+        },
+        update(){
+            const params = this.usuario
+            axios.put(`/api/usuarios/update/${this.cz1_id}`, params )
+            .then(res=> {
+                console.log(res)
+                this.created();
+                this.limpiar()
+                
+            })
+        },
+        cancelar(){
+           this.limpiar()
+        },
+        limpiar(){
+            this.modoEditar= false
+                this.usuario.cz1_password = ''
+                this.usuario.cz1_cc = ''
+                this.nombre_rol = 'Rol'
+        }
+    },
+    computed:{
+        validarCCExistente(){
             
         }
     }
