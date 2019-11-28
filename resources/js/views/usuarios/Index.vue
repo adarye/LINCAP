@@ -69,28 +69,12 @@
                     v-for="(item, indice) in usuarios"
                     :key="indice"
                 >
-                    <span class="badge badge-primary float-right">
-                        {{ item.cz1_cc }}
-                    </span>
-                    <p class="lead">
-                        {{ item.c0541_nombres }} {{ item.c0541_apellido1 }}
-                        {{ item.c0541_apellido2 }}
-                    </p>
-                    <p>{{ item.cz2_nombre }}</p>
-                    <p>
-                        <button
-                            class="btn btn-warning btn-sm"
-                            @click="editar(item.cz1_id)"
-                        >
-                            Editar
-                        </button>
-                        <button
-                            class="btn btn-danger btn-sm"
-                            @click="eliminar(item.cz1_id, indice)"
-                        >
-                            Eliminar
-                        </button>
-                    </p>
+                    <Usuarios
+                        :item="item"
+                        v-on:eliminar="eliminar(item.cz1_id, indice)"
+                        v-on:editar="editar(item.cz1_id)"
+                    ></Usuarios>
+                    
                 </li>
             </ul>
         </div>
@@ -199,30 +183,25 @@ export default {
             this.usuario.cz1_cc = "";
             this.nombre_rol = "Rol";
         },
-         validarCCExistente() {           
-                var i = 0;
-                var estado = 0;
-                for (i = 0; this.usuarios.length > i; i ++) {
-                    console.log(this.usuarios[i].cz1_cc)
-                    console.log(this.usuario.cz1_cc)
-                    if (this.usuarios[i].cz1_cc === this.usuario.cz1_cc) {                        
-                        this.estado = 1
-                    }             
+        validarCCExistente() {
+            var i = 0;
+            var estado = 0;
+            for (i = 0; this.usuarios.length > i; i++) {
+                console.log(this.usuarios[i].cz1_cc);
+                console.log(this.usuario.cz1_cc);
+                if (this.usuarios[i].cz1_cc === this.usuario.cz1_cc) {
+                    this.estado = 1;
                 }
-                if(this.estado === 1){
-                    console.log('ya se encuentra en el sistema')
-                }
-                else{
-                    this.agregarUsuario();
-                    
-                }
-                console.log(this.estado)
-            } 
+            }
+            if (this.estado === 1) {
+                console.log("ya se encuentra en el sistema");
+            } else {
+                this.agregarUsuario();
+            }
+            console.log(this.estado);
+        }
     },
 
-    computed: {
-        
-       
-    }
+    computed: {}
 };
 </script>

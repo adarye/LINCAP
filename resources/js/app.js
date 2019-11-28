@@ -6,8 +6,8 @@ import Vue from 'vue';
 import router from './router';
 
 //importacion de componentes
-import Registros from './components/Registros';
-Vue.component('Registros', Registros)
+import Usuarios from './components/usuarios/Usuarios';
+Vue.component('Usuarios', Usuarios)
 
 const app = new Vue ({
     el: '#app',
