@@ -2140,15 +2140,12 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     crear: function crear() {
-      var _this = this;
-
       this.rol = {
         nombre: this.nombre,
         descripcion: this.descripcion
       };
       axios.post("api/roles/create", this.rol).then(function (res) {
         console.log(res.data);
-        setTimeout(_this.redireccionar(), 5000);
       });
     },
     redireccionar: function redireccionar() {

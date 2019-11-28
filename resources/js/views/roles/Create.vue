@@ -81,7 +81,7 @@ export default {
             this.rol = { nombre: this.nombre, descripcion: this.descripcion };
             axios.post("api/roles/create", this.rol).then(res => {
                 console.log(res.data);
-                setTimeout(this.redireccionar(), 5000);
+               
             });
         },
         redireccionar() {
