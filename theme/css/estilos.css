@@ -1,0 +1,19 @@
+.empresa-logo {
+    display: block;
+    margin: auto;
+    width: 70px;
+    padding: 3px;
+}
+
+.empresa-text {
+    color: #FFF;
+    font-weight: 600;
+    text-align: center;
+    font-style: italic;
+}
+
+.user-text {
+    color: #FFF;
+    font-weight: 600;
+    font-style: italic;
+}
