@@ -2191,9 +2191,6 @@ __webpack_require__.r(__webpack_exports__);
       axios.post("api/roles/create", this.rol).then(function (res) {
         console.log(res.data);
       });
-    },
-    redireccionar: function redireccionar() {
-      location.origin = "http://localhost:3000/#/roles/";
     }
   }
 });
@@ -20804,177 +20801,157 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c(
-      "div",
-      {
-        staticClass: "modal fade",
-        attrs: {
-          id: "createModal",
-          tabindex: "-1",
-          role: "dialog",
-          "aria-labelledby": "exampleModalLabel",
-          "aria-hidden": "true"
-        }
-      },
-      [
-        _c(
-          "div",
-          { staticClass: "modal-dialog", attrs: { role: "document" } },
-          [
-            _c("div", { staticClass: "modal-content" }, [
-              _c("div", { staticClass: "modal-header" }, [
+  return _c(
+    "div",
+    {
+      staticClass: "modal fade",
+      attrs: {
+        id: "createModal",
+        tabindex: "-1",
+        role: "dialog",
+        "aria-labelledby": "exampleModalLabel",
+        "aria-hidden": "true"
+      }
+    },
+    [
+      _c("div", { staticClass: "modal-dialog", attrs: { role: "document" } }, [
+        _c("div", { staticClass: "modal-content" }, [
+          _c("div", { staticClass: "modal-header" }, [
+            _c(
+              "h5",
+              {
+                staticClass: "modal-title",
+                attrs: { id: "exampleModalLabel" }
+              },
+              [_vm._v("\n                    Modal title\n                ")]
+            ),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "close",
+                attrs: {
+                  type: "button",
+                  "data-dismiss": "modal",
+                  "aria-label": "Close"
+                }
+              },
+              [
                 _c(
-                  "h5",
+                  "router-link",
                   {
-                    staticClass: "modal-title",
-                    attrs: { id: "exampleModalLabel" }
+                    staticClass: "btn btn-secondary",
+                    attrs: {
+                      "data-dismiss": "modal",
+                      to: {
+                        name: "Roles"
+                      }
+                    }
                   },
-                  [
-                    _vm._v(
-                      "\n                        Modal title\n                    "
-                    )
-                  ]
-                ),
+                  [_vm._v("\n                        x\n                    ")]
+                )
+              ],
+              1
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "modal-body" }, [
+            _c(
+              "form",
+              {
+                on: {
+                  submit: function($event) {
+                    $event.preventDefault()
+                    return _vm.crear($event)
+                  }
+                }
+              },
+              [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.nombre,
+                      expression: "nombre"
+                    }
+                  ],
+                  staticClass: "form-control mb-2",
+                  attrs: { type: "text", placeholder: "Nombre del Rol" },
+                  domProps: { value: _vm.nombre },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.nombre = $event.target.value
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.descripcion,
+                      expression: "descripcion"
+                    }
+                  ],
+                  staticClass: "form-control mb-2",
+                  attrs: { type: "text", placeholder: "Descripcion del Rol" },
+                  domProps: { value: _vm.descripcion },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.descripcion = $event.target.value
+                    }
+                  }
+                }),
                 _vm._v(" "),
                 _c(
                   "button",
-                  {
-                    staticClass: "close",
-                    attrs: {
-                      type: "button",
-                      "data-dismiss": "modal",
-                      "aria-label": "Close"
-                    }
-                  },
+                  { staticClass: "btn btn-primary", attrs: { type: "submit" } },
                   [
-                    _c(
-                      "router-link",
-                      {
-                        staticClass: "btn btn-secondary",
-                        attrs: {
-                          "data-dismiss": "modal",
-                          to: {
-                            name: "Roles"
-                          }
-                        }
-                      },
-                      [
-                        _vm._v(
-                          "\n                            x\n                        "
-                        )
-                      ]
-                    )
-                  ],
-                  1
-                )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "modal-body" }, [
-                _c(
-                  "form",
-                  {
-                    on: {
-                      submit: function($event) {
-                        $event.preventDefault()
-                        return _vm.crear($event)
-                      }
-                    }
-                  },
-                  [
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.nombre,
-                          expression: "nombre"
-                        }
-                      ],
-                      staticClass: "form-control mb-2",
-                      attrs: { type: "text", placeholder: "Nombre del Rol" },
-                      domProps: { value: _vm.nombre },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.nombre = $event.target.value
-                        }
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.descripcion,
-                          expression: "descripcion"
-                        }
-                      ],
-                      staticClass: "form-control mb-2",
-                      attrs: {
-                        type: "text",
-                        placeholder: "Descripcion del Rol"
-                      },
-                      domProps: { value: _vm.descripcion },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.descripcion = $event.target.value
-                        }
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-primary",
-                        attrs: { type: "submit" }
-                      },
-                      [
-                        _vm._v(
-                          "\n                            Crear\n                        "
-                        )
-                      ]
+                    _vm._v(
+                      "\n                        Crear\n                    "
                     )
                   ]
-                ),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "modal-footer" },
-                  [
-                    _c(
-                      "router-link",
-                      {
-                        staticClass: "btn btn-secondary",
-                        attrs: {
-                          "data-dismiss": "modal",
-                          to: {
-                            name: "Roles"
-                          }
-                        }
-                      },
-                      [
-                        _vm._v(
-                          "\n                            Close\n                        "
-                        )
-                      ]
-                    )
-                  ],
-                  1
                 )
-              ])
-            ])
-          ]
-        )
-      ]
-    )
-  ])
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "modal-footer" },
+              [
+                _c(
+                  "router-link",
+                  {
+                    staticClass: "btn btn-secondary",
+                    attrs: {
+                      "data-dismiss": "modal",
+                      to: {
+                        name: "Roles"
+                      }
+                    }
+                  },
+                  [
+                    _vm._v(
+                      "\n                        Close\n                    "
+                    )
+                  ]
+                )
+              ],
+              1
+            )
+          ])
+        ])
+      ])
+    ]
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
