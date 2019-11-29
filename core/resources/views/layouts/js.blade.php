@@ -1,11 +1,4 @@
-{!! Html::script('theme/vue/js/app.js') !!}
-
-<!-- jsdelivr cdn -->
-  <script src="https://cdn.jsdelivr.net/npm/vee-validate@latest/dist/vee-validate.js"></script>
-
-  <!-- unpkg -->
-  <script src="https://unpkg.com/vee-validate@latest"></script>
-
+{!!Html::script('theme/vue/js/app.js')!!}
 {!!Html::script('theme/js/nprogress.js')!!}
 {!!Html::script('theme/js/bootstrap.min.js')!!}
 {!!Html::script('theme/js/progressbar/bootstrap-progressbar.min.js')!!}

@@ -11,4 +11,4 @@
 |
 */
 
-Route::get('/', 'PagesController@index')->name('pages.index');
+Route::get('/', 'PagesController@index')->name('spa');
