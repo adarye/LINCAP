@@ -17,7 +17,8 @@ class UsuariosController extends Controller
             'cz1_cc',
             'c0541_rowid',
             'cz1_id',
-            'cz1_estado'
+            'cz1_estado',
+            'cz1_contrasena'
 
         )->join(
             'z2_roles',
@@ -52,9 +53,6 @@ class UsuariosController extends Controller
          $usuario->delete();
     }
 
-    public function show($id){
-        return z1_usuarios::where('cz1_id', $id)->first();
-    }
 
     public function update(Request $request, $cz1_id){
 

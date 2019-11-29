@@ -37,7 +37,7 @@
             <h3>Lista de Usuarios:</h3>
             <ul class="list-group">
                 <li class="list-group-item" v-for="(item, indice) in usuarios" :key="indice">
-                    <Lista :item="item" v-on:eliminar="eliminar(item.cz1_id, indice)" v-on:editar="editar(item.cz1_id)">
+                    <Lista :item="item" v-on:eliminar="eliminar(item.cz1_id, indice)" v-on:editar="editar(item)">
                     </Lista>
 
                 </li>
@@ -55,6 +55,7 @@
                 nombre_rol: "Rol",
                 rowid: {},
                 usuario: {
+                    cz1_id: null,
                     cz1_cc: null,
                     cz1_password: "",
                     cz1_id_rol: 0,
@@ -118,18 +119,16 @@
                     this.limpiar();
                 });
             },
-            editar(id) {
+            editar(item) {
+                this.usuario.cz1_cc = item.cz1_cc;
+                this.usuario.cz1_password = item.cz1_contrasena;
+                this.usuario.cz1_id_rol = item.cz1_id_rol;
+                this.usuario.cz1_ts_id = item.cz1_ts_id;
+                this.usuario.cz1_estado = item.cz1_estado;
+                this.cz1_id = item.cz1_id;
                 this.modoEditar = true;
-                axios.get(`/api/usuarios/show/${id}`).then(res => {
-                    const usuarioService = res.data;
-                    this.usuario.cz1_password = usuarioService.cz1_contrasena;
-                    this.usuario.cz1_cc = usuarioService.cz1_cc;
-                    this.usuario.cz1_id_rol = usuarioService.cz1_id_rol;
-                    this.usuario.cz1_ts_id = usuarioService.cz1_ts_id;
-                    this.usuario.cz1_estado = usuarioService.cz1_estado;
-                    this.cz1_id = usuarioService.cz1_id;
-                    console.log(this.usuario);
-                });
+
+                console.log(this.cz1_id)
             },
             update() {
                 const params = this.usuario;

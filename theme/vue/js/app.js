@@ -2488,6 +2488,7 @@ __webpack_require__.r(__webpack_exports__);
       nombre_rol: "Rol",
       rowid: {},
       usuario: {
+        cz1_id: null,
         cz1_cc: null,
         cz1_password: "",
         cz1_id_rol: 0,
@@ -2560,31 +2561,26 @@ __webpack_require__.r(__webpack_exports__);
         _this5.limpiar();
       });
     },
-    editar: function editar(id) {
-      var _this6 = this;
-
+    editar: function editar(item) {
+      this.usuario.cz1_cc = item.cz1_cc;
+      this.usuario.cz1_password = item.cz1_contrasena;
+      this.usuario.cz1_id_rol = item.cz1_id_rol;
+      this.usuario.cz1_ts_id = item.cz1_ts_id;
+      this.usuario.cz1_estado = item.cz1_estado;
+      this.cz1_id = item.cz1_id;
       this.modoEditar = true;
-      axios.get("/api/usuarios/show/".concat(id)).then(function (res) {
-        var usuarioService = res.data;
-        _this6.usuario.cz1_password = usuarioService.cz1_contrasena;
-        _this6.usuario.cz1_cc = usuarioService.cz1_cc;
-        _this6.usuario.cz1_id_rol = usuarioService.cz1_id_rol;
-        _this6.usuario.cz1_ts_id = usuarioService.cz1_ts_id;
-        _this6.usuario.cz1_estado = usuarioService.cz1_estado;
-        _this6.cz1_id = usuarioService.cz1_id;
-        console.log(_this6.usuario);
-      });
+      console.log(this.cz1_id);
     },
     update: function update() {
-      var _this7 = this;
+      var _this6 = this;
 
       var params = this.usuario;
       axios.put("/api/usuarios/update/".concat(this.cz1_id), params).then(function (res) {
         console.log(res);
 
-        _this7.created();
+        _this6.created();
 
-        _this7.limpiar();
+        _this6.limpiar();
       });
     },
     cancelar: function cancelar() {
@@ -21568,7 +21564,7 @@ var render = function() {
                     return _vm.eliminar(item.cz1_id, indice)
                   },
                   editar: function($event) {
-                    return _vm.editar(item.cz1_id)
+                    return _vm.editar(item)
                   }
                 }
               })
