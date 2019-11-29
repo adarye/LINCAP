@@ -2190,9 +2190,6 @@ __webpack_require__.r(__webpack_exports__);
       axios.post("api/roles/create", this.rol).then(function (res) {
         console.log(res.data);
       });
-    },
-    redireccionar: function redireccionar() {
-      location.origin = "http://localhost:3000/#/roles/";
     }
   }
 });
@@ -21059,7 +21056,7 @@ var render = function() {
         1
       ),
       _vm._v(" "),
-      _c("table", { staticClass: "table table-striped" }, [
+      _c("table", { staticClass: "table" }, [
         _vm._m(0),
         _vm._v(" "),
         _c(

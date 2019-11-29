@@ -7,4 +7,4 @@
 {!!Html::style('theme/css/colorbox.css')!!}
 {!!Html::style('theme/js/msgbox/jquery.msgbox.css')!!}
 {!!Html::style('theme/css/estilos.css')!!}
-{!!Html::script('theme/js/jquery.min.js')!!}
+

@@ -16,3 +16,4 @@
 {!!Html::script('theme/js/notify/pnotify.nonblock.js')!!}
 {!!Html::script('theme/js/msgbox/jquery.msgbox.js')!!}
 {!!Html::script('theme/js/datepicker/daterangepicker.js')!!}
+{!!Html::script('theme/js/jquery.min.js')!!}

@@ -12,7 +12,7 @@
             >
         </center>
 
-        <table class="table table-striped">
+        <table class="table">
             <thead>
                 <tr>
                     <th scope="col">Id</th>
@@ -62,7 +62,6 @@ export default {
             roles: []
         };
     },
-
     mounted() {
         axios.get("/api/roles").then(res => {
             this.roles = res.data;

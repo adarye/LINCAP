@@ -83,9 +83,6 @@ export default {
                 console.log(res.data);
                
             });
-        },
-        redireccionar() {
-            location.origin = "http://localhost:3000/#/roles/";
         }
     }
 };
