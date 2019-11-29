@@ -11,4 +11,4 @@
 |
 */
 
-Route::get('/', 'PagesController@index')->name('spa');
+Route::get('/{any?}',function(){return view('spa');})->where('any','.*');
