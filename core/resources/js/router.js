@@ -16,7 +16,7 @@ import IndexUsuarios from './views/usuarios/Index';
 export default new Router({
     routes: [
         {
-            path: '/', component: Index
+            path: '/', name:'IndexEmpleado', component: Index
         },
         {
             path: '/show', name: 'Show', component: Show, props: true
