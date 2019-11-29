@@ -8,8 +8,9 @@
             {{ item.c0541_apellido2 }}
         </p>
         <p>{{ item.cz2_nombre }}</p>
+        <h1>{{ item.cz1_estado }}</h1>
 
-        <p>
+        
             <button class="btn btn-warning btn-sm" v-on:click="$emit('editar')">
                 Editar
             </button>
@@ -19,7 +20,7 @@
             >
                 Eliminar
             </button>
-        </p>
+        
     </div>
 </template>
 <script>

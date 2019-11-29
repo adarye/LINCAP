@@ -4,7 +4,7 @@ import VueRouter from 'vue-router';
 Vue.use(VueRouter);
 
 //importacion de vistas
-import Index from '../views/empleados/Index';
+import IndexEmpleado from '../views/empleados/Index';
 import Show from '../views/empleados/Show';
 
 import IndexRoles from '../views/roles/Index';
@@ -17,15 +17,12 @@ import v404 from '../views/404';
 
 export default new Router({
     mode: 'history',
-    routes: [
-        {
-            path: '*',
-            component: v404
-        },
+    routes: [       
         {
             path: '/empleados',
             name: 'IndexEmpleado',
-            component: Index
+            component: IndexEmpleado,
+            props: true
         },
         {
             path: '/show',
@@ -56,6 +53,10 @@ export default new Router({
             name: 'IndexUsuario',
             component: IndexUsuarios,
             props: true
-        }       
+        }, 
+        {
+            path: '*',
+            component: v404
+        }    
     ]
 });
