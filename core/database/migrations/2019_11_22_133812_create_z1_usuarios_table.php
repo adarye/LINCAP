@@ -16,9 +16,10 @@ class CreateZ1UsuariosTable extends Migration
         Schema::create('z1_usuarios', function (Blueprint $table) {
             $table->bigIncrements('cz1_id');
             $table->bigInteger('cz1_cc');
-            $table->bigInteger('cz1_contrasena');
+            $table->string('cz1_contrasena');
             $table->bigInteger('cz1_id_rol');
             $table->Integer('cz1_ts_id');
+            $table->Integer('cz1_estado');
             $table->string('cz1_avatar');
 
             $table->foreign('cz1_id_rol')->references('cz2_id')->on('z2_roles')->onDelete('cascade');

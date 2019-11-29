@@ -6,8 +6,8 @@ import Vue from 'vue';
 import router from './router';
 
 //importacion de componentes
-import Usuarios from './components/usuarios/Usuarios';
-Vue.component('Usuarios', Usuarios)
+import Lista from './components/usuarios/Lista';
+Vue.component('Lista', Lista)
 
 const app = new Vue ({
     el: '#app',

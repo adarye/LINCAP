@@ -16,7 +16,9 @@ class UsuariosController extends Controller
             'c0541_apellido2',
             'cz1_cc',
             'c0541_rowid',
-            'cz1_id'
+            'cz1_id',
+            'cz1_estado',
+            'cz1_contrasena'
 
         )->join(
             'z2_roles',
@@ -28,8 +30,6 @@ class UsuariosController extends Controller
             'z1_usuarios.cz1_ts_id',
             '=',
             'dbo.w0541_terceros_seleccion.c0541_rowid'
-
-
         )->get();
         
     }
@@ -44,6 +44,7 @@ class UsuariosController extends Controller
         $usuario->cz1_id_rol = $request->cz1_id_rol;
         $usuario->cz1_ts_id = $request->cz1_ts_id;
         $usuario->cz1_avatar = 'prueba';
+        $usuario->cz1_estado = 1;
         $usuario->save();       
     
     }
@@ -52,15 +53,13 @@ class UsuariosController extends Controller
          $usuario->delete();
     }
 
-    public function show($id){
-        return z1_usuarios::where('cz1_id', $id)->first();
-    }
 
     public function update(Request $request, $cz1_id){
 
         $usuario = z1_usuarios::find($cz1_id);
         $usuario->cz1_contrasena = $request->cz1_password;
         $usuario->cz1_id_rol = $request->cz1_id_rol;
+        $usuario->cz1_estado = $request->cz1_estado;
         $usuario->save();
         return $usuario;
         

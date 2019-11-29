@@ -1,5 +1,5 @@
 <template>
-    <div>
+   
         <div
             class="modal fade"
             id="createModal"
@@ -65,7 +65,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    
 </template>
 <script>
 export default {
@@ -84,6 +84,7 @@ export default {
                
             });
         }
+        
     }
 };
 </script>

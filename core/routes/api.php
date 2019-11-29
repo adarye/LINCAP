@@ -30,5 +30,4 @@ Route::get('usuarios', 'UsuariosController@index');
 Route::post('usuarios/create', 'UsuariosController@create');
 Route::get('usuarios/verificar/{id}', 'ApiController@buscarTercero');
 Route::delete('usuarios/delete/{id}', 'UsuariosController@delete');
-Route::get('usuarios/show/{id}', 'UsuariosController@show'); 
 Route::put('usuarios/update/{id}', 'UsuariosController@update');
