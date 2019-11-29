@@ -11,13 +11,27 @@
                 </li>
                 <li><a><i class="fa fa-wrench"></i>Mis Evaluaciones<span class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu" style="display: none">
-                    <li><a href="#">Dietas</a></li>
-                    <li><a href="#">Productos</a></li>
+                    <li><a href="#">Pendientes</a></li>
+                    <li><a href="#">Completadas</a></li>
                   </ul>
                 </li>
-                <li><a href="#"><i class="fa fa-child"></i>Mis Encuestas<span class=""></span></a></li>
-                <li><a href="#"><i class="fa fa-sign-out"></i>Salidas<span class=""></span></a></li>
-                <li><a href="#"><i class="fa fa-ticket"></i>Tickets<span class=""></span></a></li>
+                <li><a><i class="fa fa-wrench"></i>Mis Encuestas<span class="fa fa-chevron-down"></span></a>
+                  <ul class="nav child_menu" style="display: none">
+                    <li><a href="#">Pendientes</a></li>
+                    <li><a href="#">Completadas</a></li>
+                  </ul>
+                </li>
+                <li><a><i class="fa fa-gears"></i>Evaluaciones<span class="fa fa-chevron-down"></span></a>
+                  <ul class="nav child_menu" style="display: none">
+                    <li><a href="#">Administrar</a></li>
+                  </ul>
+                </li>
+                <li><a><i class="fa fa-gears"></i>Encuestas<span class="fa fa-chevron-down"></span></a>
+                  <ul class="nav child_menu" style="display: none">
+                    <li><a href="#">Administrar</a></li>
+                  </ul>
+                </li>
+               
                 <li><a><i class="fa fa-gears"></i>Configuración<span class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu" style="display: none">
                     <li><a href="#">Perfiles</a></li>
