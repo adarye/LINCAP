@@ -1,9 +1,6 @@
 @extends('layouts.base')
 @section('content')
-<keep-alive>
-    
-       
-      
+<keep-alive>     
      
     <router-view></router-view>
      

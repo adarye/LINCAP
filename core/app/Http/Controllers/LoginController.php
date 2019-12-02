@@ -8,5 +8,7 @@ use App\z1_usuarios;
 
 class LoginController extends Controller
 {
-    //
+    public function ingresar(){
+        
+    }
 }

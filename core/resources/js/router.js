@@ -9,7 +9,6 @@ import Show from '../views/empleados/Show';
 
 import IndexRoles from '../views/roles/Index';
 import ShowRoles from '../views/roles/Show';
-import CreateRoles from '../views/roles/Create';
 
 import IndexUsuarios from '../views/usuarios/Index';
 
@@ -43,13 +42,7 @@ export default new Router({
             name: 'ShowRol',
             component: ShowRoles,
             props: true
-        },
-        {
-            path: '/roles/create',
-            name: 'CreateRol',
-            component: CreateRoles,
-            props: true
-        },
+        },        
         {
             path: '/usuarios',
             name: 'IndexUsuario',
