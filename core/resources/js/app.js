@@ -8,8 +8,8 @@ import router from './router';
 Vue.use(VModal)
 
 //importacion de componentes
-import Lista from './components/usuarios/Lista';
-Vue.component('Lista', Lista)
+//import Lista from './components/usuarios/Lista';
+//Vue.component('Lista', Lista)
 
 const app = new Vue ({
     el: '#app',

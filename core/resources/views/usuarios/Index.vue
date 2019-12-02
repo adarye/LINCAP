@@ -37,8 +37,25 @@
             <h3>Lista de Usuarios:</h3>
             <ul class="list-group">
                 <li class="list-group-item" v-for="(item, indice) in usuarios" :key="indice">
-                    <Lista :item="item" v-on:eliminar="eliminar(item.cz1_id, indice)" v-on:editar="editar(item)">
-                    </Lista>
+                    <span class="badge badge-primary float-right">
+            {{ item.cz1_cc }}
+        </span>
+        <p class="lead">
+            {{ item.c0541_nombres }} {{ item.c0541_apellido1 }}
+            {{ item.c0541_apellido2 }}
+        </p>
+        <p>{{ item.cz2_nombre }}</p>
+        <h1>{{ item.cz1_estado }}</h1>
+          <button class="btn btn-warning btn-sm" v-on:click="editar(item)">
+                Editar
+            </button>
+            <button
+                class="btn btn-danger btn-sm"
+                v-on:click="eliminar(item.cz1_id, indice)"
+            >
+                Eliminar
+            </button>
+                  
 
                 </li>
             </ul>
