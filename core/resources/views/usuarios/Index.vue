@@ -24,12 +24,6 @@
                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <label>{{ this.nombre_rol }}</label>
             </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <li v-for="(item, indice) in roles" :key="indice">
-                    <a class="dropdown-item"
-                        @click="seleccionarRol(item.cz2_nombre, item.cz2_id)">{{ item.cz2_nombre }}</a>
-                </li>
-            </div>
         </div>
         <hr />
 

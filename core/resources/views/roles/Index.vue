@@ -35,14 +35,6 @@
                             </i>
                         </a>
 
-                        <router-link :to="{
-                                name: 'ShowRol',
-                                params: { id: item.cz2_id }
-                            }" data-toggle="modal" data-target="#exampleModalLong">
-                            <i class="material-icons">
-                                search
-                            </i>
-                        </router-link>
                     </td>
                 </tr>
             </tbody>
