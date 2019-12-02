@@ -13,6 +13,8 @@ import CreateRoles from '../views/roles/Create';
 
 import IndexUsuarios from '../views/usuarios/Index';
 
+import IndexLogin from '../views/login/Index';
+
 import v404 from '../views/404';
 
 export default new Router({
@@ -52,6 +54,12 @@ export default new Router({
             path: '/usuarios',
             name: 'IndexUsuario',
             component: IndexUsuarios,
+            props: true
+        }, 
+        {
+            path: '/login',
+            name: 'Login',
+            component: IndexLogin,
             props: true
         }, 
         {

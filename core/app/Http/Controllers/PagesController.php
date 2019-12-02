@@ -10,4 +10,9 @@ class PagesController extends Controller
 
         return view ('spa');
     }
+
+    public function login(){
+
+        return view ('login');
+    }
 }
