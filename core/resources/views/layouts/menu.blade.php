@@ -6,10 +6,10 @@
             <li><a><i class="fa fa-male"></i>Perfil<span class="fa fa-chevron-down"></span></a>
                 <ul class="nav child_menu" style="display: none">
                     <li>
-                        <router-link>Actualizar datos</router-link>
+                        <router-link :to="{name: 'IndexEmpleado'}">Actualizar datos</router-link>
                     </li>
                     <li>
-                        <router-link>Cambiar contraseña</router-link>
+                        <router-link :to="{name: 'IndexEmpleado'}">Cambiar contraseña</router-link>
                     </li>
                 </ul>
             </li>
