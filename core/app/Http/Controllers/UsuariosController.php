@@ -8,6 +8,10 @@ use App\z1_usuarios;
 
 class UsuariosController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function index(){
         return z1_usuarios::select(
             'cz2_nombre',

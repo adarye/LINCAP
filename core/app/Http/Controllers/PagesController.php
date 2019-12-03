@@ -6,6 +6,10 @@ use Illuminate\Http\Request;
 
 class PagesController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('guest', ['only' => 'login']);
+    }
     public function index(){
 
         return view ('spa');

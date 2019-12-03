@@ -8,6 +8,10 @@ use App\z2_roles;
 
 class RolesController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function index(Request $request){    
         return z2_roles::all();      
     }

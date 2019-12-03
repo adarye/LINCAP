@@ -21,8 +21,11 @@
                                    <span>Perfil</span>
                                </a>
                            </li>
-                           <li><a href="login.html"><i class="fa fa-sign-out pull-right"></i> Salir</a>
+                           <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+                           <li><button class="btn btn-danger btn-sm btn-block"><i class="fa fa-sign-out pull-right"></i>Salir</button>
                            </li>
+                        </form>
                        </ul>
                    </li>
                </ul>
