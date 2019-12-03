@@ -11,6 +11,9 @@
 <body class=".bg-info">
     <div id="app">
         <div class="container">
+           @auth
+             <h1>This I am</h1>  
+           @endauth
            <Login></Login>
         </div>
     </div>

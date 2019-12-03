@@ -13,9 +13,11 @@ class Usuario extends Authenticatable
     use Notifiable;
 
     protected $table = 'z1_usuarios';
+    protected $primaryKey = 'cz1_id';
     public $timestamps = false;
     protected $guarded = [];
 
+   
     protected $hidden = [
         'password','remember_token'
     ];

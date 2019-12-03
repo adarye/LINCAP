@@ -33,7 +33,8 @@ export default {
         return{
             cz1_cc: null,
             cz1_contrasena: '',
-            parametros:{}
+            parametros:{},
+            user:''
 
         }
     },
@@ -47,8 +48,18 @@ export default {
             //console.log(this.parametros)
             axios.post("api/login/ingresar", this.parametros)
             .then(res=>{
-                console.log(res.data)
-                swal('Has iniciado sesion', 'Datos Correctos', 'success')
+               this.user = res.data;
+                swal({
+                    title:'Has iniciado sesion',
+                    text:'Datos Correctos', 
+                    icon: 'success',
+                    closeOnClickOutside: false,
+                    closeOnEsc: false
+                    }).then(select => {
+                        if(select){
+                            location.reload();
+                        }
+                    })
             })
             .catch(error=>{
                 console.log(error.response.data.errors)

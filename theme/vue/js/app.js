@@ -1872,19 +1872,32 @@ __webpack_require__.r(__webpack_exports__);
     return {
       cz1_cc: null,
       cz1_contrasena: '',
-      parametros: {}
+      parametros: {},
+      user: ''
     };
   },
   methods: {
     iniciarSesion: function iniciarSesion() {
+      var _this = this;
+
       this.parametros = {
         cz1_cc: this.cz1_cc,
         cz1_contrasena: this.cz1_contrasena
       }; //console.log(this.parametros)
 
       axios.post("api/login/ingresar", this.parametros).then(function (res) {
-        console.log(res.data);
-        swal('Has iniciado sesion', 'Datos Correctos', 'success');
+        _this.user = res.data;
+        swal({
+          title: 'Has iniciado sesion',
+          text: 'Datos Correctos',
+          icon: 'success',
+          closeOnClickOutside: false,
+          closeOnEsc: false
+        }).then(function (select) {
+          if (select) {
+            location.reload();
+          }
+        });
       })["catch"](function (error) {
         console.log(error.response.data.errors);
         var er = error.response.data.errors;
