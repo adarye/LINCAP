@@ -28,6 +28,8 @@ class RolesController extends Controller
         $rol->cz2_nombre = $request->nombre;
         $rol->cz2_descripcion = $request->descripcion;
         $rol->save();
+
+        
     
         return $rol;     
         
