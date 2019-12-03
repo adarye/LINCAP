@@ -18,7 +18,7 @@ class UsuariosController extends Controller
             'c0541_rowid',
             'cz1_id',
             'cz1_estado',
-            'cz1_contrasena'
+            'password'
 
         )->join(
             'z2_roles',
@@ -40,7 +40,7 @@ class UsuariosController extends Controller
     public function create(Request $request){
         $usuario = new z1_usuarios();
         $usuario->cz1_cc = $request->cz1_cc;
-        $usuario->cz1_contrasena = $request->cz1_password;
+        $usuario->password = bcrypt($request->cz1_password);
         $usuario->cz1_id_rol = $request->cz1_id_rol;
         $usuario->cz1_ts_id = $request->cz1_ts_id;
         $usuario->cz1_avatar = 'prueba';
@@ -57,7 +57,7 @@ class UsuariosController extends Controller
     public function update(Request $request, $cz1_id){
 
         $usuario = z1_usuarios::find($cz1_id);
-        $usuario->cz1_contrasena = $request->cz1_password;
+        $usuario->password = $request->cz1_password;
         $usuario->cz1_id_rol = $request->cz1_id_rol;
         $usuario->cz1_estado = $request->cz1_estado;
         $usuario->save();
