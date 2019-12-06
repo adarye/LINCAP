@@ -2248,11 +2248,8 @@ __webpack_require__.r(__webpack_exports__);
 
     axios.get("/api/empleado/show").then(function (res) {
       _this.informacion = res.data[0];
+      console.log(_this.informacion);
       _this.apellidos = _this.informacion.c0541_apellido1 + " " + _this.informacion.c0541_apellido2;
-      _this.ciudad_seleccionada = _this.informacion.f013_descripcion;
-      _this.ubicacion = "COLOMBIA - SANTANDER - " + _this.ciudad_seleccionada;
-      _this.id_ciudad = _this.informacion.f013_id;
-      console.log(_this.id_ciudad);
     });
   },
   methods: {
@@ -21783,30 +21780,26 @@ var render = function() {
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "form-group col-md-6" }, [
-            _c("label", [_vm._v("Cargo")]),
+            _c("label", [_vm._v("Celular")]),
             _vm._v(" "),
             _c("input", {
               directives: [
                 {
                   name: "model",
                   rawName: "v-model",
-                  value: _vm.informacion.c0763_descripcion,
-                  expression: "informacion.c0763_descripcion"
+                  value: _vm.informacion.f015_celular,
+                  expression: "informacion.f015_celular"
                 }
               ],
               staticClass: "form-control",
               attrs: { type: "text", placeholder: "Apellidos", disabled: "" },
-              domProps: { value: _vm.informacion.c0763_descripcion },
+              domProps: { value: _vm.informacion.f015_celular },
               on: {
                 input: function($event) {
                   if ($event.target.composing) {
                     return
                   }
-                  _vm.$set(
-                    _vm.informacion,
-                    "c0763_descripcion",
-                    $event.target.value
-                  )
+                  _vm.$set(_vm.informacion, "f015_celular", $event.target.value)
                 }
               }
             })
@@ -21822,8 +21815,8 @@ var render = function() {
                 {
                   name: "model",
                   rawName: "v-model",
-                  value: _vm.informacion.c0541_correo,
-                  expression: "informacion.c0541_correo"
+                  value: _vm.informacion.f015_email,
+                  expression: "informacion.f015_email"
                 }
               ],
               staticClass: "form-control",
@@ -21832,13 +21825,13 @@ var render = function() {
                 placeholder: "Email",
                 disabled: _vm.validated ? false : true
               },
-              domProps: { value: _vm.informacion.c0541_correo },
+              domProps: { value: _vm.informacion.f015_email },
               on: {
                 input: function($event) {
                   if ($event.target.composing) {
                     return
                   }
-                  _vm.$set(_vm.informacion, "c0541_correo", $event.target.value)
+                  _vm.$set(_vm.informacion, "f015_email", $event.target.value)
                 }
               }
             })
@@ -21852,8 +21845,8 @@ var render = function() {
                 {
                   name: "model",
                   rawName: "v-model",
-                  value: _vm.informacion.c0541_telefono_1,
-                  expression: "informacion.c0541_telefono_1"
+                  value: _vm.informacion.f015_telefono,
+                  expression: "informacion.f015_telefono"
                 }
               ],
               staticClass: "form-control",
@@ -21862,7 +21855,7 @@ var render = function() {
                 placeholder: "Numero de telefono",
                 disabled: _vm.validated ? false : true
               },
-              domProps: { value: _vm.informacion.c0541_telefono_1 },
+              domProps: { value: _vm.informacion.f015_telefono },
               on: {
                 input: function($event) {
                   if ($event.target.composing) {
@@ -21870,7 +21863,7 @@ var render = function() {
                   }
                   _vm.$set(
                     _vm.informacion,
-                    "c0541_telefono_1",
+                    "f015_telefono",
                     $event.target.value
                   )
                 }
@@ -21888,13 +21881,13 @@ var render = function() {
                 {
                   name: "model",
                   rawName: "v-model",
-                  value: _vm.informacion.c0541_direccion_1,
-                  expression: "informacion.c0541_direccion_1"
+                  value: _vm.informacion.f015_direccion1,
+                  expression: "informacion.f015_direccion1"
                 }
               ],
               staticClass: "form-control",
               attrs: { type: "text", disabled: _vm.validated ? false : true },
-              domProps: { value: _vm.informacion.c0541_direccion_1 },
+              domProps: { value: _vm.informacion.f015_direccion1 },
               on: {
                 input: function($event) {
                   if ($event.target.composing) {
@@ -21902,7 +21895,7 @@ var render = function() {
                   }
                   _vm.$set(
                     _vm.informacion,
-                    "c0541_direccion_1",
+                    "f015_direccion1",
                     $event.target.value
                   )
                 }
@@ -21918,19 +21911,23 @@ var render = function() {
                 {
                   name: "model",
                   rawName: "v-model",
-                  value: _vm.informacion.c0541_barrio,
-                  expression: "informacion.c0541_barrio"
+                  value: _vm.informacion.f015_id_barrio,
+                  expression: "informacion.f015_id_barrio"
                 }
               ],
               staticClass: "form-control",
               attrs: { type: "text", disabled: _vm.validated ? false : true },
-              domProps: { value: _vm.informacion.c0541_barrio },
+              domProps: { value: _vm.informacion.f015_id_barrio },
               on: {
                 input: function($event) {
                   if ($event.target.composing) {
                     return
                   }
-                  _vm.$set(_vm.informacion, "c0541_barrio", $event.target.value)
+                  _vm.$set(
+                    _vm.informacion,
+                    "f015_id_barrio",
+                    $event.target.value
+                  )
                 }
               }
             })

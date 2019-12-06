@@ -58,49 +58,38 @@ class ApiController extends Controller
         //return Auth::user()->cz1_ts_id;
 
         return Terceros::select(
-            "c0541_rowid",
-            "c0541_nombres",
-            "c0541_id",
-            "c0541_apellido1",
+            "dbo.t015_mm_contactos.f015_contacto",
+            "dbo.t015_mm_contactos.f015_direccion1",
+            "dbo.t015_mm_contactos.f015_id_barrio",
+            "dbo.t015_mm_contactos.f015_telefono",
+            "dbo.t015_mm_contactos.f015_email",
+            "dbo.t015_mm_contactos.f015_celular",
+            "dbo.w0541_terceros_seleccion.c0541_id",
             "c0541_apellido2",
-            "c0540_fecha_nacimiento",
-            "c0541_direccion_1",
-            "c0541_barrio",
-            "c0541_telefono_1",
-            "c0541_ciudad_contacto",
-            "c0541_correo",
-            "f013_descripcion",
-            "f013_id",
-            "c0763_descripcion",
-            'c0550_ind_estado',
-            "c0550_rowid_tercero"
+            "c0541_apellido1",
+            "c0541_nombres"
 
         )->join(
-            'dbo.t013_mm_ciudades',
-            'dbo.w0541_terceros_seleccion.c0541_ciudad_contacto',
+            'dbo.t200_mm_terceros',
+            'dbo.t015_mm_contactos.f015_rowid',
             '=',
-            'dbo.t013_mm_ciudades.f013_id'
+            'dbo.t200_mm_terceros.f200_rowid_contacto'
+            
         )->join(
             'dbo.w0540_empleados',
-            'dbo.w0541_terceros_seleccion.c0541_rowid',
+            'dbo.t200_mm_terceros.f200_rowid',
             '=',
-            'dbo.w0540_empleados.c0540_rowid_prospecto'
-        )->join(
-                'dbo.w0550_contratos',
-                'dbo.w0540_empleados.c0540_rowid_tercero',
-                '=',
-                'dbo.w0550_contratos.c0550_rowid_tercero'
-        )->join(
-                'dbo.w0763_gh01_cargos',
-                'dbo.w0763_gh01_cargos.c0763_rowid',
-                '=',
-                'dbo.w0550_contratos.c0550_rowid_cargo'
-            )
-                     
-            ->where('c0541_rowid', Auth::user()->cz1_ts_id)
-            ->where('dbo.w0550_contratos.c0550_ind_estado', '1')
-            ->where('dbo.t013_mm_ciudades.f013_id_depto', 68)
+            'dbo.w0540_empleados.c0540_rowid_tercero'
             
+        )->join(
+            'dbo.w0541_terceros_seleccion',
+            'dbo.w0540_empleados.c0540_rowid_prospecto'
+            ,
+            '=',
+            'dbo.w0541_terceros_seleccion.c0541_rowid'
+            
+        )->where('dbo.t200_mm_terceros.f200_rowid', 1047//Auth::user()->cz1_ts_id) 
+            )                    
             ->get();
 
     }

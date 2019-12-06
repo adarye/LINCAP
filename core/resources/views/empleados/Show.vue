@@ -38,12 +38,12 @@
                     />
                 </div>
                 <div class="form-group col-md-6">
-                    <label>Cargo</label>
+                    <label>Celular</label>
                     <input
                         type="text"
                         class="form-control"
                         placeholder="Apellidos"
-                        v-model="informacion.c0763_descripcion"
+                        v-model="informacion.f015_celular"
                         disabled
                     />
                 </div>
@@ -55,7 +55,7 @@
                         type="email"
                         class="form-control"
                         placeholder="Email"
-                        v-model="informacion.c0541_correo"
+                        v-model="informacion.f015_email"
                         :disabled="validated ? false : true"
                     />
                 </div>
@@ -65,7 +65,7 @@
                         type="text"
                         class="form-control"
                         placeholder="Numero de telefono"
-                        v-model="informacion.c0541_telefono_1"
+                        v-model="informacion.f015_telefono"
                         :disabled="validated ? false : true"
                     />
                 </div>
@@ -76,7 +76,7 @@
                     <input
                         type="text"
                         class="form-control"
-                        v-model="informacion.c0541_direccion_1"
+                        v-model="informacion.f015_direccion1"
                         :disabled="validated ? false : true"
                     />
                 </div>
@@ -85,7 +85,7 @@
                     <input
                         type="text"
                         class="form-control"
-                        v-model="informacion.c0541_barrio"
+                        v-model="informacion.f015_id_barrio"
                         :disabled="validated ? false : true"
                     />
                 </div>
@@ -165,16 +165,11 @@ export default {
     },
     mounted() {
         axios.get("/api/empleado/show").then(res => {
-            this.informacion = res.data[0];
-            this.apellidos =
-                this.informacion.c0541_apellido1 +
+            this.informacion = res.data[0];           
+            console.log(this.informacion);
+             this.apellidos= this.informacion.c0541_apellido1 +
                 " " +
-                this.informacion.c0541_apellido2;
-            this.ciudad_seleccionada = this.informacion.f013_descripcion;
-            this.ubicacion =
-                "COLOMBIA - SANTANDER - " + this.ciudad_seleccionada;
-            this.id_ciudad = this.informacion.f013_id;
-            console.log(this.id_ciudad);
+            this.informacion.c0541_apellido2;
         });
     },
     methods: {
