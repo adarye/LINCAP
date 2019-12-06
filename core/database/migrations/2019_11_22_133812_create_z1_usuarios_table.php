@@ -17,13 +17,14 @@ class CreateZ1UsuariosTable extends Migration
             $table->bigIncrements('cz1_id');
             $table->bigInteger('cz1_cc');
             $table->string('password');
+            $table->string('remember_token')->nullable()->change();
             $table->bigInteger('cz1_id_rol');
-            $table->Integer('cz1_ts_id');
+            $table->Integer('cz1_id_empleado');
             $table->Integer('cz1_estado');
             $table->string('cz1_avatar');
 
             $table->foreign('cz1_id_rol')->references('cz2_id')->on('z2_roles')->onDelete('cascade');
-            $table->foreign('cz1_ts_id')->references('c0541_rowid')->on('dbo.w0541_terceros_seleccion')->onDelete('cascade');
+            $table->foreign('cz1_id_empleado')->references('c0540_rowid_tercero')->on('dbo.w0540_empleados')->onDelete('cascade');
             $table->timestamps();
         });
     }

@@ -31,24 +31,25 @@ class UsuariosController extends Controller
             '=',
             'z2_roles.cz2_id'       
         )->join(
+            'dbo.w0540_empleados',
+            'z1_usuarios.cz1_id_empleado',
+            '=',
+            'dbo.w0540_empleados.c0540_rowid_tercero'
+        )->join(
             'dbo.w0541_terceros_seleccion',
-            'z1_usuarios.cz1_ts_id',
+            'dbo.w0540_empleados.c0540_rowid_prospecto',
             '=',
             'dbo.w0541_terceros_seleccion.c0541_rowid'
         )->get();
         
         
     }
-    public function buscarTercero(){
-        return cz2_usuarios::where();
-
-    }
     public function create(Request $request){
         $usuario = new z1_usuarios();
         $usuario->cz1_cc = $request->cz1_cc;
         $usuario->password = bcrypt($request->cz1_password);
         $usuario->cz1_id_rol = $request->cz1_id_rol;
-        $usuario->cz1_ts_id = $request->cz1_ts_id;
+        $usuario->cz1_id_empleado = $request->cz1_id_empleado;
         $usuario->cz1_avatar = 'prueba';
         $usuario->cz1_estado = 1;
         $usuario->save();       

@@ -2467,6 +2467,42 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2480,7 +2516,7 @@ __webpack_require__.r(__webpack_exports__);
         cz1_cc: null,
         cz1_password: "",
         cz1_id_rol: 0,
-        cz1_ts_id: 0,
+        cz1_id_empleado: 0,
         cz1_estado: null
       },
       cz1_id: 0
@@ -2496,6 +2532,7 @@ __webpack_require__.r(__webpack_exports__);
 
       axios.get("/api/usuarios").then(function (res) {
         _this.usuarios = res.data;
+        console.log(_this.usuarios);
       });
     },
     cargarRoles: function cargarRoles() {
@@ -2515,7 +2552,7 @@ __webpack_require__.r(__webpack_exports__);
       if (this.nombre_rol != "Rol") {
         var params = this.usuario;
         console.log(this.usuario);
-        axios.post("/api/usuarios/create", params).then(function (res) {
+        axios.post("/api/usuarios/create", this.usuario).then(function (res) {
           _this3.created();
 
           _this3.limpiar();
@@ -2529,9 +2566,15 @@ __webpack_require__.r(__webpack_exports__);
 
       axios("/api/usuarios/verificar/".concat(this.usuario.cz1_cc)).then(function (res) {
         _this4.rowid = res.data;
-        _this4.usuario.cz1_ts_id = _this4.rowid.c0541_rowid;
+        var id = _this4.usuario.cz1_id_empleado;
+        axios.get("/api/empleados/tercero/".concat(_this4.rowid)).then(function (res) {
+          console.log(res.data);
+          var id_tercero = res.data;
+          _this4.usuario.cz1_id_empleado = id_tercero.c0540_rowid_tercero;
+          console.log(_this4.usuario);
+        });
 
-        if (_this4.usuario.cz1_ts_id == null) {
+        if (_this4.usuario.cz1_id_empleado == null) {
           console.log("el Usuario no existe");
         } else {
           _this4.validarCCExistente();
@@ -22402,7 +22445,7 @@ var render = function() {
             attrs: { type: "button", "data-toggle": "dropdown" }
           },
           [
-            _vm._v(_vm._s(_vm.nombre_rol) + "\n                "),
+            _vm._v("\n                " + _vm._s(_vm.nombre_rol) + " "),
             _c("span", { staticClass: "caret" })
           ]
         ),
