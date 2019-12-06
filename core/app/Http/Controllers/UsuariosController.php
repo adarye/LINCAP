@@ -13,6 +13,7 @@ class UsuariosController extends Controller
         $this->middleware('auth');
     }
     public function index(){
+        
         return z1_usuarios::select(
             'cz2_nombre',
             'c0541_nombres',
@@ -35,6 +36,7 @@ class UsuariosController extends Controller
             '=',
             'dbo.w0541_terceros_seleccion.c0541_rowid'
         )->get();
+        
         
     }
     public function buscarTercero(){

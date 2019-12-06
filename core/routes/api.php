@@ -14,7 +14,8 @@ use Illuminate\Http\Request;
 */
 
 Route::get('registros', 'ApiController@index');
-Route::get('/show/{id}' ,'ApiController@show');
+Route::get('empleado/show' ,'ApiController@show');
+Route::put('empleado/update/{id}' ,'ApiController@update');
 
 //CRUD DE LA TABLA ROLES
 

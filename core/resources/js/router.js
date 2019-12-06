@@ -16,7 +16,13 @@ import v404 from '../views/404';
 
 export default new Router({
     mode: 'history',
-    routes: [       
+    routes: [
+        {
+            path: '/',
+            name: 'showEmpleado',
+            component: Show,
+            props: true
+        },       
         {
             path: '/empleados',
             name: 'IndexEmpleado',
