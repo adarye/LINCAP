@@ -9,12 +9,19 @@
                         <router-link :to="{name: 'IndexEmpleado'}">Actualizar datos</router-link>
                     </li>
                     <li>
-                        <router-link :to="{name: 'IndexEmpleado'}">Cambiar contraseña</router-link>
+                        <router-link :to="{name: 'IndexEmpleado'}">Certificado laboral</router-link>
                     </li>
+                    <li>
+                        <router-link :to="{name: 'IndexEmpleado'}">Cambiar contraseña</router-link>
+                    </li>                    
                 </ul>
             </li>
-            <li>
-                <router-link :to="{name: 'IndexEmpleado'}"><i class="fa fa-folder-open"></i>Empleados</router-link>
+            <li><a><i class="fa fa-folder-open"></i>Empleados<span class="fa fa-chevron-down"></span></a>
+                <ul class="nav child_menu" style="display: none">
+                    <li><a href="#">Activos</a></li>
+                    <li><a href="#">Retirados</a></li>
+                    <li><a href="#">Infomación corpotativa</a></li>
+                </ul>
             </li>
             <li><a><i class="fa fa-file-text-o"></i>Evaluaciones<span class="fa fa-chevron-down"></span></a>
                 <ul class="nav child_menu" style="display: none">
