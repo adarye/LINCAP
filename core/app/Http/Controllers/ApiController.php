@@ -69,8 +69,21 @@ class ApiController extends Controller
     public function buscarTercero($id)
     {
 
-        $tercero = Terceros::select('c0541_rowid')->where('c0541_id', '=', $id)->first();
-        return $tercero->c0541_rowid;
+        return Terceros::select(
+            'c0541_rowid',
+            'dbo.w0540_empleados.c0540_rowid_tercero'
+            )
+            ->join(
+                'dbo.w0540_empleados',
+                'dbo.w0541_terceros_seleccion.c0541_rowid',
+                '=',
+                'dbo.w0540_empleados.c0540_rowid_prospecto'
+
+
+            )
+            ->where('dbo.w0541_terceros_seleccion.c0541_id', '=', $id)
+            ->first();
+        
     }
 
 }

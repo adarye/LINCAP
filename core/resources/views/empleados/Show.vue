@@ -42,9 +42,9 @@
                     <input
                         type="text"
                         class="form-control"
-                        placeholder="Apellidos"
+                        placeholder="Celular"
                         v-model="informacion.f015_celular"
-                        disabled
+                        :disabled="validated ? false : true"
                     />
                 </div>
             </div>
@@ -182,16 +182,18 @@ export default {
         },
         actualizar() {
             const params = {
-                email: this.informacion.c0541_correo,
-                telefono: this.informacion.c0541_telefono_1,
-                direccion: this.informacion.c0541_direccion_1,
-                barrio: this.informacion.c0541_barrio,
-                ciudad: this.id_ciudad
+                email: this.informacion.f015_email,
+                telefono: this.informacion.f015_telefono,
+                celular: this.informacion.f015_celular,
+                direccion: this.informacion.f015_direccion1,
+                barrio: this.f015_id_barrio,
+                ciudad: this.f015_id_barrio
             };
             console.log(params);
+            console.log(this.informacion.c0540_rowid_tercero);
             axios
                 .put(
-                    `/api/empleado/update/${this.informacion.c0541_rowid}`,
+                    `/api/empleado/update/${this.informacion.c0540_rowid_tercero}`,
                     params
                 )
                 .then(res => {

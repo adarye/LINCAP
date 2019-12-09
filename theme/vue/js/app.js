@@ -2264,14 +2264,16 @@ __webpack_require__.r(__webpack_exports__);
       var _this2 = this;
 
       var params = {
-        email: this.informacion.c0541_correo,
-        telefono: this.informacion.c0541_telefono_1,
-        direccion: this.informacion.c0541_direccion_1,
-        barrio: this.informacion.c0541_barrio,
-        ciudad: this.id_ciudad
+        email: this.informacion.f015_email,
+        telefono: this.informacion.f015_telefono,
+        celular: this.informacion.f015_celular,
+        direccion: this.informacion.f015_direccion1,
+        barrio: this.f015_id_barrio,
+        ciudad: this.f015_id_barrio
       };
       console.log(params);
-      axios.put("/api/empleado/update/".concat(this.informacion.c0541_rowid), params).then(function (res) {
+      console.log(this.informacion.c0540_rowid_tercero);
+      axios.put("/api/empleado/update/".concat(this.informacion.c0540_rowid_tercero), params).then(function (res) {
         console.log(res.data);
         _this2.validated = false;
         swal('Registro actualizado', 'Datos Correctos', 'success');
@@ -2565,14 +2567,8 @@ __webpack_require__.r(__webpack_exports__);
       var _this4 = this;
 
       axios("/api/usuarios/verificar/".concat(this.usuario.cz1_cc)).then(function (res) {
-        _this4.rowid = res.data;
-        var id = _this4.usuario.cz1_id_empleado;
-        axios.get("/api/empleados/tercero/".concat(_this4.rowid)).then(function (res) {
-          console.log(res.data);
-          var id_tercero = res.data;
-          _this4.usuario.cz1_id_empleado = id_tercero.c0540_rowid_tercero;
-          console.log(_this4.usuario);
-        });
+        _this4.usuario.cz1_id_empleado = res.data.c0540_rowid_tercero;
+        console.log(_this4.usuario);
 
         if (_this4.usuario.cz1_id_empleado == null) {
           console.log("el Usuario no existe");
@@ -2604,7 +2600,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this6 = this;
 
       var params = this.usuario;
-      axios.put("/api/usuarios/update/".concat(this.cz1_id), params).then(function (res) {
+      axios.put("/api/usuarios/update/".concat(this.cz1_id)).then(function (res) {
         console.log(res);
 
         _this6.created();
@@ -21835,7 +21831,11 @@ var render = function() {
                 }
               ],
               staticClass: "form-control",
-              attrs: { type: "text", placeholder: "Apellidos", disabled: "" },
+              attrs: {
+                type: "text",
+                placeholder: "Celular",
+                disabled: _vm.validated ? false : true
+              },
               domProps: { value: _vm.informacion.f015_celular },
               on: {
                 input: function($event) {

@@ -151,23 +151,16 @@ export default {
         buscarTercero() {
             axios(`/api/usuarios/verificar/${this.usuario.cz1_cc}`).then(
                 res => {
-                    this.rowid = res.data;
+                   
+                    this.usuario.cz1_id_empleado = res.data.c0540_rowid_tercero;
+                    console.log(this.usuario)  
                     
-                    const id =  this.usuario.cz1_id_empleado
-                    
-                    axios.get(
-                        `/api/empleados/tercero/${this.rowid}`
-                    ).then(res => {
-                        console.log(res.data);
-                        const id_tercero = res.data
-                        this.usuario.cz1_id_empleado = id_tercero.c0540_rowid_tercero;
-                        console.log(this.usuario)
-                    });
                     if (this.usuario.cz1_id_empleado == null) {
                         console.log("el Usuario no existe");
                     } else {
                         this.validarCCExistente();
                     }
+                    
                 }
             );
         },
@@ -191,7 +184,7 @@ export default {
         update() {
             const params = this.usuario;
             axios
-                .put(`/api/usuarios/update/${this.cz1_id}`, params)
+                .put(`/api/usuarios/update/${this.cz1_id}`)
                 .then(res => {
                     console.log(res);
                     this.created();
