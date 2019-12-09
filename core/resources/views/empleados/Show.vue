@@ -96,7 +96,7 @@
           <select
             class="form-control"
             :disabled="validated ? false : true"
-            @change="cambioCiudad($event)"
+            @change="cargarBarrios($event)"
           >
             <option>...</option>
             <option v-for="(item, indice) in ciudades" :key="indice" 
@@ -106,12 +106,15 @@
         </div>
         <div class="form-group col-md-6">
           <label>Selecciona tu barrio:</label>
-          <select class="form-control" :disabled="validated ? false : true" @change="cambioCiudad">
-            <option value="1" data-foo="...">...</option>
-            <option value="276" data-foo="FLORIDABLANCA">FLORIDABLANCA</option>
-            <option value="307" data-foo="GIRON">GIRON</option>
-            <option value="001" data-foo="BUCARAMANGA">BUCARAMANGA</option>
-            <option value="547" data-foo="PIEDECUESTA">PIEDECUESTA</option>
+          <select
+            class="form-control"
+            :disabled="validated ? false : true"
+            @change="cambiarBarrio($event)"
+          >
+            <option>...</option>
+            <option v-for="(item, indice) in barrios" :key="indice" 
+            v-bind:value="item.f014_id">
+            {{ item.f014_descripcion }}</option>
           </select>
         </div>
       </div>
@@ -142,7 +145,8 @@ export default {
       validated: false,
       ubicacion: "",
       id_ciudad: 0,
-      ciudades: []
+      ciudades: [],
+      barrios:[]
     };
   },
   mounted() {
@@ -170,8 +174,8 @@ export default {
         telefono: this.informacion.f015_telefono,
         celular: this.informacion.f015_celular,
         direccion: this.informacion.f015_direccion1,
-        barrio: this.f015_id_barrio,
-        ciudad: this.f015_id_barrio
+        barrio: this.informacion.f015_id_barrio,
+        ciudad: this.informacion.f015_id_ciudad
       };
       console.log(params);
       console.log(this.informacion.c0540_rowid_tercero);
@@ -186,17 +190,25 @@ export default {
           swal("Registro actualizado", "Datos Correctos", "success");
         });
     },
-    cargarCiudades() {
+    cargarCiudades(event) {
       axios.get("/api/ciudad").then(res => {
         this.ciudades = res.data;
+         
       });
     },
-    cambioCiudad(event) {
+    cargarBarrios(event) {
           axios.get(`/api/barrios/${event.target.value}`)
           .then(res=>{
-              console.log(res.data)
+            this.barrios = res.data;
+             
+          this.informacion.f015_id_ciudad = event.target.value
+
           })
       
+    },
+    cambiarBarrio(event){
+      this.informacion.f015_id_barrio = event.target.value
+        console.log(this.informacion)
     }
   },
 

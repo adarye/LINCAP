@@ -24,6 +24,10 @@ class TercerosmmController extends Controller
             "dbo.t015_mm_contactos.f015_email",
             "dbo.t015_mm_contactos.f015_celular",
             "dbo.w0541_terceros_seleccion.c0541_id",
+            "dbo.t015_mm_contactos.f015_id_pais",
+            "dbo.t015_mm_contactos.f015_id_depto",
+            "dbo.t015_mm_contactos.f015_id_ciudad",
+            "dbo.t015_mm_contactos.f015_id_barrio",
             "c0541_apellido2",
             "c0541_apellido1",
             "c0541_nombres",
@@ -67,6 +71,9 @@ class TercerosmmController extends Controller
                 't015_mm_contactos.f015_telefono' => $request->telefono,
                 't015_mm_contactos.f015_celular' => $request->celular,
                 't015_mm_contactos.f015_direccion1' => $request->direccion,
+                't015_mm_contactos.f015_id_ciudad' => $request->ciudad,
+                't015_mm_contactos.f015_id_barrio' => $request->barrio
+                
        ]);
 
       Terceros_mm::select('f015_rowid')
@@ -81,6 +88,8 @@ class TercerosmmController extends Controller
                 't015_mm_contactos.f015_telefono' => $request->telefono,
                 't015_mm_contactos.f015_celular' => $request->celular,
                 't015_mm_contactos.f015_direccion1' => 'TRABAJADOR LINCO',
+                't015_mm_contactos.f015_id_ciudad' => $request->ciudad,
+                't015_mm_contactos.f015_id_barrio' => $request->barrio
        ]);
 
        Terceros_mm::select('f015_rowid')
@@ -95,6 +104,8 @@ class TercerosmmController extends Controller
                 't015_mm_contactos.f015_telefono' => $request->telefono,
                 't015_mm_contactos.f015_celular' => $request->celular,
                 't015_mm_contactos.f015_direccion1' => $request->direccion,
+                't015_mm_contactos.f015_id_ciudad' => $request->ciudad,
+                't015_mm_contactos.f015_id_barrio' => $request->barrio
        ]);
     }
 }

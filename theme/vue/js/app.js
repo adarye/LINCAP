@@ -2213,6 +2213,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2222,7 +2225,8 @@ __webpack_require__.r(__webpack_exports__);
       validated: false,
       ubicacion: "",
       id_ciudad: 0,
-      ciudades: []
+      ciudades: [],
+      barrios: []
     };
   },
   mounted: function mounted() {
@@ -2251,8 +2255,8 @@ __webpack_require__.r(__webpack_exports__);
         telefono: this.informacion.f015_telefono,
         celular: this.informacion.f015_celular,
         direccion: this.informacion.f015_direccion1,
-        barrio: this.f015_id_barrio,
-        ciudad: this.f015_id_barrio
+        barrio: this.informacion.f015_id_barrio,
+        ciudad: this.informacion.f015_id_ciudad
       };
       console.log(params);
       console.log(this.informacion.c0540_rowid_tercero);
@@ -2262,17 +2266,24 @@ __webpack_require__.r(__webpack_exports__);
         swal("Registro actualizado", "Datos Correctos", "success");
       });
     },
-    cargarCiudades: function cargarCiudades() {
+    cargarCiudades: function cargarCiudades(event) {
       var _this3 = this;
 
       axios.get("/api/ciudad").then(function (res) {
         _this3.ciudades = res.data;
       });
     },
-    cambioCiudad: function cambioCiudad(event) {
+    cargarBarrios: function cargarBarrios(event) {
+      var _this4 = this;
+
       axios.get("/api/barrios/".concat(event.target.value)).then(function (res) {
-        console.log(res.data);
+        _this4.barrios = res.data;
+        _this4.informacion.f015_id_ciudad = event.target.value;
       });
+    },
+    cambiarBarrio: function cambiarBarrio(event) {
+      this.informacion.f015_id_barrio = event.target.value;
+      console.log(this.informacion);
     }
   },
   computed: {}
@@ -21975,7 +21986,7 @@ var render = function() {
                 attrs: { disabled: _vm.validated ? false : true },
                 on: {
                   change: function($event) {
-                    return _vm.cambioCiudad($event)
+                    return _vm.cargarBarrios($event)
                   }
                 }
               },
@@ -22002,35 +22013,24 @@ var render = function() {
               {
                 staticClass: "form-control",
                 attrs: { disabled: _vm.validated ? false : true },
-                on: { change: _vm.cambioCiudad }
+                on: {
+                  change: function($event) {
+                    return _vm.cambiarBarrio($event)
+                  }
+                }
               },
               [
-                _c("option", { attrs: { value: "1", "data-foo": "..." } }, [
-                  _vm._v("...")
-                ]),
+                _c("option", [_vm._v("...")]),
                 _vm._v(" "),
-                _c(
-                  "option",
-                  { attrs: { value: "276", "data-foo": "FLORIDABLANCA" } },
-                  [_vm._v("FLORIDABLANCA")]
-                ),
-                _vm._v(" "),
-                _c("option", { attrs: { value: "307", "data-foo": "GIRON" } }, [
-                  _vm._v("GIRON")
-                ]),
-                _vm._v(" "),
-                _c(
-                  "option",
-                  { attrs: { value: "001", "data-foo": "BUCARAMANGA" } },
-                  [_vm._v("BUCARAMANGA")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "option",
-                  { attrs: { value: "547", "data-foo": "PIEDECUESTA" } },
-                  [_vm._v("PIEDECUESTA")]
-                )
-              ]
+                _vm._l(_vm.barrios, function(item, indice) {
+                  return _c(
+                    "option",
+                    { key: indice, domProps: { value: item.f014_id } },
+                    [_vm._v("\n          " + _vm._s(item.f014_descripcion))]
+                  )
+                })
+              ],
+              2
             )
           ])
         ])
