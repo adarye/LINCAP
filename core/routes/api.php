@@ -40,3 +40,8 @@ Route::post('login/ingresar', 'LoginController@iniciarSesion');
 //Route::get('empleados/tercero/{id}', 'EmpleadosController@obtenerTercero');
 Route::get('empleado/show' ,'TercerosmmController@show');
 Route::put('empleado/update/{id}' ,'TercerosmmController@update');
+
+//CIUDADES Y BARRIOS
+
+Route::get('ciudad', 'UbicacionController@cargarCiudades');
+Route::get('barrios/{id}', 'UbicacionController@cargarBarrios');

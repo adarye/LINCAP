@@ -2213,25 +2213,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2240,7 +2221,8 @@ __webpack_require__.r(__webpack_exports__);
       informacion: {},
       validated: false,
       ubicacion: "",
-      id_ciudad: 0
+      id_ciudad: 0,
+      ciudades: []
     };
   },
   mounted: function mounted() {
@@ -2251,6 +2233,7 @@ __webpack_require__.r(__webpack_exports__);
       console.log(_this.informacion);
       _this.apellidos = _this.informacion.c0541_apellido1 + " " + _this.informacion.c0541_apellido2;
     });
+    this.cargarCiudades();
   },
   methods: {
     habilitarFormulario: function habilitarFormulario() {
@@ -2276,16 +2259,20 @@ __webpack_require__.r(__webpack_exports__);
       axios.put("/api/empleado/update/".concat(this.informacion.c0540_rowid_tercero), params).then(function (res) {
         console.log(res.data);
         _this2.validated = false;
-        swal('Registro actualizado', 'Datos Correctos', 'success');
+        swal("Registro actualizado", "Datos Correctos", "success");
       });
     },
-    cambioCiudad: function cambioCiudad(e) {
-      if (e.target.options.selectedIndex > -1) {
-        this.ciudad_seleccionada = e.target.options[e.target.options.selectedIndex].dataset.foo;
-        this.ubicacion = "COLOMBIA - SANTANDER - " + this.ciudad_seleccionada;
-        this.id_ciudad = e.target.options[e.target.options.selectedIndex].value;
-        console.log(this.id_ciudad);
-      }
+    cargarCiudades: function cargarCiudades() {
+      var _this3 = this;
+
+      axios.get("/api/ciudad").then(function (res) {
+        _this3.ciudades = res.data;
+      });
+    },
+    cambioCiudad: function cambioCiudad(event) {
+      axios.get("/api/barrios/".concat(event.target.value)).then(function (res) {
+        console.log(res.data);
+      });
     }
   },
   computed: {}
@@ -21979,33 +21966,36 @@ var render = function() {
         _vm._v(" "),
         _c("div", { staticClass: "form-row" }, [
           _c("div", { staticClass: "form-group col-md-6" }, [
-            _c("label", [_vm._v("Ubicacion")]),
+            _c("label", [_vm._v("Selecciona tu ciudad:")]),
             _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.ubicacion,
-                  expression: "ubicacion"
-                }
-              ],
-              staticClass: "form-control",
-              attrs: { type: "text", disabled: "" },
-              domProps: { value: _vm.ubicacion },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
+            _c(
+              "select",
+              {
+                staticClass: "form-control",
+                attrs: { disabled: _vm.validated ? false : true },
+                on: {
+                  change: function($event) {
+                    return _vm.cambioCiudad($event)
                   }
-                  _vm.ubicacion = $event.target.value
                 }
-              }
-            })
+              },
+              [
+                _c("option", [_vm._v("...")]),
+                _vm._v(" "),
+                _vm._l(_vm.ciudades, function(item, indice) {
+                  return _c(
+                    "option",
+                    { key: indice, domProps: { value: item.f013_id } },
+                    [_vm._v("\n          " + _vm._s(item.f013_descripcion))]
+                  )
+                })
+              ],
+              2
+            )
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "form-group col-md-6" }, [
-            _c("label", [_vm._v("Selecciona tu ciudad:")]),
+            _c("label", [_vm._v("Selecciona tu barrio:")]),
             _vm._v(" "),
             _c(
               "select",
@@ -22056,7 +22046,7 @@ var render = function() {
                     staticClass: "btn btn-primary",
                     on: { click: _vm.habilitarFormulario }
                   },
-                  [_vm._v("\n                    Editar\n                ")]
+                  [_vm._v("Editar")]
                 )
               ])
             ])
@@ -22068,7 +22058,7 @@ var render = function() {
                     staticClass: "btn btn-primary",
                     on: { click: _vm.actualizar }
                   },
-                  [_vm._v("\n                    Actualizar\n                ")]
+                  [_vm._v("Actualizar")]
                 ),
                 _vm._v(" "),
                 _c(
@@ -22077,7 +22067,7 @@ var render = function() {
                     staticClass: "btn btn-danger",
                     on: { click: _vm.desabilitarFormulario }
                   },
-                  [_vm._v("\n                    Cancelar\n                ")]
+                  [_vm._v("Cancelar")]
                 )
               ])
             ])
