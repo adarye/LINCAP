@@ -11,6 +11,10 @@ use App\Barrios;
 
 class UbicacionController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
      public function cargarCiudades(){
        return ciudades::select(
              'f013_descripcion',
