@@ -19749,6 +19749,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! moment */ "../node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_0__);
 //
 //
 //
@@ -19886,6 +19888,32 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale('es');
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -19896,12 +19924,15 @@ __webpack_require__.r(__webpack_exports__);
       ubicacion: "",
       id_ciudad: 0,
       ciudades: [],
-      barrios: []
+      barrios: [],
+      usuario: '',
+      moment: moment__WEBPACK_IMPORTED_MODULE_0___default.a
     };
   },
   mounted: function mounted() {
     var _this = this;
 
+    this.cargarContrato();
     axios.get("/api/empleado/show").then(function (res) {
       _this.informacion = res.data[0];
       console.log(_this.informacion);
@@ -19954,6 +19985,14 @@ __webpack_require__.r(__webpack_exports__);
     cambiarBarrio: function cambiarBarrio(event) {
       this.informacion.f015_id_barrio = event.target.value;
       console.log(this.informacion);
+    },
+    cargarContrato: function cargarContrato() {
+      var _this5 = this;
+
+      axios.get('/api/empleado').then(function (res) {
+        _this5.usuario = res.data;
+        console.log(res.data);
+      });
     }
   },
   computed: {}
@@ -38860,7 +38899,7 @@ var render = function() {
                 _c(
                   "button",
                   {
-                    staticClass: "btn btn-primary",
+                    staticClass: "btn btn-primary my-2",
                     on: { click: _vm.habilitarFormulario }
                   },
                   [_vm._v("Editar")]
@@ -38888,6 +38927,127 @@ var render = function() {
                 )
               ])
             ])
+      ]),
+      _vm._v(" "),
+      _c("div", [
+        _c("div", { staticClass: "jumbotron mt-3" }, [
+          _c("h3", { staticClass: "display-4" }, [
+            _vm._v(
+              _vm._s(_vm.usuario.f200_nombres) +
+                " " +
+                _vm._s(_vm.usuario.f200_apellido1) +
+                " " +
+                _vm._s(_vm.usuario.f200_apellido2)
+            )
+          ]),
+          _vm._v(" "),
+          _c("p", { staticClass: "lead" }, [
+            _vm._v(
+              "Fecha de Nacimiento: " +
+                _vm._s(
+                  _vm
+                    .moment(_vm.usuario.c0540_fecha_nacimiento, "YYYY-MM-DD")
+                    .format("ll")
+                )
+            )
+          ]),
+          _vm._v(" "),
+          _c("p", { staticClass: "lead" }, [
+            _vm._v("Numero de Cedula: " + _vm._s(_vm.usuario.f200_id))
+          ]),
+          _vm._v(" "),
+          _c("p", { staticClass: "lead" }, [
+            _vm._v(
+              "Fecha de expedicion: " +
+                _vm._s(
+                  _vm
+                    .moment(_vm.usuario.c0540_fecha_exp_identif, "YYYY-MM-DD")
+                    .format("ll")
+                )
+            )
+          ]),
+          _vm._v(" "),
+          _c("p", { staticClass: "lead" }, [
+            _vm._v(
+              "Pais de expedicion: " + _vm._s(_vm.usuario.f011_descripcion)
+            )
+          ]),
+          _vm._v(" "),
+          _c("p", { staticClass: "lead" }, [
+            _vm._v(
+              "Departamento de expedicion: " +
+                _vm._s(_vm.usuario.f012_descripcion)
+            )
+          ]),
+          _vm._v(" "),
+          _c("p", { staticClass: "lead" }, [
+            _vm._v(
+              "Ciudad de expedicion: " + _vm._s(_vm.usuario.f013_descripcion)
+            )
+          ]),
+          _vm._v(" "),
+          _c("hr", { staticClass: "my-4" }),
+          _vm._v(" "),
+          _c("p", [_vm._v("Cargo: " + _vm._s(_vm.usuario.c0763_descripcion))]),
+          _vm._v(" "),
+          _c("p", [
+            _vm._v(
+              "Fecha de Ingreso: " +
+                _vm._s(
+                  _vm
+                    .moment(_vm.usuario.c0550_fecha_ingreso, "YYYY-MM-DD")
+                    .format("ll")
+                )
+            )
+          ]),
+          _vm._v(" "),
+          _c("p", [
+            _vm._v(
+              "Fecha de Finalizacion: " +
+                _vm._s(
+                  _vm
+                    .moment(
+                      _vm.usuario.c0550_fecha_contrato_hasta,
+                      "YYYY-MM-DD"
+                    )
+                    .format("ll")
+                )
+            )
+          ]),
+          _vm._v(" "),
+          _c("p", [
+            _vm._v("Lugar de trabajo: " + _vm._s(_vm.usuario.f284_descripcion))
+          ]),
+          _vm._v(" "),
+          _c("p", [
+            _vm._v("Tipo de Nomina: " + _vm._s(_vm.usuario.c0504_descripcion))
+          ]),
+          _vm._v(" "),
+          _c("p", [
+            _vm._v(
+              "Entidad Prestadora de Salud: " + _vm._s(_vm.usuario.c0515_id)
+            )
+          ]),
+          _vm._v(" "),
+          _c("p", [
+            _vm._v("Fondo de Pensiones: " + _vm._s(_vm.usuario.c0516_id))
+          ]),
+          _vm._v(" "),
+          _c("p", [
+            _vm._v(
+              "Agencia de Riesgos Laborales: " + _vm._s(_vm.usuario.c0517_id)
+            )
+          ]),
+          _vm._v(" "),
+          _c(
+            "a",
+            {
+              staticClass: "btn btn-primary btn-lg",
+              attrs: { href: "#", role: "button" }
+            },
+            [_vm._v("Certificado Laboral")]
+          )
+        ])
       ])
     ],
     1
@@ -54815,14 +54975,15 @@ __webpack_require__.r(__webpack_exports__);
 /*!********************************************!*\
   !*** ./resources/views/empleados/Show.vue ***!
   \********************************************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Show_vue_vue_type_template_id_443d08bd___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Show.vue?vue&type=template&id=443d08bd& */ "./resources/views/empleados/Show.vue?vue&type=template&id=443d08bd&");
 /* harmony import */ var _Show_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Show.vue?vue&type=script&lang=js& */ "./resources/views/empleados/Show.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _Show_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _Show_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -54852,7 +55013,7 @@ component.options.__file = "resources/views/empleados/Show.vue"
 /*!*********************************************************************!*\
   !*** ./resources/views/empleados/Show.vue?vue&type=script&lang=js& ***!
   \*********************************************************************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

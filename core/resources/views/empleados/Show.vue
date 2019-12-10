@@ -122,7 +122,7 @@
     <div class="form-row">
       <span v-if="!validated">
         <div class="form-group col-md-6">
-          <button @click="habilitarFormulario" class="btn btn-primary">Editar</button>
+          <button @click="habilitarFormulario" class="btn btn-primary my-2">Editar</button>
         </div>
       </span>
       <span v-else>
@@ -133,10 +133,37 @@
         </div>
       </span>
     </div>
+    <div >
+        <div class="jumbotron mt-3">
+            <h3 class="display-4">{{ usuario.f200_nombres }} {{ usuario.f200_apellido1 }} {{ usuario.f200_apellido2 }}</h3>
+            <p class="lead">Fecha de Nacimiento: {{ moment(usuario.c0540_fecha_nacimiento, "YYYY-MM-DD").format("ll")}}</p>
+             <p class="lead">Numero de Cedula: {{ usuario.f200_id }}</p>
+            <p class="lead">Fecha de expedicion: {{  moment(usuario.c0540_fecha_exp_identif, "YYYY-MM-DD").format("ll") }}</p>
+            <p class="lead">Pais de expedicion: {{ usuario.f011_descripcion }}</p>
+            <p class="lead">Departamento de expedicion: {{ usuario.f012_descripcion }}</p>
+            <p class="lead">Ciudad de expedicion: {{ usuario.f013_descripcion }}</p>
+            <hr class="my-4">
+            <p>Cargo: {{ usuario.c0763_descripcion }}</p>
+            <p>Fecha de Ingreso: {{  moment(usuario.c0550_fecha_ingreso, "YYYY-MM-DD").format("ll")  }}</p>
+            <p>Fecha de Finalizacion: {{ moment(usuario.c0550_fecha_contrato_hasta, "YYYY-MM-DD").format("ll") }}</p>
+            <p>Lugar de trabajo: {{ usuario.f284_descripcion }}</p>
+            <p>Tipo de Nomina: {{ usuario.c0504_descripcion }}</p>
+            <p>Entidad Prestadora de Salud: {{ usuario.c0515_id }}</p>
+            <p>Fondo de Pensiones: {{ usuario.c0516_id }}</p>
+            <p>Agencia de Riesgos Laborales: {{ usuario.c0517_id }}</p>
+
+
+
+            <a class="btn btn-primary btn-lg" href="#" role="button">Certificado Laboral</a>
+        </div>
+  </div>
   </div>
 </template>
 <script>
+import moment from 'moment';
+  moment.locale('es');
 export default {
+  
   data() {
     return {
       ciudad_seleccionada: "",
@@ -146,10 +173,13 @@ export default {
       ubicacion: "",
       id_ciudad: 0,
       ciudades: [],
-      barrios:[]
+      barrios:[],
+      usuario:'',
+      moment: moment
     };
   },
   mounted() {
+    this.cargarContrato();
     axios.get("/api/empleado/show").then(res => {
       this.informacion = res.data[0];
       console.log(this.informacion);
@@ -209,6 +239,13 @@ export default {
     cambiarBarrio(event){
       this.informacion.f015_id_barrio = event.target.value
         console.log(this.informacion)
+    },
+    cargarContrato(){
+      axios.get('/api/empleado')
+                .then(res => {
+                    this.usuario = res.data
+                    console.log(res.data)
+                })
     }
   },
 

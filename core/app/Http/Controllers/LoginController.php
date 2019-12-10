@@ -5,19 +5,21 @@ namespace App\Http\Controllers;
 use App\Http\Requests\LoginFormRequest;
 use App\Terceros_mm;
 use Illuminate\Support\Facades\Auth;
+use View;
 
 class LoginController extends Controller
 {
-
+    public $variable1 = "I am Data";
     public function iniciarSesion(LoginFormRequest $request)
     {
 
-        //return response()->json($request->all(),200);
+        
 
         if (Auth::attempt(['cz1_cc' => $request->cz1_cc, 'password' => $request->cz1_contrasena], false)) {
 
             $estado = Terceros_mm::select(
-                'c0550_ind_estado'
+                'c0550_ind_estado',
+                 "f200_nombres"
             )->join(
                 'dbo.t200_mm_terceros',
                 'dbo.t015_mm_contactos.f015_rowid',
@@ -33,11 +35,16 @@ class LoginController extends Controller
 
             if ($estado == null) {
                 Auth::logout();
-                //return redirect('/login');
                 return 'inactivo';
-            }else{
+            } else {
+               Auth()->user()->cz1_nombres = $estado->f200_nombres;
+               
+               $nombres = $estado->f200_nombres;
+               View::share ( 'nombres', $nombres );
+                return  $nombres;
 
-            return response()->json(Auth::user(), 200);
+                return response()->json(Auth::user(), 200);
+               // $estado->f200_nombres;
             }
 
         } else {
