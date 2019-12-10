@@ -86,17 +86,6 @@
 /************************************************************************/
 /******/ ({
 
-/***/ "../node_modules/moment/moment.js":
-/*!****************************************!*\
-  !*** ../node_modules/moment/moment.js ***!
-  \****************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-throw new Error("Module build failed: Error: EPERM: operation not permitted, open 'C:\\xampp\\htdocs\\lincap\\node_modules\\moment\\moment.js'");
-
-/***/ }),
-
 /***/ "./node_modules/axios/index.js":
 /*!*************************************!*\
   !*** ./node_modules/axios/index.js ***!
@@ -2096,8 +2085,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! moment */ "../node_modules/moment/moment.js");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_0__);
+!(function webpackMissingModule() { var e = new Error("Cannot find module 'moment'"); e.code = 'MODULE_NOT_FOUND'; throw e; }());
 //
 //
 //
@@ -2260,7 +2248,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
-moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale('es');
+!(function webpackMissingModule() { var e = new Error("Cannot find module 'moment'"); e.code = 'MODULE_NOT_FOUND'; throw e; }()).locale('es');
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2273,7 +2261,7 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale('es');
       ciudades: [],
       barrios: [],
       usuario: '',
-      moment: moment__WEBPACK_IMPORTED_MODULE_0___default.a
+      moment: !(function webpackMissingModule() { var e = new Error("Cannot find module 'moment'"); e.code = 'MODULE_NOT_FOUND'; throw e; }())
     };
   },
   mounted: function mounted() {
