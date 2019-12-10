@@ -9,7 +9,8 @@ use View;
 
 class LoginController extends Controller
 {
-    public $variable1 = "I am Data";
+    public $nombre;
+
     public function iniciarSesion(LoginFormRequest $request)
     {
 
@@ -37,14 +38,8 @@ class LoginController extends Controller
                 Auth::logout();
                 return 'inactivo';
             } else {
-               Auth()->user()->cz1_nombres = $estado->f200_nombres;
-               
-               $nombres = $estado->f200_nombres;
-               View::share ( 'nombres', $nombres );
-                return  $nombres;
-
+                
                 return response()->json(Auth::user(), 200);
-               // $estado->f200_nombres;
             }
 
         } else {
@@ -59,5 +54,6 @@ class LoginController extends Controller
 
         return redirect('/login');
     }
+   
 
 }

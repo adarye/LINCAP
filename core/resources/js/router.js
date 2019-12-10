@@ -60,12 +60,6 @@ export default new Router({
             
         }, 
         {
-            path: '/contrato',
-            name: 'ContratoEmpleado',
-            component: Contrato
-            
-        }, 
-        {
             path: '*',
             component: v404
         }    
