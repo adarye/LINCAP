@@ -50,6 +50,7 @@ class UsuariosController extends Controller
         $usuario->password = bcrypt($request->cz1_password);
         $usuario->cz1_id_rol = $request->cz1_id_rol;
         $usuario->cz1_id_empleado = $request->cz1_id_empleado;
+        $usuario->cz1_nombres = $request->cz1_nombres;
         $usuario->cz1_avatar = 'prueba';
         $usuario->cz1_estado = 1;
         $usuario->save();       

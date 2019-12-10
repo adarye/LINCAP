@@ -110,7 +110,8 @@ export default {
                 cz1_password: "",
                 cz1_id_rol: 0,
                 cz1_id_empleado: 0,
-                cz1_estado: null
+                cz1_estado: null,
+                cz1_nombres: null
             },
             cz1_id: 0
         };
@@ -153,6 +154,9 @@ export default {
                 res => {
                    
                     this.usuario.cz1_id_empleado = res.data.c0540_rowid_tercero;
+                    const nombre = res.data.c0541_nombres + ' ' + res.data.c0541_apellido1 + ' ' 
+                    + res.data.c0541_apellido1
+                    this.usuario.cz1_nombres = nombre;
                     console.log(this.usuario)  
                     
                     if (this.usuario.cz1_id_empleado == null) {

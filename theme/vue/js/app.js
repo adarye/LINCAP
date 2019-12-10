@@ -20167,7 +20167,8 @@ __webpack_require__.r(__webpack_exports__);
         cz1_password: "",
         cz1_id_rol: 0,
         cz1_id_empleado: 0,
-        cz1_estado: null
+        cz1_estado: null,
+        cz1_nombres: null
       },
       cz1_id: 0
     };
@@ -20216,6 +20217,8 @@ __webpack_require__.r(__webpack_exports__);
 
       axios("/api/usuarios/verificar/".concat(this.usuario.cz1_cc)).then(function (res) {
         _this4.usuario.cz1_id_empleado = res.data.c0540_rowid_tercero;
+        var nombre = res.data.c0541_nombres + ' ' + res.data.c0541_apellido1 + ' ' + res.data.c0541_apellido1;
+        _this4.usuario.cz1_nombres = nombre;
         console.log(_this4.usuario);
 
         if (_this4.usuario.cz1_id_empleado == null) {
