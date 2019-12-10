@@ -58,11 +58,7 @@ export default new Router({
             name: 'IndexUsuario',
             component: IndexUsuarios
             
-<<<<<<< HEAD
         },  
-=======
-        }, 
->>>>>>> 3c93b123ae7dbd1200c613cff2d9d4e667fa2198
         {
             path: '*',
             component: v404
