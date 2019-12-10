@@ -58,13 +58,7 @@ export default new Router({
             name: 'IndexUsuario',
             component: IndexUsuarios
             
-        }, 
-        {
-            path: '/contrato',
-            name: 'ContratoEmpleado',
-            component: Contrato
-            
-        }, 
+        },  
         {
             path: '*',
             component: v404
