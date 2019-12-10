@@ -47,9 +47,15 @@ export default {
             } 
             //console.log(this.parametros)
             axios.post("api/login/ingresar", this.parametros)
-            .then(res=>{
-                
+            .then(res=>{              
                this.user = res.data;
+               console.log(this.user)
+
+               if(res.data == 'inactivo'){
+                   swal('Error', 'Tu contrato finalizo', 'error')
+
+               }
+               else{
                 swal({
                     title:'Has iniciado sesion',
                     text:'Datos Correctos', 
@@ -60,7 +66,7 @@ export default {
                         if(select){
                             location.reload();
                         }
-                    })
+                    })}
             })
             .catch(error=>{
                 console.log(error.response.data.errors)

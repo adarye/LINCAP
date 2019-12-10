@@ -19492,17 +19492,23 @@ __webpack_require__.r(__webpack_exports__);
 
       axios.post("api/login/ingresar", this.parametros).then(function (res) {
         _this.user = res.data;
-        swal({
-          title: 'Has iniciado sesion',
-          text: 'Datos Correctos',
-          icon: 'success',
-          closeOnClickOutside: false,
-          closeOnEsc: false
-        }).then(function (select) {
-          if (select) {
-            location.reload();
-          }
-        });
+        console.log(_this.user);
+
+        if (res.data == 'inactivo') {
+          swal('Error', 'Tu contrato finalizo', 'error');
+        } else {
+          swal({
+            title: 'Has iniciado sesion',
+            text: 'Datos Correctos',
+            icon: 'success',
+            closeOnClickOutside: false,
+            closeOnEsc: false
+          }).then(function (select) {
+            if (select) {
+              location.reload();
+            }
+          });
+        }
       })["catch"](function (error) {
         console.log(error.response.data.errors);
         var er = error.response.data.errors;
