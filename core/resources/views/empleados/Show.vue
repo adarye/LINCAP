@@ -1,7 +1,7 @@
 <template>
   <div>
     <center>
-      <h1>Informacion Personal</h1>
+      <h1>Actualizar datos</h1>
     </center>
     <form class="my-2">
       <div class="form-row">

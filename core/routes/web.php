@@ -12,5 +12,6 @@
 */
 Route::get('/login', 'PagesController@login')->name('login');
 Route::post('login/salir', 'LoginController@logout')->name('logout');
+Route::name('print')->get('/imprimir', 'EmpleadosController@imprimir');
 Route::get('/{any?}',function(){return view('spa');})->where('any','.*')->name('index')->middleware('auth');
 

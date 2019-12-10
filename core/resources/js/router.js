@@ -10,7 +10,7 @@ import IndexEmpleado from '../views/empleados/Index';
 
 //Vista de trabajadores
 import Show from '../views/empleados/Show';
-import Contrato from '../views/contratos/Index'
+import Certificados from '../views/empleados/Certificados';
 
 //Vistas de roles
 import IndexRoles from '../views/roles/Index';
@@ -34,6 +34,12 @@ export default new Router({
             path: '/empleados',
             name: 'IndexEmpleado',
             component: IndexEmpleado,
+            props: true
+        },
+        {
+            path: '/certificados',
+            name: 'Certificados',
+            component: Certificados,
             props: true
         },
         {
