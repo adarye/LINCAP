@@ -71,7 +71,8 @@ class ApiController extends Controller
 
         return Terceros::select(
             'c0541_rowid',
-            'dbo.w0540_empleados.c0540_rowid_tercero'
+            'dbo.w0540_empleados.c0540_rowid_tercero',
+            'c0541_nombres'
             )
             ->join(
                 'dbo.w0540_empleados',
