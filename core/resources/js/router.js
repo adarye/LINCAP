@@ -6,6 +6,7 @@ Vue.use(VueRouter);
 //importacion de vistas
 import IndexEmpleado from '../views/empleados/Index';
 import Show from '../views/empleados/Show';
+import Certificados from '../views/empleados/Certificados';
 
 import IndexRoles from '../views/roles/Index';
 
@@ -27,6 +28,12 @@ export default new Router({
             path: '/empleados',
             name: 'IndexEmpleado',
             component: IndexEmpleado,
+            props: true
+        },
+        {
+            path: '/certificados',
+            name: 'Certificados',
+            component: Certificados,
             props: true
         },
         {

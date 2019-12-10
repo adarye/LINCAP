@@ -6,10 +6,10 @@
             <li><a><i class="fa fa-male"></i>Perfil<span class="fa fa-chevron-down"></span></a>
                 <ul class="nav child_menu" style="display: none">
                     <li>
-                        <router-link :to="{name: 'IndexEmpleado'}">Actualizar datos</router-link>
+                        <router-link :to="{name: 'showEmpleado'}">Actualizar datos</router-link>
                     </li>
                     <li>
-                        <router-link :to="{name: 'IndexEmpleado'}">Certificado laboral</router-link>
+                        <a target="_blank" href="{{ url ('imprimir') }}">Certificado laboral</a>      
                     </li>
                     <li>
                         <router-link :to="{name: 'IndexEmpleado'}">Cambiar contraseña</router-link>
