@@ -38,6 +38,7 @@ Route::post('login/ingresar', 'LoginController@iniciarSesion');
 
 //TABLA EMPLEADOS
 //Route::get('empleados/tercero/{id}', 'EmpleadosController@obtenerTercero');
+
 Route::get('empleado/show' ,'TercerosmmController@show');
 Route::put('empleado/update/{id}' ,'TercerosmmController@update');
 Route::get('empleado', 'TercerosmmController@traerEmpleados');

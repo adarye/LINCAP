@@ -115,14 +115,13 @@ class TercerosmmController extends Controller
             "dbo.t015_mm_contactos.f015_telefono",
             "dbo.t015_mm_contactos.f015_email",
             "dbo.t015_mm_contactos.f015_celular",
-            "dbo.w0541_terceros_seleccion.c0541_id",
             "dbo.t015_mm_contactos.f015_id_pais",
             "dbo.t015_mm_contactos.f015_id_depto",
             "dbo.t015_mm_contactos.f015_id_ciudad",
             "dbo.t015_mm_contactos.f015_id_barrio",
-            "c0541_apellido2",
-            "c0541_apellido1",
-            "c0541_nombres",
+            "f200_apellido2",
+            "f200_apellido1",
+            "f200_nombres",
             'dbo.w0540_empleados.c0540_rowid_tercero',
             "c0540_fecha_exp_identif",
             "c0540_ind_sexo",
@@ -138,7 +137,9 @@ class TercerosmmController extends Controller
             "c0504_descripcion",
             "f011_descripcion",
             "f012_descripcion",
-            "f013_descripcion"
+            "f013_descripcion",
+            'f200_id',
+            'c0550_rowid'
 
         )->join(
             'dbo.t200_mm_terceros',
@@ -151,13 +152,6 @@ class TercerosmmController extends Controller
             'dbo.t200_mm_terceros.f200_rowid',
             '=',
             'dbo.w0540_empleados.c0540_rowid_tercero'
-            
-        )->join(
-            'dbo.w0541_terceros_seleccion',
-            'dbo.w0540_empleados.c0540_rowid_prospecto'
-            ,
-            '=',
-            'dbo.w0541_terceros_seleccion.c0541_rowid'
             
         )->join(
             'dbo.w0550_contratos',
@@ -218,7 +212,10 @@ class TercerosmmController extends Controller
             'dbo.t013_mm_ciudades.f013_id'
 
         )
-            ->where('c0550_ind_estado', '1')                              
-            ->get();
+        
+            ->where('c0550_ind_estado', '1')
+            ->where('f200_rowid', Auth()->user()->cz1_id_empleado)  
+            //->distinct("c0515_id")           
+            ->first();
     }
 }

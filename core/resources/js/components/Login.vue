@@ -48,6 +48,7 @@ export default {
             //console.log(this.parametros)
             axios.post("api/login/ingresar", this.parametros)
             .then(res=>{
+                
                this.user = res.data;
                 swal({
                     title:'Has iniciado sesion',
