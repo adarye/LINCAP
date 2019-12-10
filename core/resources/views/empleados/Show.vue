@@ -162,7 +162,7 @@ export default {
   },
   methods: {
     habilitarFormulario() {
-      this.validated = true;
+      this.validated = true
     },
     desabilitarFormulario() {
       this.validated = false;

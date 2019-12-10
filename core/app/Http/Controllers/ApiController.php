@@ -82,8 +82,7 @@ class ApiController extends Controller
 
             )
             ->where('dbo.w0541_terceros_seleccion.c0541_id', '=', $id)
-            ->first();
-        
+            ->first();       
     }
 
 }
