@@ -116,9 +116,10 @@ export default {
             cz1_id: 0
         };
     },
-    mounted() {
-        this.created();
+    beforeMount() {
         this.cargarRoles();
+        this.created();
+       
     },
     methods: {
         created() {

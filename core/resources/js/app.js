@@ -10,6 +10,16 @@ Vue.use(VModal)
 import Login from './components/Login';
 Vue.component('Login', Login)
 
+import InfPersonal from './components/tabs/InfPersonal';
+Vue.component('InfPersonal', InfPersonal)
+
+import InfCorporativa from './components/tabs/InfCorporativa';
+Vue.component('InfCorporativa', InfCorporativa)
+
+import InfSST from './components/tabs/InfSST';
+Vue.component('InfSST', InfSST)
+
+
 
 
 const app = new Vue ({
