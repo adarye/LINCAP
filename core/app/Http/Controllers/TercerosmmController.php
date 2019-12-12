@@ -3,18 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Terceros_mm;
+use App\z9_empleados_info;
 use Illuminate\Http\Request;
 
 class TercerosmmController extends Controller
 {
+
     public function __construct()
     {
         $this->middleware('auth');
     }
+
     public function show()
     {
-        //return Auth::user()->cz1_ts_id;
 
+        //TRAE DATOS DE CLIENTES PROVEEDORES Y TERCEROS
         return Terceros_mm::select(
             "dbo.t015_mm_contactos.f015_contacto",
             "dbo.t015_mm_contactos.f015_direccion1",
@@ -30,7 +33,7 @@ class TercerosmmController extends Controller
             "c0541_apellido2",
             "c0541_apellido1",
             "c0541_nombres",
-            'dbo.w0540_empleados.c0540_rowid_tercero'
+            'dbo.w0540_empleados.c0540_rowid_tercero',
 
         )->join(
             'dbo.t200_mm_terceros',
@@ -51,11 +54,13 @@ class TercerosmmController extends Controller
             '=',
             'dbo.w0541_terceros_seleccion.c0541_rowid'
 
-        )->where('dbo.t200_mm_terceros.f200_rowid', Auth()->user()->cz1_id_empleado)
+        )
+            ->where('dbo.t200_mm_terceros.f200_rowid', Auth()->user()->cz1_id_empleado)
 
             ->get();
 
     }
+    //EN UPDATE SE ACTUALIZARA LOS DATOS DE TODAS LAS TABLAS QUE ANTES HICIMOS BUSQUEDAS
     public function update(Request $request, $id)
     {
         Terceros_mm::select('f015_rowid')
@@ -106,34 +111,100 @@ class TercerosmmController extends Controller
                 't015_mm_contactos.f015_id_barrio' => $request->barrio,
             ]);
 
-        Terceros_mm::select('f015_rowid')
-            ->join(
-                't200_mm_terceros',
-                't015_mm_contactos.f015_rowid',
-                '=',
-                't200_mm_terceros.f200_rowid_contacto')
-            ->join(
-                'dbo.w0540_empleados',
-                'dbo.t200_mm_terceros.f200_rowid',
-                '=',
-                'dbo.w0540_empleados.c0540_rowid_tercero')
-                ->join(
-                    'dbo.z9_empleados_info',
-                    'dbo.w0540_empleados.c0540_rowid_tercero',
-                    '=',
-                    'dbo.z9_empleados_info.cz9_id_empleado')
+        $estado = z9_empleados_info::all()->where('cz9_id_empleado',$id)->first();
+        // dd($estado);
+        if (!empty($estado)) {
+            
+            $empleado = z9_empleados_info::find($id);
+            $empleado->cz9_nombre_familiar = $request->familiar_linco;
+            $empleado->cz9_nombre_contacto = $request->contacto;
+            $empleado->cz9_tel_contacto = $request->con_num;
+            $empleado->cz9_talla_uniforme = $request->talla_uni;
+            $empleado->cz9_talla_calzado = $request->talla_cal;
+            $empleado->cz9_mail_corp = $request->email_corp;
+            $empleado->cz9_tel_corp = $request->tel_corp;
+            $empleado->cz9_cel_corp = $request->cel_corp;
+            $empleado->save();
 
-            ->where('t200_mm_terceros.f200_rowid', $id)
-            ->update(['t015_mm_contactos.f015_email' => $request->email,
-                't015_mm_contactos.f015_telefono' => $request->telefono,
-                't015_mm_contactos.f015_celular' => $request->celular,
-                't015_mm_contactos.f015_direccion1' => $request->direccion,
-                't015_mm_contactos.f015_id_ciudad' => $request->ciudad,
-                't015_mm_contactos.f015_id_barrio' => $request->barrio,
+            return $estado;
+        } else {
+            $empleado = new z9_empleados_info;
+            $empleado->cz9_nombre_familiar = $request->familiar_linco;
+            $empleado->cz9_nombre_contacto = $request->contacto;
+            $empleado->cz9_tel_contacto = $request->con_num;
+            $empleado->cz9_talla_uniforme = $request->talla_uni;
+            $empleado->cz9_talla_calzado = $request->talla_cal;
+            $empleado->cz9_id_empleado =  $id;
+            $empleado->cz9_mail_corp = $request->email_corp;
+            $empleado->cz9_tel_corp = $request->tel_corp;
+            $empleado->cz9_cel_corp = $request->cel_corp;
+            $empleado->save(); 
+            return $empleado;   
+        }
+    }
+    public function guardar($id){
+        $empleado = new z9_empleados_info;
+            $empleado->cz9_nombre_familiar = $request->familiar_linco;
+            $empleado->cz9_nombre_contacto = $request->contacto;
+            $empleado->cz9_tel_contacto = $request->con_num;
+            $empleado->cz9_talla_uniforme = $request->talla_uni;
+            $empleado->cz9_talla_calzado = $request->talla_cal;
+            $empleado->cz9_id_empleado =  $id;
+            $empleado->cz9_mail_corp = $request->email_corp;
+            $empleado->cz9_tel_corp = $request->tel_corp;
+            $empleado->cz9_cel_corp = $request->cel_corp;
+            $empleado->save(); 
+            return $empleado;   
 
-            ]);
     }
 
+    //TRAE LOS DATOS DE LA TABLA Z9_EMPLEADOS
+    public function traerEmpleadoInfo()
+    {
+
+        $empleado = Terceros_mm::select(
+            'cz9_nombre_familiar',
+            'cz9_nombre_contacto',
+            'cz9_tel_contacto',
+            'cz9_fecha_tpprueba',
+            'cz9_talla_uniforme',
+            'cz9_talla_calzado',
+            'cz9_fecha_vacuna',
+            'cz9_lugar_vacuna',
+            'cz9_fecha_vacuna_tifoidea',
+            'cz9_lugar_vacuna_tifoidea',
+            'cz9_fecha_vacuna_toxoide',
+            'cz9_lugar_vacuna_toxoide',
+            'cz9_reentrenamiento',
+            'cz9_mail_corp',
+            'cz9_tel_corp',
+            'cz9_cel_corp'
+
+        )->join(
+            'dbo.t200_mm_terceros',
+            'dbo.t015_mm_contactos.f015_rowid',
+            '=',
+            'dbo.t200_mm_terceros.f200_rowid_contacto'
+
+        )->join(
+            'dbo.w0540_empleados',
+            'dbo.t200_mm_terceros.f200_rowid',
+            '=',
+            'dbo.w0540_empleados.c0540_rowid_tercero'
+
+        )->join(
+            'dbo.z9_empleados_info',
+            'dbo.w0540_empleados.c0540_rowid_tercero',
+            '=',
+            'dbo.z9_empleados_info.cz9_id_empleado')
+            ->where('dbo.t200_mm_terceros.f200_rowid', Auth()->user()->cz1_id_empleado)
+            ->first();
+
+        return $empleado;
+    }
+   
+
+    //TRAE TODO LO RELACIONADO CON EL CONTRATO Y EL EMPLEADO
     public function traerEmpleados()
     {
         return Terceros_mm::select(

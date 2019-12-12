@@ -2008,7 +2008,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['informacion', 'usuario', 'validated']
+  props: ['informacion', 'usuario', 'validated', 'empleado_info']
 });
 
 /***/ }),
@@ -2158,10 +2158,61 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['informacion', 'usuario', 'apellidos', 'ciudades', 'barrios', 'validated'],
+  props: ['informacion', 'usuario', 'apellidos', 'ciudades', 'barrios', 'validated', 'empleado_info'],
   data: function data() {
     return {};
   }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/tabs/InfSST.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/tabs/InfSST.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['empleado_info']
 });
 
 /***/ }),
@@ -2379,6 +2430,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale('es');
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2393,19 +2446,22 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale('es');
       ciudades: [],
       barrios: [],
       usuario: '',
+      empleado_info: {},
+      // empleado_info: {cz9_nombre_familiar, cz9_nombre_contacto, cz9_tel_contacto, cz9_talla_uniforme, cz9_talla_calzado, cz9_mail_corp, cz9_tel_corp, cz9_cel_corp},
       moment: moment__WEBPACK_IMPORTED_MODULE_0___default.a
     };
   },
   mounted: function mounted() {
     var _this = this;
 
-    this.cargarContrato();
     axios.get("/api/empleado/show").then(function (res) {
       _this.informacion = res.data[0];
       console.log(_this.informacion);
       _this.apellidos = _this.informacion.c0541_apellido1 + " " + _this.informacion.c0541_apellido2;
     });
+    this.cargarContrato();
     this.cargarCiudades();
+    this.traerEmpleadoInfo();
   },
   methods: {
     habilitarFormulario: function habilitarFormulario() {
@@ -2415,8 +2471,30 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale('es');
       this.validated = false;
       console.log(this.ciudad_seleccionada);
     },
-    actualizar: function actualizar() {
+    traerEmpleadoInfo: function traerEmpleadoInfo() {
       var _this2 = this;
+
+      axios.get("/api/empleado/informacion").then(function (res) {
+        if (res.data == '') {
+          _this2.empleado_info = {
+            cz9_nombre_familiar: 'David',
+            cz9_nombre_contacto: '',
+            cz9_tel_contacto: '',
+            cz9_talla_uniforme: '',
+            cz9_talla_calzado: '',
+            cz9_mail_corp: '',
+            cz9_tel_corp: '',
+            cz9_cel_corp: '',
+            cz9_fecha_tpprueba: ''
+          };
+        } else {
+          _this2.empleado_info = res.data;
+          console.log(_this2.empleado_info);
+        }
+      });
+    },
+    actualizar: function actualizar() {
+      var _this3 = this;
 
       var params = {
         email: this.informacion.f015_email,
@@ -2424,30 +2502,37 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale('es');
         celular: this.informacion.f015_celular,
         direccion: this.informacion.f015_direccion1,
         barrio: this.informacion.f015_id_barrio,
-        ciudad: this.informacion.f015_id_ciudad
+        ciudad: this.informacion.f015_id_ciudad,
+        familiar_linco: this.empleado_info.cz9_nombre_familiar,
+        contacto: this.empleado_info.cz9_nombre_contacto,
+        con_num: this.empleado_info.cz9_tel_contacto,
+        talla_uni: this.empleado_info.cz9_talla_uniforme,
+        talla_cal: this.empleado_info.cz9_talla_calzado,
+        email_corp: this.empleado_info.cz9_mail_corp,
+        tel_corp: this.empleado_info.cz9_tel_corp,
+        cel_corp: this.empleado_info.cz9_cel_corp
       };
       console.log(params);
       console.log(this.informacion.c0540_rowid_tercero);
       axios.put("/api/empleado/update/".concat(this.informacion.c0540_rowid_tercero), params).then(function (res) {
         console.log(res.data);
-        _this2.validated = false;
+        _this3.validated = false;
         swal("Registro actualizado", "Datos Correctos", "success");
       });
     },
     cargarCiudades: function cargarCiudades(event) {
-      var _this3 = this;
+      var _this4 = this;
 
       axios.get("/api/ciudad").then(function (res) {
-        _this3.ciudades = res.data;
+        _this4.ciudades = res.data;
       });
     },
     cargarBarrios: function cargarBarrios(event) {
-      var _this4 = this;
+      var _this5 = this;
 
-      console.log('gol');
       axios.get("/api/barrios/".concat(event.target.value)).then(function (res) {
-        _this4.barrios = res.data;
-        _this4.informacion.f015_id_ciudad = event.target.value;
+        _this5.barrios = res.data;
+        _this5.informacion.f015_id_ciudad = event.target.value;
       });
     },
     cambiarBarrio: function cambiarBarrio(event) {
@@ -2455,10 +2540,10 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale('es');
       console.log(this.informacion);
     },
     cargarContrato: function cargarContrato() {
-      var _this5 = this;
+      var _this6 = this;
 
       axios.get('/api/empleado').then(function (res) {
-        _this5.usuario = res.data;
+        _this6.usuario = res.data;
         console.log(res.data);
       });
     }
@@ -38436,8 +38521,29 @@ var render = function() {
           _c("label", [_vm._v("Email Corporativo")]),
           _vm._v(" "),
           _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.empleado_info.cz9_mail_corp,
+                expression: "empleado_info.cz9_mail_corp"
+              }
+            ],
             staticClass: "form-control",
-            attrs: { type: "email", disabled: _vm.validated ? false : true }
+            attrs: { type: "email", disabled: _vm.validated ? false : true },
+            domProps: { value: _vm.empleado_info.cz9_mail_corp },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(
+                  _vm.empleado_info,
+                  "cz9_mail_corp",
+                  $event.target.value
+                )
+              }
+            }
           })
         ])
       ]),
@@ -38447,8 +38553,25 @@ var render = function() {
           _c("label", [_vm._v("Telefono Corporativo con extension")]),
           _vm._v(" "),
           _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.empleado_info.cz9_tel_corp,
+                expression: "empleado_info.cz9_tel_corp"
+              }
+            ],
             staticClass: "form-control",
-            attrs: { type: "text", disabled: _vm.validated ? false : true }
+            attrs: { type: "text", disabled: _vm.validated ? false : true },
+            domProps: { value: _vm.empleado_info.cz9_tel_corp },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.empleado_info, "cz9_tel_corp", $event.target.value)
+              }
+            }
           })
         ]),
         _vm._v(" "),
@@ -38456,8 +38579,25 @@ var render = function() {
           _c("label", [_vm._v("Celular Corporativo")]),
           _vm._v(" "),
           _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.empleado_info.cz9_cel_corp,
+                expression: "empleado_info.cz9_cel_corp"
+              }
+            ],
             staticClass: "form-control",
-            attrs: { type: "text", disabled: _vm.validated ? false : true }
+            attrs: { type: "text", disabled: _vm.validated ? false : true },
+            domProps: { value: _vm.empleado_info.cz9_cel_corp },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.empleado_info, "cz9_cel_corp", $event.target.value)
+              }
+            }
           })
         ])
       ])
@@ -38911,11 +39051,32 @@ var render = function() {
           _c("label", [_vm._v("Nombre de un familiar en Linco")]),
           _vm._v(" "),
           _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.empleado_info.cz9_nombre_familiar,
+                expression: "empleado_info.cz9_nombre_familiar"
+              }
+            ],
             staticClass: "form-control",
             attrs: {
               type: "text",
               placeholder: "opcional",
               disabled: _vm.validated ? false : true
+            },
+            domProps: { value: _vm.empleado_info.cz9_nombre_familiar },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(
+                  _vm.empleado_info,
+                  "cz9_nombre_familiar",
+                  $event.target.value
+                )
+              }
             }
           })
         ]),
@@ -38924,8 +39085,29 @@ var render = function() {
           _c("label", [_vm._v("Nombre de un familiar")]),
           _vm._v(" "),
           _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.empleado_info.cz9_nombre_contacto,
+                expression: "empleado_info.cz9_nombre_contacto"
+              }
+            ],
             staticClass: "form-control",
-            attrs: { type: "text", disabled: _vm.validated ? false : true }
+            attrs: { type: "text", disabled: _vm.validated ? false : true },
+            domProps: { value: _vm.empleado_info.cz9_nombre_contacto },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(
+                  _vm.empleado_info,
+                  "cz9_nombre_contacto",
+                  $event.target.value
+                )
+              }
+            }
           })
         ])
       ]),
@@ -38935,8 +39117,29 @@ var render = function() {
           _c("label", [_vm._v("Numero de telefono del familiar")]),
           _vm._v(" "),
           _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.empleado_info.cz9_tel_contacto,
+                expression: "empleado_info.cz9_tel_contacto"
+              }
+            ],
             staticClass: "form-control",
-            attrs: { type: "text", disabled: _vm.validated ? false : true }
+            attrs: { type: "text", disabled: _vm.validated ? false : true },
+            domProps: { value: _vm.empleado_info.cz9_tel_contacto },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(
+                  _vm.empleado_info,
+                  "cz9_tel_contacto",
+                  $event.target.value
+                )
+              }
+            }
           })
         ]),
         _vm._v(" "),
@@ -38944,8 +39147,25 @@ var render = function() {
           _c("label", [_vm._v("Sexo")]),
           _vm._v(" "),
           _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.usuario.c0540_ind_sexo,
+                expression: "usuario.c0540_ind_sexo"
+              }
+            ],
             staticClass: "form-control",
-            attrs: { type: "text", disabled: _vm.validated ? false : true }
+            attrs: { type: "text", disabled: "" },
+            domProps: { value: _vm.usuario.c0540_ind_sexo },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.usuario, "c0540_ind_sexo", $event.target.value)
+              }
+            }
           })
         ])
       ]),
@@ -38955,8 +39175,29 @@ var render = function() {
           _c("label", [_vm._v("Talla del uniforme")]),
           _vm._v(" "),
           _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.empleado_info.cz9_talla_uniforme,
+                expression: "empleado_info.cz9_talla_uniforme"
+              }
+            ],
             staticClass: "form-control",
-            attrs: { type: "text", disabled: _vm.validated ? false : true }
+            attrs: { type: "text", disabled: _vm.validated ? false : true },
+            domProps: { value: _vm.empleado_info.cz9_talla_uniforme },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(
+                  _vm.empleado_info,
+                  "cz9_talla_uniforme",
+                  $event.target.value
+                )
+              }
+            }
           })
         ]),
         _vm._v(" "),
@@ -38964,42 +39205,98 @@ var render = function() {
           _c("label", [_vm._v("Talla de calzado")]),
           _vm._v(" "),
           _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.empleado_info.cz9_talla_calzado,
+                expression: "empleado_info.cz9_talla_calzado"
+              }
+            ],
             staticClass: "form-control",
-            attrs: { type: "text", disabled: _vm.validated ? false : true }
+            attrs: { type: "text", disabled: _vm.validated ? false : true },
+            domProps: { value: _vm.empleado_info.cz9_talla_calzado },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(
+                  _vm.empleado_info,
+                  "cz9_talla_calzado",
+                  $event.target.value
+                )
+              }
+            }
           })
         ])
       ]),
       _vm._v(" "),
-      _vm._m(0)
+      _c("div", { staticClass: "form-row" }, [
+        _c("div", { staticClass: "form-group col-md-6" }, [
+          _c("label", [_vm._v("Finalizacion del periodo de prueba")]),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.empleado_info.cz9_fecha_tpprueba,
+                expression: "empleado_info.cz9_fecha_tpprueba"
+              }
+            ],
+            staticClass: "form-control",
+            attrs: { type: "text", disabled: "" },
+            domProps: { value: _vm.empleado_info.cz9_fecha_tpprueba },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(
+                  _vm.empleado_info,
+                  "cz9_fecha_tpprueba",
+                  $event.target.value
+                )
+              }
+            }
+          })
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "form-group col-md-6" }, [
+          _c("label", [_vm._v("Reentrenamiento")]),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.empleado_info.cz9_reentrenamiento,
+                expression: "empleado_info.cz9_reentrenamiento"
+              }
+            ],
+            staticClass: "form-control",
+            attrs: { type: "text", disabled: "" },
+            domProps: { value: _vm.empleado_info.cz9_reentrenamiento },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(
+                  _vm.empleado_info,
+                  "cz9_reentrenamiento",
+                  $event.target.value
+                )
+              }
+            }
+          })
+        ])
+      ])
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-row" }, [
-      _c("div", { staticClass: "form-group col-md-6" }, [
-        _c("label", [_vm._v("Finalizacion del periodo de prueba")]),
-        _vm._v(" "),
-        _c("input", {
-          staticClass: "form-control",
-          attrs: { type: "text", disabled: "" }
-        })
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "form-group col-md-6" }, [
-        _c("label", [_vm._v("Reentrenamiento")]),
-        _vm._v(" "),
-        _c("input", {
-          staticClass: "form-control",
-          attrs: { type: "text", disabled: "" }
-        })
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -39021,78 +39318,197 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", [
-      _c("form", { staticClass: "my-2" }, [
-        _c("div", { staticClass: "form-row" }, [
-          _c("div", { staticClass: "form-group col-md-6" }, [
-            _c("label", [_vm._v("Fecha de la vacuna")]),
-            _vm._v(" "),
-            _c("input", {
-              staticClass: "form-control",
-              attrs: { type: "email", disabled: "" }
-            })
-          ]),
+  return _c("div", [
+    _c("form", { staticClass: "my-2" }, [
+      _c("div", { staticClass: "form-row" }, [
+        _c("div", { staticClass: "form-group col-md-6" }, [
+          _c("label", [_vm._v("Fecha de la vacuna")]),
           _vm._v(" "),
-          _c("div", { staticClass: "form-group col-md-6" }, [
-            _c("label", [_vm._v("Lugar de las vacuna")]),
-            _vm._v(" "),
-            _c("input", {
-              staticClass: "form-control",
-              attrs: { type: "text", disabled: "" }
-            })
-          ])
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.empleado_info.cz9_fecha_vacuna,
+                expression: "empleado_info.cz9_fecha_vacuna"
+              }
+            ],
+            staticClass: "form-control",
+            attrs: { type: "email", disabled: "" },
+            domProps: { value: _vm.empleado_info.cz9_fecha_vacuna },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(
+                  _vm.empleado_info,
+                  "cz9_fecha_vacuna",
+                  $event.target.value
+                )
+              }
+            }
+          })
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "form-row" }, [
-          _c("div", { staticClass: "form-group col-md-6" }, [
-            _c("label", [_vm._v("Fecha de la vacuna tifoidea ")]),
-            _vm._v(" "),
-            _c("input", {
-              staticClass: "form-control",
-              attrs: { type: "email", disabled: "" }
-            })
-          ]),
+        _c("div", { staticClass: "form-group col-md-6" }, [
+          _c("label", [_vm._v("Lugar de las vacuna")]),
           _vm._v(" "),
-          _c("div", { staticClass: "form-group col-md-6" }, [
-            _c("label", [_vm._v("Lugar de las vacuna tifoidea")]),
-            _vm._v(" "),
-            _c("input", {
-              staticClass: "form-control",
-              attrs: { type: "text", disabled: "" }
-            })
-          ])
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.empleado_info.cz9_lugar_vacuna,
+                expression: "empleado_info.cz9_lugar_vacuna"
+              }
+            ],
+            staticClass: "form-control",
+            attrs: { type: "text", disabled: "" },
+            domProps: { value: _vm.empleado_info.cz9_lugar_vacuna },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(
+                  _vm.empleado_info,
+                  "cz9_lugar_vacuna",
+                  $event.target.value
+                )
+              }
+            }
+          })
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "form-row" }, [
+        _c("div", { staticClass: "form-group col-md-6" }, [
+          _c("label", [_vm._v("Fecha de la vacuna tifoidea ")]),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.empleado_info.cz9_fecha_vacuna_tifoidea,
+                expression: "empleado_info.cz9_fecha_vacuna_tifoidea"
+              }
+            ],
+            staticClass: "form-control",
+            attrs: { type: "email", disabled: "" },
+            domProps: { value: _vm.empleado_info.cz9_fecha_vacuna_tifoidea },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(
+                  _vm.empleado_info,
+                  "cz9_fecha_vacuna_tifoidea",
+                  $event.target.value
+                )
+              }
+            }
+          })
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "form-row" }, [
-          _c("div", { staticClass: "form-group col-md-6" }, [
-            _c("label", [_vm._v("Fecha de la vacuna toxoide ")]),
-            _vm._v(" "),
-            _c("input", {
-              staticClass: "form-control",
-              attrs: { type: "email", disabled: "" }
-            })
-          ]),
+        _c("div", { staticClass: "form-group col-md-6" }, [
+          _c("label", [_vm._v("Lugar de las vacuna tifoidea")]),
           _vm._v(" "),
-          _c("div", { staticClass: "form-group col-md-6" }, [
-            _c("label", [_vm._v("Lugar de las vacuna toxoide")]),
-            _vm._v(" "),
-            _c("input", {
-              staticClass: "form-control",
-              attrs: { type: "text", disabled: "" }
-            })
-          ])
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.empleado_info.cz9_lugar_vacuna_tifoidea,
+                expression: "empleado_info.cz9_lugar_vacuna_tifoidea"
+              }
+            ],
+            staticClass: "form-control",
+            attrs: { type: "text", disabled: "" },
+            domProps: { value: _vm.empleado_info.cz9_lugar_vacuna_tifoidea },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(
+                  _vm.empleado_info,
+                  "cz9_lugar_vacuna_tifoidea",
+                  $event.target.value
+                )
+              }
+            }
+          })
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "form-row" }, [
+        _c("div", { staticClass: "form-group col-md-6" }, [
+          _c("label", [_vm._v("Fecha de la vacuna toxoide ")]),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.empleado_info.cz9_fecha_vacuna_toxoide,
+                expression: "empleado_info.cz9_fecha_vacuna_toxoide"
+              }
+            ],
+            staticClass: "form-control",
+            attrs: { type: "email", disabled: "" },
+            domProps: { value: _vm.empleado_info.cz9_fecha_vacuna_toxoide },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(
+                  _vm.empleado_info,
+                  "cz9_fecha_vacuna_toxoide",
+                  $event.target.value
+                )
+              }
+            }
+          })
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "form-group col-md-6" }, [
+          _c("label", [_vm._v("Lugar de las vacuna toxoide")]),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.empleado_info.cz9_lugar_vacuna_tifoidea,
+                expression: "empleado_info.cz9_lugar_vacuna_tifoidea"
+              }
+            ],
+            staticClass: "form-control",
+            attrs: { type: "text", disabled: "" },
+            domProps: { value: _vm.empleado_info.cz9_lugar_vacuna_tifoidea },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(
+                  _vm.empleado_info,
+                  "cz9_lugar_vacuna_tifoidea",
+                  $event.target.value
+                )
+              }
+            }
+          })
         ])
       ])
     ])
-  }
-]
+  ])
+}
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -39516,7 +39932,8 @@ var render = function() {
                   apellidos: _vm.apellidos,
                   ciudades: _vm.ciudades,
                   barrios: _vm.barrios,
-                  validated: _vm.validated
+                  validated: _vm.validated,
+                  empleado_info: _vm.empleado_info
                 },
                 false
               )
@@ -39537,6 +39954,7 @@ var render = function() {
                 {
                   informacion: _vm.informacion,
                   usuario: _vm.usuario,
+                  empleado_info: _vm.empleado_info,
                   validated: _vm.validated
                 },
                 false
@@ -39549,7 +39967,12 @@ var render = function() {
         _c(
           "div",
           { staticClass: "tab-pane fade", attrs: { id: "menu2" } },
-          [_c("InfSST")],
+          [
+            _c(
+              "InfSST",
+              _vm._b({}, "InfSST", { empleado_info: _vm.empleado_info }, false)
+            )
+          ],
           1
         )
       ]),
@@ -55402,15 +55825,17 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _InfSST_vue_vue_type_template_id_06906349___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./InfSST.vue?vue&type=template&id=06906349& */ "./resources/js/components/tabs/InfSST.vue?vue&type=template&id=06906349&");
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony import */ var _InfSST_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./InfSST.vue?vue&type=script&lang=js& */ "./resources/js/components/tabs/InfSST.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
-var script = {}
+
+
 
 
 /* normalize component */
 
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__["default"])(
-  script,
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _InfSST_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
   _InfSST_vue_vue_type_template_id_06906349___WEBPACK_IMPORTED_MODULE_0__["render"],
   _InfSST_vue_vue_type_template_id_06906349___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
@@ -55424,6 +55849,20 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 if (false) { var api; }
 component.options.__file = "resources/js/components/tabs/InfSST.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/tabs/InfSST.vue?vue&type=script&lang=js&":
+/*!**************************************************************************!*\
+  !*** ./resources/js/components/tabs/InfSST.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_InfSST_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./InfSST.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/tabs/InfSST.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_InfSST_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 

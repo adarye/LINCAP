@@ -42,6 +42,8 @@ Route::post('login/ingresar', 'LoginController@iniciarSesion');
 Route::get('empleado/show' ,'TercerosmmController@show');
 Route::put('empleado/update/{id}' ,'TercerosmmController@update');
 Route::get('empleado', 'TercerosmmController@traerEmpleados');
+Route::get('empleado/informacion', 'TercerosmmController@traerEmpleadoInfo');
+
 //CIUDADES Y BARRIOS
 
 Route::get('ciudad', 'UbicacionController@cargarCiudades');

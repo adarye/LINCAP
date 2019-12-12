@@ -92,41 +92,41 @@
                 <div class="form-group col-md-6">
                     <label>Nombre de un familiar en Linco</label>
                     <input type="text" class="form-control" placeholder="opcional"
-                        :disabled="validated ? false : true" />
+                        :disabled="validated ? false : true" v-model="empleado_info.cz9_nombre_familiar"/>
                 </div>
                 <div class="form-group col-md-6">
                     <label>Nombre de un familiar</label>
-                    <input type="text" class="form-control" :disabled="validated ? false : true" />
+                    <input type="text" class="form-control" v-model="empleado_info.cz9_nombre_contacto" :disabled="validated ? false : true" />
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label>Numero de telefono del familiar</label>
-                    <input type="text" class="form-control" :disabled="validated ? false : true" />
+                    <input type="text" class="form-control" :disabled="validated ? false : true" v-model="empleado_info.cz9_tel_contacto" />
                 </div>
                 <div class="form-group col-md-6">
                     <label>Sexo</label>
-                    <input type="text" class="form-control" :disabled="validated ? false : true" />
+                    <input type="text" class="form-control" disabled v-model="usuario.c0540_ind_sexo" />
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label>Talla del uniforme</label>
-                    <input type="text" class="form-control" :disabled="validated ? false : true" />
+                    <input type="text" class="form-control" :disabled="validated ? false : true" v-model="empleado_info.cz9_talla_uniforme" />
                 </div>
                 <div class="form-group col-md-6">
                     <label>Talla de calzado</label>
-                    <input type="text" class="form-control" :disabled="validated ? false : true" />
+                    <input type="text" class="form-control" :disabled="validated ? false : true" v-model="empleado_info.cz9_talla_calzado" />
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label>Finalizacion del periodo de prueba</label>
-                    <input type="text" class="form-control" disabled />
+                    <input type="text" class="form-control" disabled  v-model="empleado_info.cz9_fecha_tpprueba"/>
                 </div>
                 <div class="form-group col-md-6">
                     <label>Reentrenamiento</label>
-                    <input type="text" class="form-control" disabled />
+                    <input type="text" class="form-control" disabled v-model="empleado_info.cz9_reentrenamiento" />
                 </div>
             </div>
         </form>
@@ -135,7 +135,7 @@
 </template>
 <script>
     export default {
-        props: ['informacion', 'usuario', 'apellidos', 'ciudades', 'barrios', 'validated'],
+        props: ['informacion', 'usuario', 'apellidos', 'ciudades', 'barrios', 'validated', 'empleado_info'],
 
         data() {
         return {

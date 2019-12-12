@@ -12,18 +12,20 @@
         <div class="tab-content">
           <div id="home" class="tab-pane fade in active">
             <infPersonal v-bind="{'informacion': informacion, 'usuario': usuario, 
-            'apellidos':apellidos, 'ciudades':ciudades, 'barrios':barrios, 'validated': validated}" v-on:cargarBarrios="cargarBarrios"
+            'apellidos':apellidos, 'ciudades':ciudades, 'barrios':barrios, 'validated': validated, 
+            'empleado_info': empleado_info}" v-on:cargarBarrios="cargarBarrios"
             v-on:cambiarBarrio="cambiarBarrio"></infPersonal>
           </div>
             
             
             <div id="menu1" class="tab-pane fade">
-                <InfCorporativa v-bind="{'informacion': informacion, 'usuario': usuario, 'validated': validated}"></InfCorporativa>
+                <InfCorporativa v-bind="{'informacion': informacion, 'usuario': usuario 
+                ,'empleado_info': empleado_info, 'validated': validated}"></InfCorporativa>
             </div>
 
 
             <div id="menu2" class="tab-pane fade">
-                <InfSST></InfSST>
+                <InfSST v-bind="{'empleado_info': empleado_info}"></InfSST>
             </div>
         </div>
         <div class="form-row">
@@ -65,11 +67,13 @@
                 ciudades: [],
                 barrios: [],
                 usuario: '',
+                empleado_info: {},
+                // empleado_info: {cz9_nombre_familiar, cz9_nombre_contacto, cz9_tel_contacto, cz9_talla_uniforme, cz9_talla_calzado, cz9_mail_corp, cz9_tel_corp, cz9_cel_corp},
                 moment: moment
             };
         },
         mounted() {
-            this.cargarContrato();
+            
             axios.get("/api/empleado/show").then(res => {
                 this.informacion = res.data[0];
                 console.log(this.informacion);
@@ -78,7 +82,11 @@
                     " " +
                     this.informacion.c0541_apellido2;
             });
+            this.cargarContrato();
             this.cargarCiudades();
+            this.traerEmpleadoInfo();
+           
+           
         },
         methods: {
             habilitarFormulario() {
@@ -88,6 +96,18 @@
                 this.validated = false;
                 console.log(this.ciudad_seleccionada);
             },
+            traerEmpleadoInfo(){
+                 axios.get("/api/empleado/informacion")
+                 .then(res => {
+                if(res.data == ''){
+                    this.empleado_info = {cz9_nombre_familiar: 'David', cz9_nombre_contacto: '', cz9_tel_contacto: '', cz9_talla_uniforme: '', cz9_talla_calzado: '', cz9_mail_corp: '', cz9_tel_corp: '', cz9_cel_corp: '', cz9_fecha_tpprueba: ''}
+                }else{
+                    this.empleado_info = res.data
+                console.log(this.empleado_info)   
+                }
+                            
+            });
+            },
             actualizar() {
                 const params = {
                     email: this.informacion.f015_email,
@@ -95,7 +115,16 @@
                     celular: this.informacion.f015_celular,
                     direccion: this.informacion.f015_direccion1,
                     barrio: this.informacion.f015_id_barrio,
-                    ciudad: this.informacion.f015_id_ciudad
+                    ciudad: this.informacion.f015_id_ciudad,
+                    familiar_linco: this.empleado_info.cz9_nombre_familiar,
+                    contacto: this.empleado_info.cz9_nombre_contacto,
+                    con_num: this.empleado_info.cz9_tel_contacto,
+                    talla_uni: this.empleado_info.cz9_talla_uniforme,
+                    talla_cal: this.empleado_info.cz9_talla_calzado,
+                    email_corp: this.empleado_info.cz9_mail_corp,
+                    tel_corp: this.empleado_info.cz9_tel_corp,
+                    cel_corp: this.empleado_info.cz9_cel_corp
+
                 };
                 console.log(params);
                 console.log(this.informacion.c0540_rowid_tercero);
@@ -117,7 +146,6 @@
                 });
             },
             cargarBarrios(event) {
-              console.log('gol')
                 axios.get(`/api/barrios/${event.target.value}`)
                     .then(res => {
                         this.barrios = res.data;

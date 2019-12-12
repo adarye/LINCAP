@@ -53,17 +53,17 @@
                 </div>
                 <div class="form-group col-md-6">
                     <label>Email Corporativo</label>
-                    <input type="email" class="form-control" :disabled="validated ? false : true" />
+                    <input type="email" class="form-control" :disabled="validated ? false : true" v-model="empleado_info.cz9_mail_corp"/>
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label>Telefono Corporativo con extension</label>
-                    <input type="text" class="form-control" :disabled="validated ? false : true" />
+                    <input type="text" class="form-control" :disabled="validated ? false : true" v-model="empleado_info.cz9_tel_corp"/>
                 </div>
                 <div class="form-group col-md-6">
                     <label>Celular Corporativo</label>
-                    <input type="text" class="form-control" :disabled="validated ? false : true" />
+                    <input type="text" class="form-control" :disabled="validated ? false : true" v-model="empleado_info.cz9_cel_corp"/>
                 </div>
                 
             </div>
@@ -73,7 +73,7 @@
 </template>
 <script>
     export default {
-        props: ['informacion', 'usuario', 'validated']
+        props: ['informacion', 'usuario', 'validated', 'empleado_info']
     }
 
 </script>
