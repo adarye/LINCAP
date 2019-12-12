@@ -14,8 +14,9 @@ class TercerosmmController extends Controller
         $this->middleware('auth');
     }
 
-    public function show()
+    public function show($id)
     {
+
 
         //TRAE DATOS DE CLIENTES PROVEEDORES Y TERCEROS
         return Terceros_mm::select(
@@ -55,7 +56,7 @@ class TercerosmmController extends Controller
             'dbo.w0541_terceros_seleccion.c0541_rowid'
 
         )
-            ->where('dbo.t200_mm_terceros.f200_rowid', Auth()->user()->cz1_id_empleado)
+            ->where('dbo.t200_mm_terceros.f200_rowid', $id)
 
             ->get();
 
@@ -116,6 +117,17 @@ class TercerosmmController extends Controller
         if (!empty($estado)) {
             
             $empleado = z9_empleados_info::find($id);
+            if(Auth()->user()->cz1_id_rol == 1){
+
+                $empleado->cz9_fecha_tpprueba = $request->fecha_tpprueba;
+                $empleado->cz9_fecha_vacuna = $request->fecha_vacuna;
+                $empleado->cz9_lugar_vacuna = $request->lugar_vacuna;
+                $empleado->cz9_fecha_vacuna_tifoidea = $request->fecha_vacuna_tifoidea;
+                $empleado->cz9_lugar_vacuna_tifoidea = $request->lugar_vacuna_tifoidea;
+                $empleado->cz9_fecha_vacuna_toxoide = $request->fecha_vacuna_toxoide;
+                $empleado->cz9_lugar_vacuna_toxoide = $request->lugar_vacuna_toxoide;
+                $empleado->cz9_reentrenamiento = $request->reentrenamiento;              
+            }
             $empleado->cz9_nombre_familiar = $request->familiar_linco;
             $empleado->cz9_nombre_contacto = $request->contacto;
             $empleado->cz9_tel_contacto = $request->con_num;
@@ -129,6 +141,20 @@ class TercerosmmController extends Controller
             return $estado;
         } else {
             $empleado = new z9_empleados_info;
+
+        if(Auth()->user()->cz1_id_rol == 1){
+
+            $empleado->cz9_fecha_tpprueba = $request->fecha_tpprueba;
+            $empleado->cz9_fecha_vacuna = $request->fecha_vacuna;
+            $empleado->cz9_lugar_vacuna = $request->lugar_vacuna;
+            $empleado->cz9_fecha_vacuna_tifoidea = $request->fecha_vacuna_tifoidea;
+            $empleado->cz9_lugar_vacuna_tifoidea = $request->lugar_vacuna_tifoidea;
+            $empleado->cz9_fecha_vacuna_toxoide = $request->fecha_vacuna_toxoide;
+            $empleado->cz9_lugar_vacuna_toxoide = $request->lugar_vacuna_toxoide;
+            $empleado->cz9_reentrenamiento = $request->reentrenamiento;
+           
+        }
+            
             $empleado->cz9_nombre_familiar = $request->familiar_linco;
             $empleado->cz9_nombre_contacto = $request->contacto;
             $empleado->cz9_tel_contacto = $request->con_num;
@@ -159,7 +185,7 @@ class TercerosmmController extends Controller
     }
 
     //TRAE LOS DATOS DE LA TABLA Z9_EMPLEADOS
-    public function traerEmpleadoInfo()
+    public function traerEmpleadoInfo($id)
     {
 
         $empleado = Terceros_mm::select(
@@ -197,7 +223,7 @@ class TercerosmmController extends Controller
             'dbo.w0540_empleados.c0540_rowid_tercero',
             '=',
             'dbo.z9_empleados_info.cz9_id_empleado')
-            ->where('dbo.t200_mm_terceros.f200_rowid', Auth()->user()->cz1_id_empleado)
+            ->where('dbo.t200_mm_terceros.f200_rowid', $id)
             ->first();
 
         return $empleado;
@@ -205,7 +231,7 @@ class TercerosmmController extends Controller
    
 
     //TRAE TODO LO RELACIONADO CON EL CONTRATO Y EL EMPLEADO
-    public function traerEmpleados()
+    public function traerEmpleados($id)
     {
         return Terceros_mm::select(
             "dbo.t015_mm_contactos.f015_contacto",
@@ -313,8 +339,9 @@ class TercerosmmController extends Controller
             'dbo.t013_mm_ciudades.f013_id'
         )
             ->where('c0550_ind_estado', '1')
-            ->where('f200_rowid', Auth()->user()->cz1_id_empleado)
+            ->where('f200_rowid', $id)
         //->distinct("c0515_id")
             ->first();
     }
+    
 }

@@ -106,7 +106,7 @@
                 </div>
                 <div class="form-group col-md-6">
                     <label>Sexo</label>
-                    <input type="text" class="form-control" disabled v-model="usuario.c0540_ind_sexo" />
+                    <input type="text" class="form-control" disabled v-model="sexo" />
                 </div>
             </div>
             <div class="form-row">
@@ -135,7 +135,7 @@
 </template>
 <script>
     export default {
-        props: ['informacion', 'usuario', 'apellidos', 'ciudades', 'barrios', 'validated', 'empleado_info'],
+        props: ['informacion', 'usuario', 'apellidos', 'ciudades', 'barrios', 'validated', 'empleado_info','sexo'],
 
         data() {
         return {

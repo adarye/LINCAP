@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Terceros;
+use App\t285_co_centro_op;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -24,7 +25,10 @@ class ApiController extends Controller
                 "c0540_fecha_nacimiento",
                 "c0550_fecha_ingreso",
                 "c0763_descripcion",
-                "c0550_rowid_tercero"
+                "c0550_rowid_tercero",
+                "c0550_fecha_contrato_hasta",
+                "f285_descripcion",
+                "f285_id"
 
             )->join(
                 'dbo.w0540_empleados',
@@ -43,6 +47,18 @@ class ApiController extends Controller
                 'dbo.w0763_gh01_cargos.c0763_rowid',
                 '=',
                 'dbo.w0550_contratos.c0550_rowid_cargo'
+
+            )->join(
+                'dbo.t284_co_ccosto',
+                'dbo.w0550_contratos.c0550_rowid_ccosto',
+                '=',
+                'dbo.t284_co_ccosto.f284_rowid'
+    
+            )->join(
+                'dbo.t285_co_centro_op',
+                'dbo.w0550_contratos.c0550_id_co',
+                '=',
+                'dbo.t285_co_centro_op.f285_id'
 
             )
                 ->where('c0550_ind_estado', '1')
@@ -86,6 +102,10 @@ class ApiController extends Controller
             )
             ->where('dbo.w0541_terceros_seleccion.c0541_id', '=', $id)
             ->first();       
+    }
+
+    public function getCo(){
+        return t285_co_centro_op::all();
     }
 
 }

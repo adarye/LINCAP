@@ -13,7 +13,7 @@
           <div id="home" class="tab-pane fade in active">
             <infPersonal v-bind="{'informacion': informacion, 'usuario': usuario, 
             'apellidos':apellidos, 'ciudades':ciudades, 'barrios':barrios, 'validated': validated, 
-            'empleado_info': empleado_info}" v-on:cargarBarrios="cargarBarrios"
+            'empleado_info': empleado_info, 'sexo': sexo}" v-on:cargarBarrios="cargarBarrios"
             v-on:cambiarBarrio="cambiarBarrio"></infPersonal>
           </div>
             
@@ -68,13 +68,14 @@
                 barrios: [],
                 usuario: '',
                 empleado_info: {},
-                // empleado_info: {cz9_nombre_familiar, cz9_nombre_contacto, cz9_tel_contacto, cz9_talla_uniforme, cz9_talla_calzado, cz9_mail_corp, cz9_tel_corp, cz9_cel_corp},
+                sexo:'',
                 moment: moment
             };
         },
         mounted() {
             
-            axios.get("/api/empleado/show").then(res => {
+            console.log(this.$route.params.id)
+            axios.get(`/api/empleado/show/${this.$route.params.id}`).then(res => {
                 this.informacion = res.data[0];
                 console.log(this.informacion);
                 this.apellidos =
@@ -97,10 +98,18 @@
                 console.log(this.ciudad_seleccionada);
             },
             traerEmpleadoInfo(){
-                 axios.get("/api/empleado/informacion")
+                 axios.get(`/api/empleado/informacion/${this.$route.params.id}`)
                  .then(res => {
                 if(res.data == ''){
-                    this.empleado_info = {cz9_nombre_familiar: 'David', cz9_nombre_contacto: '', cz9_tel_contacto: '', cz9_talla_uniforme: '', cz9_talla_calzado: '', cz9_mail_corp: '', cz9_tel_corp: '', cz9_cel_corp: '', cz9_fecha_tpprueba: ''}
+                    this.empleado_info = {cz9_nombre_familiar: '', cz9_nombre_contacto: '',
+                     cz9_tel_contacto: '', cz9_talla_uniforme: '', 
+                     cz9_talla_calzado: '', cz9_mail_corp: '', 
+                     cz9_tel_corp: '', cz9_cel_corp: '', 
+                     cz9_fecha_tpprueba: '', cz9_fecha_tpprueba:'',
+                     cz9_fecha_vacuna:'', cz9_lugar_vacuna:'', cz9_fecha_vacuna_tifoidea:'',
+                     cz9_lugar_vacuna_tifoidea:'', cz9_fecha_vacuna_toxoide:'',cz9_lugar_vacuna_toxoide:'',
+                     cz9_reentrenamiento:''
+                     }
                 }else{
                     this.empleado_info = res.data
                 console.log(this.empleado_info)   
@@ -123,7 +132,17 @@
                     talla_cal: this.empleado_info.cz9_talla_calzado,
                     email_corp: this.empleado_info.cz9_mail_corp,
                     tel_corp: this.empleado_info.cz9_tel_corp,
-                    cel_corp: this.empleado_info.cz9_cel_corp
+                    cel_corp: this.empleado_info.cz9_cel_corp,
+                    fecha_tpprueba:this.empleado_info.cz9_fecha_tpprueba,
+                    fecha_vacuna:this.empleado_info.cz9_fecha_vacuna,
+                    lugar_vacuna:this.empleado_info.cz9_lugar_vacuna,
+                    fecha_vacuna_tifoidea: this.empleado_info.cz9_fecha_vacuna_tifoidea,
+                    lugar_vacuna_tifoidea:this.empleado_info.cz9_lugar_vacuna_tifoidea,
+                    fecha_vacuna_toxoide: this.empleado_info.cz9_fecha_vacuna_toxoide,
+                    lugar_vacuna_toxoide:this.empleado_info.cz9_lugar_vacuna_toxoide,
+                    reentrenamiento: this.empleado_info.cz9_reentrenamiento
+
+
 
                 };
                 console.log(params);
@@ -139,6 +158,15 @@
                         swal("Registro actualizado", "Datos Correctos", "success");
                     });
             },
+             validarSexo(){
+                if(this.usuario.c0540_ind_sexo == 1){
+                    this.sexo = 'Femenino'
+                }
+                else{
+                    this.sexo = 'Masculino'
+                }
+            },
+           
             cargarCiudades(event) {
                 axios.get("/api/ciudad").then(res => {
                     this.ciudades = res.data;
@@ -161,7 +189,7 @@
                 console.log(this.informacion)
             },
             cargarContrato() {
-                axios.get('/api/empleado')
+                axios.get(`/api/empleado/${this.$route.params.id}`)
                     .then(res => {
                         this.usuario = res.data
                         console.log(res.data)

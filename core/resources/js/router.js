@@ -7,6 +7,7 @@ Vue.use(VueRouter);
 
 //Vista de empleados
 import IndexEmpleado from '../views/empleados/Index';
+import Activos from '../views/empleados/Activos';
 
 //Vista de trabajadores
 import Show from '../views/empleados/Show';
@@ -25,7 +26,7 @@ export default new Router({
     mode: 'history',
     routes: [
         {
-            path: '/',
+            path: '/empleado/:id',
             name: 'showEmpleado',
             component: Show,
             props: true
@@ -59,6 +60,12 @@ export default new Router({
             component: IndexUsuarios
             
         },  
+        {
+            path: '/empleados/activos',
+            name: 'Activos',
+            component: Activos
+            
+        },
         {
             path: '*',
             component: v404
