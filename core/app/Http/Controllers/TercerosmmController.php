@@ -117,6 +117,7 @@ class TercerosmmController extends Controller
         if (!empty($estado)) {
             
             $empleado = z9_empleados_info::find($id);
+
             if(Auth()->user()->cz1_id_rol == 1){
 
                 $empleado->cz9_fecha_tpprueba = $request->fecha_tpprueba;
@@ -127,7 +128,7 @@ class TercerosmmController extends Controller
                 $empleado->cz9_fecha_vacuna_toxoide = $request->fecha_vacuna_toxoide;
                 $empleado->cz9_lugar_vacuna_toxoide = $request->lugar_vacuna_toxoide;
                 $empleado->cz9_reentrenamiento = $request->reentrenamiento;              
-            }
+            }else{
             $empleado->cz9_nombre_familiar = $request->familiar_linco;
             $empleado->cz9_nombre_contacto = $request->contacto;
             $empleado->cz9_tel_contacto = $request->con_num;
@@ -137,6 +138,7 @@ class TercerosmmController extends Controller
             $empleado->cz9_tel_corp = $request->tel_corp;
             $empleado->cz9_cel_corp = $request->cel_corp;
             $empleado->save();
+            }
 
             return $estado;
         } else {
@@ -152,8 +154,8 @@ class TercerosmmController extends Controller
             $empleado->cz9_fecha_vacuna_toxoide = $request->fecha_vacuna_toxoide;
             $empleado->cz9_lugar_vacuna_toxoide = $request->lugar_vacuna_toxoide;
             $empleado->cz9_reentrenamiento = $request->reentrenamiento;
-           
-        }
+        
+        }else{
             
             $empleado->cz9_nombre_familiar = $request->familiar_linco;
             $empleado->cz9_nombre_contacto = $request->contacto;
@@ -165,6 +167,7 @@ class TercerosmmController extends Controller
             $empleado->cz9_tel_corp = $request->tel_corp;
             $empleado->cz9_cel_corp = $request->cel_corp;
             $empleado->save(); 
+        }
             return $empleado;   
         }
     }

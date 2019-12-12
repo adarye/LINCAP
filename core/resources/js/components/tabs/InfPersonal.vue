@@ -122,11 +122,11 @@
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label>Finalizacion del periodo de prueba</label>
-                    <input type="text" class="form-control" disabled  v-model="empleado_info.cz9_fecha_tpprueba"/>
+                    <input type="text" class="form-control" :disabled="permiso_admin ? false : true"  v-model="empleado_info.cz9_fecha_tpprueba"/>
                 </div>
                 <div class="form-group col-md-6">
                     <label>Reentrenamiento</label>
-                    <input type="text" class="form-control" disabled v-model="empleado_info.cz9_reentrenamiento" />
+                    <input type="text" class="form-control" :disabled="permiso_admin ? false : true" v-model="empleado_info.cz9_reentrenamiento" />
                 </div>
             </div>
         </form>
@@ -135,7 +135,7 @@
 </template>
 <script>
     export default {
-        props: ['informacion', 'usuario', 'apellidos', 'ciudades', 'barrios', 'validated', 'empleado_info','sexo'],
+        props: ['informacion', 'usuario', 'apellidos', 'ciudades', 'barrios', 'validated', 'empleado_info','sexo', 'permiso_admin'],
 
         data() {
         return {

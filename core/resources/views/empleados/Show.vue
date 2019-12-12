@@ -13,7 +13,7 @@
           <div id="home" class="tab-pane fade in active">
             <infPersonal v-bind="{'informacion': informacion, 'usuario': usuario, 
             'apellidos':apellidos, 'ciudades':ciudades, 'barrios':barrios, 'validated': validated, 
-            'empleado_info': empleado_info, 'sexo': sexo}" v-on:cargarBarrios="cargarBarrios"
+            'empleado_info': empleado_info, 'sexo': sexo, 'permiso_admin':permiso_admin}" v-on:cargarBarrios="cargarBarrios"
             v-on:cambiarBarrio="cambiarBarrio"></infPersonal>
           </div>
             
@@ -62,6 +62,7 @@
                 apellidos: "",
                 informacion: {},
                 validated: false,
+                permiso_admin: false,
                 ubicacion: "",
                 id_ciudad: 0,
                 ciudades: [],
@@ -85,13 +86,14 @@
             });
             this.cargarContrato();
             this.cargarCiudades();
-            this.traerEmpleadoInfo();
-           
+            this.traerEmpleadoInfo();    
            
         },
+        
         methods: {
             habilitarFormulario() {
                 this.validated = true
+                
             },
             desabilitarFormulario() {
                 this.validated = false;

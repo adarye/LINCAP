@@ -99,8 +99,30 @@ export default {
     },    
     computed: {
         mbuscar: function(){
-            return this.activos.filter((activo) => {                
-                 return activo.f285_id.includes(this.selectCO)
+            return this.activos.filter((activo) => {         
+                if(this.selectCO == null){
+                return activo.c0541_id.toUpperCase().includes(this.bempleado.toUpperCase())  
+                ||
+                activo.c0541_nombres.toUpperCase().includes(this.bempleado.toUpperCase())
+                ||                
+                activo.c0541_apellido1.toUpperCase().includes(this.bempleado.toUpperCase())
+                ||
+                activo.c0541_apellido2.toUpperCase().includes(this.bempleado.toUpperCase())                
+                ||          
+                activo.c0763_descripcion.toUpperCase().includes(this.bempleado.toUpperCase())
+                }else{
+                return activo.f285_id.includes(this.selectCO)
+                &&
+                activo.c0541_nombres.toUpperCase().includes(this.bempleado.toUpperCase())  
+                ||
+                 activo.f285_id.includes(this.selectCO)
+                &&
+                activo.c0541_id.toUpperCase().includes(this.bempleado.toUpperCase())
+                ||
+                activo.f285_id.includes(this.selectCO)
+                &&
+                activo.c0763_descripcion.toUpperCase().includes(this.bempleado.toUpperCase())
+                }  
             })
         }
     }    

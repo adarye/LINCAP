@@ -1,8 +1,8 @@
 @extends('layouts.base')
 @section('content')
-{{-- <keep-alive> --}}
+ {{-- <keep-alive>  --}}
      
-    <router-view></router-view>
+    <router-view :key="$route.fullPath"></router-view>
      
-{{-- </keep-alive> --}}
+ {{-- </keep-alive>  --}}
 @endsection
