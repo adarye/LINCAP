@@ -50,24 +50,24 @@
                 <div class="form-group col-md-6">
                     <label>Email</label>
                     <input type="email" class="form-control" placeholder="Email" v-model="informacion.f015_email"
-                        :disabled="validated ? false : true" />
+                        :disabled="validated ? false : true" v-uppercase/>
                 </div>
                 <div class="form-group col-md-6">
                     <label>Telefono</label>
                     <input type="text" class="form-control" placeholder="Numero de telefono"
-                        v-model="informacion.f015_telefono" :disabled="validated ? false : true" />
+                        v-model="informacion.f015_telefono" :disabled="validated ? false : true" v-uppercase />
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label>Direccion</label>
                     <input type="text" class="form-control" v-model="informacion.f015_direccion1"
-                        :disabled="validated ? false : true" />
+                        :disabled="validated ? false : true" v-uppercase/>
                 </div>
                 <div class="form-group col-md-6">
                     <label>Barrio</label>
                     <input type="text" class="form-control" v-model="informacion.f015_id_barrio"
-                        disabled />
+                        disabled v-uppercase/>
                 </div>
             </div>
             <div class="form-row">
@@ -92,11 +92,11 @@
                 <div class="form-group col-md-6">
                     <label>Nombre de un familiar en Linco</label>
                     <input type="text" class="form-control" placeholder="opcional"
-                        :disabled="validated ? false : true" v-model="empleado_info.cz9_nombre_familiar"/>
+                        :disabled="validated ? false : true" v-model="empleado_info.cz9_nombre_familiar" v-uppercase/>
                 </div>
                 <div class="form-group col-md-6">
                     <label>Nombre de un familiar</label>
-                    <input type="text" class="form-control" v-model="empleado_info.cz9_nombre_contacto" :disabled="validated ? false : true" />
+                    <input type="text" class="form-control" v-model="empleado_info.cz9_nombre_contacto" :disabled="validated ? false : true" v-uppercase/>
                 </div>
             </div>
             <div class="form-row">
@@ -106,17 +106,17 @@
                 </div>
                 <div class="form-group col-md-6">
                     <label>Sexo</label>
-                    <input type="text" class="form-control" disabled v-model="sexo" />
+                    <input type="text" class="form-control" disabled v-model="sexo" v-uppercase />
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label>Talla del uniforme</label>
-                    <input type="text" class="form-control" :disabled="validated ? false : true" v-model="empleado_info.cz9_talla_uniforme" />
+                    <input type="text" class="form-control" :disabled="validated ? false : true" v-model="empleado_info.cz9_talla_uniforme" v-uppercase />
                 </div>
                 <div class="form-group col-md-6">
                     <label>Talla de calzado</label>
-                    <input type="text" class="form-control" :disabled="validated ? false : true" v-model="empleado_info.cz9_talla_calzado" />
+                    <input type="text" class="form-control" :disabled="validated ? false : true" v-model="empleado_info.cz9_talla_calzado" v-uppercase />
                 </div>
             </div>
             <div class="form-row">
@@ -126,7 +126,7 @@
                 </div>
                 <div class="form-group col-md-6">
                     <label>Reentrenamiento</label>
-                    <input type="text" class="form-control" :disabled="permiso_admin ? false : true" v-model="empleado_info.cz9_reentrenamiento" />
+                    <input type="text" class="form-control" :disabled="permiso_admin ? false : true" v-model="empleado_info.cz9_reentrenamiento" v-uppercase/>
                 </div>
             </div>
         </form>

@@ -21,7 +21,7 @@
                 <ul class="nav child_menu" style="display: none">
                     <li><router-link :to="{name: 'Activos'}">Activos</router-link> </li>
                     <li><router-link :to="{name: 'Retirados'}">Retirados</router-link></li>
-                    <li><a href="#">Infomación corpotativa</a></li>
+                    <li><router-link :to="{name: 'InfCorporativa'}">InfCorporativa</router-link></li>
                 </ul>
             </li>
             <li><a><i class="fa fa-file-text-o"></i>Evaluaciones<span class="fa fa-chevron-down"></span></a>

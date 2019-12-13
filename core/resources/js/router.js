@@ -9,6 +9,7 @@ Vue.use(VueRouter);
 import IndexEmpleado from '../views/empleados/Index';
 import Activos from '../views/empleados/Activos';
 import Retirados from '../views/empleados/Retirados';
+import InfCorporativa from '../views/empleados/InfCorporativa';
 
 //Vista de trabajadores
 import Show from '../views/empleados/Show';
@@ -71,6 +72,12 @@ export default new Router({
             path: '/empleados/retirados',
             name: 'Retirados',
             component: Retirados
+            
+        },
+        {
+            path: '/empleados/InfCorporativa',
+            name: 'InfCorporativa',
+            component: InfCorporativa
             
         },
         {

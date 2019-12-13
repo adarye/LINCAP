@@ -17,7 +17,6 @@ class TercerosmmController extends Controller
     public function show($id)
     {
 
-
         //TRAE DATOS DE CLIENTES PROVEEDORES Y TERCEROS
         return Terceros_mm::select(
             "dbo.t015_mm_contactos.f015_contacto",
@@ -34,7 +33,8 @@ class TercerosmmController extends Controller
             "c0541_apellido2",
             "c0541_apellido1",
             "c0541_nombres",
-            'dbo.w0540_empleados.c0540_rowid_tercero',
+            'dbo.w0540_empleados.c0540_ind_sexo',
+            'dbo.w0540_empleados.c0540_rowid_tercero'
 
         )->join(
             'dbo.t200_mm_terceros',
@@ -61,6 +61,7 @@ class TercerosmmController extends Controller
             ->get();
 
     }
+    
     //EN UPDATE SE ACTUALIZARA LOS DATOS DE TODAS LAS TABLAS QUE ANTES HICIMOS BUSQUEDAS
     public function update(Request $request, $id)
     {
@@ -112,14 +113,13 @@ class TercerosmmController extends Controller
                 't015_mm_contactos.f015_id_barrio' => $request->barrio,
             ]);
 
-        $estado = z9_empleados_info::all()->where('cz9_id_empleado',$id)->first();
+        $estado = z9_empleados_info::all()->where('cz9_id_empleado', $id)->first();
+        
         // dd($estado);
-        if (!empty($estado)) {
-            
-            $empleado = z9_empleados_info::find($id);
+        if (!empty($estado)) {        
+            $empleado = z9_empleados_info::find($id);     
 
-            if(Auth()->user()->cz1_id_rol == 1){
-
+            if (Auth()->user()->cz1_id_rol == 1) {              
                 $empleado->cz9_fecha_tpprueba = $request->fecha_tpprueba;
                 $empleado->cz9_fecha_vacuna = $request->fecha_vacuna;
                 $empleado->cz9_lugar_vacuna = $request->lugar_vacuna;
@@ -128,62 +128,50 @@ class TercerosmmController extends Controller
                 $empleado->cz9_fecha_vacuna_toxoide = $request->fecha_vacuna_toxoide;
                 $empleado->cz9_lugar_vacuna_toxoide = $request->lugar_vacuna_toxoide;
                 $empleado->cz9_reentrenamiento = $request->reentrenamiento;              
-            }else{
-            $empleado->cz9_nombre_familiar = $request->familiar_linco;
-            $empleado->cz9_nombre_contacto = $request->contacto;
-            $empleado->cz9_tel_contacto = $request->con_num;
-            $empleado->cz9_talla_uniforme = $request->talla_uni;
-            $empleado->cz9_talla_calzado = $request->talla_cal;
-            $empleado->cz9_mail_corp = $request->email_corp;
-            $empleado->cz9_tel_corp = $request->tel_corp;
-            $empleado->cz9_cel_corp = $request->cel_corp;
-            $empleado->save();
-            }
+            }              
+                $empleado->cz9_nombre_familiar = $request->familiar_linco;
+                $empleado->cz9_nombre_contacto = $request->contacto;
+                $empleado->cz9_tel_contacto = $request->con_num;
+                $empleado->cz9_talla_uniforme = $request->talla_uni;
+                $empleado->cz9_talla_calzado = $request->talla_cal;
+                $empleado->cz9_mail_corp = $request->email_corp;
+                $empleado->cz9_tel_corp = $request->tel_corp;
+                $empleado->cz9_cel_corp = $request->cel_corp;
+                $empleado->save();
 
-            return $estado;
         } else {
+
             $empleado = new z9_empleados_info;
 
-        if(Auth()->user()->cz1_id_rol == 1){
+            if (Auth()->user()->cz1_id_rol == 1) {
 
-            $empleado->cz9_fecha_tpprueba = $request->fecha_tpprueba;
-            $empleado->cz9_fecha_vacuna = $request->fecha_vacuna;
-            $empleado->cz9_lugar_vacuna = $request->lugar_vacuna;
-            $empleado->cz9_fecha_vacuna_tifoidea = $request->fecha_vacuna_tifoidea;
-            $empleado->cz9_lugar_vacuna_tifoidea = $request->lugar_vacuna_tifoidea;
-            $empleado->cz9_fecha_vacuna_toxoide = $request->fecha_vacuna_toxoide;
-            $empleado->cz9_lugar_vacuna_toxoide = $request->lugar_vacuna_toxoide;
-            $empleado->cz9_reentrenamiento = $request->reentrenamiento;
-        
-        }else{
-            
-            $empleado->cz9_nombre_familiar = $request->familiar_linco;
-            $empleado->cz9_nombre_contacto = $request->contacto;
-            $empleado->cz9_tel_contacto = $request->con_num;
-            $empleado->cz9_talla_uniforme = $request->talla_uni;
-            $empleado->cz9_talla_calzado = $request->talla_cal;
-            $empleado->cz9_id_empleado =  $id;
-            $empleado->cz9_mail_corp = $request->email_corp;
-            $empleado->cz9_tel_corp = $request->tel_corp;
-            $empleado->cz9_cel_corp = $request->cel_corp;
-            $empleado->save(); 
-        }
-            return $empleado;   
+                $empleado->cz9_fecha_tpprueba = $request->fecha_tpprueba;
+                $empleado->cz9_fecha_vacuna = $request->fecha_vacuna;
+                $empleado->cz9_lugar_vacuna = $request->lugar_vacuna;
+                $empleado->cz9_fecha_vacuna_tifoidea = $request->fecha_vacuna_tifoidea;
+                $empleado->cz9_lugar_vacuna_tifoidea = $request->lugar_vacuna_tifoidea;
+                $empleado->cz9_fecha_vacuna_toxoide = $request->fecha_vacuna_toxoide;
+                $empleado->cz9_lugar_vacuna_toxoide = $request->lugar_vacuna_toxoide;
+                $empleado->cz9_reentrenamiento = $request->reentrenamiento;
+
+            } 
+
+                $empleado->cz9_nombre_familiar = $request->familiar_linco;
+                $empleado->cz9_nombre_contacto = $request->contacto;
+                $empleado->cz9_tel_contacto = $request->con_num;
+                $empleado->cz9_talla_uniforme = $request->talla_uni;
+                $empleado->cz9_talla_calzado = $request->talla_cal;
+                $empleado->cz9_id_empleado = $id;
+                $empleado->cz9_mail_corp = $request->email_corp;
+                $empleado->cz9_tel_corp = $request->tel_corp;
+                $empleado->cz9_cel_corp = $request->cel_corp;
+                $empleado->save();
+                       
         }
     }
-    public function guardar($id){
-        $empleado = new z9_empleados_info;
-            $empleado->cz9_nombre_familiar = $request->familiar_linco;
-            $empleado->cz9_nombre_contacto = $request->contacto;
-            $empleado->cz9_tel_contacto = $request->con_num;
-            $empleado->cz9_talla_uniforme = $request->talla_uni;
-            $empleado->cz9_talla_calzado = $request->talla_cal;
-            $empleado->cz9_id_empleado =  $id;
-            $empleado->cz9_mail_corp = $request->email_corp;
-            $empleado->cz9_tel_corp = $request->tel_corp;
-            $empleado->cz9_cel_corp = $request->cel_corp;
-            $empleado->save(); 
-            return $empleado;   
+    public function guardar($id)
+    {
+      
 
     }
 
@@ -231,7 +219,6 @@ class TercerosmmController extends Controller
 
         return $empleado;
     }
-   
 
     //TRAE TODO LO RELACIONADO CON EL CONTRATO Y EL EMPLEADO
     public function traerEmpleados($id)
@@ -346,5 +333,5 @@ class TercerosmmController extends Controller
         //->distinct("c0515_id")
             ->first();
     }
-    
+
 }

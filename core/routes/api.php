@@ -13,7 +13,9 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::get('registros', 'ApiController@index');
+Route::get('registros', 'ApiController@traerActivos');
+Route::get('registros/retirados', 'ApiController@traerRetirados');
+Route::get('registros/InfCorp', 'ApiController@traerInfCorporativa');
 //Route::put('empleado/update/{id}' ,'ApiController@update');
 
 //CRUD DE LA TABLA ROLES

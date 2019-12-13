@@ -20,10 +20,15 @@ import InfSST from './components/tabs/InfSST';
 Vue.component('InfSST', InfSST)
 
 
-
+Vue.directive('uppercase', {
+	update (el) {
+		el.value = el.value.toUpperCase()
+	},
+})
 
 const app = new Vue ({
     el: '#app',
-    router,
+    router
+   
     
 });

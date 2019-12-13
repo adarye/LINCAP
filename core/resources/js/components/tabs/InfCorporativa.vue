@@ -49,21 +49,21 @@
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label>Salario Actual</label>
-                    <input type="email" class="form-control" v-model="usuario.c0550_salario" disabled />
+                    <input type="email" class="form-control" v-model="usuario.c0550_salario" disabled  />
                 </div>
                 <div class="form-group col-md-6">
                     <label>Email Corporativo</label>
-                    <input type="email" class="form-control" :disabled="validated ? false : true" v-model="empleado_info.cz9_mail_corp"/>
+                    <input type="email" class="form-control" :disabled="validated ? false : true" v-model="empleado_info.cz9_mail_corp" v-uppercase/>
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label>Telefono Corporativo con extension</label>
-                    <input type="text" class="form-control" :disabled="validated ? false : true" v-model="empleado_info.cz9_tel_corp"/>
+                    <input type="text" class="form-control" :disabled="validated ? false : true" v-model="empleado_info.cz9_tel_corp" v-uppercase/>
                 </div>
                 <div class="form-group col-md-6">
                     <label>Celular Corporativo</label>
-                    <input type="text" class="form-control" :disabled="validated ? false : true" v-model="empleado_info.cz9_cel_corp"/>
+                    <input type="text" class="form-control" :disabled="validated ? false : true" v-model="empleado_info.cz9_cel_corp" v-uppercase />
                 </div>
                 
             </div>

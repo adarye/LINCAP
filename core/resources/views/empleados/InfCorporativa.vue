@@ -1,7 +1,7 @@
 <template>
     <div>
         <center>
-            <h1>Listado de  activos</h1>
+            <h1>Informacion Corporativa</h1>
         </center>
         Buscar : <input type="text" v-model="bempleado" /> 
         Paginador :
@@ -21,8 +21,8 @@
                     <th scope="col">Nombre</th>
                     <th scope="col">C. O</th>
                     <th scope="col">Cargo</th>                    
-                    <th scope="col">Fecha de Ingreso</th>
-                    <th scope="col">Contrato hasta</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Telefono</th>
                     <th scope="col">Acciones</th>
                 </tr>
             </thead>
@@ -35,9 +35,9 @@
                     </td>
                     <td>{{ item.f285_descripcion }}</td>
                     <td>{{ item.c0763_descripcion }}</td>
-                    <td>{{ moment(item.c0550_fecha_ingreso).format('L') }}</td>  
-                    <td v-if="item.c0550_fecha_contrato_hasta != null">{{ moment(item.c0550_fecha_contrato_hasta).format('L') }}</td>
-                    <td v-else>No definida</td>
+                    <td>{{ item.cz9_mail_corp}}</td>  
+                    <td>{{ item.cz9_tel_corp}}</td>
+                   
                     <td>
                         <router-link
                             :to="{
@@ -74,7 +74,7 @@ export default {
         };
     },
     mounted() {
-        axios.get("/api/registros").then(res => {
+        axios.get("/api/registros/InfCorp").then(res => {
             this.activos = res.data;
             console.log(this.activos);
             this.getCO();
@@ -101,11 +101,9 @@ export default {
         mbuscar: function(){
             return this.activos.filter((activo) => {         
                 if(this.selectCO == null){
-                const nombre_completo = activo.c0541_nombres + ' ' + activo.c0541_apellido1 + ' ' + activo.c0541_apellido2
-                    
                 return activo.c0541_id.toUpperCase().includes(this.bempleado.toUpperCase())  
                 ||
-                nombre_completo.toUpperCase().includes(this.bempleado.toUpperCase())
+                activo.c0541_nombres.toUpperCase().includes(this.bempleado.toUpperCase())
                 ||                
                 activo.c0541_apellido1.toUpperCase().includes(this.bempleado.toUpperCase())
                 ||

@@ -83,10 +83,12 @@
                     this.informacion.c0541_apellido1 +
                     " " +
                     this.informacion.c0541_apellido2;
+                     this.validarSexo();
             });
             this.cargarContrato();
             this.cargarCiudades();
             this.traerEmpleadoInfo();    
+           
            
         },
         
@@ -161,13 +163,13 @@
                     });
             },
              validarSexo(){
-                if(this.usuario.c0540_ind_sexo == 1){
+                if(this.informacion.c0540_ind_sexo == 1){
                     this.sexo = 'Femenino'
                 }
-                else{
+                else if(this.informacion.c0540_ind_sexo == 0){
                     this.sexo = 'Masculino'
                 }
-            },
+                },
            
             cargarCiudades(event) {
                 axios.get("/api/ciudad").then(res => {
@@ -198,8 +200,12 @@
                     })
             }
         },
+        
+        
 
-        computed: {}
+        computed: {
+           
+        }
     };
 
 </script>

@@ -161,7 +161,7 @@
                             " " +
                             res.data.c0541_apellido1 +
                             " " +
-                            res.data.c0541_apellido1;
+                            res.data.c0541_apellido2;
                         this.usuario.cz1_nombres = nombre;
                         console.log(this.usuario);
 
