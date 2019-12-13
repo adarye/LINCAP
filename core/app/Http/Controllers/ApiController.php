@@ -88,6 +88,8 @@ class ApiController extends Controller
             "cz9_mail_corp",
             "cz9_tel_corp",
             "cz9_cel_corp"
+            
+
 
         )->join(
             'dbo.w0540_empleados',
@@ -275,6 +277,19 @@ class ApiController extends Controller
             ->where('dbo.w0541_terceros_seleccion.c0541_id', '=', $id)
             ->first();       
     }
+    public function myAvatar(Request $request)
+{
+    // Verificamos si hay un file con nombre avatar
+    if ($request->hasFile('avatar')) {
+        // Si es así , almacenamos en la carpeta public/avatars
+        // esta estará dentro de public/defaults/
+       $url = $request->avatar->store('users/avatar');
+        $userAvatarUpdate = User::find(auth()->id());
+        /** Áctualización y 
+         return JSON*/
+    }
+    return "Noo Llego una imagen";
+}
 
     public function getCo(){
         return t285_co_centro_op::all();

@@ -11,10 +11,7 @@
                     </li>
                     <li>
                         <a target="_blank" href="{{ url ('imprimir') }}">Certificado laboral</a>      
-                    </li>
-                    <li>
-                        <router-link :to="{name: 'IndexEmpleado'}">Cambiar contraseña</router-link>
-                    </li>                    
+                    </li>                 
                 </ul>
             </li>
             <li><a><i class="fa fa-folder-open"></i>Empleados<span class="fa fa-chevron-down"></span></a>

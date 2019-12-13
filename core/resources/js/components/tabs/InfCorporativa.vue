@@ -53,17 +53,17 @@
                 </div>
                 <div class="form-group col-md-6">
                     <label>Email Corporativo</label>
-                    <input type="email" class="form-control" :disabled="validated ? false : true" v-model="empleado_info.cz9_mail_corp" v-uppercase/>
+                    <input type="email" class="form-control" :disabled="validated ? false : true" v-model="empleado_info.cz9_mail_corp" v-uppercase v-max-length="55"/>
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label>Telefono Corporativo con extension</label>
-                    <input type="text" class="form-control" :disabled="validated ? false : true" v-model="empleado_info.cz9_tel_corp" v-uppercase/>
+                    <input type="text" class="form-control" :disabled="validated ? false : true" v-model="empleado_info.cz9_tel_corp" v-uppercase  v-max-length="25"/>
                 </div>
                 <div class="form-group col-md-6">
                     <label>Celular Corporativo</label>
-                    <input type="text" class="form-control" :disabled="validated ? false : true" v-model="empleado_info.cz9_cel_corp" v-uppercase />
+                    <input type="text" class="form-control" :disabled="validated ? false : true" v-model="empleado_info.cz9_cel_corp" v-uppercase v-numeric-only v-max-length="25"/>
                 </div>
                 
             </div>

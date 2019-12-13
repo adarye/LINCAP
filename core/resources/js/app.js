@@ -6,6 +6,9 @@ import router from './router';
 import swal from 'sweetalert';
 Vue.use(VModal)
 
+import VueInputRestrictionDirectives from 'vue-input-restriction-directives';
+Vue.use(VueInputRestrictionDirectives);
+
 //importacion de componentes
 import Login from './components/Login';
 Vue.component('Login', Login)
@@ -25,6 +28,7 @@ Vue.directive('uppercase', {
 		el.value = el.value.toUpperCase()
 	},
 })
+
 
 const app = new Vue ({
     el: '#app',

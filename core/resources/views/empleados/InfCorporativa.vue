@@ -17,36 +17,26 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th scope="col">Cedula</th>
+                    
                     <th scope="col">Nombre</th>
                     <th scope="col">C. O</th>
                     <th scope="col">Cargo</th>                    
                     <th scope="col">Email</th>
                     <th scope="col">Telefono</th>
-                    <th scope="col">Acciones</th>
+                    <th scope="col">Celular</th>
                 </tr>
             </thead>
             <tbody>
                 <tr v-for="(item, indice) in mbuscar" :key="indice" v-show="(pagina-1) * numero <= indice && pagina*numero > indice">
-                    <th scope="row">{{ item.c0541_id }}</th>
-                    <td>
-                        {{ item.c0541_nombres }} {{ item.c0541_apellido1 }}
-                        {{ item.c0541_apellido2 }} 
-                    </td>
+                    <th scope="row">{{ item.c0541_nombres }} {{ item.c0541_apellido1 }}
+                        {{ item.c0541_apellido2 }}  </th>
+             
                     <td>{{ item.f285_descripcion }}</td>
                     <td>{{ item.c0763_descripcion }}</td>
                     <td>{{ item.cz9_mail_corp}}</td>  
                     <td>{{ item.cz9_tel_corp}}</td>
                    
-                    <td>
-                        <router-link
-                            :to="{
-                                name: 'showEmpleado',
-                                params: { id: item.c0550_rowid_tercero }
-                            }"
-                        >
-                            Ver
-                        </router-link>
+                    <td>  {{ item.cz9_cel_corp }}   
                     </td>
                 </tr>
             </tbody>

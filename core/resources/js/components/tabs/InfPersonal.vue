@@ -21,7 +21,7 @@
                 <div class="form-group col-md-6">
                     <label>Celular</label>
                     <input type="text" class="form-control" placeholder="Celular" v-model="informacion.f015_celular"
-                        :disabled="validated ? false : true" />
+                        :disabled="validated ? false : true" v-numeric-only  v-max-length="16"/>
                 </div>
             </div>
             <div class="form-row">
@@ -50,24 +50,24 @@
                 <div class="form-group col-md-6">
                     <label>Email</label>
                     <input type="email" class="form-control" placeholder="Email" v-model="informacion.f015_email"
-                        :disabled="validated ? false : true" v-uppercase/>
+                        :disabled="validated ? false : true" v-uppercase v-max-length="55"/>
                 </div>
                 <div class="form-group col-md-6">
                     <label>Telefono</label>
                     <input type="text" class="form-control" placeholder="Numero de telefono"
-                        v-model="informacion.f015_telefono" :disabled="validated ? false : true" v-uppercase />
+                        v-model="informacion.f015_telefono" :disabled="validated ? false : true" v-uppercase v-numeric-only v-max-length="16" />
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label>Direccion</label>
                     <input type="text" class="form-control" v-model="informacion.f015_direccion1"
-                        :disabled="validated ? false : true" v-uppercase/>
+                        :disabled="validated ? false : true" v-uppercase v-max-length="55"/>
                 </div>
                 <div class="form-group col-md-6">
                     <label>Barrio</label>
                     <input type="text" class="form-control" v-model="informacion.f015_id_barrio"
-                        disabled v-uppercase/>
+                        disabled v-uppercase v-alphabetic-only  />
                 </div>
             </div>
             <div class="form-row">
@@ -92,17 +92,17 @@
                 <div class="form-group col-md-6">
                     <label>Nombre de un familiar en Linco</label>
                     <input type="text" class="form-control" placeholder="opcional"
-                        :disabled="validated ? false : true" v-model="empleado_info.cz9_nombre_familiar" v-uppercase/>
+                        :disabled="validated ? false : true" v-model="empleado_info.cz9_nombre_familiar" v-max-length="75" v-alphabetic-only  v-uppercase/>
                 </div>
                 <div class="form-group col-md-6">
                     <label>Nombre de un familiar</label>
-                    <input type="text" class="form-control" v-model="empleado_info.cz9_nombre_contacto" :disabled="validated ? false : true" v-uppercase/>
+                    <input type="text" class="form-control" v-model="empleado_info.cz9_nombre_contacto" :disabled="validated ? false : true" v-max-length="55" v-uppercase  v-alphabetic-only  />
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label>Numero de telefono del familiar</label>
-                    <input type="text" class="form-control" :disabled="validated ? false : true" v-model="empleado_info.cz9_tel_contacto" />
+                    <input type="text" class="form-control" :disabled="validated ? false : true" v-model="empleado_info.cz9_tel_contacto" v-max-length="25" v-numeric-only/>
                 </div>
                 <div class="form-group col-md-6">
                     <label>Sexo</label>
@@ -112,21 +112,29 @@
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label>Talla del uniforme</label>
-                    <input type="text" class="form-control" :disabled="validated ? false : true" v-model="empleado_info.cz9_talla_uniforme" v-uppercase />
+                    <input type="text" class="form-control" :disabled="validated ? false : true" v-model="empleado_info.cz9_talla_uniforme" v-max-length="2" v-uppercase required/>
                 </div>
                 <div class="form-group col-md-6">
                     <label>Talla de calzado</label>
-                    <input type="text" class="form-control" :disabled="validated ? false : true" v-model="empleado_info.cz9_talla_calzado" v-uppercase />
+                    <input type="text" class="form-control" :disabled="validated ? false : true" v-model="empleado_info.cz9_talla_calzado" v-max-length="2" v-uppercase v-numeric-only/>
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label>Finalizacion del periodo de prueba</label>
-                    <input type="text" class="form-control" :disabled="permiso_admin ? false : true"  v-model="empleado_info.cz9_fecha_tpprueba"/>
+                    <input type="date-time" class="form-control" :disabled="permiso_admin ? false : true"  v-model="empleado_info.cz9_fecha_tpprueba"/>
                 </div>
                 <div class="form-group col-md-6">
                     <label>Reentrenamiento</label>
-                    <input type="text" class="form-control" :disabled="permiso_admin ? false : true" v-model="empleado_info.cz9_reentrenamiento" v-uppercase/>
+                    <textarea rows="4" cols="50" type="text" class="form-control" :disabled="permiso_admin ? false : true" v-model="empleado_info.cz9_reentrenamiento" v-uppercase v-max-length="200">
+                    </textarea>
+                   
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label>Actualizar avatar</label>
+                    <input type="file" name="image" accept="image/*" v-on:change="$emit('getImage', $event)">
                 </div>
             </div>
         </form>
@@ -135,7 +143,7 @@
 </template>
 <script>
     export default {
-        props: ['informacion', 'usuario', 'apellidos', 'ciudades', 'barrios', 'validated', 'empleado_info','sexo', 'permiso_admin'],
+        props: ['informacion', 'usuario', 'apellidos', 'ciudades', 'barrios', 'validated', 'empleado_info','sexo', 'permiso_admin', 'getImage'],
 
         data() {
         return {

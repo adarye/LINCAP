@@ -17,8 +17,7 @@
                        <ul class="dropdown-menu dropdown-usermenu animated fadeInDown pull-right">
                            <li>
                                <a href="javascript:;">
-                                   <span class="badge bg-red pull-right">50%</span>
-                                   <span>Perfil</span>
+                                   <span>Cambiar password</span>
                                </a>
                            </li>
                            <form method="POST" action="{{ route('logout') }}">

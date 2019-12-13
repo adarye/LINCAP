@@ -64,12 +64,27 @@ class UsuariosController extends Controller
 
     public function update(Request $request, $cz1_id){
 
+        
         $usuario = z1_usuarios::find($cz1_id);
         $usuario->password = $request->cz1_password;
         $usuario->cz1_id_rol = $request->cz1_id_rol;
-        $usuario->cz1_estado = $request->cz1_estado;
         $usuario->save();
         return $usuario;
         
     }
+    public function myAvatar(Request $request,$id)
+{     
+
+    
+    // Verificamos si hay un file con nombre avatar
+   
+        // Si es así , almacenamos en la carpeta public/avatars
+        // esta estará dentro de public/defaults/
+     return $request->all();
+        $userAvatarUpdate = z1_usuarios::find($id);
+        /** Áctualización y 
+         return JSON*/
+    
+    return "Noo Llego una imagen";
+}
 }

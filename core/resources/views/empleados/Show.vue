@@ -14,7 +14,7 @@
             <infPersonal v-bind="{'informacion': informacion, 'usuario': usuario, 
             'apellidos':apellidos, 'ciudades':ciudades, 'barrios':barrios, 'validated': validated, 
             'empleado_info': empleado_info, 'sexo': sexo, 'permiso_admin':permiso_admin}" v-on:cargarBarrios="cargarBarrios"
-            v-on:cambiarBarrio="cambiarBarrio"></infPersonal>
+            v-on:cambiarBarrio="cambiarBarrio" v-on:getImage="getImage"></infPersonal>
           </div>
             
             
@@ -38,10 +38,12 @@
             </span>
             <span v-else>
                 <div class="form-group col-md-6">
-                    <button @click="actualizar" class="btn btn-primary">
+                    <button @click="validarCampos" class="btn btn-primary">
                         Actualizar
                     </button>
-
+                <button @click="updateAvatar" class="btn btn-primary">
+                        Actualizar avatar
+                    </button>
                     <button @click="desabilitarFormulario" class="btn btn-danger">
                         Cancelar
                     </button>
@@ -70,7 +72,8 @@
                 usuario: '',
                 empleado_info: {},
                 sexo:'',
-                moment: moment
+                moment: moment,
+                imagen: ''
             };
         },
         mounted() {
@@ -188,6 +191,32 @@
                     })
 
             },
+             getImage(event){
+                //Asignamos la imagen a  nuestra data
+                let files = event.target.files || event.dataTransfer.files;
+                if (!files.length)
+                    return;
+                this.createImage(files[0]);
+                console.log(this.imagen)
+            },
+            createImage(file) {
+                let reader = new FileReader();
+                let vm = this;
+                reader.onload = (e) => {
+                    vm.imagen = e.target.result;
+                };
+                reader.readAsDataURL(file);
+                console.log(this.imagen)
+            },
+            updateAvatar(){
+                
+                axios.put(`/api/usuario/avatar/${this.$route.params.id}`,{imagen: this.imagen})
+                .then(res => {
+                    console.log(res.data)
+
+                })
+            },
+         
             cambiarBarrio(event) {
                 this.informacion.f015_id_barrio = event.target.value
                 console.log(this.informacion)
@@ -198,6 +227,38 @@
                         this.usuario = res.data
                         console.log(res.data)
                     })
+            },
+            validarCampos(){
+                console.log(this.informacion.f015_email)
+                if(this.informacion.f015_email == ''){
+                    swal('Alerta', 'El email es obligatorio', 'warning')
+                }
+                else if(this.informacion.f015_telefono == ''){
+                    swal('Alerta', 'El numero de telefono es obligatorio', 'warning')
+                }
+                else if(this.informacion.f015_celular == ''){
+                    swal('Alerta', 'El numero de celular es obligatorio', 'warning')
+
+                }else if(this.informacion.f015_direccion1 == ''){
+                    swal('Alerta', 'La direccion es obligatoria', 'warning')
+
+                }else if(this.informacion.f015_id_barrio == ''){
+                    swal('Alerta', 'El barrio es obligatorio', 'warning')
+
+                }else if(this.informacion.f015_id_ciudad == ''){
+                    swal('Alerta', 'La ciudad es obligatoria', 'warning')
+                }
+                
+                 else if(this.empleado_info.cz9_tel_contacto == ''){
+                    swal('Alerta', 'El numero del familiar es obligatorio', 'warning')
+                }
+                else if(this.empleado_info.cz9_nombre_contacto == ''){
+                    swal('Alerta', 'El contacto familiar es obligatorio', 'warning')
+                }
+                
+                else{
+                    this.actualizar()
+                }
             }
         },
         

@@ -54,3 +54,6 @@ Route::get('barrios/{id}', 'UbicacionController@cargarBarrios');
 
 //CENTRO DE OPERACIONES
 Route::get('getCO', 'ApiController@getCO');
+
+//FOTOS
+Route::put('usuario/avatar/{id}', 'UsuariosController@myAvatar');
