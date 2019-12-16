@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\Hash;
+
+use Illuminate\Support\Facades\Auth;
+
 use App\z1_usuarios;
 
 class UsuariosController extends Controller
@@ -51,14 +55,14 @@ class UsuariosController extends Controller
         $usuario->cz1_id_rol = $request->cz1_id_rol;
         $usuario->cz1_id_empleado = $request->cz1_id_empleado;
         $usuario->cz1_nombres = $request->cz1_nombres;
-        $usuario->cz1_avatar = 'prueba';
+        $usuario->cz1_avatar = 'user.png';
         $usuario->cz1_estado = 1;
         $usuario->save();       
     
     }
     public function delete($id){
         $usuario = z1_usuarios::find($id);
-         $usuario->delete();
+        $usuario->delete();
     }
 
 
@@ -73,18 +77,47 @@ class UsuariosController extends Controller
         
     }
     public function myAvatar(Request $request,$id)
-{     
+{    
+      
+    if($request->hasFile('imagen')){
+        $file = $request->file('imagen');
+        $name = time().$file->getClientOriginalName();
+        $file->move('theme/images/profile', $name);
 
+       
+         return z1_usuarios::select('cz1_id_empleado', 'cz1_avatar')
+        ->where('cz1_id_empleado', $id)
+        ->update([
+           'cz1_avatar'=>$name
+        ]);
+
+    } 
+        //return $request->imagen;
     
-    // Verificamos si hay un file con nombre avatar
+}
+public function cambiarPassword(Request $request){
+    
+    
+   $usuario = z1_usuarios::all()
+    ->where('cz1_id', Auth()->user()->cz1_id)->first();
    
-        // Si es así , almacenamos en la carpeta public/avatars
-        // esta estará dentro de public/defaults/
-     return $request->all();
-        $userAvatarUpdate = z1_usuarios::find($id);
-        /** Áctualización y 
-         return JSON*/
     
-    return "Noo Llego una imagen";
+    if(Hash::check($request->password_anterior, $usuario->password)){
+        $password = z1_usuarios::find(Auth()->user()->cz1_id);
+        $password->password = bcrypt($request->password_nueva);
+        $password->save();
+        Auth::logout();
+        return 1;
+    }
+    else{
+        Auth::logout();
+        return 0;
+       
+    };
+
+   
+
+    //$usuario = z1_usuarios::find(Auth()->user()->cz1_id);
+    
 }
 }

@@ -33,6 +33,7 @@ Route::post('usuarios/create', 'UsuariosController@create');
 Route::get('usuarios/verificar/{id}', 'ApiController@buscarTercero');
 Route::delete('usuarios/delete/{id}', 'UsuariosController@delete');
 Route::put('usuarios/update/{id}', 'UsuariosController@update');
+Route::put('usuario/password', 'UsuariosController@cambiarPassword');
 
 //LOGIN
 
@@ -56,4 +57,4 @@ Route::get('barrios/{id}', 'UbicacionController@cargarBarrios');
 Route::get('getCO', 'ApiController@getCO');
 
 //FOTOS
-Route::put('usuario/avatar/{id}', 'UsuariosController@myAvatar');
+Route::post('usuario/avatar/{id}', 'UsuariosController@myAvatar')->name('avatar');

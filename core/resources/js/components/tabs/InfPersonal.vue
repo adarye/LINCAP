@@ -1,6 +1,6 @@
 <template>
     <div>
-        <form class="my-2">
+        <form enctype="multipart/form-data" class="my-2">
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label>Nombre</label>
@@ -131,12 +131,8 @@
                    
                 </div>
             </div>
-            <div class="form-row">
-                <div class="form-group col-md-6">
-                    <label>Actualizar avatar</label>
-                    <input type="file" name="image" accept="image/*" v-on:change="$emit('getImage', $event)">
-                </div>
-            </div>
+            
+            
         </form>
         
     </div>
