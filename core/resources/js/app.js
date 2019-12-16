@@ -5,7 +5,7 @@ import VModal from 'vue-js-modal';
 import router from './router';
 import swal from 'sweetalert';
 Vue.use(VModal)
-
+//Vue.use (VModal , {  dynamic : true ,  dynamicDefaults : {  clickToClose : false } } )      
 import VueInputRestrictionDirectives from 'vue-input-restriction-directives';
 Vue.use(VueInputRestrictionDirectives);
 

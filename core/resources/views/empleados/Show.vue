@@ -1,5 +1,11 @@
 <template>
     <div>
+        <nav aria-label="breadcrumb">
+       <ol class="breadcrumb">
+       <li class="breadcrumb-item">Perfil</li>
+       <li class="breadcrumb-item active" aria-current="page"></li>
+      </ol>
+</nav>
         <center>
             <h1>Actualizar datos</h1>
         </center>

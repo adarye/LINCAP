@@ -2,6 +2,7 @@
 <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
     <div class="menu_section">
         <ul class="nav side-menu">
+                
             <br><br><br><br>
             <li><a><i class="fa fa-male"></i>Perfil<span class="fa fa-chevron-down"></span></a>
                 <ul class="nav child_menu" style="display: none">
@@ -44,8 +45,12 @@
                         <router-link :to="{name: 'IndexUsuario'}">Usuarios</router-link>
                     </li>
                 </ul>
+                
             </li>
         </ul>
     </div>
+   
+   
 </div>
+
 <!-- /sidebar menu -->

@@ -10,7 +10,8 @@
             <option value="25">25</option>
             <option value="0">Personalizado</option>
         </select>
-        <select v-model="selectCO">            
+        <select v-model="selectCO">    
+             <option value="TODOS" selected="true">TODOS</option>        
             <option v-for="(item, indice) in CO" :key = "indice" v-bind:value="item.f285_id">{{ item.f285_descripcion }}</option>
         </select>
         <span v-if="mostrar == 1"><input type="text" v-model="numero"/></span> 
@@ -90,28 +91,40 @@ export default {
     computed: {
         mbuscar: function(){
             return this.activos.filter((activo) => {         
-                if(this.selectCO == null){
-                return activo.c0541_id.toUpperCase().includes(this.bempleado.toUpperCase())  
+                if(this.selectCO == null || this.selectCO == 'TODOS'){
+                    const nombre_completo =
+                        activo.c0541_nombres +
+                        " " +
+                        activo.c0541_apellido1 +
+                        " " +
+                        activo.c0541_apellido2;
+                    return (
+                 activo.c0541_id.toUpperCase().includes(this.bempleado.toUpperCase())  
                 ||
-                activo.c0541_nombres.toUpperCase().includes(this.bempleado.toUpperCase())
-                ||                
-                activo.c0541_apellido1.toUpperCase().includes(this.bempleado.toUpperCase())
-                ||
-                activo.c0541_apellido2.toUpperCase().includes(this.bempleado.toUpperCase())                
-                ||          
+                nombre_completo.toUpperCase().includes(this.bempleado.toUpperCase())
+                ||                        
                 activo.c0763_descripcion.toUpperCase().includes(this.bempleado.toUpperCase())
-                }else{
-                return activo.f285_id.includes(this.selectCO)
-                &&
-                activo.c0541_nombres.toUpperCase().includes(this.bempleado.toUpperCase())  
-                ||
-                 activo.f285_id.includes(this.selectCO)
-                &&
-                activo.c0541_id.toUpperCase().includes(this.bempleado.toUpperCase())
-                ||
-                activo.f285_id.includes(this.selectCO)
-                &&
-                activo.c0763_descripcion.toUpperCase().includes(this.bempleado.toUpperCase())
+                    )}else{
+                 const nombre_completo =
+                        activo.c0541_nombres +
+                        " " +
+                        activo.c0541_apellido1 +
+                        " " +
+                        activo.c0541_apellido2;
+                    return (
+                        (activo.f285_id.includes(this.selectCO) &&
+                            nombre_completo
+                                .toUpperCase()
+                                .includes(this.bempleado.toUpperCase())) ||
+                        (activo.f285_id.includes(this.selectCO) &&
+                            activo.c0541_id
+                                .toUpperCase()
+                                .includes(this.bempleado.toUpperCase())) ||
+                        (activo.f285_id.includes(this.selectCO) &&
+                            activo.c0763_descripcion
+                                .toUpperCase()
+                                .includes(this.bempleado.toUpperCase()))
+                    );
                 }  
             })
         }

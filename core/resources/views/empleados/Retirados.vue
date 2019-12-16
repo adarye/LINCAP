@@ -12,6 +12,7 @@
             <option value="0">Personalizado</option>
         </select>
         <select v-model="selectCO">
+            <option value="TODOS" selected="true">TODOS</option> 
             <option
                 v-for="(item, indice) in CO"
                 :key="indice"
@@ -134,7 +135,7 @@ export default {
     computed: {
         mbuscar: function() {
             return this.retirados.filter(retirado => {
-                if (this.selectCO == null) {
+                if (this.selectCO == null || this.selectCO == 'TODOS') {
                     const nombre_completo =
                         retirado.c0541_nombres +
                         " " +
@@ -148,20 +149,20 @@ export default {
                         nombre_completo
                             .toUpperCase()
                             .includes(this.bempleado.toUpperCase()) ||
-                        retirado.c0541_apellido1
-                            .toUpperCase()
-                            .includes(this.bempleado.toUpperCase()) ||
-                        retirado.c0541_apellido2
-                            .toUpperCase()
-                            .includes(this.bempleado.toUpperCase()) ||
                         retirado.c0763_descripcion
                             .toUpperCase()
                             .includes(this.bempleado.toUpperCase())
                     );
                 } else {
+                    const nombre_completo =
+                        retirado.c0541_nombres +
+                        " " +
+                        retirado.c0541_apellido1 +
+                        " " +
+                        retirado.c0541_apellido2;
                     return (
                         (retirado.f285_id.includes(this.selectCO) &&
-                            retirado.c0541_nombres
+                            nombre_completo
                                 .toUpperCase()
                                 .includes(this.bempleado.toUpperCase())) ||
                         (retirado.f285_id.includes(this.selectCO) &&

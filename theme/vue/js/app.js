@@ -2333,6 +2333,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale('es');
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2382,11 +2383,13 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale('es');
       var _this3 = this;
 
       return this.activos.filter(function (activo) {
-        if (_this3.selectCO == null) {
+        if (_this3.selectCO == null || _this3.selectCO == 'TODOS') {
           var nombre_completo = activo.c0541_nombres + ' ' + activo.c0541_apellido1 + ' ' + activo.c0541_apellido2;
-          return activo.c0541_id.toUpperCase().includes(_this3.bempleado.toUpperCase()) || nombre_completo.toUpperCase().includes(_this3.bempleado.toUpperCase()) || activo.c0541_apellido1.toUpperCase().includes(_this3.bempleado.toUpperCase()) || activo.c0541_apellido2.toUpperCase().includes(_this3.bempleado.toUpperCase()) || activo.c0763_descripcion.toUpperCase().includes(_this3.bempleado.toUpperCase());
+          return activo.c0541_id.toUpperCase().includes(_this3.bempleado.toUpperCase()) || nombre_completo.toUpperCase().includes(_this3.bempleado.toUpperCase()) || activo.c0763_descripcion.toUpperCase().includes(_this3.bempleado.toUpperCase());
         } else {
-          return activo.f285_id.includes(_this3.selectCO) && activo.c0541_nombres.toUpperCase().includes(_this3.bempleado.toUpperCase()) || activo.f285_id.includes(_this3.selectCO) && activo.c0541_id.toUpperCase().includes(_this3.bempleado.toUpperCase()) || activo.f285_id.includes(_this3.selectCO) && activo.c0763_descripcion.toUpperCase().includes(_this3.bempleado.toUpperCase());
+          var _nombre_completo = activo.c0541_nombres + " " + activo.c0541_apellido1 + " " + activo.c0541_apellido2;
+
+          return activo.f285_id.includes(_this3.selectCO) && _nombre_completo.toUpperCase().includes(_this3.bempleado.toUpperCase()) || activo.f285_id.includes(_this3.selectCO) && activo.c0541_id.toUpperCase().includes(_this3.bempleado.toUpperCase()) || activo.f285_id.includes(_this3.selectCO) && activo.c0763_descripcion.toUpperCase().includes(_this3.bempleado.toUpperCase());
         }
       });
     }
@@ -2560,6 +2563,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale('es');
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2609,10 +2613,13 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale('es');
       var _this3 = this;
 
       return this.activos.filter(function (activo) {
-        if (_this3.selectCO == null) {
-          return activo.c0541_id.toUpperCase().includes(_this3.bempleado.toUpperCase()) || activo.c0541_nombres.toUpperCase().includes(_this3.bempleado.toUpperCase()) || activo.c0541_apellido1.toUpperCase().includes(_this3.bempleado.toUpperCase()) || activo.c0541_apellido2.toUpperCase().includes(_this3.bempleado.toUpperCase()) || activo.c0763_descripcion.toUpperCase().includes(_this3.bempleado.toUpperCase());
+        if (_this3.selectCO == null || _this3.selectCO == 'TODOS') {
+          var nombre_completo = activo.c0541_nombres + " " + activo.c0541_apellido1 + " " + activo.c0541_apellido2;
+          return activo.c0541_id.toUpperCase().includes(_this3.bempleado.toUpperCase()) || nombre_completo.toUpperCase().includes(_this3.bempleado.toUpperCase()) || activo.c0763_descripcion.toUpperCase().includes(_this3.bempleado.toUpperCase());
         } else {
-          return activo.f285_id.includes(_this3.selectCO) && activo.c0541_nombres.toUpperCase().includes(_this3.bempleado.toUpperCase()) || activo.f285_id.includes(_this3.selectCO) && activo.c0541_id.toUpperCase().includes(_this3.bempleado.toUpperCase()) || activo.f285_id.includes(_this3.selectCO) && activo.c0763_descripcion.toUpperCase().includes(_this3.bempleado.toUpperCase());
+          var _nombre_completo = activo.c0541_nombres + " " + activo.c0541_apellido1 + " " + activo.c0541_apellido2;
+
+          return activo.f285_id.includes(_this3.selectCO) && _nombre_completo.toUpperCase().includes(_this3.bempleado.toUpperCase()) || activo.f285_id.includes(_this3.selectCO) && activo.c0541_id.toUpperCase().includes(_this3.bempleado.toUpperCase()) || activo.f285_id.includes(_this3.selectCO) && activo.c0763_descripcion.toUpperCase().includes(_this3.bempleado.toUpperCase());
         }
       });
     }
@@ -2632,6 +2639,7 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale('es');
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_0__);
+//
 //
 //
 //
@@ -2775,11 +2783,13 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale("es");
       var _this3 = this;
 
       return this.retirados.filter(function (retirado) {
-        if (_this3.selectCO == null) {
+        if (_this3.selectCO == null || _this3.selectCO == 'TODOS') {
           var nombre_completo = retirado.c0541_nombres + " " + retirado.c0541_apellido1 + " " + retirado.c0541_apellido2;
-          return retirado.c0541_id.toUpperCase().includes(_this3.bempleado.toUpperCase()) || nombre_completo.toUpperCase().includes(_this3.bempleado.toUpperCase()) || retirado.c0541_apellido1.toUpperCase().includes(_this3.bempleado.toUpperCase()) || retirado.c0541_apellido2.toUpperCase().includes(_this3.bempleado.toUpperCase()) || retirado.c0763_descripcion.toUpperCase().includes(_this3.bempleado.toUpperCase());
+          return retirado.c0541_id.toUpperCase().includes(_this3.bempleado.toUpperCase()) || nombre_completo.toUpperCase().includes(_this3.bempleado.toUpperCase()) || retirado.c0763_descripcion.toUpperCase().includes(_this3.bempleado.toUpperCase());
         } else {
-          return retirado.f285_id.includes(_this3.selectCO) && retirado.c0541_nombres.toUpperCase().includes(_this3.bempleado.toUpperCase()) || retirado.f285_id.includes(_this3.selectCO) && retirado.c0541_id.toUpperCase().includes(_this3.bempleado.toUpperCase()) || retirado.f285_id.includes(_this3.selectCO) && retirado.c0763_descripcion.toUpperCase().includes(_this3.bempleado.toUpperCase());
+          var _nombre_completo = retirado.c0541_nombres + " " + retirado.c0541_apellido1 + " " + retirado.c0541_apellido2;
+
+          return retirado.f285_id.includes(_this3.selectCO) && _nombre_completo.toUpperCase().includes(_this3.bempleado.toUpperCase()) || retirado.f285_id.includes(_this3.selectCO) && retirado.c0541_id.toUpperCase().includes(_this3.bempleado.toUpperCase()) || retirado.f285_id.includes(_this3.selectCO) && retirado.c0763_descripcion.toUpperCase().includes(_this3.bempleado.toUpperCase());
         }
       });
     }
@@ -2801,6 +2811,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_0__);
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -3588,7 +3604,8 @@ __webpack_require__.r(__webpack_exports__);
         swal('Advertencia', 'Las nuevas contrasenas no coinciden', 'warning');
       }
     }
-  }
+  },
+  computed: {}
 });
 
 /***/ }),
@@ -40644,14 +40661,20 @@ var render = function() {
             }
           }
         },
-        _vm._l(_vm.CO, function(item, indice) {
-          return _c(
-            "option",
-            { key: indice, domProps: { value: item.f285_id } },
-            [_vm._v(_vm._s(item.f285_descripcion))]
-          )
-        }),
-        0
+        [
+          _c("option", { attrs: { value: "TODOS", selected: "true" } }, [
+            _vm._v("TODOS")
+          ]),
+          _vm._v(" "),
+          _vm._l(_vm.CO, function(item, indice) {
+            return _c(
+              "option",
+              { key: indice, domProps: { value: item.f285_id } },
+              [_vm._v(_vm._s(item.f285_descripcion))]
+            )
+          })
+        ],
+        2
       ),
       _vm._v(" "),
       _vm.mostrar == 1
@@ -41242,14 +41265,20 @@ var render = function() {
             }
           }
         },
-        _vm._l(_vm.CO, function(item, indice) {
-          return _c(
-            "option",
-            { key: indice, domProps: { value: item.f285_id } },
-            [_vm._v(_vm._s(item.f285_descripcion))]
-          )
-        }),
-        0
+        [
+          _c("option", { attrs: { value: "TODOS", selected: "true" } }, [
+            _vm._v("TODOS")
+          ]),
+          _vm._v(" "),
+          _vm._l(_vm.CO, function(item, indice) {
+            return _c(
+              "option",
+              { key: indice, domProps: { value: item.f285_id } },
+              [_vm._v(_vm._s(item.f285_descripcion))]
+            )
+          })
+        ],
+        2
       ),
       _vm._v(" "),
       _vm.mostrar == 1
@@ -41516,14 +41545,20 @@ var render = function() {
             }
           }
         },
-        _vm._l(_vm.CO, function(item, indice) {
-          return _c(
-            "option",
-            { key: indice, domProps: { value: item.f285_id } },
-            [_vm._v(_vm._s(item.f285_descripcion) + "\n        ")]
-          )
-        }),
-        0
+        [
+          _c("option", { attrs: { value: "TODOS", selected: "true" } }, [
+            _vm._v("TODOS")
+          ]),
+          _vm._v(" "),
+          _vm._l(_vm.CO, function(item, indice) {
+            return _c(
+              "option",
+              { key: indice, domProps: { value: item.f285_id } },
+              [_vm._v(_vm._s(item.f285_descripcion) + "\n        ")]
+            )
+          })
+        ],
+        2
       ),
       _vm._v(" "),
       _vm.mostrar == 1
@@ -41734,9 +41769,11 @@ var render = function() {
   return _c(
     "div",
     [
+      _vm._m(0),
+      _vm._v(" "),
       _c("center", [_c("h1", [_vm._v("Actualizar datos")])]),
       _vm._v(" "),
-      _vm._m(0),
+      _vm._m(1),
       _vm._v(" "),
       _c(
         "div",
@@ -41848,7 +41885,7 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\n                            subir\n                        "
+                          "\n                                subir\n                            "
                         )
                       ]
                     ),
@@ -41882,7 +41919,11 @@ var render = function() {
                     staticClass: "btn btn-primary my-2",
                     on: { click: _vm.habilitarFormulario }
                   },
-                  [_vm._v("\n                    Editar\n                ")]
+                  [
+                    _vm._v(
+                      "\n                        Editar\n                    "
+                    )
+                  ]
                 )
               ])
             ])
@@ -41894,7 +41935,11 @@ var render = function() {
                     staticClass: "btn btn-primary",
                     on: { click: _vm.validarCampos }
                   },
-                  [_vm._v("\n                    Actualizar\n                ")]
+                  [
+                    _vm._v(
+                      "\n                        Actualizar\n                    "
+                    )
+                  ]
                 ),
                 _vm._v(" "),
                 _c(
@@ -41909,7 +41954,7 @@ var render = function() {
                   },
                   [
                     _vm._v(
-                      "\n                    Subir Imagen\n                "
+                      "\n                        Subir Imagen\n                    "
                     )
                   ]
                 ),
@@ -41920,7 +41965,11 @@ var render = function() {
                     staticClass: "btn btn-danger",
                     on: { click: _vm.desabilitarFormulario }
                   },
-                  [_vm._v("\n                    Cancelar\n                ")]
+                  [
+                    _vm._v(
+                      "\n                        Cancelar\n                    "
+                    )
+                  ]
                 )
               ])
             ])
@@ -41930,6 +41979,21 @@ var render = function() {
   )
 }
 var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("nav", { attrs: { "aria-label": "breadcrumb" } }, [
+      _c("ol", { staticClass: "breadcrumb" }, [
+        _c("li", { staticClass: "breadcrumb-item" }, [_vm._v("Perfil")]),
+        _vm._v(" "),
+        _c("li", {
+          staticClass: "breadcrumb-item active",
+          attrs: { "aria-current": "page" }
+        })
+      ])
+    ])
+  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -57694,7 +57758,8 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 
 
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_js_modal__WEBPACK_IMPORTED_MODULE_1___default.a);
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_js_modal__WEBPACK_IMPORTED_MODULE_1___default.a); //Vue.use (VModal , {  dynamic : true ,  dynamicDefaults : {  clickToClose : false } } )      
+
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_input_restriction_directives__WEBPACK_IMPORTED_MODULE_4__["default"]); //importacion de componentes
 

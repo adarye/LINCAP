@@ -37,6 +37,7 @@ export default {
     },
     mounted(){
         this.$modal.show('password');
+        
 
     },
     methods:{
@@ -80,6 +81,9 @@ export default {
                 swal('Advertencia', 'Las nuevas contrasenas no coinciden', 'warning')
             }
         }
+    },
+    computed:{
+        
     }
 }
 </script>
