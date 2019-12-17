@@ -4,13 +4,18 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\Hash;
+
+use Illuminate\Support\Facades\Auth;
+
 use App\z1_usuarios;
 
 class UsuariosController extends Controller
 {
+    
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth')->except(['enviarEmail']);
     }
     public function index(){
         
@@ -51,25 +56,84 @@ class UsuariosController extends Controller
         $usuario->cz1_id_rol = $request->cz1_id_rol;
         $usuario->cz1_id_empleado = $request->cz1_id_empleado;
         $usuario->cz1_nombres = $request->cz1_nombres;
-        $usuario->cz1_avatar = 'prueba';
+        $usuario->cz1_avatar = 'user.png';
         $usuario->cz1_estado = 1;
         $usuario->save();       
     
     }
     public function delete($id){
         $usuario = z1_usuarios::find($id);
-         $usuario->delete();
+        $usuario->delete();
     }
 
 
     public function update(Request $request, $cz1_id){
 
+        
         $usuario = z1_usuarios::find($cz1_id);
         $usuario->password = $request->cz1_password;
         $usuario->cz1_id_rol = $request->cz1_id_rol;
-        $usuario->cz1_estado = $request->cz1_estado;
         $usuario->save();
         return $usuario;
         
     }
+    public function myAvatar(Request $request,$id)
+{    
+      
+    if($request->hasFile('imagen')){
+        $file = $request->file('imagen');
+        $name = time().$file->getClientOriginalName();
+        $file->move('theme/images/profile', $name);
+
+       
+         return z1_usuarios::select('cz1_id_empleado', 'cz1_avatar')
+        ->where('cz1_id_empleado', $id)
+        ->update([
+           'cz1_avatar'=>$name
+        ]);
+
+    } 
+        //return $request->imagen;
+    
+}
+public function cambiarPassword(Request $request){
+    
+    
+   $usuario = z1_usuarios::all()
+    ->where('cz1_id', Auth()->user()->cz1_id)->first();
+   
+    
+    if(Hash::check($request->password_anterior, $usuario->password)){
+        $password = z1_usuarios::find(Auth()->user()->cz1_id);
+        $password->password = bcrypt($request->password_nueva);
+        $password->save();
+        Auth::logout();
+        return 1;
+    }
+    else{
+        Auth::logout();
+        return 0;
+       
+    };  
+    
+}
+public function enviarEmail(Request $request){
+    //return $request;
+    return z1_usuarios::select('cz1_nombres', 'f015_email')
+    ->join(
+        'dbo.t200_mm_terceros',
+        'dbo.z1_usuarios.cz1_id_empleado',
+        '=',
+        'dbo.t200_mm_terceros.f200_rowid'
+    )->join(
+        'dbo.t015_mm_contactos',
+        'dbo.t200_mm_terceros.f200_rowid_contacto',
+        '=',
+        'dbo.t015_mm_contactos.f015_rowid'
+
+    )
+    ->where('dbo.z1_usuarios.cz1_cc', $request->cedula)
+    ->get();
+}
+
 }
