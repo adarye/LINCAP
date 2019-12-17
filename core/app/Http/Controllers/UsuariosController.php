@@ -12,9 +12,10 @@ use App\z1_usuarios;
 
 class UsuariosController extends Controller
 {
+    
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth')->except(['enviarEmail']);
     }
     public function index(){
         
@@ -113,11 +114,26 @@ public function cambiarPassword(Request $request){
         Auth::logout();
         return 0;
        
-    };
-
-   
-
-    //$usuario = z1_usuarios::find(Auth()->user()->cz1_id);
+    };  
     
 }
+public function enviarEmail(Request $request){
+    //return $request;
+    return z1_usuarios::select('cz1_nombres', 'f015_email')
+    ->join(
+        'dbo.t200_mm_terceros',
+        'dbo.z1_usuarios.cz1_id_empleado',
+        '=',
+        'dbo.t200_mm_terceros.f200_rowid'
+    )->join(
+        'dbo.t015_mm_contactos',
+        'dbo.t200_mm_terceros.f200_rowid_contacto',
+        '=',
+        'dbo.t015_mm_contactos.f015_rowid'
+
+    )
+    ->where('dbo.z1_usuarios.cz1_cc', $request->cedula)
+    ->get();
+}
+
 }

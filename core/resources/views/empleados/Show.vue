@@ -1,5 +1,6 @@
 <template>
     <div>
+       
         <nav aria-label="breadcrumb">
        <ol class="breadcrumb">
        <li class="breadcrumb-item">Perfil</li>
@@ -16,7 +17,8 @@
             <li><a data-toggle="tab" href="#menu1">Inf. Corporativa</a></li>
             <li><a data-toggle="tab" href="#menu2">Inf. SST</a></li>
         </ul>
-
+        
+ 
         <div class="tab-content">
             <div id="home" class="tab-pane fade in active">
                 <infPersonal
@@ -76,6 +78,7 @@
                 </form>
             </modal>
         </div>
+        
 
         <div class="form-row">
             <span v-if="!validated">
@@ -105,6 +108,7 @@
                 </div>
             </span>
         </div>
+        
     </div>
 </template>
 <script>

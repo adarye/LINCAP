@@ -1,7 +1,8 @@
 <template>
     <div>
+        
         <modal name="password">
-            <form @submit.prevent="validarPassword">
+            <form @submit.prevent="validarPassword"  v-click-outside="onClickOutside">
                 <center>
                     <h3>Cambiar Contrasena</h3>
                 </center>
@@ -20,7 +21,8 @@
             </form>
   
 </modal>
-    </div>
+        </div>
+
 </template>
 <script>
 export default {
@@ -80,7 +82,10 @@ export default {
             else{
                 swal('Advertencia', 'Las nuevas contrasenas no coinciden', 'warning')
             }
-        }
+        },
+        onClickOutside (event) {
+        console.log('Clicked outside. Event: ', event)
+      }
     },
     computed:{
         

@@ -34,6 +34,8 @@ Route::get('usuarios/verificar/{id}', 'ApiController@buscarTercero');
 Route::delete('usuarios/delete/{id}', 'UsuariosController@delete');
 Route::put('usuarios/update/{id}', 'UsuariosController@update');
 Route::put('usuario/password', 'UsuariosController@cambiarPassword');
+Route::post('usuario/email', 'UsuariosController@enviarEmail');
+
 
 //LOGIN
 
@@ -46,6 +48,7 @@ Route::get('empleado/show/{id}' ,'TercerosmmController@show');
 Route::put('empleado/update/{id}' ,'TercerosmmController@update');
 Route::get('empleado/{id}', 'TercerosmmController@traerEmpleados');
 Route::get('empleado/informacion/{id}', 'TercerosmmController@traerEmpleadoInfo');
+ 
 
 //CIUDADES Y BARRIOS
 

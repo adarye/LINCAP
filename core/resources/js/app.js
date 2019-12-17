@@ -1,13 +1,16 @@
 require('./bootstrap');
 
 import Vue from 'vue';
-import VModal from 'vue-js-modal';
+
 import router from './router';
 import swal from 'sweetalert';
-Vue.use(VModal)
-//Vue.use (VModal , {  dynamic : true ,  dynamicDefaults : {  clickToClose : false } } )      
+//Vue.use(VModal)
+import VModal from 'vue-js-modal';
+Vue.use (VModal , {  dynamic : true ,  dynamicDefaults : {  clickToClose : false } } )      
 import VueInputRestrictionDirectives from 'vue-input-restriction-directives';
 Vue.use(VueInputRestrictionDirectives);
+import vClickOutside from 'v-click-outside'
+Vue.use(vClickOutside)
 
 //importacion de componentes
 import Login from './components/Login';
