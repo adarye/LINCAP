@@ -327,20 +327,11 @@ class TercerosmmController extends Controller
             'dbo.w0540_empleados.c0540_id_ciudad_exp_identif',
             '=',
             'dbo.t013_mm_ciudades.f013_id'
-<<<<<<< HEAD
-            
- 
-        )->where('c0550_ind_estado', '1')
-         ->where('f200_rowid', Auth()->user()->cz1_id_empleado)  
-            //->distinct("c0515_id")           
-          ->first();
-=======
         )
             ->where('c0550_ind_estado', '1')
             ->where('f200_rowid', $id)
         //->distinct("c0515_id")
             ->first();
->>>>>>> 1b503508b423c7c09f1ed47745061a8d9cb079d6
     }
 
 }
