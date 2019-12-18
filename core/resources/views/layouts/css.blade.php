@@ -9,3 +9,9 @@
 {!!Html::style('theme/js/msgbox/jquery.msgbox.css')!!}
 {!!Html::script('theme/js/jquery.min.js')!!}
 
+    <!-- NProgress -->
+    {!!Html::style('theme/css/nprogress.css')!!}
+    <!-- Animate.css -->
+    {!!Html::style('theme/css/animate.min.css')!!}
+    <!-- Custom Theme Style -->
+    {!!Html::style('theme/css/custom.min.css')!!}

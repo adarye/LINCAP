@@ -1,45 +1,15 @@
 <template>
-    <div class="col-md-6 col-md-offset-4">
-        <h1 class="my-3">Iniciar Sesion</h1>
-        <div class="card">
-            <div class="card-body">
-                <form class="my-4" method="POST" id="formulario-login">
-                    <div class="form-group row">
-                        <div class="col-sm-10">
-                            <input class="form-control" v-model="cz1_cc" placeholder="Numero de Cedula" />
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <div class="col-sm-10">
-                            <input type="password" class="form-control" v-model="cz1_contrasena"
-                                placeholder="Ingrese la contraseña" />
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <div class="col-sm-10">
-                            <button type="button" class="btn btn-primary" @click="iniciarSesion">
-                                Ingresar
-                            </button>
-                        </div>
-                    </div>
-                </form>
-                <button @click="modalShow" class="btn btn-danger">Olvide la contraseña</button>
-                <modal name="password">
-                    <form @submit.prevent="enviarEmail">
-                        <center>
-                            <h3>Cambiar Contrasena</h3>
-                        </center>
-
-                        <div class="col-md-8 col-md-offset-2">
-                    <label>Cedula</label>
-                    <input type="text" class="form-control mb-2" v-model="cedula"/>
-                    <button type="submit" class="btn btn-primary">Enviar Contrasena</button>
-                </div>
-                    </form>
-                </modal>
-            </div>
+    <form class="my-4" method="POST" id="formulario-login">
+        <div>
+            <input class="form-control" v-model="cz1_cc" placeholder="Número de cédula" />
+        </div><br>
+        <div>
+            <input type="password" class="form-control" v-model="cz1_contrasena" placeholder="Contraseña" />
         </div>
-    </div>
+        <button type="button" class="btn btn-primary" @click="iniciarSesion">
+            Ingresar
+        </button>
+    </form>
 </template>
 <script>
     export default {
@@ -95,14 +65,16 @@
                         swal("Error", mensaje, "error");
                     });
             },
-            modalShow(){
+            modalShow() {
                 this.$modal.show('password');
             },
-            enviarEmail(){
-                axios.post('/api/usuario/email', {cedula: this.cedula})
-                .then(res=>{
-                    console.log(res.data)
-                })
+            enviarEmail() {
+                axios.post('/api/usuario/email', {
+                        cedula: this.cedula
+                    })
+                    .then(res => {
+                        console.log(res.data)
+                    })
 
             }
         }
