@@ -4,12 +4,12 @@
             <div class="col-md-12 col-sm-12 form-group has-feedback">
                 <input v-numeric-only v-max-length="16" v-autofocus type="text" class="form-control" v-model="cz1_cc"
                     placeholder="Número de cédula" onfocus />
-                <span class="fa fa-user form-control-feedback right" aria-hidden="true"></span>
+                <span title="Número de cédula" class="fa fa-user form-control-feedback right" aria-hidden="true"></span>
             </div>
             <div class="col-md-12 col-sm-12 form-group has-feedback">
                 <input :type="passwordFieldType" class="form-control" v-model="cz1_contrasena"
                     placeholder="Contraseña" />
-                <label @click="mostrarContrasena" class="fa fa-lock form-control-feedback right"></label>
+                <label title="Mostrar / Ocultar" @click="mostrarContrasena" :class="eyeFieltType"></label>
             </div>
             <div class="form-group has-feedback">
                 <button type="submit" class="btn btn-primary btn-sm">
@@ -73,6 +73,7 @@
                 cz1_cc: null,
                 cz1_contrasena: "",
                 passwordFieldType: 'password',
+                eyeFieltType: 'fa fa-eye-slash form-control-feedback right',
                 parametros: {},
                 user: "",
                 password1: '',
@@ -82,6 +83,7 @@
         methods: {
             mostrarContrasena(){
                 this.passwordFieldType = this.passwordFieldType === 'password' ? 'text' : 'password'
+                this.eyeFieltType = this.passwordFieldType === 'password' ? 'fa fa-eye-slash form-control-feedback right' : 'fa fa-eye form-control-feedback right'
             },
             iniciarSesion() {
                 this.parametros = {
@@ -96,11 +98,11 @@
                         console.log(this.user);
 
                         if (res.data == "inactivo") {
-                            swal("Error", "Tu contrato finalizo", "error");
+                            swal("Error", "Tu contrato finalizó", "error");
                         } else {
                             swal({
-                                title: "Has iniciado sesion",
-                                text: "Datos Correctos",
+                                title: "Bienvenido",
+                                text: this.user.cz1_nombres,
                                 icon: "success",
                                 closeOnClickOutside: false,
                                 closeOnEsc: false
@@ -146,7 +148,6 @@
                             this.$modal.show('token');
                         }
                     })
-
             },
             enviarToken() {
                 axios.post('/api/usuario/token', {

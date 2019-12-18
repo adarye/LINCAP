@@ -23,32 +23,28 @@ class LoginController extends Controller
                 'dbo.t015_mm_contactos.f015_rowid',
                 '=',
                 'dbo.t200_mm_terceros.f200_rowid_contacto'
-
             )->join(
                 'dbo.w0550_contratos', 'dbo.t200_mm_terceros.f200_rowid',
                 '=', 'dbo.w0550_contratos.c0550_rowid_tercero'
             )
-                ->where('f200_rowid', Auth()->user()->cz1_id_empleado)
-                ->where('c0550_ind_estado', '1')->first();
+            ->where('f200_rowid', Auth()->user()->cz1_id_empleado)
+            ->where('c0550_ind_estado', '1')->first();
 
             if ($estado == null) {
                 Auth::logout();
                 return 'inactivo';
-            } else {
-                
+            } else {                
                 return response()->json(Auth::user(), 200);
             }
 
         } else {
-            return response()->json(['errors' => ['login' => ['Los datos que ingresastes son incorrectos']]], 422);
+            return response()->json(['errors' => ['login' => ['Datos incorrectos']]], 422);
         }
 
     }
     public function logout()
     {
-
         Auth::logout();
-
         return redirect('/login');
     }
    
