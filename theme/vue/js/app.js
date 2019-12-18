@@ -1851,6 +1851,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -38976,9 +38981,18 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "form",
-    { staticClass: "my-4", attrs: { method: "POST", id: "formulario-login" } },
+    {
+      staticClass: "my-4",
+      attrs: { method: "POST", id: "formulario-login" },
+      on: {
+        submit: function($event) {
+          $event.preventDefault()
+          return _vm.iniciarSesion($event)
+        }
+      }
+    },
     [
-      _c("div", [
+      _c("div", { staticClass: "form-group has-feedback" }, [
         _c("input", {
           directives: [
             {
@@ -38989,7 +39003,7 @@ var render = function() {
             }
           ],
           staticClass: "form-control",
-          attrs: { placeholder: "Número de cédula" },
+          attrs: { type: "text", placeholder: "Número de cédula" },
           domProps: { value: _vm.cz1_cc },
           on: {
             input: function($event) {
@@ -38999,11 +39013,15 @@ var render = function() {
               _vm.cz1_cc = $event.target.value
             }
           }
+        }),
+        _vm._v(" "),
+        _c("span", {
+          staticClass: "fa fa-user form-control-feedback right",
+          attrs: { "aria-hidden": "true" }
         })
       ]),
-      _c("br"),
       _vm._v(" "),
-      _c("div", [
+      _c("div", { staticClass: "form-group has-feedback" }, [
         _c("input", {
           directives: [
             {
@@ -39024,22 +39042,40 @@ var render = function() {
               _vm.cz1_contrasena = $event.target.value
             }
           }
+        }),
+        _vm._v(" "),
+        _c("span", {
+          staticClass: "fa fa-lock form-control-feedback right",
+          attrs: { "aria-hidden": "true" }
         })
       ]),
       _vm._v(" "),
-      _c(
-        "button",
-        {
-          staticClass: "btn btn-primary",
-          attrs: { type: "button" },
-          on: { click: _vm.iniciarSesion }
-        },
-        [_vm._v("\n        Ingresar\n    ")]
-      )
+      _vm._m(0),
+      _vm._v(" "),
+      _vm._m(1)
     ]
   )
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-group has-feedback" }, [
+      _c("button", { staticClass: "btn btn-primary" }, [_vm._v("Ingresar ")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-group has-feedback" }, [
+      _c("a", { staticClass: "reset_pass", attrs: { href: "#" } }, [
+        _vm._v("¿Olvido su contraseña?")
+      ])
+    ])
+  }
+]
 render._withStripped = true
 
 

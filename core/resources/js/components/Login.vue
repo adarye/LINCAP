@@ -1,14 +1,19 @@
 <template>
-    <form class="my-4" method="POST" id="formulario-login">
-        <div>
-            <input class="form-control" v-model="cz1_cc" placeholder="Número de cédula" />
-        </div><br>
-        <div>
-            <input type="password" class="form-control" v-model="cz1_contrasena" placeholder="Contraseña" />
+    <form @submit.prevent="iniciarSesion" class="my-4" method="POST" id="formulario-login" >
+        <div class="form-group has-feedback">
+            <input type="text" class="form-control" v-model="cz1_cc" placeholder="Número de cédula" />
+            <span class="fa fa-user form-control-feedback right" aria-hidden="true"></span>
         </div>
-        <button type="button" class="btn btn-primary" @click="iniciarSesion">
-            Ingresar
-        </button>
+        <div class="form-group has-feedback">
+            <input type="password" class="form-control" v-model="cz1_contrasena" placeholder="Contraseña" />
+            <span class="fa fa-lock form-control-feedback right" aria-hidden="true"></span>
+        </div>
+        <div class="form-group has-feedback">
+            <button class="btn btn-primary">Ingresar </button>            
+        </div>
+        <div class="form-group has-feedback">
+            <a class="reset_pass" href="#">¿Olvido su contraseña?</a>
+        </div>
     </form>
 </template>
 <script>
