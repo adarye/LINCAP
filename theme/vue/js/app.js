@@ -1930,7 +1930,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2031,6 +2030,7 @@ __webpack_require__.r(__webpack_exports__);
 
         if (res.data.error != '') {
           swal("Error", res.data.error, "error");
+          _this3.token = '';
         } else {
           _this3.$modal.hide('token');
 
@@ -39571,43 +39571,126 @@ var render = function() {
                             "col-md-12 col-center col-sm-8 form-group has-feedback"
                         },
                         [
-                          _c("input", {
-                            directives: [
-                              {
-                                name: "max-length",
-                                rawName: "v-max-length",
-                                value: 50,
-                                expression: "50"
-                              },
-                              { name: "autofocus", rawName: "v-autofocus" },
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.password1,
-                                expression: "password1"
-                              }
-                            ],
-                            staticClass: "form-control",
-                            attrs: {
-                              type: "password",
-                              placeholder: "Nueva Contraseña",
-                              onfocus: ""
-                            },
-                            domProps: { value: _vm.password1 },
-                            on: {
-                              input: function($event) {
-                                if ($event.target.composing) {
-                                  return
+                          _vm.passwordFieldType === "checkbox"
+                            ? _c("input", {
+                                directives: [
+                                  {
+                                    name: "max-length",
+                                    rawName: "v-max-length",
+                                    value: 50,
+                                    expression: "50"
+                                  },
+                                  { name: "autofocus", rawName: "v-autofocus" },
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.password1,
+                                    expression: "password1"
+                                  }
+                                ],
+                                staticClass: "form-control",
+                                attrs: {
+                                  placeholder: "Nueva Contraseña",
+                                  onfocus: "",
+                                  type: "checkbox"
+                                },
+                                domProps: {
+                                  checked: Array.isArray(_vm.password1)
+                                    ? _vm._i(_vm.password1, null) > -1
+                                    : _vm.password1
+                                },
+                                on: {
+                                  change: function($event) {
+                                    var $$a = _vm.password1,
+                                      $$el = $event.target,
+                                      $$c = $$el.checked ? true : false
+                                    if (Array.isArray($$a)) {
+                                      var $$v = null,
+                                        $$i = _vm._i($$a, $$v)
+                                      if ($$el.checked) {
+                                        $$i < 0 &&
+                                          (_vm.password1 = $$a.concat([$$v]))
+                                      } else {
+                                        $$i > -1 &&
+                                          (_vm.password1 = $$a
+                                            .slice(0, $$i)
+                                            .concat($$a.slice($$i + 1)))
+                                      }
+                                    } else {
+                                      _vm.password1 = $$c
+                                    }
+                                  }
                                 }
-                                _vm.password1 = $event.target.value
-                              }
-                            }
-                          }),
+                              })
+                            : _vm.passwordFieldType === "radio"
+                            ? _c("input", {
+                                directives: [
+                                  {
+                                    name: "max-length",
+                                    rawName: "v-max-length",
+                                    value: 50,
+                                    expression: "50"
+                                  },
+                                  { name: "autofocus", rawName: "v-autofocus" },
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.password1,
+                                    expression: "password1"
+                                  }
+                                ],
+                                staticClass: "form-control",
+                                attrs: {
+                                  placeholder: "Nueva Contraseña",
+                                  onfocus: "",
+                                  type: "radio"
+                                },
+                                domProps: {
+                                  checked: _vm._q(_vm.password1, null)
+                                },
+                                on: {
+                                  change: function($event) {
+                                    _vm.password1 = null
+                                  }
+                                }
+                              })
+                            : _c("input", {
+                                directives: [
+                                  {
+                                    name: "max-length",
+                                    rawName: "v-max-length",
+                                    value: 50,
+                                    expression: "50"
+                                  },
+                                  { name: "autofocus", rawName: "v-autofocus" },
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.password1,
+                                    expression: "password1"
+                                  }
+                                ],
+                                staticClass: "form-control",
+                                attrs: {
+                                  placeholder: "Nueva Contraseña",
+                                  onfocus: "",
+                                  type: _vm.passwordFieldType
+                                },
+                                domProps: { value: _vm.password1 },
+                                on: {
+                                  input: function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.password1 = $event.target.value
+                                  }
+                                }
+                              }),
                           _vm._v(" "),
-                          _c("span", {
-                            staticClass:
-                              "fa fa-user form-control-feedback right",
-                            attrs: { "aria-hidden": "true" }
+                          _c("label", {
+                            class: _vm.eyeFieltType,
+                            attrs: { title: "Mostrar / Ocultar" },
+                            on: { click: _vm.mostrarContrasena }
                           })
                         ]
                       ),
@@ -39619,44 +39702,121 @@ var render = function() {
                             "col-md-12 col-center col-sm-8 form-group has-feedback"
                         },
                         [
-                          _c("input", {
-                            directives: [
-                              {
-                                name: "max-length",
-                                rawName: "v-max-length",
-                                value: 50,
-                                expression: "50"
-                              },
-                              { name: "autofocus", rawName: "v-autofocus" },
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.password2,
-                                expression: "password2"
-                              }
-                            ],
-                            staticClass: "form-control",
-                            attrs: {
-                              type: "password",
-                              placeholder: "Repite la nueva contraseña",
-                              onfocus: ""
-                            },
-                            domProps: { value: _vm.password2 },
-                            on: {
-                              input: function($event) {
-                                if ($event.target.composing) {
-                                  return
+                          _vm.passwordFieldType === "checkbox"
+                            ? _c("input", {
+                                directives: [
+                                  {
+                                    name: "max-length",
+                                    rawName: "v-max-length",
+                                    value: 50,
+                                    expression: "50"
+                                  },
+                                  { name: "autofocus", rawName: "v-autofocus" },
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.password2,
+                                    expression: "password2"
+                                  }
+                                ],
+                                staticClass: "form-control",
+                                attrs: {
+                                  placeholder: "Repite la nueva contraseña",
+                                  onfocus: "",
+                                  type: "checkbox"
+                                },
+                                domProps: {
+                                  checked: Array.isArray(_vm.password2)
+                                    ? _vm._i(_vm.password2, null) > -1
+                                    : _vm.password2
+                                },
+                                on: {
+                                  change: function($event) {
+                                    var $$a = _vm.password2,
+                                      $$el = $event.target,
+                                      $$c = $$el.checked ? true : false
+                                    if (Array.isArray($$a)) {
+                                      var $$v = null,
+                                        $$i = _vm._i($$a, $$v)
+                                      if ($$el.checked) {
+                                        $$i < 0 &&
+                                          (_vm.password2 = $$a.concat([$$v]))
+                                      } else {
+                                        $$i > -1 &&
+                                          (_vm.password2 = $$a
+                                            .slice(0, $$i)
+                                            .concat($$a.slice($$i + 1)))
+                                      }
+                                    } else {
+                                      _vm.password2 = $$c
+                                    }
+                                  }
                                 }
-                                _vm.password2 = $event.target.value
-                              }
-                            }
-                          }),
-                          _vm._v(" "),
-                          _c("span", {
-                            staticClass:
-                              "fa fa-user form-control-feedback right",
-                            attrs: { "aria-hidden": "true" }
-                          })
+                              })
+                            : _vm.passwordFieldType === "radio"
+                            ? _c("input", {
+                                directives: [
+                                  {
+                                    name: "max-length",
+                                    rawName: "v-max-length",
+                                    value: 50,
+                                    expression: "50"
+                                  },
+                                  { name: "autofocus", rawName: "v-autofocus" },
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.password2,
+                                    expression: "password2"
+                                  }
+                                ],
+                                staticClass: "form-control",
+                                attrs: {
+                                  placeholder: "Repite la nueva contraseña",
+                                  onfocus: "",
+                                  type: "radio"
+                                },
+                                domProps: {
+                                  checked: _vm._q(_vm.password2, null)
+                                },
+                                on: {
+                                  change: function($event) {
+                                    _vm.password2 = null
+                                  }
+                                }
+                              })
+                            : _c("input", {
+                                directives: [
+                                  {
+                                    name: "max-length",
+                                    rawName: "v-max-length",
+                                    value: 50,
+                                    expression: "50"
+                                  },
+                                  { name: "autofocus", rawName: "v-autofocus" },
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.password2,
+                                    expression: "password2"
+                                  }
+                                ],
+                                staticClass: "form-control",
+                                attrs: {
+                                  placeholder: "Repite la nueva contraseña",
+                                  onfocus: "",
+                                  type: _vm.passwordFieldType
+                                },
+                                domProps: { value: _vm.password2 },
+                                on: {
+                                  input: function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.password2 = $event.target.value
+                                  }
+                                }
+                              })
                         ]
                       ),
                       _vm._v(" "),

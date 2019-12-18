@@ -70,14 +70,13 @@
                         <h1>Cambiar Contraseña</h1>
                         <form @submit.prevent="cambiarPassword">
                                 <div class="col-md-12 col-center col-sm-8 form-group has-feedback">
-                                    <input v-max-length="50" v-autofocus type="password" class="form-control"
+                                    <input v-max-length="50" v-autofocus :type="passwordFieldType" class="form-control"
                                         v-model="password1" placeholder="Nueva Contraseña" onfocus />
-                                    <span class="fa fa-user form-control-feedback right" aria-hidden="true"></span>
+                                    <label title="Mostrar / Ocultar" @click="mostrarContrasena" :class="eyeFieltType"></label>
                                 </div>
                                 <div class="col-md-12 col-center col-sm-8 form-group has-feedback">
-                                    <input v-max-length="50" v-autofocus type="password" class="form-control"
+                                    <input v-max-length="50" v-autofocus :type="passwordFieldType" class="form-control"
                                         v-model="password2" placeholder="Repite la nueva contraseña" onfocus />
-                                    <span class="fa fa-user form-control-feedback right" aria-hidden="true"></span>
                                 </div>
                                 <div class="col-md-12 col-sm-12 form-group has-feedback">
                                     <button type="submit" class="btn btn-primary">Restablecer</button>
@@ -184,6 +183,7 @@
                         console.log(res.data)
                         if (res.data.error != '') {
                             swal("Error", res.data.error, "error");
+                            this.token= ''
 
                         } else {
                             this.$modal.hide('token');
