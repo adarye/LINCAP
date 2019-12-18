@@ -1,17 +1,13 @@
-{!!Html::style('theme/css/estilos.css')!!}
-{!!Html::style('theme/css/bootstrap.min.css')!!}
-{!!Html::style('theme/fonts/css/font-awesome.min.css')!!}
-{!!Html::style('theme/css/animate.min.css')!!}
-{!!Html::style('theme/css/custom.css')!!}
-{!!Html::style('theme/css/icheck/flat/green.css')!!}
-{!!Html::style('theme/css/colorpicker/bootstrap-colorpicker.min.css')!!}
-{!!Html::style('theme/css/colorbox.css')!!}
-{!!Html::style('theme/js/msgbox/jquery.msgbox.css')!!}
-{!!Html::script('theme/js/jquery.min.js')!!}
+{{-- new template --}}
 
-    <!-- NProgress -->
-    {!!Html::style('theme/css/nprogress.css')!!}
-    <!-- Animate.css -->
-    {!!Html::style('theme/css/animate.min.css')!!}
-    <!-- Custom Theme Style -->
-    {!!Html::style('theme/css/custom.min.css')!!}
+<!-- Bootstrap -->
+{!!Html::style('theme/vendors/bootstrap/dist/css/bootstrap.min.css')!!}
+<!-- Font Awesome -->
+{!!Html::style('theme/vendors/font-awesome/css/font-awesome.min.css')!!}
+{{-- Estilos personalizados --}}
+{!!Html::style('theme/build/css/estilos.css')!!}
+<!-- Animate.css -->
+{!!Html::style('theme/vendors/animate.css/animate.min.css')!!}
+
+<!-- Custom Theme Style -->
+{!!Html::style('theme/build/css/custom.min.css')!!}

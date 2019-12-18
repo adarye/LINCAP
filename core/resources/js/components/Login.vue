@@ -1,18 +1,25 @@
 <template>
     <div>
         <form class="my-4" method="POST" id="formulario-login" @submit.prevent="iniciarSesion">
-            <div>
-                <input class="form-control" v-model="cz1_cc" placeholder="Número de cédula" />
-            </div><br>
-            <div>
-                <input type="password" class="form-control" v-model="cz1_contrasena" placeholder="Contraseña"/>
+            <div class="form-group has-feedback">
+                <input type="text" class="form-control has-feedback-left" v-model="cz1_cc"
+                    placeholder="Número de cédula" />
+                <span class="fa fa-user form-control-feedback right" aria-hidden="true"></span>
             </div>
-            <button type="submit" class="btn btn-primary">
-                Ingresar
-            </button>
-            
-        </form>
-        <button @click="modalShow" class="btn btn-danger">Olvide la contraseña</button>
+            <div class="form-group has-feedback">
+                <input type="password" class="form-control has-feedback-left" v-model="cz1_contrasena"
+                    placeholder="Contraseña" />
+                <span class="fa fa-phone form-control-feedback right" aria-hidden="true"></span>
+            </div>
+            <div class="form-group has-feedback">
+                <button type="submit" class="btn btn-primary">
+                    Ingresar
+                </button>                
+            </div>
+            <div>
+                <label @click="modalShow" class="">¿Olvidaste la contraseña?</label>
+            </div>
+        </form>        
 
         <modal name="password" :clickToClose="false">
             <form @submit.prevent="enviarEmail">
@@ -55,7 +62,6 @@
                 </div>
             </form>
         </modal>
-
     </div>
 </template>
 <script>

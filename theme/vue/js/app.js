@@ -1856,8 +1856,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-<<<<<<< HEAD
-=======
 //
 //
 //
@@ -1900,7 +1898,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
->>>>>>> 46a1a1f1ddb68f8ffe243822a9d98b95d1259d10
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -39093,33 +39096,6 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-<<<<<<< HEAD
-    "form",
-    {
-      staticClass: "my-4",
-      attrs: { method: "POST", id: "formulario-login" },
-      on: {
-        submit: function($event) {
-          $event.preventDefault()
-          return _vm.iniciarSesion($event)
-        }
-      }
-    },
-    [
-      _c("div", { staticClass: "form-group has-feedback" }, [
-        _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.cz1_cc,
-              expression: "cz1_cc"
-            }
-          ],
-          staticClass: "form-control",
-          attrs: { type: "text", placeholder: "Número de cédula" },
-          domProps: { value: _vm.cz1_cc },
-=======
     "div",
     [
       _c(
@@ -39127,34 +39103,15 @@ var render = function() {
         {
           staticClass: "my-4",
           attrs: { method: "POST", id: "formulario-login" },
->>>>>>> 46a1a1f1ddb68f8ffe243822a9d98b95d1259d10
           on: {
             submit: function($event) {
               $event.preventDefault()
               return _vm.iniciarSesion($event)
             }
           }
-<<<<<<< HEAD
-        }),
-        _vm._v(" "),
-        _c("span", {
-          staticClass: "fa fa-user form-control-feedback right",
-          attrs: { "aria-hidden": "true" }
-        })
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "form-group has-feedback" }, [
-        _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.cz1_contrasena,
-              expression: "cz1_contrasena"
-=======
         },
         [
-          _c("div", [
+          _c("div", { staticClass: "form-group has-feedback" }, [
             _c("input", {
               directives: [
                 {
@@ -39164,8 +39121,8 @@ var render = function() {
                   expression: "cz1_cc"
                 }
               ],
-              staticClass: "form-control",
-              attrs: { placeholder: "Número de cédula" },
+              staticClass: "form-control has-feedback-left",
+              attrs: { type: "text", placeholder: "Número de cédula" },
               domProps: { value: _vm.cz1_cc },
               on: {
                 input: function($event) {
@@ -39175,11 +39132,15 @@ var render = function() {
                   _vm.cz1_cc = $event.target.value
                 }
               }
+            }),
+            _vm._v(" "),
+            _c("span", {
+              staticClass: "fa fa-user form-control-feedback right",
+              attrs: { "aria-hidden": "true" }
             })
           ]),
-          _c("br"),
           _vm._v(" "),
-          _c("div", [
+          _c("div", { staticClass: "form-group has-feedback" }, [
             _c("input", {
               directives: [
                 {
@@ -39189,7 +39150,7 @@ var render = function() {
                   expression: "cz1_contrasena"
                 }
               ],
-              staticClass: "form-control",
+              staticClass: "form-control has-feedback-left",
               attrs: { type: "password", placeholder: "Contraseña" },
               domProps: { value: _vm.cz1_contrasena },
               on: {
@@ -39200,21 +39161,22 @@ var render = function() {
                   _vm.cz1_contrasena = $event.target.value
                 }
               }
+            }),
+            _vm._v(" "),
+            _c("span", {
+              staticClass: "fa fa-phone form-control-feedback right",
+              attrs: { "aria-hidden": "true" }
             })
           ]),
           _vm._v(" "),
-          _c(
-            "button",
-            { staticClass: "btn btn-primary", attrs: { type: "submit" } },
-            [_vm._v("\n            Ingresar\n        ")]
-          )
+          _vm._m(0),
+          _vm._v(" "),
+          _c("div", [
+            _c("label", { on: { click: _vm.modalShow } }, [
+              _vm._v("¿Olvidaste la contraseña?")
+            ])
+          ])
         ]
-      ),
-      _vm._v(" "),
-      _c(
-        "button",
-        { staticClass: "btn btn-danger", on: { click: _vm.modalShow } },
-        [_vm._v("Olvide la contraseña")]
       ),
       _vm._v(" "),
       _c("modal", { attrs: { name: "password", clickToClose: false } }, [
@@ -39226,7 +39188,6 @@ var render = function() {
                 $event.preventDefault()
                 return _vm.enviarEmail($event)
               }
->>>>>>> 46a1a1f1ddb68f8ffe243822a9d98b95d1259d10
             }
           },
           [
@@ -39278,21 +39239,6 @@ var render = function() {
                 return _vm.enviarToken($event)
               }
             }
-<<<<<<< HEAD
-          }
-        }),
-        _vm._v(" "),
-        _c("span", {
-          staticClass: "fa fa-lock form-control-feedback right",
-          attrs: { "aria-hidden": "true" }
-        })
-      ]),
-      _vm._v(" "),
-      _vm._m(0),
-      _vm._v(" "),
-      _vm._m(1)
-    ]
-=======
           },
           [
             _c("center", [_c("h3", [_vm._v("Validar Token")])]),
@@ -39408,7 +39354,6 @@ var render = function() {
       ])
     ],
     1
->>>>>>> 46a1a1f1ddb68f8ffe243822a9d98b95d1259d10
   )
 }
 var staticRenderFns = [
@@ -39417,17 +39362,11 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "form-group has-feedback" }, [
-      _c("button", { staticClass: "btn btn-primary" }, [_vm._v("Ingresar ")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group has-feedback" }, [
-      _c("a", { staticClass: "reset_pass", attrs: { href: "#" } }, [
-        _vm._v("¿Olvido su contraseña?")
-      ])
+      _c(
+        "button",
+        { staticClass: "btn btn-primary", attrs: { type: "submit" } },
+        [_vm._v("\n                Ingresar\n            ")]
+      )
     ])
   }
 ]
