@@ -21,46 +21,73 @@
             </div>
         </form>
 
-        <modal name="password" :clickToClose="false">
-            <form @submit.prevent="enviarEmail">
-                <center>
-                    <h3>Cambiar Contrasena</h3>
-                </center>
+        <modal name="password" :clickToClose="false" :adaptive="true" :width="430">
+            <div class="login_wrapper">
+                <div class="animate form login_form">
+                    <section class="login_content shadow-lg p-3 mb-5 bg-white rounded">
+                        <form @submit.prevent="enviarEmail">
+                            <h1>Restablecer</h1>
+                            <div class="col-md-12 col-center col-sm-8 form-group has-feedback">
+                                <input v-numeric-only v-max-length="16" v-autofocus type="text" class="form-control"
+                                    v-model="cedula" placeholder="Número de cédula" onfocus />
+                                <span class="fa fa-user form-control-feedback right" aria-hidden="true"></span>
+                            </div>
+                            <div class="col-md-12 col-sm-12 form-group has-feedback">
+                                <button type="submit" class="btn btn-primary">Enviar Token</button>
+                                <button type="button" @click="$modal.hide('password');"
+                                    class="btn btn-danger">Cancelar</button>
+                            </div>
 
-                <div class="col-md-8 col-md-offset-2">
-                    <label>Cedula</label>
-                    <input type="text" class="form-control mb-2" v-model="cedula" />
-                    <button type="submit" class="btn btn-primary">Enviar Contrasena</button>
+                        </form>
+                    </section>
                 </div>
-            </form>
+            </div>
         </modal>
-        <modal name="token">
-            <form @submit.prevent="enviarToken">
-                <center>
-                    <h3>Validar Token</h3>
-                </center>
+        <modal name="token" :clickToClose="false" :adaptive="true" :width="430">
+            <div class="login_wrapper">
+                <div class="animate form login_form">
+                    <section class="login_content shadow-lg p-3 mb-5 bg-white rounded">
+                        <h1>Validar Token</h1>
+                        <form @submit.prevent="enviarToken">
 
-                <div class="col-md-8 col-md-offset-2">
-                    <label>Token</label>
-                    <input type="text" class="form-control mb-2" v-model="token" />
-                    <button type="submit" class="btn btn-warning">Enviar</button>
+                            <div class="col-md-12 col-center col-sm-8 form-group has-feedback">
+                                <input v-max-length="50" v-autofocus type="text" class="form-control" v-model="token"
+                                    placeholder="Token" onfocus/>
+                            </div>
+                            <div class="col-md-12 col-sm-12 form-group has-feedback">
+                                <button type="submit" class="btn btn-warning">Enviar</button>
+                            </div>
+
+                        </form>
+                    </section>
                 </div>
-            </form>
+            </div>
         </modal>
-        <modal name="resetPassword">
-            <form @submit.prevent="cambiarPassword">
-                <center>
-                    <h3>Cambiar Contraseña</h3>
-                </center>
-
-                <div class="col-md-8 col-md-offset-2">
-                    <label>Nueva Contraseña</label>
-                    <input type="password" class="form-control mb-2" v-model="password1" />
-                    <label>Repite la Contraseña</label>
-                    <input type="password" class="form-control mb-2" v-model="password2" />
-                    <button type="submit" class="btn btn-primary">Enviar</button>
+        <modal name="resetPassword" :clickToClose="false" :adaptive="true" :width="430">
+            <div class="login_wrapper">
+                <div class="animate form login_form">
+                    <section class="login_content shadow-lg p-3 mb-5 bg-white rounded">
+                        <h1>Cambiar Contraseña</h1>
+                        <form @submit.prevent="cambiarPassword">
+                                <div class="col-md-12 col-center col-sm-8 form-group has-feedback">
+                                    <input v-max-length="50" v-autofocus type="password" class="form-control"
+                                        v-model="password1" placeholder="Nueva Contraseña" onfocus />
+                                    <span class="fa fa-user form-control-feedback right" aria-hidden="true"></span>
+                                </div>
+                                <div class="col-md-12 col-center col-sm-8 form-group has-feedback">
+                                    <input v-max-length="50" v-autofocus type="password" class="form-control"
+                                        v-model="password2" placeholder="Repite la nueva contraseña" onfocus />
+                                    <span class="fa fa-user form-control-feedback right" aria-hidden="true"></span>
+                                </div>
+                                <div class="col-md-12 col-sm-12 form-group has-feedback">
+                                    <button type="submit" class="btn btn-primary">Restablecer</button>
+                                    <button type="button" @click="$modal.hide('resetPassword');"
+                                        class="btn btn-danger">Cancelar</button>
+                                </div>                           
+                        </form>
+                    </section>
                 </div>
-            </form>
+            </div>
         </modal>
     </div>
 </template>
@@ -80,7 +107,7 @@
             };
         },
         methods: {
-            mostrarContrasena(){
+            mostrarContrasena() {
                 this.passwordFieldType = this.passwordFieldType === 'password' ? 'text' : 'password'
             },
             iniciarSesion() {

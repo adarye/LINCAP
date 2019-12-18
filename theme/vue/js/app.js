@@ -1915,6 +1915,33 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -39275,179 +39302,400 @@ var render = function() {
         ]
       ),
       _vm._v(" "),
-      _c("modal", { attrs: { name: "password", clickToClose: false } }, [
-        _c(
-          "form",
-          {
-            on: {
-              submit: function($event) {
-                $event.preventDefault()
-                return _vm.enviarEmail($event)
-              }
-            }
-          },
-          [
-            _c("center", [_c("h3", [_vm._v("Cambiar Contrasena")])]),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-md-8 col-md-offset-2" }, [
-              _c("label", [_vm._v("Cedula")]),
-              _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.cedula,
-                    expression: "cedula"
-                  }
-                ],
-                staticClass: "form-control mb-2",
-                attrs: { type: "text" },
-                domProps: { value: _vm.cedula },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.cedula = $event.target.value
-                  }
-                }
-              }),
-              _vm._v(" "),
+      _c(
+        "modal",
+        {
+          attrs: {
+            name: "password",
+            clickToClose: false,
+            adaptive: true,
+            width: 430
+          }
+        },
+        [
+          _c("div", { staticClass: "login_wrapper" }, [
+            _c("div", { staticClass: "animate form login_form" }, [
               _c(
-                "button",
-                { staticClass: "btn btn-primary", attrs: { type: "submit" } },
-                [_vm._v("Enviar Contrasena")]
+                "section",
+                {
+                  staticClass:
+                    "login_content shadow-lg p-3 mb-5 bg-white rounded"
+                },
+                [
+                  _c(
+                    "form",
+                    {
+                      on: {
+                        submit: function($event) {
+                          $event.preventDefault()
+                          return _vm.enviarEmail($event)
+                        }
+                      }
+                    },
+                    [
+                      _c("h1", [_vm._v("Restablecer")]),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          staticClass:
+                            "col-md-12 col-center col-sm-8 form-group has-feedback"
+                        },
+                        [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "numeric-only",
+                                rawName: "v-numeric-only"
+                              },
+                              {
+                                name: "max-length",
+                                rawName: "v-max-length",
+                                value: 16,
+                                expression: "16"
+                              },
+                              { name: "autofocus", rawName: "v-autofocus" },
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.cedula,
+                                expression: "cedula"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: {
+                              type: "text",
+                              placeholder: "Número de cédula",
+                              onfocus: ""
+                            },
+                            domProps: { value: _vm.cedula },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.cedula = $event.target.value
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("span", {
+                            staticClass:
+                              "fa fa-user form-control-feedback right",
+                            attrs: { "aria-hidden": "true" }
+                          })
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          staticClass:
+                            "col-md-12 col-sm-12 form-group has-feedback"
+                        },
+                        [
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-primary",
+                              attrs: { type: "submit" }
+                            },
+                            [_vm._v("Enviar Token")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-danger",
+                              attrs: { type: "button" },
+                              on: {
+                                click: function($event) {
+                                  return _vm.$modal.hide("password")
+                                }
+                              }
+                            },
+                            [_vm._v("Cancelar")]
+                          )
+                        ]
+                      )
+                    ]
+                  )
+                ]
               )
             ])
-          ],
-          1
-        )
-      ]),
+          ])
+        ]
+      ),
       _vm._v(" "),
-      _c("modal", { attrs: { name: "token" } }, [
-        _c(
-          "form",
-          {
-            on: {
-              submit: function($event) {
-                $event.preventDefault()
-                return _vm.enviarToken($event)
-              }
-            }
-          },
-          [
-            _c("center", [_c("h3", [_vm._v("Validar Token")])]),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-md-8 col-md-offset-2" }, [
-              _c("label", [_vm._v("Token")]),
-              _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.token,
-                    expression: "token"
-                  }
-                ],
-                staticClass: "form-control mb-2",
-                attrs: { type: "text" },
-                domProps: { value: _vm.token },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.token = $event.target.value
-                  }
-                }
-              }),
-              _vm._v(" "),
+      _c(
+        "modal",
+        {
+          attrs: {
+            name: "token",
+            clickToClose: false,
+            adaptive: true,
+            width: 430
+          }
+        },
+        [
+          _c("div", { staticClass: "login_wrapper" }, [
+            _c("div", { staticClass: "animate form login_form" }, [
               _c(
-                "button",
-                { staticClass: "btn btn-warning", attrs: { type: "submit" } },
-                [_vm._v("Enviar")]
+                "section",
+                {
+                  staticClass:
+                    "login_content shadow-lg p-3 mb-5 bg-white rounded"
+                },
+                [
+                  _c("h1", [_vm._v("Validar Token")]),
+                  _vm._v(" "),
+                  _c(
+                    "form",
+                    {
+                      on: {
+                        submit: function($event) {
+                          $event.preventDefault()
+                          return _vm.enviarToken($event)
+                        }
+                      }
+                    },
+                    [
+                      _c(
+                        "div",
+                        {
+                          staticClass:
+                            "col-md-12 col-center col-sm-8 form-group has-feedback"
+                        },
+                        [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "max-length",
+                                rawName: "v-max-length",
+                                value: 50,
+                                expression: "50"
+                              },
+                              { name: "autofocus", rawName: "v-autofocus" },
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.token,
+                                expression: "token"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: {
+                              type: "text",
+                              placeholder: "Token",
+                              onfocus: ""
+                            },
+                            domProps: { value: _vm.token },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.token = $event.target.value
+                              }
+                            }
+                          })
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          staticClass:
+                            "col-md-12 col-sm-12 form-group has-feedback"
+                        },
+                        [
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-warning",
+                              attrs: { type: "submit" }
+                            },
+                            [_vm._v("Enviar")]
+                          )
+                        ]
+                      )
+                    ]
+                  )
+                ]
               )
             ])
-          ],
-          1
-        )
-      ]),
+          ])
+        ]
+      ),
       _vm._v(" "),
-      _c("modal", { attrs: { name: "resetPassword" } }, [
-        _c(
-          "form",
-          {
-            on: {
-              submit: function($event) {
-                $event.preventDefault()
-                return _vm.cambiarPassword($event)
-              }
-            }
-          },
-          [
-            _c("center", [_c("h3", [_vm._v("Cambiar Contraseña")])]),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-md-8 col-md-offset-2" }, [
-              _c("label", [_vm._v("Nueva Contraseña")]),
-              _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.password1,
-                    expression: "password1"
-                  }
-                ],
-                staticClass: "form-control mb-2",
-                attrs: { type: "password" },
-                domProps: { value: _vm.password1 },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.password1 = $event.target.value
-                  }
-                }
-              }),
-              _vm._v(" "),
-              _c("label", [_vm._v("Repite la Contraseña")]),
-              _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.password2,
-                    expression: "password2"
-                  }
-                ],
-                staticClass: "form-control mb-2",
-                attrs: { type: "password" },
-                domProps: { value: _vm.password2 },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.password2 = $event.target.value
-                  }
-                }
-              }),
-              _vm._v(" "),
+      _c(
+        "modal",
+        {
+          attrs: {
+            name: "resetPassword",
+            clickToClose: false,
+            adaptive: true,
+            width: 430
+          }
+        },
+        [
+          _c("div", { staticClass: "login_wrapper" }, [
+            _c("div", { staticClass: "animate form login_form" }, [
               _c(
-                "button",
-                { staticClass: "btn btn-primary", attrs: { type: "submit" } },
-                [_vm._v("Enviar")]
+                "section",
+                {
+                  staticClass:
+                    "login_content shadow-lg p-3 mb-5 bg-white rounded"
+                },
+                [
+                  _c("h1", [_vm._v("Cambiar Contraseña")]),
+                  _vm._v(" "),
+                  _c(
+                    "form",
+                    {
+                      on: {
+                        submit: function($event) {
+                          $event.preventDefault()
+                          return _vm.cambiarPassword($event)
+                        }
+                      }
+                    },
+                    [
+                      _c(
+                        "div",
+                        {
+                          staticClass:
+                            "col-md-12 col-center col-sm-8 form-group has-feedback"
+                        },
+                        [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "max-length",
+                                rawName: "v-max-length",
+                                value: 50,
+                                expression: "50"
+                              },
+                              { name: "autofocus", rawName: "v-autofocus" },
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.password1,
+                                expression: "password1"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: {
+                              type: "password",
+                              placeholder: "Nueva Contraseña",
+                              onfocus: ""
+                            },
+                            domProps: { value: _vm.password1 },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.password1 = $event.target.value
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("span", {
+                            staticClass:
+                              "fa fa-user form-control-feedback right",
+                            attrs: { "aria-hidden": "true" }
+                          })
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          staticClass:
+                            "col-md-12 col-center col-sm-8 form-group has-feedback"
+                        },
+                        [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "max-length",
+                                rawName: "v-max-length",
+                                value: 50,
+                                expression: "50"
+                              },
+                              { name: "autofocus", rawName: "v-autofocus" },
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.password2,
+                                expression: "password2"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: {
+                              type: "password",
+                              placeholder: "Repite la nueva contraseña",
+                              onfocus: ""
+                            },
+                            domProps: { value: _vm.password2 },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.password2 = $event.target.value
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("span", {
+                            staticClass:
+                              "fa fa-user form-control-feedback right",
+                            attrs: { "aria-hidden": "true" }
+                          })
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          staticClass:
+                            "col-md-12 col-sm-12 form-group has-feedback"
+                        },
+                        [
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-primary",
+                              attrs: { type: "submit" }
+                            },
+                            [_vm._v("Restablecer")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-danger",
+                              attrs: { type: "button" },
+                              on: {
+                                click: function($event) {
+                                  return _vm.$modal.hide("resetPassword")
+                                }
+                              }
+                            },
+                            [_vm._v("Cancelar")]
+                          )
+                        ]
+                      )
+                    ]
+                  )
+                ]
               )
             ])
-          ],
-          1
-        )
-      ])
+          ])
+        ]
+      )
     ],
     1
   )
@@ -58196,7 +58444,8 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_js_modal__WEBPACK_IMPORTED_MODULE_3___default.a, {
   dynamic: true,
   dynamicDefaults: {
-    clickToClose: false
+    clickToClose: false,
+    adaptive: true
   }
 });
 
