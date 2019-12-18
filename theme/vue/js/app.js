@@ -86,6 +86,17 @@
 /************************************************************************/
 /******/ ({
 
+/***/ "../node_modules/vue-autofocus-directive/dist/vue-autofocus-directive.js":
+/*!*******************************************************************************!*\
+  !*** ../node_modules/vue-autofocus-directive/dist/vue-autofocus-directive.js ***!
+  \*******************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+!function(e,t){ true?module.exports=t():undefined}("undefined"!=typeof self?self:this,function(){return function(e){var t={};function n(o){if(t[o])return t[o].exports;var r=t[o]={i:o,l:!1,exports:{}};return e[o].call(r.exports,r,r.exports,n),r.l=!0,r.exports}return n.m=e,n.c=t,n.d=function(e,t,o){n.o(e,t)||Object.defineProperty(e,t,{enumerable:!0,get:o})},n.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},n.t=function(e,t){if(1&t&&(e=n(e)),8&t)return e;if(4&t&&"object"==typeof e&&e&&e.__esModule)return e;var o=Object.create(null);if(n.r(o),Object.defineProperty(o,"default",{enumerable:!0,value:e}),2&t&&"string"!=typeof e)for(var r in e)n.d(o,r,function(t){return e[t]}.bind(null,r));return o},n.n=function(e){var t=e&&e.__esModule?function(){return e.default}:function(){return e};return n.d(t,"a",t),t},n.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},n.p="",n(n.s=0)}([function(e,t,n){"use strict";n.r(t);var o={inserted:function(e,t){(void 0===t.value||t.value)&&e.focus()}};t.default=o}])});
+
+/***/ }),
+
 /***/ "./node_modules/axios/index.js":
 /*!*************************************!*\
   !*** ./node_modules/axios/index.js ***!
@@ -1911,6 +1922,7 @@ __webpack_require__.r(__webpack_exports__);
       cedula: null,
       cz1_cc: null,
       cz1_contrasena: "",
+      passwordFieldType: 'password',
       parametros: {},
       user: "",
       password1: '',
@@ -1918,6 +1930,9 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
+    mostrarContrasena: function mostrarContrasena() {
+      this.passwordFieldType = this.passwordFieldType === 'password' ? 'text' : 'password';
+    },
     iniciarSesion: function iniciarSesion() {
       var _this = this;
 
@@ -39111,63 +39126,144 @@ var render = function() {
           }
         },
         [
-          _c("div", { staticClass: "form-group has-feedback" }, [
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.cz1_cc,
-                  expression: "cz1_cc"
-                }
-              ],
-              staticClass: "form-control has-feedback-left",
-              attrs: { type: "text", placeholder: "Número de cédula" },
-              domProps: { value: _vm.cz1_cc },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
+          _c(
+            "div",
+            { staticClass: "col-md-12 col-sm-12 form-group has-feedback" },
+            [
+              _c("input", {
+                directives: [
+                  { name: "numeric-only", rawName: "v-numeric-only" },
+                  {
+                    name: "max-length",
+                    rawName: "v-max-length",
+                    value: 16,
+                    expression: "16"
+                  },
+                  { name: "autofocus", rawName: "v-autofocus" },
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.cz1_cc,
+                    expression: "cz1_cc"
                   }
-                  _vm.cz1_cc = $event.target.value
+                ],
+                staticClass: "form-control",
+                attrs: {
+                  type: "text",
+                  placeholder: "Número de cédula",
+                  onfocus: ""
+                },
+                domProps: { value: _vm.cz1_cc },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.cz1_cc = $event.target.value
+                  }
                 }
-              }
-            }),
-            _vm._v(" "),
-            _c("span", {
-              staticClass: "fa fa-user form-control-feedback right",
-              attrs: { "aria-hidden": "true" }
-            })
-          ]),
+              }),
+              _vm._v(" "),
+              _c("span", {
+                staticClass: "fa fa-user form-control-feedback right",
+                attrs: { "aria-hidden": "true" }
+              })
+            ]
+          ),
           _vm._v(" "),
-          _c("div", { staticClass: "form-group has-feedback" }, [
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.cz1_contrasena,
-                  expression: "cz1_contrasena"
-                }
-              ],
-              staticClass: "form-control has-feedback-left",
-              attrs: { type: "password", placeholder: "Contraseña" },
-              domProps: { value: _vm.cz1_contrasena },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.cz1_contrasena = $event.target.value
-                }
-              }
-            }),
-            _vm._v(" "),
-            _c("span", {
-              staticClass: "fa fa-phone form-control-feedback right",
-              attrs: { "aria-hidden": "true" }
-            })
-          ]),
+          _c(
+            "div",
+            { staticClass: "col-md-12 col-sm-12 form-group has-feedback" },
+            [
+              _vm.passwordFieldType === "checkbox"
+                ? _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.cz1_contrasena,
+                        expression: "cz1_contrasena"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: { placeholder: "Contraseña", type: "checkbox" },
+                    domProps: {
+                      checked: Array.isArray(_vm.cz1_contrasena)
+                        ? _vm._i(_vm.cz1_contrasena, null) > -1
+                        : _vm.cz1_contrasena
+                    },
+                    on: {
+                      change: function($event) {
+                        var $$a = _vm.cz1_contrasena,
+                          $$el = $event.target,
+                          $$c = $$el.checked ? true : false
+                        if (Array.isArray($$a)) {
+                          var $$v = null,
+                            $$i = _vm._i($$a, $$v)
+                          if ($$el.checked) {
+                            $$i < 0 && (_vm.cz1_contrasena = $$a.concat([$$v]))
+                          } else {
+                            $$i > -1 &&
+                              (_vm.cz1_contrasena = $$a
+                                .slice(0, $$i)
+                                .concat($$a.slice($$i + 1)))
+                          }
+                        } else {
+                          _vm.cz1_contrasena = $$c
+                        }
+                      }
+                    }
+                  })
+                : _vm.passwordFieldType === "radio"
+                ? _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.cz1_contrasena,
+                        expression: "cz1_contrasena"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: { placeholder: "Contraseña", type: "radio" },
+                    domProps: { checked: _vm._q(_vm.cz1_contrasena, null) },
+                    on: {
+                      change: function($event) {
+                        _vm.cz1_contrasena = null
+                      }
+                    }
+                  })
+                : _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.cz1_contrasena,
+                        expression: "cz1_contrasena"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: {
+                      placeholder: "Contraseña",
+                      type: _vm.passwordFieldType
+                    },
+                    domProps: { value: _vm.cz1_contrasena },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.cz1_contrasena = $event.target.value
+                      }
+                    }
+                  }),
+              _vm._v(" "),
+              _c("label", {
+                staticClass: "fa fa-lock form-control-feedback right",
+                on: { click: _vm.mostrarContrasena }
+              })
+            ]
+          ),
           _vm._v(" "),
           _vm._m(0),
           _vm._v(" "),
@@ -58088,6 +58184,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_tabs_InfPersonal__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/tabs/InfPersonal */ "./resources/js/components/tabs/InfPersonal.vue");
 /* harmony import */ var _components_tabs_InfCorporativa__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/tabs/InfCorporativa */ "./resources/js/components/tabs/InfCorporativa.vue");
 /* harmony import */ var _components_tabs_InfSST__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/tabs/InfSST */ "./resources/js/components/tabs/InfSST.vue");
+/* harmony import */ var vue_autofocus_directive__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! vue-autofocus-directive */ "../node_modules/vue-autofocus-directive/dist/vue-autofocus-directive.js");
+/* harmony import */ var vue_autofocus_directive__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(vue_autofocus_directive__WEBPACK_IMPORTED_MODULE_10__);
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 
@@ -58114,6 +58212,8 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('InfPersonal', _components_
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('InfCorporativa', _components_tabs_InfCorporativa__WEBPACK_IMPORTED_MODULE_8__["default"]);
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('InfSST', _components_tabs_InfSST__WEBPACK_IMPORTED_MODULE_9__["default"]);
+
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.directive("autofocus", vue_autofocus_directive__WEBPACK_IMPORTED_MODULE_10___default.a);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.directive('uppercase', {
   update: function update(el) {
     el.value = el.value.toUpperCase();

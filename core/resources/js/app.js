@@ -27,6 +27,8 @@ Vue.component('InfCorporativa', InfCorporativa)
 import InfSST from './components/tabs/InfSST';
 Vue.component('InfSST', InfSST)
 
+import autofocus from "vue-autofocus-directive";
+Vue.directive("autofocus", autofocus);
 
 Vue.directive('uppercase', {
 	update (el) {

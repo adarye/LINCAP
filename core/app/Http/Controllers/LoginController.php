@@ -12,10 +12,7 @@ class LoginController extends Controller
     public $nombre;
 
     public function iniciarSesion(LoginFormRequest $request)
-    {
-
-        
-
+    {      
         if (Auth::attempt(['cz1_cc' => $request->cz1_cc, 'password' => $request->cz1_contrasena], false)) {
 
             $estado = Terceros_mm::select(

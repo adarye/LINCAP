@@ -1,25 +1,25 @@
 <template>
     <div>
         <form class="my-4" method="POST" id="formulario-login" @submit.prevent="iniciarSesion">
-            <div class="form-group has-feedback">
-                <input type="text" class="form-control has-feedback-left" v-model="cz1_cc"
-                    placeholder="Número de cédula" />
+            <div class="col-md-12 col-sm-12 form-group has-feedback">
+                <input v-numeric-only v-max-length="16" v-autofocus type="text" class="form-control" v-model="cz1_cc"
+                    placeholder="Número de cédula" onfocus />
                 <span class="fa fa-user form-control-feedback right" aria-hidden="true"></span>
             </div>
-            <div class="form-group has-feedback">
-                <input type="password" class="form-control has-feedback-left" v-model="cz1_contrasena"
+            <div class="col-md-12 col-sm-12 form-group has-feedback">
+                <input :type="passwordFieldType" class="form-control" v-model="cz1_contrasena"
                     placeholder="Contraseña" />
-                <span class="fa fa-phone form-control-feedback right" aria-hidden="true"></span>
+                <label @click="mostrarContrasena" class="fa fa-lock form-control-feedback right"></label>
             </div>
             <div class="form-group has-feedback">
                 <button type="submit" class="btn btn-primary btn-sm">
                     Ingresar
-                </button>                
+                </button>
             </div>
             <div class="form-group has-feedback">
-                <label @click="modalShow" class="">¿Olvidaste la contraseña?</label>
+                <label @click="modalShow">¿Olvidaste la contraseña?</label>
             </div>
-        </form>        
+        </form>
 
         <modal name="password" :clickToClose="false">
             <form @submit.prevent="enviarEmail">
@@ -68,11 +68,11 @@
     export default {
         data() {
             return {
-
                 token: '',
                 cedula: null,
                 cz1_cc: null,
                 cz1_contrasena: "",
+                passwordFieldType: 'password',
                 parametros: {},
                 user: "",
                 password1: '',
@@ -80,6 +80,9 @@
             };
         },
         methods: {
+            mostrarContrasena(){
+                this.passwordFieldType = this.passwordFieldType === 'password' ? 'text' : 'password'
+            },
             iniciarSesion() {
                 this.parametros = {
                     cz1_cc: this.cz1_cc,
