@@ -39171,7 +39171,7 @@ var render = function() {
           _vm._v(" "),
           _vm._m(0),
           _vm._v(" "),
-          _c("div", [
+          _c("div", { staticClass: "form-group has-feedback" }, [
             _c("label", { on: { click: _vm.modalShow } }, [
               _vm._v("¿Olvidaste la contraseña?")
             ])
@@ -39364,7 +39364,7 @@ var staticRenderFns = [
     return _c("div", { staticClass: "form-group has-feedback" }, [
       _c(
         "button",
-        { staticClass: "btn btn-primary", attrs: { type: "submit" } },
+        { staticClass: "btn btn-primary btn-xs", attrs: { type: "submit" } },
         [_vm._v("\n                Ingresar\n            ")]
       )
     ])

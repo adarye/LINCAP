@@ -12,11 +12,11 @@
                 <span class="fa fa-phone form-control-feedback right" aria-hidden="true"></span>
             </div>
             <div class="form-group has-feedback">
-                <button type="submit" class="btn btn-primary">
+                <button type="submit" class="btn btn-primary btn-xs">
                     Ingresar
                 </button>                
             </div>
-            <div>
+            <div class="form-group has-feedback">
                 <label @click="modalShow" class="">¿Olvidaste la contraseña?</label>
             </div>
         </form>        
