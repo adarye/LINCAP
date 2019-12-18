@@ -9,6 +9,61 @@
         <button type="button" class="btn btn-primary" @click="iniciarSesion">
             Ingresar
         </button>
+        <button @click="modalShow" class="btn btn-danger">Olvide la contraseña</button>
+                <modal name="password" :clickToClose="false">
+                    <form @submit.prevent="enviarEmail">
+                        <center>
+                            <h3>Cambiar Contrasena</h3>
+                        </center>
+
+                        <div class="col-md-8 col-md-offset-2">
+                    <label>Cedula</label>
+                    <input type="text" class="form-control mb-2" v-model="cedula"/>
+                    <button type="submit" class="btn btn-primary">Enviar Contrasena</button>
+                </div>
+                    </form>
+                </modal>
+                 <modal name="token">
+                    <form @submit.prevent="enviarToken">
+                        <center>
+                            <h3>Validar Token</h3>
+                        </center>
+
+                        <div class="col-md-8 col-md-offset-2">
+                    <label>Token</label>
+                    <input type="text" class="form-control mb-2" v-model="token"/>
+                    <button type="submit" class="btn btn-warning">Enviar</button>
+                </div>
+                    </form>
+                </modal>
+                <modal name="resetPassword">
+                    <form @submit.prevent="cambiarPassword">
+                        <center>
+                            <h3>Cambiar Contraseña</h3>
+                        </center>
+
+                        <div class="col-md-8 col-md-offset-2">
+                    <label>Nueva Contraseña</label>
+                    <input type="password" class="form-control mb-2" v-model="password1"/>
+                    <label>Repite la Contraseña</label>
+                    <input type="password" class="form-control mb-2" v-model="password2"/>
+                    <button type="submit" class="btn btn-primary">Enviar</button>
+                </div>
+                    </form>
+                </modal>
+            
+
+    <form class="my-4" method="POST" id="formulario-login">
+        <div>
+            <input class="form-control" v-model="cz1_cc" placeholder="Número de cédula" />
+        </div><br>
+        <div>
+            <input type="password" class="form-control" v-model="cz1_contrasena" placeholder="Contraseña" />
+        </div>
+        <button type="button" class="btn btn-primary" @click="iniciarSesion">
+            Ingresar
+        </button>
+    </form>
     </form>
 </template>
 <script>
