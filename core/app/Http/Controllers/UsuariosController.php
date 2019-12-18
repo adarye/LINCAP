@@ -8,14 +8,22 @@ use Illuminate\Support\Facades\Hash;
 
 use Illuminate\Support\Facades\Auth;
 
+use App\Mail\ResetPassword;
+
+use Illuminate\Support\Facades\Mail;
+
 use App\z1_usuarios;
+
+use Illuminate\Support\Str;
+
+use App\PasswordReset;
 
 class UsuariosController extends Controller
 {
-    
+    public $global;
     public function __construct()
     {
-        $this->middleware('auth')->except(['enviarEmail']);
+        $this->middleware('auth')->except(['enviarEmail','validarToken','resetPassword']);
     }
     public function index(){
         
@@ -118,8 +126,10 @@ public function cambiarPassword(Request $request){
     
 }
 public function enviarEmail(Request $request){
-    //return $request;
-    return z1_usuarios::select('cz1_nombres', 'f015_email')
+    //return $request->cedula;
+   $validacion = z1_usuarios::where('cz1_cc', $request->cedula)->first(); 
+   if($validacion != null){
+    $this->global = z1_usuarios::select('cz1_nombres', 'f015_email', 'cz1_cc')
     ->join(
         'dbo.t200_mm_terceros',
         'dbo.z1_usuarios.cz1_id_empleado',
@@ -134,6 +144,57 @@ public function enviarEmail(Request $request){
     )
     ->where('dbo.z1_usuarios.cz1_cc', $request->cedula)
     ->get();
+    }
+    
+     if($this->global == null){
+        return response()->json(['error'=> 'No estas registrado en el sistema', 'mensaje'=> '']);
+     }
+     else if($this->global[0]->f015_email == null){
+        return response()->json(['error'=> 'No tiene un correo registrado', 'mensaje'=> '']);
+     }
+     else{  
+
+    //GENERAMOS EL TOKEN Y LO ENVIAMOS AL CORREO
+    $token = Str::random(40);
+    Mail::to($this->global[0]->f015_email)->send(new ResetPassword($token));
+
+    //GUARDAMOS EL TOKEN EN SU TABLA
+     $PaswordReset = new PasswordReset();
+     $PaswordReset->cedula = $this->global[0]->cz1_cc;
+     $PaswordReset->token = $token;
+     $PaswordReset->save();
+
+     return response()->json(['mensaje'=> 'Se envio un token a tu correo', 'correo'=> $this->global[0]->f015_email, 'error'=>''], 200);
+     }
+
+     
+
 }
+
+public function validarToken(Request $request){
+    $PasswordReset = PasswordReset::where('token', $request->token)->first();
+    if($PasswordReset == null){
+        return response()->json(['error'=> 'Token Invalido']);
+    }
+    $usuario = z1_usuarios::where('cz1_cc', $PasswordReset->cedula)->first();
+    return response()->json(['error'=> '', 'usuario'=>$usuario]);
+    
+}
+
+public function resetPassword(Request $request){
+    $usuario = z1_usuarios::where('cz1_cc', $request->cedula)->first();
+   
+    $PasswordReset = PasswordReset::where('cedula', $usuario->cz1_cc)->first();
+    $PasswordReset->delete();
+
+    $usuario->password = bcrypt($request->password);
+    $usuario->save();
+
+
+}
+
+       
+
+
 
 }

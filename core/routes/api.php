@@ -35,6 +35,8 @@ Route::delete('usuarios/delete/{id}', 'UsuariosController@delete');
 Route::put('usuarios/update/{id}', 'UsuariosController@update');
 Route::put('usuario/password', 'UsuariosController@cambiarPassword');
 Route::post('usuario/email', 'UsuariosController@enviarEmail');
+Route::post('usuario/token', 'UsuariosController@validarToken');
+Route::post('usuario/recuperar/password', 'UsuariosController@resetPassword');
 
 
 //LOGIN
