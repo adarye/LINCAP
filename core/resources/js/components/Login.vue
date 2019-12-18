@@ -12,7 +12,7 @@
                 <span class="fa fa-phone form-control-feedback right" aria-hidden="true"></span>
             </div>
             <div class="form-group has-feedback">
-                <button type="submit" class="btn btn-primary btn-xs">
+                <button type="submit" class="btn btn-primary btn-sm">
                     Ingresar
                 </button>                
             </div>

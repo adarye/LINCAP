@@ -39364,7 +39364,7 @@ var staticRenderFns = [
     return _c("div", { staticClass: "form-group has-feedback" }, [
       _c(
         "button",
-        { staticClass: "btn btn-primary btn-xs", attrs: { type: "submit" } },
+        { staticClass: "btn btn-primary btn-sm", attrs: { type: "submit" } },
         [_vm._v("\n                Ingresar\n            ")]
       )
     ])
