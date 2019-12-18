@@ -1,4 +1,5 @@
 <template>
+<div>
     <form class="my-4" method="POST" id="formulario-login">
         <div>
             <input class="form-control" v-model="cz1_cc" placeholder="Número de cédula" />
@@ -9,7 +10,8 @@
         <button type="button" class="btn btn-primary" @click="iniciarSesion">
             Ingresar
         </button>
-        <button @click="modalShow" class="btn btn-danger">Olvide la contraseña</button>
+    </form>
+    <button @click="modalShow" class="btn btn-danger">Olvide la contraseña</button>
                 <modal name="password" :clickToClose="false">
                     <form @submit.prevent="enviarEmail">
                         <center>
@@ -52,19 +54,7 @@
                     </form>
                 </modal>
             
-
-    <form class="my-4" method="POST" id="formulario-login">
-        <div>
-            <input class="form-control" v-model="cz1_cc" placeholder="Número de cédula" />
-        </div><br>
-        <div>
-            <input type="password" class="form-control" v-model="cz1_contrasena" placeholder="Contraseña" />
-        </div>
-        <button type="button" class="btn btn-primary" @click="iniciarSesion">
-            Ingresar
-        </button>
-    </form>
-    </form>
+</div>
 </template>
 <script>
     export default {

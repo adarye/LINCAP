@@ -1896,16 +1896,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -39098,66 +39088,74 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "form",
-    { staticClass: "my-4", attrs: { method: "POST", id: "formulario-login" } },
+    "div",
     [
-      _c("div", [
-        _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.cz1_cc,
-              expression: "cz1_cc"
-            }
-          ],
-          staticClass: "form-control",
-          attrs: { placeholder: "Número de cédula" },
-          domProps: { value: _vm.cz1_cc },
-          on: {
-            input: function($event) {
-              if ($event.target.composing) {
-                return
-              }
-              _vm.cz1_cc = $event.target.value
-            }
-          }
-        })
-      ]),
-      _c("br"),
-      _vm._v(" "),
-      _c("div", [
-        _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.cz1_contrasena,
-              expression: "cz1_contrasena"
-            }
-          ],
-          staticClass: "form-control",
-          attrs: { type: "password", placeholder: "Contraseña" },
-          domProps: { value: _vm.cz1_contrasena },
-          on: {
-            input: function($event) {
-              if ($event.target.composing) {
-                return
-              }
-              _vm.cz1_contrasena = $event.target.value
-            }
-          }
-        })
-      ]),
-      _vm._v(" "),
       _c(
-        "button",
+        "form",
         {
-          staticClass: "btn btn-primary",
-          attrs: { type: "button" },
-          on: { click: _vm.iniciarSesion }
+          staticClass: "my-4",
+          attrs: { method: "POST", id: "formulario-login" }
         },
-        [_vm._v("\n        Ingresar\n    ")]
+        [
+          _c("div", [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.cz1_cc,
+                  expression: "cz1_cc"
+                }
+              ],
+              staticClass: "form-control",
+              attrs: { placeholder: "Número de cédula" },
+              domProps: { value: _vm.cz1_cc },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.cz1_cc = $event.target.value
+                }
+              }
+            })
+          ]),
+          _c("br"),
+          _vm._v(" "),
+          _c("div", [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.cz1_contrasena,
+                  expression: "cz1_contrasena"
+                }
+              ],
+              staticClass: "form-control",
+              attrs: { type: "password", placeholder: "Contraseña" },
+              domProps: { value: _vm.cz1_contrasena },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.cz1_contrasena = $event.target.value
+                }
+              }
+            })
+          ]),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-primary",
+              attrs: { type: "button" },
+              on: { click: _vm.iniciarSesion }
+            },
+            [_vm._v("\r\n            Ingresar\r\n        ")]
+          )
+        ]
       ),
       _vm._v(" "),
       _c(
@@ -39338,75 +39336,7 @@ var render = function() {
           ],
           1
         )
-      ]),
-      _vm._v(" "),
-      _c(
-        "form",
-        {
-          staticClass: "my-4",
-          attrs: { method: "POST", id: "formulario-login" }
-        },
-        [
-          _c("div", [
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.cz1_cc,
-                  expression: "cz1_cc"
-                }
-              ],
-              staticClass: "form-control",
-              attrs: { placeholder: "Número de cédula" },
-              domProps: { value: _vm.cz1_cc },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.cz1_cc = $event.target.value
-                }
-              }
-            })
-          ]),
-          _c("br"),
-          _vm._v(" "),
-          _c("div", [
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.cz1_contrasena,
-                  expression: "cz1_contrasena"
-                }
-              ],
-              staticClass: "form-control",
-              attrs: { type: "password", placeholder: "Contraseña" },
-              domProps: { value: _vm.cz1_contrasena },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.cz1_contrasena = $event.target.value
-                }
-              }
-            })
-          ]),
-          _vm._v(" "),
-          _c(
-            "button",
-            {
-              staticClass: "btn btn-primary",
-              attrs: { type: "button" },
-              on: { click: _vm.iniciarSesion }
-            },
-            [_vm._v("\n        Ingresar\n    ")]
-          )
-        ]
-      )
+      ])
     ],
     1
   )
