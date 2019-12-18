@@ -86,17 +86,6 @@
 /************************************************************************/
 /******/ ({
 
-/***/ "../node_modules/vue-autofocus-directive/dist/vue-autofocus-directive.js":
-/*!*******************************************************************************!*\
-  !*** ../node_modules/vue-autofocus-directive/dist/vue-autofocus-directive.js ***!
-  \*******************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-!function(e,t){ true?module.exports=t():undefined}("undefined"!=typeof self?self:this,function(){return function(e){var t={};function n(o){if(t[o])return t[o].exports;var r=t[o]={i:o,l:!1,exports:{}};return e[o].call(r.exports,r,r.exports,n),r.l=!0,r.exports}return n.m=e,n.c=t,n.d=function(e,t,o){n.o(e,t)||Object.defineProperty(e,t,{enumerable:!0,get:o})},n.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},n.t=function(e,t){if(1&t&&(e=n(e)),8&t)return e;if(4&t&&"object"==typeof e&&e&&e.__esModule)return e;var o=Object.create(null);if(n.r(o),Object.defineProperty(o,"default",{enumerable:!0,value:e}),2&t&&"string"!=typeof e)for(var r in e)n.d(o,r,function(t){return e[t]}.bind(null,r));return o},n.n=function(e){var t=e&&e.__esModule?function(){return e.default}:function(){return e};return n.d(t,"a",t),t},n.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},n.p="",n(n.s=0)}([function(e,t,n){"use strict";n.r(t);var o={inserted:function(e,t){(void 0===t.value||t.value)&&e.focus()}};t.default=o}])});
-
-/***/ }),
-
 /***/ "./node_modules/axios/index.js":
 /*!*************************************!*\
   !*** ./node_modules/axios/index.js ***!
@@ -1950,6 +1939,7 @@ __webpack_require__.r(__webpack_exports__);
       cz1_cc: null,
       cz1_contrasena: "",
       passwordFieldType: 'password',
+      eyeFieltType: 'fa fa-eye-slash form-control-feedback right',
       parametros: {},
       user: "",
       password1: '',
@@ -1959,6 +1949,7 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     mostrarContrasena: function mostrarContrasena() {
       this.passwordFieldType = this.passwordFieldType === 'password' ? 'text' : 'password';
+      this.eyeFieltType = this.passwordFieldType === 'password' ? 'fa fa-eye-slash form-control-feedback right' : 'fa fa-eye form-control-feedback right';
     },
     iniciarSesion: function iniciarSesion() {
       var _this = this;
@@ -1973,11 +1964,11 @@ __webpack_require__.r(__webpack_exports__);
         console.log(_this.user);
 
         if (res.data == "inactivo") {
-          swal("Error", "Tu contrato finalizo", "error");
+          swal("Error", "Tu contrato finalizó", "error");
         } else {
           swal({
-            title: "Has iniciado sesion",
-            text: "Datos Correctos",
+            title: "Bienvenido",
+            text: _this.user.cz1_nombres,
             icon: "success",
             closeOnClickOutside: false,
             closeOnEsc: false
@@ -39013,6 +39004,17 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 
 /***/ }),
 
+/***/ "./node_modules/vue-autofocus-directive/dist/vue-autofocus-directive.js":
+/*!******************************************************************************!*\
+  !*** ./node_modules/vue-autofocus-directive/dist/vue-autofocus-directive.js ***!
+  \******************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+!function(e,t){ true?module.exports=t():undefined}("undefined"!=typeof self?self:this,function(){return function(e){var t={};function n(o){if(t[o])return t[o].exports;var r=t[o]={i:o,l:!1,exports:{}};return e[o].call(r.exports,r,r.exports,n),r.l=!0,r.exports}return n.m=e,n.c=t,n.d=function(e,t,o){n.o(e,t)||Object.defineProperty(e,t,{enumerable:!0,get:o})},n.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},n.t=function(e,t){if(1&t&&(e=n(e)),8&t)return e;if(4&t&&"object"==typeof e&&e&&e.__esModule)return e;var o=Object.create(null);if(n.r(o),Object.defineProperty(o,"default",{enumerable:!0,value:e}),2&t&&"string"!=typeof e)for(var r in e)n.d(o,r,function(t){return e[t]}.bind(null,r));return o},n.n=function(e){var t=e&&e.__esModule?function(){return e.default}:function(){return e};return n.d(t,"a",t),t},n.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},n.p="",n(n.s=0)}([function(e,t,n){"use strict";n.r(t);var o={inserted:function(e,t){(void 0===t.value||t.value)&&e.focus()}};t.default=o}])});
+
+/***/ }),
+
 /***/ "./node_modules/vue-input-restriction-directives/src/index.js":
 /*!********************************************************************!*\
   !*** ./node_modules/vue-input-restriction-directives/src/index.js ***!
@@ -39193,7 +39195,7 @@ var render = function() {
               _vm._v(" "),
               _c("span", {
                 staticClass: "fa fa-user form-control-feedback right",
-                attrs: { "aria-hidden": "true" }
+                attrs: { title: "Número de cédula", "aria-hidden": "true" }
               })
             ]
           ),
@@ -39286,7 +39288,8 @@ var render = function() {
                   }),
               _vm._v(" "),
               _c("label", {
-                staticClass: "fa fa-lock form-control-feedback right",
+                class: _vm.eyeFieltType,
+                attrs: { title: "Mostrar / Ocultar" },
                 on: { click: _vm.mostrarContrasena }
               })
             ]
@@ -58432,7 +58435,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_tabs_InfPersonal__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/tabs/InfPersonal */ "./resources/js/components/tabs/InfPersonal.vue");
 /* harmony import */ var _components_tabs_InfCorporativa__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/tabs/InfCorporativa */ "./resources/js/components/tabs/InfCorporativa.vue");
 /* harmony import */ var _components_tabs_InfSST__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/tabs/InfSST */ "./resources/js/components/tabs/InfSST.vue");
-/* harmony import */ var vue_autofocus_directive__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! vue-autofocus-directive */ "../node_modules/vue-autofocus-directive/dist/vue-autofocus-directive.js");
+/* harmony import */ var vue_autofocus_directive__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! vue-autofocus-directive */ "./node_modules/vue-autofocus-directive/dist/vue-autofocus-directive.js");
 /* harmony import */ var vue_autofocus_directive__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(vue_autofocus_directive__WEBPACK_IMPORTED_MODULE_10__);
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 

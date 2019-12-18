@@ -31,10 +31,9 @@ class LoginFormRequest extends FormRequest
     public function messages()
 {
     return [
-        'cz1_cc.required' => 'la cedula es obligatoria.',
-        'cz1_cc.integer' => 'la cedula no es valida.',
-        'cz1_contrasena.required' => 'La clave es obligatoria',
-       
+        'cz1_cc.required' => 'La cédula es obligatoria',
+        'cz1_cc.integer' => 'La cédula no es valida',
+        'cz1_contrasena.required' => 'La contraseña es obligatoria',       
     ];
 }
 }
