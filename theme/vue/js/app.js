@@ -1896,6 +1896,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -39094,7 +39096,13 @@ var render = function() {
         "form",
         {
           staticClass: "my-4",
-          attrs: { method: "POST", id: "formulario-login" }
+          attrs: { method: "POST", id: "formulario-login" },
+          on: {
+            submit: function($event) {
+              $event.preventDefault()
+              return _vm.iniciarSesion($event)
+            }
+          }
         },
         [
           _c("div", [
@@ -39148,12 +39156,8 @@ var render = function() {
           _vm._v(" "),
           _c(
             "button",
-            {
-              staticClass: "btn btn-primary",
-              attrs: { type: "button" },
-              on: { click: _vm.iniciarSesion }
-            },
-            [_vm._v("\r\n            Ingresar\r\n        ")]
+            { staticClass: "btn btn-primary", attrs: { type: "submit" } },
+            [_vm._v("\n            Ingresar\n        ")]
           )
         ]
       ),
