@@ -17,7 +17,7 @@ class CreateZ1UsuariosTable extends Migration
             $table->bigIncrements('cz1_id');
             $table->bigInteger('cz1_cc');
             $table->string('password');
-            $table->string('remember_token')->nullable()->change();
+            $table->rememberToken();
             $table->string('cz1_nombres');
             $table->bigInteger('cz1_id_rol');
             $table->Integer('cz1_id_empleado');

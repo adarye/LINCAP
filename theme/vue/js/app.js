@@ -1856,14 +1856,62 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+<<<<<<< HEAD
+=======
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+>>>>>>> 46a1a1f1ddb68f8ffe243822a9d98b95d1259d10
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
+      token: '',
       cedula: null,
       cz1_cc: null,
       cz1_contrasena: "",
       parametros: {},
-      user: ""
+      user: "",
+      password1: '',
+      password2: ''
     };
   },
   methods: {
@@ -1914,11 +1962,76 @@ __webpack_require__.r(__webpack_exports__);
       this.$modal.show('password');
     },
     enviarEmail: function enviarEmail() {
+      var _this2 = this;
+
       axios.post('/api/usuario/email', {
         cedula: this.cedula
       }).then(function (res) {
         console.log(res.data);
+
+        if (res.data.error != "") {
+          swal("Error", res.data.error, "error");
+
+          _this2.$modal.hide('password');
+
+          _this2.clear();
+        } else if (res.data.mensaje != "") {
+          var mensaje = 'Se envio el token a tu correo ' + res.data.correo;
+          swal("Mensaje", mensaje, "success");
+
+          _this2.$modal.hide('password');
+
+          _this2.$modal.show('token');
+        }
       });
+    },
+    enviarToken: function enviarToken() {
+      var _this3 = this;
+
+      axios.post('/api/usuario/token', {
+        token: this.token
+      }).then(function (res) {
+        console.log(res.data);
+
+        if (res.data.error != '') {
+          swal("Error", res.data.error, "error");
+        } else {
+          _this3.$modal.hide('token');
+
+          _this3.$modal.show('resetPassword');
+        }
+      });
+    },
+    cambiarPassword: function cambiarPassword() {
+      var _this4 = this;
+
+      if (this.password1 == '' || this.password2 == '') {
+        swal("Advertencia", 'La contraseña es obligatoria', "warning");
+      } else if (this.password1.length < 8 || this.password2.length < 8) {
+        swal("Advertencia", 'La contraseña tiene que tener mas de 8 caracteres', "warning");
+      } else if (this.password1 != this.password2) {
+        swal("Advertencia", 'Las contraseñas no coinciden', "warning");
+      } else if (this.password1 == this.password2) {
+        axios.post('/api/usuario/recuperar/password', {
+          password: this.password1,
+          cedula: this.cedula
+        }).then(function (res) {
+          console.log(res.data);
+          swal("Mensaje", 'La contraseña fue actualizada', "success");
+
+          _this4.$modal.hide('resetPassword');
+
+          _this4.clear();
+        });
+      }
+    },
+    clear: function clear() {
+      this.token = '';
+      this.password1 = '';
+      this.password2 = '';
+      this.cedula = '';
+      this.cz1_contrasena = "";
+      this.cz1_cc = "";
     }
   }
 });
@@ -38980,6 +39093,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
+<<<<<<< HEAD
     "form",
     {
       staticClass: "my-4",
@@ -39005,14 +39119,22 @@ var render = function() {
           staticClass: "form-control",
           attrs: { type: "text", placeholder: "Número de cédula" },
           domProps: { value: _vm.cz1_cc },
+=======
+    "div",
+    [
+      _c(
+        "form",
+        {
+          staticClass: "my-4",
+          attrs: { method: "POST", id: "formulario-login" },
+>>>>>>> 46a1a1f1ddb68f8ffe243822a9d98b95d1259d10
           on: {
-            input: function($event) {
-              if ($event.target.composing) {
-                return
-              }
-              _vm.cz1_cc = $event.target.value
+            submit: function($event) {
+              $event.preventDefault()
+              return _vm.iniciarSesion($event)
             }
           }
+<<<<<<< HEAD
         }),
         _vm._v(" "),
         _c("span", {
@@ -39029,18 +39151,134 @@ var render = function() {
               rawName: "v-model",
               value: _vm.cz1_contrasena,
               expression: "cz1_contrasena"
-            }
-          ],
-          staticClass: "form-control",
-          attrs: { type: "password", placeholder: "Contraseña" },
-          domProps: { value: _vm.cz1_contrasena },
-          on: {
-            input: function($event) {
-              if ($event.target.composing) {
-                return
+=======
+        },
+        [
+          _c("div", [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.cz1_cc,
+                  expression: "cz1_cc"
+                }
+              ],
+              staticClass: "form-control",
+              attrs: { placeholder: "Número de cédula" },
+              domProps: { value: _vm.cz1_cc },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.cz1_cc = $event.target.value
+                }
               }
-              _vm.cz1_contrasena = $event.target.value
+            })
+          ]),
+          _c("br"),
+          _vm._v(" "),
+          _c("div", [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.cz1_contrasena,
+                  expression: "cz1_contrasena"
+                }
+              ],
+              staticClass: "form-control",
+              attrs: { type: "password", placeholder: "Contraseña" },
+              domProps: { value: _vm.cz1_contrasena },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.cz1_contrasena = $event.target.value
+                }
+              }
+            })
+          ]),
+          _vm._v(" "),
+          _c(
+            "button",
+            { staticClass: "btn btn-primary", attrs: { type: "submit" } },
+            [_vm._v("\n            Ingresar\n        ")]
+          )
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        { staticClass: "btn btn-danger", on: { click: _vm.modalShow } },
+        [_vm._v("Olvide la contraseña")]
+      ),
+      _vm._v(" "),
+      _c("modal", { attrs: { name: "password", clickToClose: false } }, [
+        _c(
+          "form",
+          {
+            on: {
+              submit: function($event) {
+                $event.preventDefault()
+                return _vm.enviarEmail($event)
+              }
+>>>>>>> 46a1a1f1ddb68f8ffe243822a9d98b95d1259d10
             }
+          },
+          [
+            _c("center", [_c("h3", [_vm._v("Cambiar Contrasena")])]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-md-8 col-md-offset-2" }, [
+              _c("label", [_vm._v("Cedula")]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.cedula,
+                    expression: "cedula"
+                  }
+                ],
+                staticClass: "form-control mb-2",
+                attrs: { type: "text" },
+                domProps: { value: _vm.cedula },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.cedula = $event.target.value
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c(
+                "button",
+                { staticClass: "btn btn-primary", attrs: { type: "submit" } },
+                [_vm._v("Enviar Contrasena")]
+              )
+            ])
+          ],
+          1
+        )
+      ]),
+      _vm._v(" "),
+      _c("modal", { attrs: { name: "token" } }, [
+        _c(
+          "form",
+          {
+            on: {
+              submit: function($event) {
+                $event.preventDefault()
+                return _vm.enviarToken($event)
+              }
+            }
+<<<<<<< HEAD
           }
         }),
         _vm._v(" "),
@@ -39054,6 +39292,123 @@ var render = function() {
       _vm._v(" "),
       _vm._m(1)
     ]
+=======
+          },
+          [
+            _c("center", [_c("h3", [_vm._v("Validar Token")])]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-md-8 col-md-offset-2" }, [
+              _c("label", [_vm._v("Token")]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.token,
+                    expression: "token"
+                  }
+                ],
+                staticClass: "form-control mb-2",
+                attrs: { type: "text" },
+                domProps: { value: _vm.token },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.token = $event.target.value
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c(
+                "button",
+                { staticClass: "btn btn-warning", attrs: { type: "submit" } },
+                [_vm._v("Enviar")]
+              )
+            ])
+          ],
+          1
+        )
+      ]),
+      _vm._v(" "),
+      _c("modal", { attrs: { name: "resetPassword" } }, [
+        _c(
+          "form",
+          {
+            on: {
+              submit: function($event) {
+                $event.preventDefault()
+                return _vm.cambiarPassword($event)
+              }
+            }
+          },
+          [
+            _c("center", [_c("h3", [_vm._v("Cambiar Contraseña")])]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-md-8 col-md-offset-2" }, [
+              _c("label", [_vm._v("Nueva Contraseña")]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.password1,
+                    expression: "password1"
+                  }
+                ],
+                staticClass: "form-control mb-2",
+                attrs: { type: "password" },
+                domProps: { value: _vm.password1 },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.password1 = $event.target.value
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c("label", [_vm._v("Repite la Contraseña")]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.password2,
+                    expression: "password2"
+                  }
+                ],
+                staticClass: "form-control mb-2",
+                attrs: { type: "password" },
+                domProps: { value: _vm.password2 },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.password2 = $event.target.value
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c(
+                "button",
+                { staticClass: "btn btn-primary", attrs: { type: "submit" } },
+                [_vm._v("Enviar")]
+              )
+            ])
+          ],
+          1
+        )
+      ])
+    ],
+    1
+>>>>>>> 46a1a1f1ddb68f8ffe243822a9d98b95d1259d10
   )
 }
 var staticRenderFns = [
