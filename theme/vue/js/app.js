@@ -1930,6 +1930,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -3062,17 +3063,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale("es");
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -3205,11 +3195,11 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale("es");
       var file = event.target.files[0];
       this.imagen = file;
 
-      if (!/\.(jpg|png|gif)$/i.test(file.name)) {
+      if (!/\.(jepg|jpg|png|gif)$/i.test(file.name)) {
         swal("Advertencia", "El archivo a adjuntar no es una imagen", "warning");
         this.estado = 0;
       } else {
-        if (file.size > 200000) {
+        if (file.size > 3000000) {
           swal("Advertencia", "El peso de la imagen no puede exceder los 200kb", "warning");
           this.estado = 0;
         } else {
@@ -3683,6 +3673,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _js_router__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../js/router */ "./resources/js/router.js");
 //
 //
 //
@@ -3709,6 +3700,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -3759,8 +3759,8 @@ __webpack_require__.r(__webpack_exports__);
         swal('Advertencia', 'Las nuevas contrasenas no coinciden', 'warning');
       }
     },
-    onClickOutside: function onClickOutside(event) {
-      console.log('Clicked outside. Event: ', event);
+    cerrar: function cerrar() {
+      _js_router__WEBPACK_IMPORTED_MODULE_0__["default"].push('/empleados/InfCorporativa'); // window.location.href = "http:/amazon.com"
     }
   },
   computed: {}
@@ -39450,8 +39450,6 @@ var render = function() {
                     "login_content shadow-lg p-3 mb-5 bg-white rounded"
                 },
                 [
-                  _c("h1", [_vm._v("Validar Token")]),
-                  _vm._v(" "),
                   _c(
                     "form",
                     {
@@ -39463,6 +39461,8 @@ var render = function() {
                       }
                     },
                     [
+                      _c("h1", [_vm._v("Validar Token")]),
+                      _vm._v(" "),
                       _c(
                         "div",
                         {
@@ -39551,8 +39551,6 @@ var render = function() {
                     "login_content shadow-lg p-3 mb-5 bg-white rounded"
                 },
                 [
-                  _c("h1", [_vm._v("Cambiar Contraseña")]),
-                  _vm._v(" "),
                   _c(
                     "form",
                     {
@@ -39564,6 +39562,8 @@ var render = function() {
                       }
                     },
                     [
+                      _c("h1", [_vm._v("Cambiar Contraseña")]),
+                      _vm._v(" "),
                       _c(
                         "div",
                         {
@@ -42684,60 +42684,106 @@ var render = function() {
             1
           ),
           _vm._v(" "),
-          _c("modal", { attrs: { name: "hello-world" } }, [
-            _c(
-              "form",
-              {
-                attrs: { anctype: "multipart/form-data" },
-                on: {
-                  submit: function($event) {
-                    $event.preventDefault()
-                    return _vm.updateAvatar($event)
-                  }
-                }
-              },
-              [
-                _c("div", { staticClass: "form-row" }, [
-                  _c("div", { staticClass: "form-group col-md-6" }, [
-                    _c("label", [_vm._v("Actualizar avatar")]),
-                    _vm._v(" "),
-                    _c("input", {
-                      attrs: { type: "file" },
-                      on: {
-                        change: function($event) {
-                          return _vm.getImage($event)
-                        }
-                      }
-                    }),
-                    _vm._v(" "),
+          _c(
+            "modal",
+            {
+              attrs: {
+                name: "hello-world",
+                clickToClose: false,
+                adaptive: true,
+                width: 430,
+                height: 430
+              }
+            },
+            [
+              _c("div", { staticClass: "login_wrapper" }, [
+                _c("div", { staticClass: "animate form login_form" }, [
+                  _c("section", { staticClass: "login_content" }, [
                     _c(
-                      "button",
+                      "form",
                       {
-                        staticClass: "btn btn-primary",
-                        attrs: { type: "submit" }
+                        attrs: { anctype: "multipart/form-data" },
+                        on: {
+                          submit: function($event) {
+                            $event.preventDefault()
+                            return _vm.updateAvatar($event)
+                          }
+                        }
                       },
                       [
-                        _vm._v(
-                          "\n                                subir\n                            "
-                        )
+                        _c("h1", [_vm._v("Actualizar avatar")]),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          {
+                            staticClass:
+                              "col-md-12 col-center col-sm-8 form-group has-feedback"
+                          },
+                          [
+                            _c("input", {
+                              attrs: { type: "file" },
+                              on: {
+                                change: function($event) {
+                                  return _vm.getImage($event)
+                                }
+                              }
+                            })
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          {
+                            staticClass:
+                              "col-md-12 col-sm-12 form-group has-feedback"
+                          },
+                          [
+                            _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-primary",
+                                attrs: { type: "submit" }
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                        subir\n                                    "
+                                )
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-danger",
+                                attrs: { type: "button" },
+                                on: {
+                                  click: function($event) {
+                                    return _vm.$modal.hide("hello-world")
+                                  }
+                                }
+                              },
+                              [_vm._v("Cancelar")]
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c("figure", [
+                          _c("img", {
+                            attrs: {
+                              width: "200",
+                              height: "200",
+                              alt: "profile",
+                              src: _vm.imagen_miniatura
+                            }
+                          })
+                        ])
                       ]
-                    ),
-                    _vm._v(" "),
-                    _c("figure", [
-                      _c("img", {
-                        attrs: {
-                          width: "200",
-                          height: "200",
-                          alt: "profile",
-                          src: _vm.imagen_miniatura
-                        }
-                      })
-                    ])
+                    )
                   ])
                 ])
-              ]
-            )
-          ])
+              ])
+            ]
+          )
         ],
         1
       ),
@@ -42752,11 +42798,7 @@ var render = function() {
                     staticClass: "btn btn-primary my-2",
                     on: { click: _vm.habilitarFormulario }
                   },
-                  [
-                    _vm._v(
-                      "\n                        Editar\n                    "
-                    )
-                  ]
+                  [_vm._v("\n                    Editar\n                ")]
                 )
               ])
             ])
@@ -42768,11 +42810,7 @@ var render = function() {
                     staticClass: "btn btn-primary",
                     on: { click: _vm.validarCampos }
                   },
-                  [
-                    _vm._v(
-                      "\n                        Actualizar\n                    "
-                    )
-                  ]
+                  [_vm._v("\n                    Actualizar\n                ")]
                 ),
                 _vm._v(" "),
                 _c(
@@ -42787,7 +42825,7 @@ var render = function() {
                   },
                   [
                     _vm._v(
-                      "\n                        Subir Imagen\n                    "
+                      "\n                    Subir Imagen\n                "
                     )
                   ]
                 ),
@@ -42798,11 +42836,7 @@ var render = function() {
                     staticClass: "btn btn-danger",
                     on: { click: _vm.desabilitarFormulario }
                   },
-                  [
-                    _vm._v(
-                      "\n                        Cancelar\n                    "
-                    )
-                  ]
+                  [_vm._v("\n                    Cancelar\n                ")]
                 )
               ])
             ])
@@ -43417,119 +43451,185 @@ var render = function() {
   return _c(
     "div",
     [
-      _c("modal", { attrs: { name: "password" } }, [
-        _c(
-          "form",
-          {
-            directives: [
-              {
-                name: "click-outside",
-                rawName: "v-click-outside",
-                value: _vm.onClickOutside,
-                expression: "onClickOutside"
-              }
-            ],
-            on: {
-              submit: function($event) {
-                $event.preventDefault()
-                return _vm.validarPassword($event)
-              }
-            }
-          },
-          [
-            _c("center", [_c("h3", [_vm._v("Cambiar Contrasena")])]),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-md-8 col-md-offset-2" }, [
-              _c("label", [_vm._v("Contrasena Anterior")]),
-              _vm._v(" "),
-              _c("input", {
-                directives: [
+      _c(
+        "modal",
+        {
+          attrs: {
+            name: "password",
+            clickToClose: false,
+            adaptive: true,
+            width: 500,
+            height: 400
+          }
+        },
+        [
+          _c("div", { staticClass: "login_wrapper" }, [
+            _c("div", { staticClass: "animate form login_form" }, [
+              _c("section", { staticClass: "login_content " }, [
+                _c(
+                  "form",
                   {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.passwords.password_anterior,
-                    expression: "passwords.password_anterior"
-                  }
-                ],
-                staticClass: "form-control mb-2",
-                attrs: { type: "text" },
-                domProps: { value: _vm.passwords.password_anterior },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
+                    on: {
+                      submit: function($event) {
+                        $event.preventDefault()
+                        return _vm.validarPassword($event)
+                      }
                     }
-                    _vm.$set(
-                      _vm.passwords,
-                      "password_anterior",
-                      $event.target.value
+                  },
+                  [
+                    _c("h1", [_vm._v("Cambiar Contraseña")]),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "col-md-12 col-center col-sm-8 form-group has-feedback"
+                      },
+                      [
+                        _c("input", {
+                          directives: [
+                            { name: "autofocus", rawName: "v-autofocus" },
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.passwords.password_anterior,
+                              expression: "passwords.password_anterior"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: {
+                            type: "text",
+                            placeholder: "Contraseña Anterior"
+                          },
+                          domProps: { value: _vm.passwords.password_anterior },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.passwords,
+                                "password_anterior",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        })
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "col-md-12 col-center col-sm-8 form-group has-feedback"
+                      },
+                      [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.passwords.password_nueva,
+                              expression: "passwords.password_nueva"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: {
+                            type: "password",
+                            placeholder: "Nueva Contraseña"
+                          },
+                          domProps: { value: _vm.passwords.password_nueva },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.passwords,
+                                "password_nueva",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        })
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "col-md-12 col-center col-sm-8 form-group has-feedback"
+                      },
+                      [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.password_nueva,
+                              expression: "password_nueva"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: {
+                            type: "password",
+                            placeholder: "Repite la nueva contraseña"
+                          },
+                          domProps: { value: _vm.password_nueva },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.password_nueva = $event.target.value
+                            }
+                          }
+                        })
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "col-md-12 col-sm-12 form-group has-feedback"
+                      },
+                      [
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-outline-primary",
+                            attrs: { type: "submit" }
+                          },
+                          [
+                            _vm._v("Actualizar  "),
+                            _c("i", { staticClass: "fa fa-save" })
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-outline-danger",
+                            attrs: { type: "button" },
+                            on: { click: _vm.cerrar }
+                          },
+                          [
+                            _vm._v("Cerrar  "),
+                            _c("i", { staticClass: "fa fa-close" })
+                          ]
+                        )
+                      ]
                     )
-                  }
-                }
-              }),
-              _vm._v(" "),
-              _c("label", [_vm._v("Nueva Contrasena")]),
-              _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.passwords.password_nueva,
-                    expression: "passwords.password_nueva"
-                  }
-                ],
-                staticClass: "form-control mb-2",
-                attrs: { type: "password" },
-                domProps: { value: _vm.passwords.password_nueva },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.$set(
-                      _vm.passwords,
-                      "password_nueva",
-                      $event.target.value
-                    )
-                  }
-                }
-              }),
-              _vm._v(" "),
-              _c("label", [_vm._v("Repite la nueva contrasena")]),
-              _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.password_nueva,
-                    expression: "password_nueva"
-                  }
-                ],
-                staticClass: "form-control mb-2",
-                attrs: { type: "password" },
-                domProps: { value: _vm.password_nueva },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.password_nueva = $event.target.value
-                  }
-                }
-              }),
-              _vm._v(" "),
-              _c(
-                "button",
-                { staticClass: "btn btn-primary", attrs: { type: "submit" } },
-                [_vm._v("Cambiar")]
-              )
+                  ]
+                )
+              ])
             ])
-          ],
-          1
-        )
-      ])
+          ])
+        ]
+      )
     ],
     1
   )

@@ -1,32 +1,43 @@
 <template>
     <div>
         
-        <modal name="password">
-            <form @submit.prevent="validarPassword"  v-click-outside="onClickOutside">
-                <center>
-                    <h3>Cambiar Contrasena</h3>
-                </center>
-
-                <div class="col-md-8 col-md-offset-2">
-                    <label>Contrasena Anterior</label>
-                    <input type="text" class="form-control mb-2" v-model="passwords.password_anterior" />
-                    <label>Nueva Contrasena</label>
-                    <input type="password" class="form-control mb-2" v-model="passwords.password_nueva" />
-                    <label>Repite la nueva contrasena</label>
-                    <input type="password" class="form-control mb-2" v-model="password_nueva" />
-                    <button type="submit" class="btn btn-primary">Cambiar</button>
-                </div>
-                
-                
+        <modal name="password" :clickToClose="false" :adaptive="true" :width="500" :height="400">
+            <div class="login_wrapper">
+                <div class="animate form login_form">
+                    <section class="login_content "> 
+            <form @submit.prevent="validarPassword">
+                    <h1>Cambiar Contraseña</h1>             
+               <div class="col-md-12 col-center col-sm-8 form-group has-feedback">
+                    <input v-autofocus type="text" class="form-control" placeholder="Contraseña Anterior" v-model="passwords.password_anterior" />
+               </div>
+                     <div class="col-md-12 col-center col-sm-8 form-group has-feedback">
+                    <input type="password" class="form-control" placeholder="Nueva Contraseña" v-model="passwords.password_nueva" />
+                    </div>
+                    <div class="col-md-12 col-center col-sm-8 form-group has-feedback">
+                    <input type="password" class="form-control" placeholder="Repite la nueva contraseña" v-model="password_nueva" />
+                    </div>
+                    <div class="col-md-12 col-sm-12 form-group has-feedback">
+                    <button type="submit" class="btn btn-outline-primary">Actualizar  <i class="fa fa-save"></i></button>
+                    <button type="button" @click="cerrar"
+                                        class="btn btn-outline-danger">Cerrar  <i class="fa fa-close"></i></button>
+                                
+                    </div>
+                                       
             </form>
+                    </section>
+                </div>
+            </div>
   
 </modal>
         </div>
 
 </template>
 <script>
+import router from '../../js/router';
 export default {
+    
     data(){
+        
         return{ 
             password_nueva:'',
           passwords: {
@@ -83,8 +94,9 @@ export default {
                 swal('Advertencia', 'Las nuevas contrasenas no coinciden', 'warning')
             }
         },
-        onClickOutside (event) {
-        console.log('Clicked outside. Event: ', event)
+        cerrar(){
+            router.push('/empleados/InfCorporativa');
+       // window.location.href = "http:/amazon.com"
       }
     },
     computed:{

@@ -47,8 +47,9 @@
             <div class="login_wrapper">
                 <div class="animate form login_form">
                     <section class="login_content shadow-lg p-3 mb-5 bg-white rounded">
-                        <h1>Validar Token</h1>
+                        
                         <form @submit.prevent="enviarToken">
+                            <h1>Validar Token</h1>
 
                             <div class="col-md-12 col-center col-sm-8 form-group has-feedback">
                                 <input v-max-length="50" v-autofocus type="text" class="form-control" v-model="token"
@@ -66,9 +67,9 @@
         <modal name="resetPassword" :clickToClose="false" :adaptive="true" :width="430">
             <div class="login_wrapper">
                 <div class="animate form login_form">
-                    <section class="login_content shadow-lg p-3 mb-5 bg-white rounded">
-                        <h1>Cambiar Contraseña</h1>
+                    <section class="login_content shadow-lg p-3 mb-5 bg-white rounded">        
                         <form @submit.prevent="cambiarPassword">
+                            <h1>Cambiar Contraseña</h1>
                                 <div class="col-md-12 col-center col-sm-8 form-group has-feedback">
                                     <input v-max-length="50" v-autofocus :type="passwordFieldType" class="form-control"
                                         v-model="password1" placeholder="Nueva Contraseña" onfocus />
