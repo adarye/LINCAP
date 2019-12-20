@@ -14,6 +14,8 @@ Vue.use(VueInputRestrictionDirectives);
 import vClickOutside from 'v-click-outside'
 Vue.use(vClickOutside)
 
+
+
 //importacion de componentes
 import Login from './components/Login';
 Vue.component('Login', Login)

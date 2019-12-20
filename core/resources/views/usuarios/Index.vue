@@ -1,73 +1,117 @@
 <template>
     <div>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><i class="fa fa-gears"> Configuración</i></li>
+                <li class="breadcrumb-item"><i class="fa fa-users">
+                        <router-link :to="{name: 'IndexUsuario'}"> Usuarios</router-link>
+                    </i></li>
+                <li class="breadcrumb-item active" aria-current="page"></li>
+            </ol>
+        </nav>
+        <nav class="navbar navbar-light bg-light my-2">
+
+            <div class=" pull-right">
+                Ver
+            </div>
+            <div class="col-md-1">
+                <select v-model="selectPag" @click.prevent="mostrarCaja()" class="form-control">
+                    <option value="10">10</option>
+                    <option value="25">25</option>
+                    <option value="0">Personalizado </option>
+                </select>
+            </div>
+            <div class=" pull-left">
+                Registros
+            </div>
+
+            <div class="col-md-4 col-center col-sm-2  has-feedback">
+                <select v-model="selectRol" class="form-control">
+                    <option value="Roles">Roles</option>
+                    <option v-for="(item, indice) in roles" :key="indice" v-bind:value=" item.cz2_id">
+                        {{  item.cz2_nombre }} </option>
+                </select>
+            </div>
+            <div class="col-md-6 col-center has-feedback">
+                <input type="text" v-model="bempleado" class="form-control" v-autofocus v-uppercase
+                    placeholder="Buscar empleado" />
+            </div>
+            <span v-if="mostrar == 1"><input class="select mt-2" v-model="numero" /></span>
+        </nav>
         <button type="button" class="btn btn-round btn-success" @click="show" title="Nuevo">
             Nuevo
         </button>
-        <modal name="create">
-            <form @submit.prevent="buscarTercero()">
-                <center>
-                    <h3>Agregar Usuario</h3>
-                </center>
+        <modal name="create" :clickToClose="false" :adaptive="true" :width="430" :height="430">
+            <div class="login_wrapper">
+                <div class="animate form login_form">
+                    <section class="login_content shadow-lg p-3 mb-5 bg-white rounded">
+                        <form @submit.prevent="buscarTercero()">
+                            <h1>Agregar Usuario</h1>
 
-                <div class="col-md-8 col-md-offset-2">
-                    <input type="text" class="form-control" placeholder="Numero de cedula" v-model="usuario.cz1_cc" />
+                            <div class="col-md-12 col-center col-sm-8 form-group has-feedback">
+                                <input class="form-control" placeholder="Numero de cedula" v-model="usuario.cz1_cc"
+                                    v-numeric-only v-max-length="16" v-autofocus />
+                            </div>
+                            <div class="col-md-12 col-center col-sm-8 form-group has-feedback">
+                                <input type="password" class="form-control mb-2" placeholder="Contraseña"
+                                    v-model="usuario.cz1_password" />
+                            </div>
+                            <select v-model="usuario.cz1_id_rol" class="form-control">
+                                <option value="Roles">Roles</option>
+                                <option class="mb-2" v-for="(item, indice) in roles" :key="indice" v-bind:value="item.cz2_id">
+                                    {{ item.cz2_nombre }}</option>
+                            </select>
+                           
+                          <div class="col-md-12 col-sm-12 form-group has-feedback my-2">
+                                <button class="btn btn-primary" type="submit">
+                                    Agregar
+                                </button>
+                                <button type="button" class="btn btn-danger" @click="closeCreate()">
+                                    Cerrar
+                                </button>
+                            </div>
 
-                    <input type="password" class="form-control mb-2" placeholder="Contraseña"
-                        v-model="usuario.cz1_password" />
+                        </form>
 
-                    <div class="dropdown">
-                        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
-                            {{ nombre_rol }} <span class="caret"></span>
-                        </button>
-                        <ul class="dropdown-menu">
-                            <li v-for="(item, indice) in roles" :key="indice">
-                                <a @click="seleccionarRol(item.cz2_nombre,item.cz2_id)
-                                    ">{{ item.cz2_nombre }}</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <button class="btn btn-primary" type="submit">
-                        Agregar
-                    </button>
 
+                    </section>
                 </div>
-            </form>
-            <button class="btn btn-danger" @click="closeCreate()">
-                Cerrar
-            </button>
+            </div>
+
         </modal>
-        <modal name="editar">
-            <form @submit.prevent="update()">
-                <center>
-                    <h3>Editar Usuario</h3>
-                </center>
+        <modal name="editar" :clickToClose="false" :adaptive="true" :width="430" :height="430">
+           <div class="login_wrapper">
+                <div class="animate form login_form">
+                    <section class="login_content shadow-lg p-3 mb-5 bg-white rounded">
+                        <form @submit.prevent="update()">
+                            <h1>Actualizar Usuario</h1>
 
-                <div class="col-md-8 col-md-offset-2">
-                    <input type="text" class="form-control mb-2" readonly="readonly" v-model="usuario.cz1_cc" />
-                    <input type="password" class="form-control mb-2" v-model="usuario.cz1_password" />
-                    <div class="dropdown">
-                        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
-                            {{ nombre_rol }} <span class="caret"></span>
-                        </button>
-                        <ul class="dropdown-menu">
-                            <li v-for="(item, indice) in roles" :key="indice">
-                                <a @click="
-                                        seleccionarRol(
-                                            item.cz2_nombre,
-                                            item.cz2_id
-                                        )
-                                    ">{{ item.cz2_nombre }}</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <button class="btn btn-warning" type="submit">
-                        Actualizar
-                    </button>
+                            <div class="col-md-12 col-center col-sm-8 form-group has-feedback">
+                                <input class="form-control" placeholder="Numero de cedula" v-model="usuario.cz1_cc"
+                                    v-numeric-only v-max-length="16" v-autofocus />
+                            </div>
+                            <div class="col-md-12 col-center col-sm-8 form-group has-feedback">
+                                <input type="password" class="form-control mb-2" placeholder="Contraseña"
+                                    v-model="usuario.cz1_password" />
+                            </div>
+                            <select v-model="usuario.cz1_id_rol" class="form-control">
+                                <option value="Roles">Roles</option>
+                                <option class="mb-2" v-for="(item, indice) in roles" :key="indice" v-bind:value="item.cz2_id">
+                                    {{ item.cz2_nombre }}</option>
+                            </select>
+                           
+                          <div class="col-md-12 col-sm-12 form-group has-feedback my-2">
+                                <button class="btn btn-primary" type="submit">
+                                    Actualizar
+                                </button>
+                                <button type="button" class="btn btn-danger" @click="closeEditar()">
+                                    Cerrar
+                                </button>
+                            </div>
+                        </form>
+                    </section>
                 </div>
-            </form>
-            <button class="btn btn-danger float-left" v-on:click="closeEditar">
-                Cerrar
-            </button>
+            </div>
         </modal>
 
 
@@ -81,24 +125,39 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="(item, indice) in usuarios" :key="indice">
+                <tr v-for="(item, indice) in  mbuscar" :key="indice"
+                    v-show="(pagina-1) * numero <= indice && pagina*numero > indice || bempleado != ''">
                     <th scope="row">{{ item.cz1_cc }}</th>
-                    <td> {{ item.c0541_nombres }} {{ item.c0541_apellido1 }}
-                        {{ item.c0541_apellido2 }}</td>
+                    <td> {{ item.cz1_nombres }}</td>
                     <td>{{ item.cz2_nombre }}</td>
                     <td><button class="btn btn-warning btn-sm" v-on:click="
                             editar(item);
                             showEditar();
                         ">
-                        Editar
-                    </button>
-                    <button class="btn btn-danger btn-sm" v-on:click="eliminar(item.cz1_id, indice)">
-                        Eliminar
-                    </button></td>
+                            Editar
+                        </button>
+                        <button class="btn btn-danger btn-sm" v-on:click="eliminar(item.cz1_id, indice)">
+                            Eliminar
+                        </button></td>
                 </tr>
-                
+
             </tbody>
         </table>
+        <div class="row">
+            <div class="col-md-4 col-float"></div>
+            <div v-show="bempleado == ''" class="col-md-4 col-center">
+                <button type="button" @click.prevent="pagina=pagina-1" v-show="pagina!=1" class="btn btn-primary">
+                    <li class="fa fa-long-arrow-left"></li>
+                </button>
+                <button type="button" @click.prevent="pagina=pagina+1" v-show="(pagina*numero)/(mbuscar.length) < 1"
+                    class="btn btn-success">
+                    <li class="fa fa-long-arrow-right"></li>
+                </button>
+            </div>
+
+            <div class="pull-right mt-2">Página {{ pagina }} / {{ Math.ceil(mbuscar.length / numero) }} de
+                {{ mbuscar.length }} Registros</div>
+        </div>
     </div>
 </template>
 <script>
@@ -114,12 +173,18 @@
                     cz1_id: null,
                     cz1_cc: null,
                     cz1_password: "",
-                    cz1_id_rol: 0,
+                    cz1_id_rol: null,
                     cz1_id_empleado: 0,
                     cz1_estado: null,
                     cz1_nombres: null
                 },
-                cz1_id: 0
+                cz1_id: 0,
+                selectRol: 'Roles',
+                selectPag: 25,
+                numero: 25,
+                mostrar: 0,
+                bempleado: '',
+                pagina: 1
             };
         },
         beforeMount() {
@@ -133,26 +198,34 @@
                     console.log(this.usuarios);
                 });
             },
+            mostrarCaja: function () {
+                if (this.selectPag == 0) {
+                    this.mostrar = 1
+                } else {
+                    this.mostrar = 0
+                    this.numero = this.selectPag
+                }
+            },
 
             cargarRoles() {
                 axios.get("/api/roles").then(res => {
                     this.roles = res.data;
                 });
             },
-            seleccionarRol(nombre, id_rol) {
-                this.nombre_rol = nombre;
-                this.usuario.cz1_id_rol = id_rol;
-            },
             agregarUsuario() {
-                if (this.nombre_rol != "Rol") {
+                if (this.usuario.cz1_id_rol != null && this.usuario.cz1_id_rol != 'Roles' ) {
+                    console.log('paso')
                     const params = this.usuario;
                     console.log(this.usuario);
                     axios.post("/api/usuarios/create", this.usuario).then(res => {
                         this.created();
                         this.limpiar();
+                        swal('Mensaje', 'Usuario creado con exito', 'success')
+                        this.closeCreate()
+
                     });
                 } else {
-                    console.log("Seleccione un Rol");
+                     swal('Advertencia', 'Selecciona un rol', 'warning')
                 }
             },
             buscarTercero() {
@@ -169,7 +242,7 @@
                         console.log(this.usuario);
 
                         if (this.usuario.cz1_id_empleado == null) {
-                            console.log("el Usuario no existe");
+                           swal('Advertencia', 'El empleado no existe', 'warning')
                         } else {
                             this.validarCCExistente();
                         }
@@ -194,14 +267,14 @@
                 console.log(this.cz1_id);
             },
             update() {
-                if (this.nombre_rol != "Rol") {
+                if (this.usuario.cz1_id_rol != '' && this.usuario.cz1_id_rol != 'Roles') {
                     axios.put(`/api/usuarios/update/${this.cz1_id}`, this.usuario).then(res => {
                         console.log(res);
                         this.created();
                         this.limpiar();
                     });
                 } else {
-                    console.log('seleccione un rol')
+                    swal('Advertencia', 'Selecciona un rol', 'warning')
                 }
             },
             cancelar() {
@@ -217,14 +290,13 @@
                 var i = 0;
                 var estado = 0;
                 for (i = 0; this.usuarios.length > i; i++) {
-                    console.log(this.usuarios[i].cz1_cc);
-                    console.log(this.usuario.cz1_cc);
                     if (this.usuarios[i].cz1_cc === this.usuario.cz1_cc) {
                         this.estado = 1;
                     }
                 }
                 if (this.estado === 1) {
-                    console.log("ya se encuentra en el sistema");
+                    swal("Error","Ya se encuentra en el sistema","error");
+                    this.estado = 0
                 } else {
                     this.agregarUsuario();
                 }
@@ -246,7 +318,32 @@
             }
         },
 
-        computed: {}
+        computed: {
+            mbuscar: function () {
+                return this.usuarios.filter((usuario) => {
+                    if (this.selectRol == null || this.selectRol == 'Roles') {
+                        return usuario.cz1_cc.toUpperCase().includes(this.bempleado.toUpperCase()) ||
+                            usuario.cz1_nombres.toUpperCase().includes(this.bempleado.toUpperCase())
+
+
+
+                    } else {
+                        return (
+                            (usuario.cz1_id_rol.includes(this.selectRol) &&
+                                usuario.cz1_nombres
+                                .toUpperCase()
+                                .includes(this.bempleado.toUpperCase())
+                            ) ||
+                            (usuario.cz1_id_rol.includes(this.selectRol) &&
+                                usuario.cz1_cc
+                                .toUpperCase()
+                                .includes(this.bempleado.toUpperCase()))
+
+                        );
+                    }
+                })
+            }
+        }
     };
 
 </script>

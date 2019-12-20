@@ -23,30 +23,17 @@ class UsuariosController extends Controller
 
         return z1_usuarios::select(
             'cz2_nombre',
-            'c0541_nombres',
-            'c0541_apellido1',
-            'c0541_apellido2',
             'cz1_cc',
-            'c0541_rowid',
             'cz1_id',
-            'cz1_estado',
-            'password'
+            'cz1_estado',           
+             'cz1_nombres',
+             'cz1_id_rol'
 
         )->join(
             'z2_roles',
             'z1_usuarios.cz1_id_rol',
             '=',
             'z2_roles.cz2_id'
-        )->join(
-            'dbo.w0540_empleados',
-            'z1_usuarios.cz1_id_empleado',
-            '=',
-            'dbo.w0540_empleados.c0540_rowid_tercero'
-        )->join(
-            'dbo.w0541_terceros_seleccion',
-            'dbo.w0540_empleados.c0540_rowid_prospecto',
-            '=',
-            'dbo.w0541_terceros_seleccion.c0541_rowid'
         )->get();
 
     }

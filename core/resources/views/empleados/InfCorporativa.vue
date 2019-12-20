@@ -1,34 +1,54 @@
 <template>
     <div>
-        <center>
-            <h1>Informacion Corporativa</h1>
-        </center>
-        Buscar : <input type="text" v-model="bempleado" /> 
-        Paginador :
-        <select v-model="selectPag" @click.prevent="mostrarCaja()">
-            <option value="10">10</option>
-            <option value="25">25</option>
-            <option value="0">Personalizado</option>
-        </select>
-        <select v-model="selectCO">    
-             <option value="TODOS" selected="true">TODOS</option>        
-            <option v-for="(item, indice) in CO" :key = "indice" v-bind:value="item.f285_id">{{ item.f285_descripcion }}</option>
-        </select>
-        <span v-if="mostrar == 1"><input type="text" v-model="numero"/></span> 
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><i class="fa fa-folder-open"> Empleados</i></li>
+                <li class="breadcrumb-item"><i class="fa fa-book"> Informacion Corporativa</i></li>
+                <li class="breadcrumb-item active" aria-current="page"></li>
+            </ol>
+        </nav>
+       <nav class="navbar navbar-light bg-light my-2">
+
+            <div class=" pull-right">
+                Ver
+            </div>
+            <div class="col-md-1">
+                <select v-model="selectPag" @click.prevent="mostrarCaja()" class="form-control">
+                    <option value="10">10</option>
+                    <option value="25">25</option>
+                    <option value="0">Personalizado </option>
+                </select>
+            </div>
+            <div class=" pull-left">
+                Registros
+            </div>
+
+            <div class="col-md-4 col-center col-sm-2  has-feedback">
+                <select v-model="selectCO" class="form-control">
+                    <option value="co">CENTRO DE OPERACIÓN</option>
+                    <option v-for="(item, indice) in CO" :key="indice" v-bind:value="item.f285_id">
+                        {{ item.f285_descripcion }}</option>
+                </select>
+            </div>
+            <div class="col-md-6 col-center has-feedback">
+                <input type="text" v-model="bempleado" class="form-control" v-autofocus placeholder="Buscar empleado" />
+            </div>  
+             <span v-if="mostrar == 1"><input class="select mt-2" v-model="numero" /></span>          
+        </nav> 
         <table class="table">
             <thead>
                 <tr>
                     
-                    <th scope="col">Nombre</th>
-                    <th scope="col">C. O</th>
-                    <th scope="col">Cargo</th>                    
-                    <th scope="col">Email</th>
-                    <th scope="col">Telefono</th>
-                    <th scope="col">Celular</th>
+                    <th scope="col" class="texto">Nombre</th>
+                    <th scope="col" class="texto">C. O</th>
+                    <th scope="col" class="texto">Cargo</th>                    
+                    <th scope="col" class="texto">Email</th>
+                    <th scope="col" class="texto">Telefono</th>
+                    <th scope="col" class="texto">Celular</th>
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="(item, indice) in mbuscar" :key="indice" v-show="(pagina-1) * numero <= indice && pagina*numero > indice">
+                <tr v-for="(item, indice) in mbuscar" :key="indice" v-show="(pagina-1) * numero <= indice && pagina*numero > indice || bempleado != '' ">
                     <th scope="row">{{ item.c0541_nombres }} {{ item.c0541_apellido1 }}
                         {{ item.c0541_apellido2 }}  </th>
              
@@ -42,8 +62,21 @@
                 </tr>
             </tbody>
         </table>
-        <a href="anterior" @click.prevent="pagina=pagina-1" v-show="pagina!=1">Anterior</a>
-		<a href="siguiente" @click.prevent="pagina=pagina+1" v-show="(pagina*numero)/(mbuscar.length) < 1">Siguiente</a>
+        <div class="row">
+            <div class="col-md-4 col-float"></div>
+            <div v-show="bempleado == ''" class="col-md-4 col-center">
+                <button type="button" @click.prevent="pagina=pagina-1" v-show="pagina!=1" class="btn btn-primary">
+                    <li class="fa fa-long-arrow-left"></li>
+                </button>
+                <button type="button" @click.prevent="pagina=pagina+1" v-show="(pagina*numero)/(mbuscar.length) < 1"
+                    class="btn btn-success">
+                    <li class="fa fa-long-arrow-right"></li>
+                </button>
+            </div>
+
+            <div class="pull-right mt-2">Página {{ pagina }} / {{ Math.ceil(mbuscar.length / numero) }} de
+                {{ mbuscar.length }} Registros</div>
+        </div>
     </div>
 </template>
 <script>
@@ -56,7 +89,7 @@ export default {
             CO: [],
             activos: [],
             selectPag: 25,
-            selectCO: null,
+            selectCO: 'co',
             numero: 25,
             mostrar: 0,
             bempleado: '',
@@ -91,7 +124,7 @@ export default {
     computed: {
         mbuscar: function(){
             return this.activos.filter((activo) => {         
-                if(this.selectCO == null || this.selectCO == 'TODOS'){
+                if(this.selectCO == null || this.selectCO == 'co'){
                     const nombre_completo =
                         activo.c0541_nombres +
                         " " +

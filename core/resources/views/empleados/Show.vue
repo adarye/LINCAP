@@ -7,21 +7,20 @@
                 <li class="breadcrumb-item active" aria-current="page"></li>
             </ol>
         </nav>
-        <center>
-            <h1>Actualizar datos</h1>
-        </center>
-        <ul class="nav nav-tabs">
-            <li class="active">
-                <a data-toggle="tab" href="#home">Inf. Personal</a>
-            </li>
-            <li><a data-toggle="tab" href="#menu1">Inf. Corporativa</a></li>
-            <li><a data-toggle="tab" href="#menu2">Inf. SST</a></li>
-        </ul>
-
-
-        <div class="tab-content">
-            <div id="home" class="tab-pane fade in active">
-                <infPersonal v-bind="{
+          <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+  <li class="nav-item">
+    <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Inf. Personal</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Inf. Corporativa</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">Inf. SST</a>
+  </li>
+</ul>
+<div class="tab-content" id="pills-tabContent">
+  <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+       <infPersonal v-bind="{
                         informacion: informacion,
                         usuario: usuario,
                         apellidos: apellidos,
@@ -33,20 +32,19 @@
                         permiso_admin: permiso_admin
                     }" v-on:cargarBarrios="cargarBarrios" v-on:cambiarBarrio="cambiarBarrio" v-on:getImage="getImage">
                 </infPersonal>
-            </div>
-
-            <div id="menu1" class="tab-pane fade">
-                <InfCorporativa v-bind="{
+  </div>
+  <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+      <InfCorporativa v-bind="{
                         informacion: informacion,
                         usuario: usuario,
                         empleado_info: empleado_info,
                         validated: validated
                     }"></InfCorporativa>
-            </div>
-
-            <div id="menu2" class="tab-pane fade">
-                <InfSST v-bind="{ empleado_info: empleado_info }"></InfSST>
-            </div>
+  </div>
+  <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
+       <InfSST v-bind="{ empleado_info: empleado_info }"></InfSST>
+  </div>
+</div>                    
             <modal name="hello-world" :clickToClose="false" :adaptive="true" :width="430" :height="430">
                 <div class="login_wrapper">
                     <div class="animate form login_form">
@@ -66,25 +64,23 @@
                                         <figure>
                                             <img width="200" height="200" alt="profile" :src="imagen_miniatura" />
                                         </figure>
-
                             </form>
                         </section>
                     </div>
                 </div>
             </modal>
-        </div>
-
-
-        <div class="form-row">
+          
+        
             <span v-if="!validated">
-                <div class="form-group col-md-6">
+                <div class="col-md-6">
                     <button @click="habilitarFormulario" class="btn btn-primary my-2">
                         Editar
                     </button>
                 </div>
             </span>
             <span v-else>
-                <div class="form-group col-md-6">
+                 
+                     <div class="col-md-4 col-center">
                     <button @click="validarCampos" class="btn btn-primary">
                         Actualizar
                     </button>
@@ -94,11 +90,12 @@
                     <button @click="desabilitarFormulario" class="btn btn-danger">
                         Cancelar
                     </button>
-                </div>
+                     </div>
+                
             </span>
-        </div>
-
+        
     </div>
+    
 </template>
 <script>
     import moment from "moment";

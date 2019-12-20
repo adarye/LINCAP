@@ -53,7 +53,7 @@
 
                             <div class="col-md-12 col-center col-sm-8 form-group has-feedback">
                                 <input v-max-length="50" v-autofocus type="text" class="form-control" v-model="token"
-                                    placeholder="Token" onfocus/>
+                                    placeholder="Token"/>
                             </div>
                             <div class="col-md-12 col-sm-12 form-group has-feedback">
                                 <button type="submit" class="btn btn-warning">Enviar</button>
@@ -76,8 +76,8 @@
                                     <label title="Mostrar / Ocultar" @click="mostrarContrasena" :class="eyeFieltType"></label>
                                 </div>
                                 <div class="col-md-12 col-center col-sm-8 form-group has-feedback">
-                                    <input v-max-length="50" v-autofocus :type="passwordFieldType" class="form-control"
-                                        v-model="password2" placeholder="Repite la nueva contraseña" onfocus />
+                                    <input v-max-length="50" :type="passwordFieldType" class="form-control"
+                                        v-model="password2" placeholder="Repite la nueva contraseña"/>
                                 </div>
                                 <div class="col-md-12 col-sm-12 form-group has-feedback">
                                     <button type="submit" class="btn btn-primary">Restablecer</button>

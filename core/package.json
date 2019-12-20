@@ -28,6 +28,7 @@
         "sweetalert": "^2.1.2",
         "v-click-outside": "^3.0.0",
         "vue-autofocus-directive": "^1.0.4",
+        "vue-dropdowns": "^1.1.1",
         "vue-dynamic-dropdown": "^1.0.12",
         "vue-input-only-number": "^1.1.0",
         "vue-input-restriction-directives": "^1.2.2",
