@@ -1967,7 +1967,7 @@ __webpack_require__.r(__webpack_exports__);
           swal("Error", "Tu contrato finalizó", "error");
         } else {
           swal({
-            title: "Bienvenido",
+            title: "Bienvenido(a)",
             text: _this.user.cz1_nombres,
             icon: "success",
             closeOnClickOutside: false,
@@ -2000,6 +2000,7 @@ __webpack_require__.r(__webpack_exports__);
     enviarEmail: function enviarEmail() {
       var _this2 = this;
 
+      swal("Cargando...");
       axios.post('/api/usuario/email', {
         cedula: this.cedula
       }).then(function (res) {
@@ -3421,6 +3422,36 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -3646,6 +3677,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -3658,17 +3703,17 @@ __webpack_require__.r(__webpack_exports__);
         cz1_id: null,
         cz1_cc: null,
         cz1_password: "",
-        cz1_id_rol: null,
+        cz1_id_rol: "Roles",
         cz1_id_empleado: 0,
         cz1_estado: null,
         cz1_nombres: null
       },
       cz1_id: 0,
-      selectRol: 'Roles',
+      selectRol: "Roles",
       selectPag: 25,
       numero: 25,
       mostrar: 0,
-      bempleado: '',
+      bempleado: "",
       pagina: 1
     };
   },
@@ -3703,8 +3748,8 @@ __webpack_require__.r(__webpack_exports__);
     agregarUsuario: function agregarUsuario() {
       var _this3 = this;
 
-      if (this.usuario.cz1_id_rol != null && this.usuario.cz1_id_rol != 'Roles') {
-        console.log('paso');
+      if (this.usuario.cz1_id_rol != null && this.usuario.cz1_id_rol != "Roles") {
+        console.log("paso");
         var params = this.usuario;
         console.log(this.usuario);
         axios.post("/api/usuarios/create", this.usuario).then(function (res) {
@@ -3712,12 +3757,12 @@ __webpack_require__.r(__webpack_exports__);
 
           _this3.limpiar();
 
-          swal('Mensaje', 'Usuario creado con exito', 'success');
+          swal("Mensaje", "Usuario creado con exito", "success");
 
           _this3.closeCreate();
         });
       } else {
-        swal('Advertencia', 'Selecciona un rol', 'warning');
+        swal("Advertencia", "Selecciona un rol", "warning");
       }
     },
     buscarTercero: function buscarTercero() {
@@ -3730,19 +3775,34 @@ __webpack_require__.r(__webpack_exports__);
         console.log(_this4.usuario);
 
         if (_this4.usuario.cz1_id_empleado == null) {
-          swal('Advertencia', 'El empleado no existe', 'warning');
+          swal("Advertencia", "El empleado no existe", "warning");
         } else {
           _this4.validarCCExistente();
         }
       });
     },
-    eliminar: function eliminar(id, indice) {
+    eliminar: function eliminar(id, indice, nombres) {
       var _this5 = this;
 
-      axios["delete"]("/api/usuarios/delete/".concat(id)).then(function (res) {
-        _this5.usuarios.splice(indice, 1);
+      swal({
+        title: "Advertencia",
+        text: "¿ELIMANARA A " + nombres + " ?",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true
+      }).then(function (willDelete) {
+        if (willDelete) {
+          axios["delete"]("/api/usuarios/delete/".concat(id)).then(function (res) {
+            _this5.usuarios.splice(indice, 1);
 
-        _this5.limpiar();
+            _this5.limpiar();
+          });
+          swal("Eliminado", {
+            icon: "success"
+          });
+        } else {
+          swal("Estuviste a tiempo");
+        }
       });
     },
     editar: function editar(item) {
@@ -3758,16 +3818,20 @@ __webpack_require__.r(__webpack_exports__);
     update: function update() {
       var _this6 = this;
 
-      if (this.usuario.cz1_id_rol != '' && this.usuario.cz1_id_rol != 'Roles') {
+      if (this.usuario.cz1_id_rol != "" && this.usuario.cz1_id_rol != "Roles") {
         axios.put("/api/usuarios/update/".concat(this.cz1_id), this.usuario).then(function (res) {
           console.log(res);
 
           _this6.created();
 
           _this6.limpiar();
+
+          _this6.closeEditar();
+
+          swal("Mensaje", "Usuario actualizado exitosamente", "success");
         });
       } else {
-        swal('Advertencia', 'Selecciona un rol', 'warning');
+        swal("Advertencia", "Selecciona un rol", "warning");
       }
     },
     cancelar: function cancelar() {
@@ -3777,7 +3841,7 @@ __webpack_require__.r(__webpack_exports__);
       this.modoEditar = false;
       this.usuario.cz1_password = "";
       this.usuario.cz1_cc = "";
-      this.nombre_rol = "Rol";
+      this.usuario.cz1_id_rol = "Roles";
     },
     validarCCExistente: function validarCCExistente() {
       var i = 0;
@@ -3818,7 +3882,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this7 = this;
 
       return this.usuarios.filter(function (usuario) {
-        if (_this7.selectRol == null || _this7.selectRol == 'Roles') {
+        if (_this7.selectRol == null || _this7.selectRol == "Roles") {
           return usuario.cz1_cc.toUpperCase().includes(_this7.bempleado.toUpperCase()) || usuario.cz1_nombres.toUpperCase().includes(_this7.bempleado.toUpperCase());
         } else {
           return usuario.cz1_id_rol.includes(_this7.selectRol) && usuario.cz1_nombres.toUpperCase().includes(_this7.bempleado.toUpperCase()) || usuario.cz1_id_rol.includes(_this7.selectRol) && usuario.cz1_cc.toUpperCase().includes(_this7.bempleado.toUpperCase());
@@ -43388,76 +43452,185 @@ var render = function() {
   return _c(
     "div",
     [
-      _c("modal", { attrs: { name: "create" } }, [
-        _c(
-          "form",
-          {
-            on: {
-              submit: function($event) {
-                $event.preventDefault()
-                return _vm.crear($event)
-              }
-            }
-          },
-          [
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.nombre,
-                  expression: "nombre"
-                }
-              ],
-              staticClass: "form-control mb-2",
-              attrs: { type: "text", placeholder: "Nombre del Rol" },
-              domProps: { value: _vm.nombre },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.nombre = $event.target.value
-                }
-              }
-            }),
-            _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.descripcion,
-                  expression: "descripcion"
-                }
-              ],
-              staticClass: "form-control mb-2",
-              attrs: { type: "text", placeholder: "Descripcion del Rol" },
-              domProps: { value: _vm.descripcion },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.descripcion = $event.target.value
-                }
-              }
-            }),
-            _vm._v(" "),
+      _c("nav", { attrs: { "aria-label": "breadcrumb" } }, [
+        _c("ol", { staticClass: "breadcrumb" }, [
+          _vm._m(0),
+          _vm._v(" "),
+          _c("li", { staticClass: "breadcrumb-item" }, [
             _c(
-              "button",
-              { staticClass: "btn btn-primary", attrs: { type: "submit" } },
-              [_vm._v("Crear")]
-            ),
-            _vm._v(" "),
-            _c(
-              "button",
-              { staticClass: "btn btn-primary", on: { click: _vm.hide } },
-              [_vm._v("Cerrar")]
+              "i",
+              { staticClass: "fa fa-user" },
+              [
+                _c("router-link", { attrs: { to: { name: "Roles" } } }, [
+                  _vm._v("\n                        Roles")
+                ])
+              ],
+              1
             )
-          ]
-        )
+          ]),
+          _vm._v(" "),
+          _c("li", {
+            staticClass: "breadcrumb-item active",
+            attrs: { "aria-current": "page" }
+          })
+        ])
       ]),
+      _vm._v(" "),
+      _c(
+        "modal",
+        {
+          attrs: {
+            name: "create",
+            clickToClose: false,
+            adaptive: true,
+            width: 430
+          }
+        },
+        [
+          _c("div", { staticClass: "login_wrapper" }, [
+            _c("div", { staticClass: "animate form login_form" }, [
+              _c(
+                "section",
+                {
+                  staticClass:
+                    "login_content shadow-lg p-3 mb-5 bg-white rounded"
+                },
+                [
+                  _c(
+                    "form",
+                    {
+                      on: {
+                        submit: function($event) {
+                          $event.preventDefault()
+                          return _vm.crear($event)
+                        }
+                      }
+                    },
+                    [
+                      _c("h1", [_vm._v("Crear Rol")]),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          staticClass:
+                            "col-md-12 col-center col-sm-8 form-group has-feedback"
+                        },
+                        [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "max-length",
+                                rawName: "v-max-length",
+                                value: 70,
+                                expression: "70"
+                              },
+                              { name: "autofocus", rawName: "v-autofocus" },
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.nombre,
+                                expression: "nombre"
+                              },
+                              { name: "uppercase", rawName: "v-uppercase" }
+                            ],
+                            staticClass: "form-control",
+                            attrs: {
+                              type: "text",
+                              placeholder: "Nombre del rol"
+                            },
+                            domProps: { value: _vm.nombre },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.nombre = $event.target.value
+                              }
+                            }
+                          })
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          staticClass:
+                            "col-md-12 col-center col-sm-8 form-group has-feedback"
+                        },
+                        [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "max-length",
+                                rawName: "v-max-length",
+                                value: 80,
+                                expression: "80"
+                              },
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.descripcion,
+                                expression: "descripcion"
+                              },
+                              { name: "uppercase", rawName: "v-uppercase" }
+                            ],
+                            staticClass: "form-control",
+                            attrs: {
+                              type: "text",
+                              placeholder: "Descripcion del rol"
+                            },
+                            domProps: { value: _vm.descripcion },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.descripcion = $event.target.value
+                              }
+                            }
+                          })
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          staticClass:
+                            "col-md-12 col-sm-12 form-group has-feedback"
+                        },
+                        [
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-primary",
+                              attrs: { type: "submit" }
+                            },
+                            [_vm._v("Guardar")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-danger",
+                              attrs: { type: "button" },
+                              on: {
+                                click: function($event) {
+                                  return _vm.$modal.hide("create")
+                                }
+                              }
+                            },
+                            [_vm._v("Cancelar")]
+                          )
+                        ]
+                      )
+                    ]
+                  )
+                ]
+              )
+            ])
+          ])
+        ]
+      ),
       _vm._v(" "),
       _c(
         "button",
@@ -43473,7 +43646,7 @@ var render = function() {
         "table",
         { staticClass: "table table-bordered table-striped table-hover" },
         [
-          _vm._m(0),
+          _vm._m(1),
           _vm._v(" "),
           _c(
             "tbody",
@@ -43501,8 +43674,10 @@ var render = function() {
                 _vm._v(" "),
                 _c("td", [
                   _c(
-                    "a",
+                    "button",
                     {
+                      staticClass: "btn btn-danger btn-sm",
+                      attrs: { type: "button" },
                       on: {
                         click: function($event) {
                           return _vm.eliminar(item.cz2_id, indice)
@@ -43510,10 +43685,8 @@ var render = function() {
                       }
                     },
                     [
-                      _c("i", { staticClass: "material-icons" }, [
-                        _vm._v(
-                          "\n                            edit\n                        "
-                        )
+                      _c("li", { staticClass: "fa fa-trash-o" }, [
+                        _vm._v(" Eliminar ")
                       ])
                     ]
                   )
@@ -43529,6 +43702,14 @@ var render = function() {
   )
 }
 var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("li", { staticClass: "breadcrumb-item" }, [
+      _c("i", { staticClass: "fa fa-gears" }, [_vm._v(" Configuración")])
+    ])
+  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -43580,7 +43761,7 @@ var render = function() {
               { staticClass: "fa fa-users" },
               [
                 _c("router-link", { attrs: { to: { name: "IndexUsuario" } } }, [
-                  _vm._v(" Usuarios")
+                  _vm._v("\n                        Usuarios")
                 ])
               ],
               1
@@ -43689,7 +43870,9 @@ var render = function() {
                     { key: indice, domProps: { value: item.cz2_id } },
                     [
                       _vm._v(
-                        "\n                    " + _vm._s(item.cz2_nombre) + " "
+                        "\n                    " +
+                          _vm._s(item.cz2_nombre) +
+                          "\n                "
                       )
                     ]
                   )
@@ -43794,7 +43977,7 @@ var render = function() {
                       }
                     },
                     [
-                      _c("h1", [_vm._v("Agregar Usuario")]),
+                      _c("h1", [_vm._v("Nuevo Usuario")]),
                       _vm._v(" "),
                       _c(
                         "div",
@@ -44047,7 +44230,10 @@ var render = function() {
                               { name: "autofocus", rawName: "v-autofocus" }
                             ],
                             staticClass: "form-control",
-                            attrs: { placeholder: "Numero de cedula" },
+                            attrs: {
+                              placeholder: "Numero de cedula",
+                              disabled: ""
+                            },
                             domProps: { value: _vm.usuario.cz1_cc },
                             on: {
                               input: function($event) {
@@ -44079,7 +44265,8 @@ var render = function() {
                                 rawName: "v-model",
                                 value: _vm.usuario.cz1_password,
                                 expression: "usuario.cz1_password"
-                              }
+                              },
+                              { name: "autofocus", rawName: "v-autofocus" }
                             ],
                             staticClass: "form-control mb-2",
                             attrs: {
@@ -44226,7 +44413,7 @@ var render = function() {
                         _vm.pagina * _vm.numero > indice) ||
                       _vm.bempleado != "",
                     expression:
-                      "(pagina-1) * numero <= indice && pagina*numero > indice || bempleado != ''"
+                      "\n                    ((pagina - 1) * numero <= indice &&\n                        pagina * numero > indice) ||\n                        bempleado != ''\n                "
                   }
                 ],
                 key: indice
@@ -44236,7 +44423,7 @@ var render = function() {
                   _vm._v(_vm._s(item.cz1_cc))
                 ]),
                 _vm._v(" "),
-                _c("td", [_vm._v(" " + _vm._s(item.cz1_nombres))]),
+                _c("td", [_vm._v(_vm._s(item.cz1_nombres))]),
                 _vm._v(" "),
                 _c("td", [_vm._v(_vm._s(item.cz2_nombre))]),
                 _vm._v(" "),
@@ -44253,9 +44440,11 @@ var render = function() {
                       }
                     },
                     [
-                      _vm._v(
-                        "\n                        Editar\n                    "
-                      )
+                      _c("li", { staticClass: "fa fa-edit" }, [
+                        _vm._v(
+                          "\n                        Editar\n                        "
+                        )
+                      ])
                     ]
                   ),
                   _vm._v(" "),
@@ -44265,14 +44454,20 @@ var render = function() {
                       staticClass: "btn btn-danger btn-sm",
                       on: {
                         click: function($event) {
-                          return _vm.eliminar(item.cz1_id, indice)
+                          return _vm.eliminar(
+                            item.cz1_id,
+                            indice,
+                            item.cz1_nombres
+                          )
                         }
                       }
                     },
                     [
-                      _vm._v(
-                        "\n                        Eliminar\n                    "
-                      )
+                      _c("li", { staticClass: "fa fa-trash-o" }, [
+                        _vm._v(
+                          "\n                        Eliminar\n                        "
+                        )
+                      ])
                     ]
                   )
                 ])
@@ -44308,7 +44503,7 @@ var render = function() {
                     name: "show",
                     rawName: "v-show",
                     value: _vm.pagina != 1,
-                    expression: "pagina!=1"
+                    expression: "pagina != 1"
                   }
                 ],
                 staticClass: "btn btn-primary",
@@ -44331,7 +44526,7 @@ var render = function() {
                     name: "show",
                     rawName: "v-show",
                     value: (_vm.pagina * _vm.numero) / _vm.mbuscar.length < 1,
-                    expression: "(pagina*numero)/(mbuscar.length) < 1"
+                    expression: "(pagina * numero) / mbuscar.length < 1"
                   }
                 ],
                 staticClass: "btn btn-success",
@@ -44350,13 +44545,13 @@ var render = function() {
         _vm._v(" "),
         _c("div", { staticClass: "pull-right mt-2" }, [
           _vm._v(
-            "Página " +
+            "\n            Página " +
               _vm._s(_vm.pagina) +
-              " / " +
+              " /\n            " +
               _vm._s(Math.ceil(_vm.mbuscar.length / _vm.numero)) +
               " de\n            " +
               _vm._s(_vm.mbuscar.length) +
-              " Registros"
+              " Registros\n        "
           )
         ])
       ])
@@ -59654,12 +59849,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_input_restriction_directives__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vue-input-restriction-directives */ "./node_modules/vue-input-restriction-directives/src/index.js");
 /* harmony import */ var v_click_outside__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! v-click-outside */ "./node_modules/v-click-outside/dist/v-click-outside.umd.js");
 /* harmony import */ var v_click_outside__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(v_click_outside__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var _components_Login__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/Login */ "./resources/js/components/Login.vue");
-/* harmony import */ var _components_tabs_InfPersonal__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/tabs/InfPersonal */ "./resources/js/components/tabs/InfPersonal.vue");
-/* harmony import */ var _components_tabs_InfCorporativa__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/tabs/InfCorporativa */ "./resources/js/components/tabs/InfCorporativa.vue");
-/* harmony import */ var _components_tabs_InfSST__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/tabs/InfSST */ "./resources/js/components/tabs/InfSST.vue");
-/* harmony import */ var vue_autofocus_directive__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! vue-autofocus-directive */ "./node_modules/vue-autofocus-directive/dist/vue-autofocus-directive.js");
-/* harmony import */ var vue_autofocus_directive__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(vue_autofocus_directive__WEBPACK_IMPORTED_MODULE_10__);
+/* harmony import */ var _auth__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./auth */ "./resources/js/auth.js");
+/* harmony import */ var _components_Login__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/Login */ "./resources/js/components/Login.vue");
+/* harmony import */ var _components_tabs_InfPersonal__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/tabs/InfPersonal */ "./resources/js/components/tabs/InfPersonal.vue");
+/* harmony import */ var _components_tabs_InfCorporativa__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/tabs/InfCorporativa */ "./resources/js/components/tabs/InfCorporativa.vue");
+/* harmony import */ var _components_tabs_InfSST__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/tabs/InfSST */ "./resources/js/components/tabs/InfSST.vue");
+/* harmony import */ var vue_autofocus_directive__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! vue-autofocus-directive */ "./node_modules/vue-autofocus-directive/dist/vue-autofocus-directive.js");
+/* harmony import */ var vue_autofocus_directive__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(vue_autofocus_directive__WEBPACK_IMPORTED_MODULE_11__);
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 
@@ -59677,18 +59873,23 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_js_modal__WEBPACK_IMPORTED_MO
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_input_restriction_directives__WEBPACK_IMPORTED_MODULE_4__["default"]);
 
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(v_click_outside__WEBPACK_IMPORTED_MODULE_5___default.a); //importacion de componentes
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(v_click_outside__WEBPACK_IMPORTED_MODULE_5___default.a); //AUTORIZACION
+
+window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+console.log(window.user);
+
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.prototype.$auth = new _auth__WEBPACK_IMPORTED_MODULE_6__["default"](window.user); //importacion de componentes
 
 
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('Login', _components_Login__WEBPACK_IMPORTED_MODULE_6__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('Login', _components_Login__WEBPACK_IMPORTED_MODULE_7__["default"]);
 
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('InfPersonal', _components_tabs_InfPersonal__WEBPACK_IMPORTED_MODULE_7__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('InfPersonal', _components_tabs_InfPersonal__WEBPACK_IMPORTED_MODULE_8__["default"]);
 
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('InfCorporativa', _components_tabs_InfCorporativa__WEBPACK_IMPORTED_MODULE_8__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('InfCorporativa', _components_tabs_InfCorporativa__WEBPACK_IMPORTED_MODULE_9__["default"]);
 
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('InfSST', _components_tabs_InfSST__WEBPACK_IMPORTED_MODULE_9__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('InfSST', _components_tabs_InfSST__WEBPACK_IMPORTED_MODULE_10__["default"]);
 
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.directive("autofocus", vue_autofocus_directive__WEBPACK_IMPORTED_MODULE_10___default.a);
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.directive("autofocus", vue_autofocus_directive__WEBPACK_IMPORTED_MODULE_11___default.a);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.directive('uppercase', {
   update: function update(el) {
     el.value = el.value.toUpperCase();
@@ -59698,6 +59899,52 @@ var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
   el: '#app',
   router: _router__WEBPACK_IMPORTED_MODULE_1__["default"]
 });
+
+/***/ }),
+
+/***/ "./resources/js/auth.js":
+/*!******************************!*\
+  !*** ./resources/js/auth.js ***!
+  \******************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Auth; });
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var Auth =
+/*#__PURE__*/
+function () {
+  function Auth(user) {
+    _classCallCheck(this, Auth);
+
+    this.user = user;
+  }
+
+  _createClass(Auth, [{
+    key: "roles",
+    value: function roles() {
+      return this.user.rol.map(function (rol) {
+        return rol.cz1_id_rol;
+      });
+    }
+  }, {
+    key: "isAdmin",
+    value: function isAdmin() {
+      return this.roles().includes("Admin");
+    }
+  }]);
+
+  return Auth;
+}();
+
+
 
 /***/ }),
 

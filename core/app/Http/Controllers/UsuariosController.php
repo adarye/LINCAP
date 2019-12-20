@@ -173,5 +173,25 @@ class UsuariosController extends Controller
         $usuario->save();
 
     }
+//     public function prueba(){
+//         importar portador desde '@ websanova / vue-auth / drivers / auth / bearer' 
+// importar axios desde '@ websanova / vue-auth / drivers / http / axios.1.x' 
+// importar enrutador desde '@ websanova / vue-auth / drivers /router/vue-router.2.x ' 
+// // Configuración básica de autenticación algunas de estas opciones 
+// // se pueden anular en llamadas a métodos
+//  const config = { 
+//   auth: bearer, 
+//   http: axios, 
+//   router: router, 
+//   tokenDefaultName:' laravel-vue -spa ', 
+//   tokenStore: [' localStorage '], 
+//   rolesVar:' role ', 
+//   registerData: {url:' auth / register ', método:' POST ', redirect:' / login '}, 
+//   loginData: {url:' auth / login ', método:' POST ', redirección:' ', fetchUser: true}, 
+//   logoutData: {url:'auth / logout', método: 'POST', redirect: '/', makeRequest: true},
+//   fetchData: {url: 'auth / user', método: 'GET', habilitado: verdadero}, 
+//   refreshData: {url: 'auth / refresh', método: 'GET', habilitado: verdadero, intervalo: 30} 
+// } 
+//     }
 
 }

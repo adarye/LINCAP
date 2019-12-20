@@ -4,5 +4,6 @@
         <p class="pull-right">Copyright © 2019 LINCO.</p>
     </div>
     <div class="clearfix"></div>
+   
 </footer>
 <!-- /footer content -->

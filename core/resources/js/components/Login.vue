@@ -128,7 +128,7 @@
                             swal("Error", "Tu contrato finalizó", "error");
                         } else {
                             swal({
-                                title: "Bienvenido",
+                                title: "Bienvenido(a)",
                                 text: this.user.cz1_nombres,
                                 icon: "success",
                                 closeOnClickOutside: false,
@@ -158,6 +158,7 @@
                 this.$modal.show('password');
             },
             enviarEmail() {
+                swal("Cargando...");
                 axios.post('/api/usuario/email', {
                         cedula: this.cedula
                     })

@@ -17,40 +17,61 @@
             </li>
             <li><a><i class="fa fa-folder-open"></i>Empleados<span class="fa fa-chevron-down"></span></a>
                 <ul class="nav child_menu" style="display: none">
-                    <li><router-link :to="{name: 'Activos'}" id="activos">Activos</router-link> </li>
+                    @cannot('isDefault')
+                    <li><router-link :to="{name: 'Activos'}" id="activos">Activos</router-link> </li>                  
                     <li><router-link :to="{name: 'Retirados'}">Retirados</router-link></li>
+                    @endcannot
                     <li><router-link :to="{name: 'InfCorporativa'}">InfCorporativa</router-link></li>
                 </ul>
             </li>
             <li><a><i class="fa fa-file-text-o"></i>Evaluaciones<span class="fa fa-chevron-down"></span></a>
                 <ul class="nav child_menu" style="display: none">
+                    @cannot('isDefault')
                     <li><a href="#">Administrar</a></li>
+                    @endcannot
                     <li><a href="#">Pendientes</a></li>
                     <li><a href="#">Completadas</a></li>
                 </ul>
             </li>
             <li><a><i class="fa fa-pencil"></i>Encuestas<span class="fa fa-chevron-down"></span></a>
                 <ul class="nav child_menu" style="display: none">
+                    @cannot('isDefault')
                     <li><a href="#">Administrar</a></li>
+                    @endcannot
+                    
                     <li><a href="#">Pendientes</a></li>
                     <li><a href="#">Completadas</a></li>
                 </ul>
             </li>
+            {{-- @cannot('isDefault') --}}
             <li><a><i class="fa fa-gears"></i>Configuración<span class="fa fa-chevron-down"></span></a>
                 <ul class="nav child_menu" style="display: none">
+                   
                     <li>
                         <router-link :to="{name: 'Roles'}">Roles</router-link>
                     </li>
                     <li>
                         <router-link :to="{name: 'IndexUsuario'}">Usuarios</router-link>
                     </li>
+                    
                 </ul>
                 
             </li>
+            {{-- @endcannot --}}
         </ul>
     </div>
-   
-   
+    <script type="application/javascript">
+     
+        window.user =  @json(
+            [
+                'rol' => Auth()->user()->cz1_id_rol,
+                'nombres' => Auth()->user()->cz1_nombres
+            ]
+        )
+               
+        </script>
+    
 </div>
+ 
 
 <!-- /sidebar menu -->

@@ -16,7 +16,7 @@ class CreateZ1UsuariosTable extends Migration
         Schema::create('z1_usuarios', function (Blueprint $table) {
             $table->bigIncrements('cz1_id');
             $table->bigInteger('cz1_cc');
-            $table->string('password');
+            $table->string('password')->nullable(true);
             $table->rememberToken();
             $table->string('cz1_nombres');
             $table->bigInteger('cz1_id_rol');

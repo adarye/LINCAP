@@ -14,7 +14,11 @@ Vue.use(VueInputRestrictionDirectives);
 import vClickOutside from 'v-click-outside'
 Vue.use(vClickOutside)
 
-
+//AUTORIZACION
+window.Vue = require('vue')
+console.log(window.user)
+import Auth from './auth'
+ Vue.prototype.$auth = new Auth(window.user);
 
 //importacion de componentes
 import Login from './components/Login';

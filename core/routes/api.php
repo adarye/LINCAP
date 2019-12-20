@@ -13,8 +13,8 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::get('registros', 'ApiController@traerActivos');
-Route::get('registros/retirados', 'ApiController@traerRetirados');
+Route::get('registros', 'ApiController@traerActivos')->middleware('cannot:isDefault');
+Route::get('registros/retirados', 'ApiController@traerRetirados')->middleware('cannot:isDefault');
 Route::get('registros/InfCorp', 'ApiController@traerInfCorporativa');
 //Route::put('empleado/update/{id}' ,'ApiController@update');
 

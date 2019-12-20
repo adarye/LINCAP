@@ -2,15 +2,19 @@
     <div>
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><i class="fa fa-gears"> Configuración</i></li>
-                <li class="breadcrumb-item"><i class="fa fa-users">
-                        <router-link :to="{name: 'IndexUsuario'}"> Usuarios</router-link>
-                    </i></li>
+                <li class="breadcrumb-item">
+                    <i class="fa fa-gears"> Configuración</i>
+                </li>
+                <li class="breadcrumb-item">
+                    <i class="fa fa-users">
+                        <router-link :to="{ name: 'IndexUsuario' }">
+                            Usuarios</router-link>
+                    </i>
+                </li>
                 <li class="breadcrumb-item active" aria-current="page"></li>
             </ol>
         </nav>
         <nav class="navbar navbar-light bg-light my-2">
-
             <div class=" pull-right">
                 Ver
             </div>
@@ -28,8 +32,9 @@
             <div class="col-md-4 col-center col-sm-2  has-feedback">
                 <select v-model="selectRol" class="form-control">
                     <option value="Roles">Roles</option>
-                    <option v-for="(item, indice) in roles" :key="indice" v-bind:value=" item.cz2_id">
-                        {{  item.cz2_nombre }} </option>
+                    <option v-for="(item, indice) in roles" :key="indice" v-bind:value="item.cz2_id">
+                        {{ item.cz2_nombre }}
+                    </option>
                 </select>
             </div>
             <div class="col-md-6 col-center has-feedback">
@@ -46,7 +51,7 @@
                 <div class="animate form login_form">
                     <section class="login_content shadow-lg p-3 mb-5 bg-white rounded">
                         <form @submit.prevent="buscarTercero()">
-                            <h1>Agregar Usuario</h1>
+                            <h1>Nuevo Usuario</h1>
 
                             <div class="col-md-12 col-center col-sm-8 form-group has-feedback">
                                 <input class="form-control" placeholder="Numero de cedula" v-model="usuario.cz1_cc"
@@ -58,11 +63,12 @@
                             </div>
                             <select v-model="usuario.cz1_id_rol" class="form-control">
                                 <option value="Roles">Roles</option>
-                                <option class="mb-2" v-for="(item, indice) in roles" :key="indice" v-bind:value="item.cz2_id">
+                                <option class="mb-2" v-for="(item, indice) in roles" :key="indice"
+                                    v-bind:value="item.cz2_id">
                                     {{ item.cz2_nombre }}</option>
                             </select>
-                           
-                          <div class="col-md-12 col-sm-12 form-group has-feedback my-2">
+
+                            <div class="col-md-12 col-sm-12 form-group has-feedback my-2">
                                 <button class="btn btn-primary" type="submit">
                                     Agregar
                                 </button>
@@ -70,17 +76,13 @@
                                     Cerrar
                                 </button>
                             </div>
-
                         </form>
-
-
                     </section>
                 </div>
             </div>
-
         </modal>
         <modal name="editar" :clickToClose="false" :adaptive="true" :width="430" :height="430">
-           <div class="login_wrapper">
+            <div class="login_wrapper">
                 <div class="animate form login_form">
                     <section class="login_content shadow-lg p-3 mb-5 bg-white rounded">
                         <form @submit.prevent="update()">
@@ -88,19 +90,20 @@
 
                             <div class="col-md-12 col-center col-sm-8 form-group has-feedback">
                                 <input class="form-control" placeholder="Numero de cedula" v-model="usuario.cz1_cc"
-                                    v-numeric-only v-max-length="16" v-autofocus />
+                                    v-numeric-only v-max-length="16" v-autofocus disabled />
                             </div>
                             <div class="col-md-12 col-center col-sm-8 form-group has-feedback">
                                 <input type="password" class="form-control mb-2" placeholder="Contraseña"
-                                    v-model="usuario.cz1_password" />
+                                    v-model="usuario.cz1_password" v-autofocus />
                             </div>
                             <select v-model="usuario.cz1_id_rol" class="form-control">
                                 <option value="Roles">Roles</option>
-                                <option class="mb-2" v-for="(item, indice) in roles" :key="indice" v-bind:value="item.cz2_id">
+                                <option class="mb-2" v-for="(item, indice) in roles" :key="indice"
+                                    v-bind:value="item.cz2_id">
                                     {{ item.cz2_nombre }}</option>
                             </select>
-                           
-                          <div class="col-md-12 col-sm-12 form-group has-feedback my-2">
+
+                            <div class="col-md-12 col-sm-12 form-group has-feedback my-2">
                                 <button class="btn btn-primary" type="submit">
                                     Actualizar
                                 </button>
@@ -114,7 +117,6 @@
             </div>
         </modal>
 
-
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -125,38 +127,50 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="(item, indice) in  mbuscar" :key="indice"
-                    v-show="(pagina-1) * numero <= indice && pagina*numero > indice || bempleado != ''">
+                <tr v-for="(item, indice) in mbuscar" :key="indice" v-show="
+                        ((pagina - 1) * numero <= indice &&
+                            pagina * numero > indice) ||
+                            bempleado != ''
+                    ">
                     <th scope="row">{{ item.cz1_cc }}</th>
-                    <td> {{ item.cz1_nombres }}</td>
+                    <td>{{ item.cz1_nombres }}</td>
                     <td>{{ item.cz2_nombre }}</td>
-                    <td><button class="btn btn-warning btn-sm" v-on:click="
-                            editar(item);
-                            showEditar();
-                        ">
+                    <td>
+                        <button class="btn btn-warning btn-sm" v-on:click="
+                                editar(item);
+                                showEditar();
+                            ">
+                            <li class="fa fa-edit">
                             Editar
+                            </li>
                         </button>
-                        <button class="btn btn-danger btn-sm" v-on:click="eliminar(item.cz1_id, indice)">
+                        <button class="btn btn-danger btn-sm"
+                            v-on:click="eliminar(item.cz1_id, indice, item.cz1_nombres)">
+                            <li class="fa fa-trash-o">
                             Eliminar
-                        </button></td>
+                            </li>
+                        </button>
+                    </td>
                 </tr>
-
             </tbody>
         </table>
         <div class="row">
             <div class="col-md-4 col-float"></div>
             <div v-show="bempleado == ''" class="col-md-4 col-center">
-                <button type="button" @click.prevent="pagina=pagina-1" v-show="pagina!=1" class="btn btn-primary">
+                <button type="button" @click.prevent="pagina = pagina - 1" v-show="pagina != 1" class="btn btn-primary">
                     <li class="fa fa-long-arrow-left"></li>
                 </button>
-                <button type="button" @click.prevent="pagina=pagina+1" v-show="(pagina*numero)/(mbuscar.length) < 1"
-                    class="btn btn-success">
+                <button type="button" @click.prevent="pagina = pagina + 1"
+                    v-show="(pagina * numero) / mbuscar.length < 1" class="btn btn-success">
                     <li class="fa fa-long-arrow-right"></li>
                 </button>
             </div>
 
-            <div class="pull-right mt-2">Página {{ pagina }} / {{ Math.ceil(mbuscar.length / numero) }} de
-                {{ mbuscar.length }} Registros</div>
+            <div class="pull-right mt-2">
+                Página {{ pagina }} /
+                {{ Math.ceil(mbuscar.length / numero) }} de
+                {{ mbuscar.length }} Registros
+            </div>
         </div>
     </div>
 </template>
@@ -173,17 +187,17 @@
                     cz1_id: null,
                     cz1_cc: null,
                     cz1_password: "",
-                    cz1_id_rol: null,
+                    cz1_id_rol: "Roles",
                     cz1_id_empleado: 0,
                     cz1_estado: null,
                     cz1_nombres: null
                 },
                 cz1_id: 0,
-                selectRol: 'Roles',
+                selectRol: "Roles",
                 selectPag: 25,
                 numero: 25,
                 mostrar: 0,
-                bempleado: '',
+                bempleado: "",
                 pagina: 1
             };
         },
@@ -200,10 +214,10 @@
             },
             mostrarCaja: function () {
                 if (this.selectPag == 0) {
-                    this.mostrar = 1
+                    this.mostrar = 1;
                 } else {
-                    this.mostrar = 0
-                    this.numero = this.selectPag
+                    this.mostrar = 0;
+                    this.numero = this.selectPag;
                 }
             },
 
@@ -213,19 +227,21 @@
                 });
             },
             agregarUsuario() {
-                if (this.usuario.cz1_id_rol != null && this.usuario.cz1_id_rol != 'Roles' ) {
-                    console.log('paso')
+                if (
+                    this.usuario.cz1_id_rol != null &&
+                    this.usuario.cz1_id_rol != "Roles"
+                ) {
+                    console.log("paso");
                     const params = this.usuario;
                     console.log(this.usuario);
                     axios.post("/api/usuarios/create", this.usuario).then(res => {
                         this.created();
                         this.limpiar();
-                        swal('Mensaje', 'Usuario creado con exito', 'success')
-                        this.closeCreate()
-
+                        swal("Mensaje", "Usuario creado con exito", "success");
+                        this.closeCreate();
                     });
                 } else {
-                     swal('Advertencia', 'Selecciona un rol', 'warning')
+                    swal("Advertencia", "Selecciona un rol", "warning");
                 }
             },
             buscarTercero() {
@@ -242,18 +258,35 @@
                         console.log(this.usuario);
 
                         if (this.usuario.cz1_id_empleado == null) {
-                           swal('Advertencia', 'El empleado no existe', 'warning')
+                            swal("Advertencia", "El empleado no existe", "warning");
                         } else {
                             this.validarCCExistente();
                         }
                     }
                 );
             },
-            eliminar(id, indice) {
-                axios.delete(`/api/usuarios/delete/${id}`).then(res => {
-                    this.usuarios.splice(indice, 1);
-                    this.limpiar();
+            eliminar(id, indice, nombres) {
+                swal({
+                    title: "Advertencia",
+                    text: "¿ELIMANARA A " + nombres + " ?",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true
+                }).then(willDelete => {
+                    if (willDelete) {
+                        axios.delete(`/api/usuarios/delete/${id}`).then(res => {
+                            this.usuarios.splice(indice, 1);
+                            this.limpiar();
+                        });
+
+                        swal("Eliminado", {
+                            icon: "success"
+                        });
+                    } else {
+                        swal("Estuviste a tiempo");
+                    }
                 });
+
             },
             editar(item) {
                 this.usuario.cz1_cc = item.cz1_cc;
@@ -267,14 +300,25 @@
                 console.log(this.cz1_id);
             },
             update() {
-                if (this.usuario.cz1_id_rol != '' && this.usuario.cz1_id_rol != 'Roles') {
-                    axios.put(`/api/usuarios/update/${this.cz1_id}`, this.usuario).then(res => {
-                        console.log(res);
-                        this.created();
-                        this.limpiar();
-                    });
+                if (
+                    this.usuario.cz1_id_rol != "" &&
+                    this.usuario.cz1_id_rol != "Roles"
+                ) {
+                    axios
+                        .put(`/api/usuarios/update/${this.cz1_id}`, this.usuario)
+                        .then(res => {
+                            console.log(res);
+                            this.created();
+                            this.limpiar();
+                            this.closeEditar();
+                            swal(
+                                "Mensaje",
+                                "Usuario actualizado exitosamente",
+                                "success"
+                            );
+                        });
                 } else {
-                    swal('Advertencia', 'Selecciona un rol', 'warning')
+                    swal("Advertencia", "Selecciona un rol", "warning");
                 }
             },
             cancelar() {
@@ -284,7 +328,7 @@
                 this.modoEditar = false;
                 this.usuario.cz1_password = "";
                 this.usuario.cz1_cc = "";
-                this.nombre_rol = "Rol";
+                this.usuario.cz1_id_rol = "Roles";
             },
             validarCCExistente() {
                 var i = 0;
@@ -295,8 +339,8 @@
                     }
                 }
                 if (this.estado === 1) {
-                    swal("Error","Ya se encuentra en el sistema","error");
-                    this.estado = 0
+                    swal("Error", "Ya se encuentra en el sistema", "error");
+                    this.estado = 0;
                 } else {
                     this.agregarUsuario();
                 }
@@ -320,28 +364,29 @@
 
         computed: {
             mbuscar: function () {
-                return this.usuarios.filter((usuario) => {
-                    if (this.selectRol == null || this.selectRol == 'Roles') {
-                        return usuario.cz1_cc.toUpperCase().includes(this.bempleado.toUpperCase()) ||
-                            usuario.cz1_nombres.toUpperCase().includes(this.bempleado.toUpperCase())
-
-
-
+                return this.usuarios.filter(usuario => {
+                    if (this.selectRol == null || this.selectRol == "Roles") {
+                        return (
+                            usuario.cz1_cc
+                            .toUpperCase()
+                            .includes(this.bempleado.toUpperCase()) ||
+                            usuario.cz1_nombres
+                            .toUpperCase()
+                            .includes(this.bempleado.toUpperCase())
+                        );
                     } else {
                         return (
                             (usuario.cz1_id_rol.includes(this.selectRol) &&
                                 usuario.cz1_nombres
                                 .toUpperCase()
-                                .includes(this.bempleado.toUpperCase())
-                            ) ||
+                                .includes(this.bempleado.toUpperCase())) ||
                             (usuario.cz1_id_rol.includes(this.selectRol) &&
                                 usuario.cz1_cc
                                 .toUpperCase()
                                 .includes(this.bempleado.toUpperCase()))
-
                         );
                     }
-                })
+                });
             }
         }
     };

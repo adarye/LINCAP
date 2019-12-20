@@ -1,14 +1,45 @@
 <template>
     <div>
-        <modal name="create">
-            <form @submit.prevent="crear">
-                <input type="text" class="form-control mb-2" v-model="nombre" placeholder="Nombre del Rol" />
-                <input type="text" class="form-control mb-2" v-model="descripcion" placeholder="Descripcion del Rol" />
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <i class="fa fa-gears"> Configuración</i>
+                </li>
+                <li class="breadcrumb-item">
+                    <i class="fa fa-user">
+                        <router-link :to="{ name: 'Roles' }">
+                            Roles</router-link>
+                    </i>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page"></li>
+            </ol>
+        </nav>
+        <modal name="create" :clickToClose="false" :adaptive="true" :width="430">
+            <div class="login_wrapper">
+                <div class="animate form login_form">
+                    <section class="login_content shadow-lg p-3 mb-5 bg-white rounded">
+                        <form @submit.prevent="crear">
+                            <h1>Crear Rol</h1>
+                            <div class="col-md-12 col-center col-sm-8 form-group has-feedback">
+                                <input  v-max-length="70"   v-autofocus type="text" class="form-control"
+                                    v-model="nombre" placeholder="Nombre del rol"  v-uppercase />
+                            </div>
+                            <div class="col-md-12 col-center col-sm-8 form-group has-feedback">
+                                <input  v-max-length="80"   type="text" class="form-control"
+                                    v-model="descripcion" placeholder="Descripcion del rol"  v-uppercase />
+                            </div>
+                            <div class="col-md-12 col-sm-12 form-group has-feedback">
+                                <button type="submit" class="btn btn-primary">Guardar</button>
+                                <button type="button" @click="$modal.hide('create');"
+                                    class="btn btn-danger">Cancelar</button>
+                            </div>
 
-                <button class="btn btn-primary" type="submit">Crear</button>
-                <button class="btn btn-primary" @click="hide">Cerrar</button>
-            </form>
+                        </form>
+                    </section>
+                </div>
+            </div>
         </modal>
+        
         <button type="button" class="btn btn-round btn-success" @click="show" title="Nuevo">Nuevo</button>
         <table class="table table-bordered table-striped table-hover">
             <thead>
@@ -29,11 +60,10 @@
                         {{ item.cz2_descripcion }}
                     </td>
                     <td>
-                        <a @click="eliminar(item.cz2_id, indice)">
-                            <i class="material-icons">
-                                edit
-                            </i>
-                        </a>
+                        <button type="button" class="btn btn-danger btn-sm" @click="eliminar(item.cz2_id, indice)">
+                            <li class="fa fa-trash-o"> Eliminar </li>
+                                                          
+                        </button>
 
                     </td>
                 </tr>
