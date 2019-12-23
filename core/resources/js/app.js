@@ -8,8 +8,6 @@ import swal from 'sweetalert';
 import VModal from 'vue-js-modal';
 Vue.use (VModal , {  dynamic: true ,  dynamicDefaults: {  clickToClose: false, adaptive:true } } ) 
 
-import VueRouterUserRoles from "vue-router-user-roles";
-
 import VueInputRestrictionDirectives from 'vue-input-restriction-directives';
 Vue.use(VueInputRestrictionDirectives);
 
