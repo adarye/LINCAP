@@ -21,12 +21,12 @@
                         <form @submit.prevent="crear">
                             <h1>Crear Rol</h1>
                             <div class="col-md-12 col-center col-sm-8 form-group has-feedback">
-                                <input  v-max-length="70"   v-autofocus type="text" class="form-control"
-                                    v-model="nombre" placeholder="Nombre del rol"  v-uppercase />
+                                <input v-uppercase  v-max-length="70"   v-autofocus type="text" class="form-control"
+                                    v-model="nombre" placeholder="Nombre del rol"   />
                             </div>
                             <div class="col-md-12 col-center col-sm-8 form-group has-feedback">
-                                <input  v-max-length="80"   type="text" class="form-control"
-                                    v-model="descripcion" placeholder="Descripcion del rol"  v-uppercase />
+                                <input v-uppercase v-max-length="80"   type="text" class="form-control"
+                                    v-model="descripcion" placeholder="Descripcion del rol"/>
                             </div>
                             <div class="col-md-12 col-sm-12 form-group has-feedback">
                                 <button type="submit" class="btn btn-primary">Guardar</button>

@@ -69,7 +69,7 @@
                     <td>
                         <router-link :to="{
                                 name: 'showEmpleado',
-                                params: { id: item.c0550_rowid_tercero }
+                                params: { id: item.c0550_rowid_tercero, ruta: 'Retirados' }
                             }"><li class="fa fa-search icon">
 
                                 </li></router-link>

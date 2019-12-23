@@ -50,7 +50,7 @@ Route::post('login/ingresar', 'LoginController@iniciarSesion');
 
 Route::get('empleado/show/{id}' ,'TercerosmmController@show');
 Route::put('empleado/update/{id}' ,'TercerosmmController@update');
-Route::get('empleado/{id}', 'TercerosmmController@traerEmpleados');
+Route::post('empleado/{id}', 'TercerosmmController@traerEmpleados');
 Route::get('empleado/informacion/{id}', 'TercerosmmController@traerEmpleadoInfo');
  
 

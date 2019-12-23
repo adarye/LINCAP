@@ -3152,6 +3152,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale("es");
 
@@ -3346,9 +3352,11 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale("es");
     cargarContrato: function cargarContrato() {
       var _this7 = this;
 
-      axios.get("/api/empleado/".concat(this.$route.params.id)).then(function (res) {
+      axios.post("/api/empleado/".concat(this.$route.params.id), {
+        estado: this.$route.params.ruta
+      }).then(function (res) {
         _this7.usuario = res.data;
-        console.log(res.data);
+        console.log('contrao' + res.data);
       });
     },
     validarCampos: function validarCampos() {
@@ -3366,10 +3374,10 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale("es");
         swal("Alerta", "El barrio es obligatorio", "warning");
       } else if (this.informacion.f015_id_ciudad == "") {
         swal("Alerta", "La ciudad es obligatoria", "warning");
+      } else if (this.empleado_info.cz9_nombre_contacto == "") {
+        swal("Alerta", "El nombre del familiar es obligatorio", "warning");
       } else if (this.empleado_info.cz9_tel_contacto == "") {
         swal("Alerta", "El numero del familiar es obligatorio", "warning");
-      } else if (this.empleado_info.cz9_nombre_contacto == "") {
-        swal("Alerta", "El contacto familiar es obligatorio", "warning");
       } else {
         this.actualizar();
       }
@@ -40178,7 +40186,7 @@ var render = function() {
               }
             ],
             staticClass: "form-control",
-            attrs: { type: "email", placeholder: "Nombres", disabled: "" },
+            attrs: { type: "email", placeholder: "Cargo", disabled: "" },
             domProps: { value: _vm.usuario.c0763_descripcion },
             on: {
               input: function($event) {
@@ -40204,7 +40212,11 @@ var render = function() {
               }
             ],
             staticClass: "form-control",
-            attrs: { type: "text", placeholder: "Apellidos", disabled: "" },
+            attrs: {
+              type: "text",
+              placeholder: "Fecha de ingreso",
+              disabled: ""
+            },
             domProps: { value: _vm.usuario.c0550_fecha_ingreso },
             on: {
               input: function($event) {
@@ -40236,7 +40248,11 @@ var render = function() {
               }
             ],
             staticClass: "form-control",
-            attrs: { type: "email", disabled: "" },
+            attrs: {
+              placeholder: "Fecha de finalizacion",
+              type: "email",
+              disabled: ""
+            },
             domProps: { value: _vm.usuario.c0550_fecha_contrato_hasta },
             on: {
               input: function($event) {
@@ -40266,7 +40282,11 @@ var render = function() {
               }
             ],
             staticClass: "form-control",
-            attrs: { type: "text", placeholder: "Apellidos", disabled: "" },
+            attrs: {
+              placeholder: "Lugar de Trabajo",
+              type: "text",
+              disabled: ""
+            },
             domProps: { value: _vm.usuario.f284_descripcion },
             on: {
               input: function($event) {
@@ -40294,7 +40314,11 @@ var render = function() {
               }
             ],
             staticClass: "form-control",
-            attrs: { type: "email", disabled: "" },
+            attrs: {
+              placeholder: "Tipo de Nomina",
+              type: "email",
+              disabled: ""
+            },
             domProps: { value: _vm.usuario.c0504_descripcion },
             on: {
               input: function($event) {
@@ -40320,7 +40344,7 @@ var render = function() {
               }
             ],
             staticClass: "form-control",
-            attrs: { type: "text", placeholder: "Apellidos", disabled: "" },
+            attrs: { type: "text", placeholder: "EPS", disabled: "" },
             domProps: { value: _vm.usuario.c0515_id },
             on: {
               input: function($event) {
@@ -40348,7 +40372,7 @@ var render = function() {
               }
             ],
             staticClass: "form-control",
-            attrs: { type: "email", disabled: "" },
+            attrs: { type: "email", placeholder: "AFP", disabled: "" },
             domProps: { value: _vm.usuario.c0516_id },
             on: {
               input: function($event) {
@@ -40374,7 +40398,7 @@ var render = function() {
               }
             ],
             staticClass: "form-control",
-            attrs: { type: "text", placeholder: "Apellidos", disabled: "" },
+            attrs: { type: "text", placeholder: "ARL", disabled: "" },
             domProps: { value: _vm.usuario.c0517_id },
             on: {
               input: function($event) {
@@ -40402,7 +40426,11 @@ var render = function() {
               }
             ],
             staticClass: "form-control",
-            attrs: { type: "email", disabled: "" },
+            attrs: {
+              type: "email",
+              placeholder: "Salario Actual",
+              disabled: ""
+            },
             domProps: { value: _vm.usuario.c0550_salario },
             on: {
               input: function($event) {
@@ -40435,7 +40463,11 @@ var render = function() {
               }
             ],
             staticClass: "form-control",
-            attrs: { type: "email", disabled: _vm.validated ? false : true },
+            attrs: {
+              type: "email",
+              placeholder: "Email Corporativo",
+              disabled: _vm.validated ? false : true
+            },
             domProps: { value: _vm.empleado_info.cz9_mail_corp },
             on: {
               input: function($event) {
@@ -40474,7 +40506,11 @@ var render = function() {
               }
             ],
             staticClass: "form-control",
-            attrs: { type: "text", disabled: _vm.validated ? false : true },
+            attrs: {
+              type: "text",
+              placeholder: "Telefono Corporativo",
+              disabled: _vm.validated ? false : true
+            },
             domProps: { value: _vm.empleado_info.cz9_tel_corp },
             on: {
               input: function($event) {
@@ -40508,7 +40544,11 @@ var render = function() {
               }
             ],
             staticClass: "form-control",
-            attrs: { type: "text", disabled: _vm.validated ? false : true },
+            attrs: {
+              type: "text",
+              placeholder: "Celular Corporativo",
+              disabled: _vm.validated ? false : true
+            },
             domProps: { value: _vm.empleado_info.cz9_cel_corp },
             on: {
               input: function($event) {
@@ -40688,7 +40728,11 @@ var render = function() {
                 }
               ],
               staticClass: "form-control",
-              attrs: { type: "text", placeholder: "Cedula", disabled: "" },
+              attrs: {
+                type: "text",
+                placeholder: "Fecha de Nacimiento",
+                disabled: ""
+              },
               domProps: { value: _vm.usuario.c0540_fecha_nacimiento },
               on: {
                 input: function($event) {
@@ -40718,7 +40762,11 @@ var render = function() {
                 }
               ],
               staticClass: "form-control",
-              attrs: { type: "text", disabled: "" },
+              attrs: {
+                placeholder: "Fecha de expedicion",
+                type: "text",
+                disabled: ""
+              },
               domProps: { value: _vm.usuario.c0540_fecha_exp_identif },
               on: {
                 input: function($event) {
@@ -40750,7 +40798,11 @@ var render = function() {
                 }
               ],
               staticClass: "form-control",
-              attrs: { type: "text", placeholder: "Cedula", disabled: "" },
+              attrs: {
+                type: "text",
+                placeholder: "Departamento de Expedicion",
+                disabled: ""
+              },
               domProps: { value: _vm.usuario.f012_descripcion },
               on: {
                 input: function($event) {
@@ -40776,7 +40828,11 @@ var render = function() {
                 }
               ],
               staticClass: "form-control",
-              attrs: { type: "text", disabled: "" },
+              attrs: {
+                type: "text",
+                placeholder: "Ciudad de expedicion",
+                disabled: ""
+              },
               domProps: { value: _vm.usuario.f013_descripcion },
               on: {
                 input: function($event) {
@@ -41030,7 +41086,6 @@ var render = function() {
                   value: 75,
                   expression: "75"
                 },
-                { name: "alphabetic-only", rawName: "v-alphabetic-only" },
                 { name: "uppercase", rawName: "v-uppercase" }
               ],
               staticClass: "form-control",
@@ -41072,8 +41127,7 @@ var render = function() {
                   value: 55,
                   expression: "55"
                 },
-                { name: "uppercase", rawName: "v-uppercase" },
-                { name: "alphabetic-only", rawName: "v-alphabetic-only" }
+                { name: "uppercase", rawName: "v-uppercase" }
               ],
               staticClass: "form-control",
               attrs: { type: "text", disabled: _vm.validated ? false : true },
@@ -41096,7 +41150,12 @@ var render = function() {
         _vm._v(" "),
         _c("div", { staticClass: "form-row" }, [
           _c("div", { staticClass: "form-group col-md-6" }, [
-            _c("label", [_vm._v("Numero de telefono del familiar")]),
+            _c("label", [
+              _vm._v(
+                "Numero de telefono  de " +
+                  _vm._s(_vm.empleado_info.cz9_nombre_contacto)
+              )
+            ]),
             _vm._v(" "),
             _c("input", {
               directives: [
@@ -41909,7 +41968,10 @@ var render = function() {
                         attrs: {
                           to: {
                             name: "showEmpleado",
-                            params: { id: item.c0550_rowid_tercero }
+                            params: {
+                              id: item.c0550_rowid_tercero,
+                              ruta: "Activos"
+                            }
                           }
                         }
                       },
@@ -42968,7 +43030,10 @@ var render = function() {
                       attrs: {
                         to: {
                           name: "showEmpleado",
-                          params: { id: item.c0550_rowid_tercero }
+                          params: {
+                            id: item.c0550_rowid_tercero,
+                            ruta: "Retirados"
+                          }
                         }
                       }
                     },
@@ -43132,7 +43197,77 @@ var render = function() {
   return _c(
     "div",
     [
-      _vm._m(0),
+      _c("nav", { attrs: { "aria-label": "breadcrumb" } }, [
+        _c("ol", { staticClass: "breadcrumb" }, [
+          _c(
+            "li",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: this.$route.params.ruta != null,
+                  expression: "this.$route.params.ruta != null"
+                }
+              ],
+              staticClass: "breadcrumb-item"
+            },
+            [_c("i", { staticClass: "fa fa-folder" }, [_vm._v(" Empleados ")])]
+          ),
+          _vm._v(" "),
+          _c(
+            "li",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: this.$route.params.ruta == null,
+                  expression: "this.$route.params.ruta == null"
+                }
+              ],
+              staticClass: "breadcrumb-item"
+            },
+            [_c("i", { staticClass: "fa fa-male" }, [_vm._v(" Perfil ")])]
+          ),
+          _vm._v(" "),
+          _c(
+            "li",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: this.$route.params.ruta != null,
+                  expression: "this.$route.params.ruta != null"
+                }
+              ],
+              staticClass: "breadcrumb-item"
+            },
+            [
+              _c(
+                "i",
+                { staticClass: "fa fa-user" },
+                [
+                  _c(
+                    "router-link",
+                    { attrs: { to: { name: this.$route.params.ruta } } },
+                    [_vm._v(" " + _vm._s(this.$route.params.ruta) + " ")]
+                  )
+                ],
+                1
+              )
+            ]
+          ),
+          _vm._v(" "),
+          _vm._m(0),
+          _vm._v(" "),
+          _c("li", {
+            staticClass: "breadcrumb-item active",
+            attrs: { "aria-current": "page" }
+          })
+        ])
+      ]),
       _vm._v(" "),
       _vm._m(1),
       _vm._v(" "),
@@ -43411,15 +43546,8 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("nav", { attrs: { "aria-label": "breadcrumb" } }, [
-      _c("ol", { staticClass: "breadcrumb" }, [
-        _c("li", { staticClass: "breadcrumb-item" }, [_vm._v("Perfil")]),
-        _vm._v(" "),
-        _c("li", {
-          staticClass: "breadcrumb-item active",
-          attrs: { "aria-current": "page" }
-        })
-      ])
+    return _c("li", { staticClass: "breadcrumb-item" }, [
+      _c("i", { staticClass: "fa fa-edit" }, [_vm._v(" Actualizar")])
     ])
   },
   function() {
@@ -43576,6 +43704,7 @@ var render = function() {
                         [
                           _c("input", {
                             directives: [
+                              { name: "uppercase", rawName: "v-uppercase" },
                               {
                                 name: "max-length",
                                 rawName: "v-max-length",
@@ -43588,8 +43717,7 @@ var render = function() {
                                 rawName: "v-model",
                                 value: _vm.nombre,
                                 expression: "nombre"
-                              },
-                              { name: "uppercase", rawName: "v-uppercase" }
+                              }
                             ],
                             staticClass: "form-control",
                             attrs: {
@@ -43618,6 +43746,7 @@ var render = function() {
                         [
                           _c("input", {
                             directives: [
+                              { name: "uppercase", rawName: "v-uppercase" },
                               {
                                 name: "max-length",
                                 rawName: "v-max-length",
@@ -43629,8 +43758,7 @@ var render = function() {
                                 rawName: "v-model",
                                 value: _vm.descripcion,
                                 expression: "descripcion"
-                              },
-                              { name: "uppercase", rawName: "v-uppercase" }
+                              }
                             ],
                             staticClass: "form-control",
                             attrs: {
@@ -59945,11 +60073,16 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('InfCorporativa', _componen
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('InfSST', _components_tabs_InfSST__WEBPACK_IMPORTED_MODULE_10__["default"]);
 
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.directive("autofocus", vue_autofocus_directive__WEBPACK_IMPORTED_MODULE_11___default.a);
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.directive('uppercase', {
-  update: function update(el) {
-    el.value = el.value.toUpperCase();
-  }
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.directive("autofocus", vue_autofocus_directive__WEBPACK_IMPORTED_MODULE_11___default.a); // Vue.directive('uppercase', {
+// 	update (el) {
+// 		el.value = el.value.toUpperCase()
+// 	},
+// })
+
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.directive('uppercase', function (el, binding) {
+  var processedValue = el.value.toUpperCase();
+  el.value = processedValue;
+  binding.value = el.value;
 });
 var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
   el: '#app',

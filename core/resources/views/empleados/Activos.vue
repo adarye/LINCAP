@@ -68,7 +68,7 @@
                         <td>
                             <router-link :to="{
                                 name: 'showEmpleado',
-                                params: { id: item.c0550_rowid_tercero }
+                                params: { id: item.c0550_rowid_tercero, ruta: 'Activos' }
                             }">
                                 <li class="fa fa-search icon">
 
