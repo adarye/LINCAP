@@ -175,6 +175,7 @@
     </div>
 </template>
 <script>
+import router from '../../js/router';
     export default {
         data() {
             return {
@@ -202,8 +203,14 @@
             };
         },
         beforeMount() {
+              if(window.user.rol == 33){
             this.cargarRoles();
             this.created();
+              }
+              else{
+                  router.push('/');
+
+              }
         },
         methods: {
             created() {
@@ -282,8 +289,6 @@
                         swal("Eliminado", {
                             icon: "success"
                         });
-                    } else {
-                        swal("Estuviste a tiempo");
                     }
                 });
 

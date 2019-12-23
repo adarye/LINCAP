@@ -72,6 +72,7 @@
     </div>
 </template>
 <script>
+import router from '../../js/router';
     export default {
         data() {
             return {
@@ -81,10 +82,14 @@
                 rol: {},
             };
         },
-        mounted() {
+        beforeMount() {
+             if(window.user.rol == 33){
             axios.get("/api/roles").then(res => {
                 this.roles = res.data;
             });
+             }else{
+                   router.push('/');
+             }
         },
         methods: {
             crear() {
@@ -103,9 +108,26 @@
                 
             },
             eliminar(id, indice) {
-                axios.delete(`/api/roles/delete/${id}`).then(res => {
+                swal({
+                    title: "Advertencia",
+                    text: "¿Seguro de eliminar este rol?",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true
+                }).then(willDelete => {
+                    if (willDelete) {
+                        
+                    axios.delete(`/api/roles/delete/${id}`).then(res => {
                     this.roles.splice(indice, 1);
+                        swal("Eliminado", {
+                            icon: "success"
+                        });
+                    });
+                    }
                 });
+                
+            
+                
             },
             show() {
                 this.$modal.show('create');

@@ -100,6 +100,7 @@
 <script>
     import moment from 'moment';
     moment.locale('es');
+    import router from '../../js/router';
     export default {
 
         data() {
@@ -117,14 +118,20 @@
                 moment: moment
             };
         },
-        mounted() {
-            this.getCO();
+        beforeMount() {
+            console.log(window.user.rol)
+            if(window.user.rol == 30 || window.user.rol == 31 || window.user.rol == 33){
+                 
+                 this.getCO();
             axios.get("/api/registros").then(res => {
                 this.activos = res.data;
                 console.log(this.activos);
 
             });
-
+            }else{
+            router.push('/');
+            
+            }
         },
         methods: {
             mostrarCaja: function () {

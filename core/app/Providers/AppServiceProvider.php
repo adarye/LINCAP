@@ -52,7 +52,7 @@ class AppServiceProvider extends ServiceProvider
 
           // returns true if user role is set to author
           Gate::define('isDefault', function($user) {
-            return $user->cz1_id_rol == '32';
+            return $user->cz1_id_rol == '34';
         });
         
     }

@@ -7,6 +7,7 @@ use App\t285_co_centro_op;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Gate;
 
 
 class ApiController extends Controller
@@ -15,8 +16,10 @@ class ApiController extends Controller
     {
         $this->middleware('auth');
     }
+    
     public function traerActivos(Request $request)
     {
+        if (Gate::denies('isDefault')) {
         if ($request->ajax()) {
             return Terceros::select(
                 "c0541_rowid",
@@ -69,6 +72,7 @@ class ApiController extends Controller
         } else {
             return view('pages.index');
         }
+    }
     }
     //TRAE INF CORPORATIVA, CONTRATO Y EMPLEADO, SE PODRIA PONER EN EL BUSCAR GENERAL, PERO ME TRAERIA SOLO LOS EMPLEADOS QUE TIENEN ESTO ACTUALIZADO
     public function traerInfCorporativa(){
@@ -137,9 +141,10 @@ class ApiController extends Controller
            
 
     }
+    
     public function traerRetirados(Request $request)
     {
-       
+        if (Gate::denies('isDefault')) {
             $activos =  Terceros::select(
                 "c0541_rowid",
                 "c0541_nombres",
@@ -239,7 +244,7 @@ class ApiController extends Controller
      
         return [$activos,
         $retirados];
-             
+            }
         
     }
 

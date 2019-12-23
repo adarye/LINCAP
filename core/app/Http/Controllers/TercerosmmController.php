@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Terceros_mm;
 use App\z9_empleados_info;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class TercerosmmController extends Controller
 {
@@ -119,7 +120,7 @@ class TercerosmmController extends Controller
         if (!empty($estado)) {        
             $empleado = z9_empleados_info::find($id);     
 
-            if (Auth()->user()->cz1_id_rol == 1) {              
+            if (Gate::denies('isDefault')) {              
                 $empleado->cz9_fecha_tpprueba = $request->fecha_tpprueba;
                 $empleado->cz9_fecha_vacuna = $request->fecha_vacuna;
                 $empleado->cz9_lugar_vacuna = $request->lugar_vacuna;
@@ -143,7 +144,7 @@ class TercerosmmController extends Controller
 
             $empleado = new z9_empleados_info;
 
-            if (Auth()->user()->cz1_id_rol == 1) {
+            if (Gate::denies('isDefault')) {
 
                 $empleado->cz9_fecha_tpprueba = $request->fecha_tpprueba;
                 $empleado->cz9_fecha_vacuna = $request->fecha_vacuna;

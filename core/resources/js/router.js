@@ -1,7 +1,12 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import VueRouter from 'vue-router';
+
 Vue.use(VueRouter);
+
+
+
+
 
 //importacion de vistas
 
@@ -66,8 +71,7 @@ export default new Router({
         {
             path: '/empleados/activos',
             name: 'Activos',
-            component: Activos
-            
+            component: Activos                    
         },
         {
             path: '/empleados/retirados',
@@ -89,6 +93,7 @@ export default new Router({
         },
         {
             path: '*',
+            name:'404',
             component: v404
         }    
     ]

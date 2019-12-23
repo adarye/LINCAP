@@ -97,6 +97,7 @@
 <script>
     import moment from "moment";
     moment.locale("es");
+    import router from '../../js/router';
     export default {
         data() {
             return {
@@ -111,8 +112,9 @@
                 moment: moment
             };
         },
-        mounted() {
-            axios.get("/api/registros/retirados").then(res => {
+        beforeMount() {
+            if(window.user.rol == 30 || window.user.rol == 31 ||  window.user.rol ==33){
+                axios.get("/api/registros/retirados").then(res => {
                 console.log(res.data);
                 const x = res.data[0];
                 const y = res.data[1];
@@ -123,7 +125,12 @@
                 this.retirados = re;
                 console.log(this.retirados);
                 this.getCO();
-            });
+            });              
+            }
+            else{
+            router.push('/');
+            }
+            
         },
 
         methods: {

@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Gate;
 
 class UsuariosController extends Controller
 {
@@ -20,7 +21,7 @@ class UsuariosController extends Controller
     }
     public function index()
     {
-
+        if (Gate::allows('isAdmin')) {
         return z1_usuarios::select(
             'cz2_nombre',
             'cz1_cc',
@@ -37,8 +38,10 @@ class UsuariosController extends Controller
         )->get();
 
     }
+}
     public function create(Request $request)
     {
+        if (Gate::allows('isAdmin')) {
         $usuario = new z1_usuarios();
         $usuario->cz1_cc = $request->cz1_cc;
         $usuario->password = bcrypt($request->cz1_password);
@@ -48,22 +51,31 @@ class UsuariosController extends Controller
         $usuario->cz1_avatar = 'user.png';
         $usuario->cz1_estado = 1;
         $usuario->save();
+        }
 
     }
     public function delete($id)
     {
+        if (Gate::allows('isAdmin')) {
         $usuario = z1_usuarios::find($id);
         $usuario->delete();
+        }
     }
 
     public function update(Request $request, $cz1_id)
     {
-
+        if (Gate::allows('isAdmin')) {
         $usuario = z1_usuarios::find($cz1_id);
-        $usuario->password = $request->cz1_password;
+        if($request->cz1_password != '')
+        {
+            $usuario->password = bcrypt($request->cz1_password);
+
+        }
+       
         $usuario->cz1_id_rol = $request->cz1_id_rol;
         $usuario->save();
         return $usuario;
+    }
 
     }
     public function myAvatar(Request $request, $id)
@@ -173,25 +185,6 @@ class UsuariosController extends Controller
         $usuario->save();
 
     }
-//     public function prueba(){
-//         importar portador desde '@ websanova / vue-auth / drivers / auth / bearer' 
-// importar axios desde '@ websanova / vue-auth / drivers / http / axios.1.x' 
-// importar enrutador desde '@ websanova / vue-auth / drivers /router/vue-router.2.x ' 
-// // Configuración básica de autenticación algunas de estas opciones 
-// // se pueden anular en llamadas a métodos
-//  const config = { 
-//   auth: bearer, 
-//   http: axios, 
-//   router: router, 
-//   tokenDefaultName:' laravel-vue -spa ', 
-//   tokenStore: [' localStorage '], 
-//   rolesVar:' role ', 
-//   registerData: {url:' auth / register ', método:' POST ', redirect:' / login '}, 
-//   loginData: {url:' auth / login ', método:' POST ', redirección:' ', fetchUser: true}, 
-//   logoutData: {url:'auth / logout', método: 'POST', redirect: '/', makeRequest: true},
-//   fetchData: {url: 'auth / user', método: 'GET', habilitado: verdadero}, 
-//   refreshData: {url: 'auth / refresh', método: 'GET', habilitado: verdadero, intervalo: 30} 
-// } 
-//     }
+
 
 }

@@ -4,31 +4,31 @@
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label>Fecha de la vacuna</label>
-                            <input type="email" class="form-control" disabled v-model="empleado_info.cz9_fecha_vacuna" />
+                            <input type="datetime" class="form-control" :disabled="validated_admin ? false : true" v-model="empleado_info.cz9_fecha_vacuna" />
                         </div>
                         <div class="form-group col-md-6">
                             <label>Lugar de las vacuna</label>
-                            <input type="text" class="form-control" disabled v-model="empleado_info.cz9_lugar_vacuna" v-uppercase  v-alphabetic-only v-max-length="55" />
+                            <input type="text" class="form-control" :disabled="validated_admin ? false : true" v-model="empleado_info.cz9_lugar_vacuna" v-uppercase   v-max-length="55" />
                         </div>
                     </div>
                      <div class="form-row">
                         <div class="form-group col-md-6">
                             <label>Fecha de la vacuna tifoidea </label>
-                            <input type="email" class="form-control" disabled v-model="empleado_info.cz9_fecha_vacuna_tifoidea" />
+                            <input type="datetime" class="form-control" :disabled="validated_admin ? false : true" v-model="empleado_info.cz9_fecha_vacuna_tifoidea" />
                         </div>
                         <div class="form-group col-md-6">
                             <label>Lugar de las vacuna tifoidea</label>
-                            <input type="text" class="form-control" disabled v-model="empleado_info.cz9_lugar_vacuna_tifoidea" v-uppercase  v-alphabetic-only v-max-length="55" />
+                            <input type="text" class="form-control" :disabled="validated_admin ? false : true" v-model="empleado_info.cz9_lugar_vacuna_tifoidea" v-uppercase   v-max-length="55" />
                         </div>
                     </div>
                      <div class="form-row">
                         <div class="form-group col-md-6">
                             <label>Fecha de la vacuna toxoide </label>
-                            <input type="email" class="form-control" disabled v-model="empleado_info.cz9_fecha_vacuna_toxoide"/>
+                            <input type="datetime" class="form-control" :disabled="validated_admin ? false : true" v-model="empleado_info.cz9_fecha_vacuna_toxoide"/>
                         </div>
                         <div class="form-group col-md-6">
                             <label>Lugar de las vacuna toxoide</label>
-                            <input type="text" class="form-control" disabled v-model="empleado_info.cz9_lugar_vacuna_tifoidea" v-uppercase  v-alphabetic-only  v-max-length="55"/>
+                            <input type="text" class="form-control" :disabled="validated_admin ? false : true" v-model="empleado_info.cz9_lugar_vacuna_toxoide" v-uppercase   v-max-length="55"/>
                         </div>
                     </div>
                 </form>
@@ -36,6 +36,6 @@
 </template>
 <script>
 export default {
-    props:['empleado_info']
+    props:['empleado_info','validated_admin']
 }
 </script>

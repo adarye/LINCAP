@@ -7,20 +7,15 @@
                 <li class="breadcrumb-item active" aria-current="page"></li>
             </ol>
         </nav>
-          <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-  <li class="nav-item">
-    <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Inf. Personal</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Inf. Corporativa</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">Inf. SST</a>
-  </li>
-</ul>
-<div class="tab-content" id="pills-tabContent">
-  <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-       <infPersonal v-bind="{
+        <nav>
+          <div class="nav nav-tabs" id="nav-tab" role="tablist">
+    <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Inf. Personal</a>
+    <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Inf. Corporativa</a>
+    <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Inf. SST</a>
+  </div>
+</nav>
+<div class="tab-content" id="nav-tabContent">
+  <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab"><infPersonal v-bind="{
                         informacion: informacion,
                         usuario: usuario,
                         apellidos: apellidos,
@@ -29,22 +24,18 @@
                         validated: validated,
                         empleado_info: empleado_info,
                         sexo: sexo,
-                        permiso_admin: permiso_admin
+                        validated_admin: validated_admin
                     }" v-on:cargarBarrios="cargarBarrios" v-on:cambiarBarrio="cambiarBarrio" v-on:getImage="getImage">
-                </infPersonal>
-  </div>
-  <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
-      <InfCorporativa v-bind="{
+                </infPersonal></div>
+  <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab"><InfCorporativa v-bind="{
                         informacion: informacion,
                         usuario: usuario,
                         empleado_info: empleado_info,
                         validated: validated
-                    }"></InfCorporativa>
-  </div>
-  <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
-       <InfSST v-bind="{ empleado_info: empleado_info }"></InfSST>
-  </div>
-</div>                    
+                    }"></InfCorporativa></div>
+  <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab"><InfSST v-bind="{ empleado_info: empleado_info, validated_admin: validated_admin }"></InfSST></div>
+</div>
+                  
             <modal name="hello-world" :clickToClose="false" :adaptive="true" :width="430" :height="430">
                 <div class="login_wrapper">
                     <div class="animate form login_form">
@@ -100,6 +91,7 @@
 <script>
     import moment from "moment";
     moment.locale("es");
+    import router from '../../js/router';
     export default {
         data() {
             return {
@@ -107,6 +99,7 @@
                 apellidos: "",
                 informacion: {},
                 validated: false,
+                validated_admin: false,
                 permiso_admin: false,
                 ubicacion: "",
                 id_ciudad: 0,
@@ -121,8 +114,12 @@
                 estado: 0
             };
         },
-        mounted() {
-            console.log(this.$route.params.id);
+        beforeMount() {
+            if(window.user.rol == 30 || window.user.rol == 31 || window.user.rol == 33){
+                console.log(this.$route.params.id);            
+            }else{
+            router.push('/empleado/' + window.user.id);      
+            }
             axios.get(`/api/empleado/show/${this.$route.params.id}`).then(res => {
                 this.informacion = res.data[0];
                 console.log(this.informacion);
@@ -134,15 +131,22 @@
             });
             this.cargarContrato();
             this.cargarCiudades();
-            this.traerEmpleadoInfo();
+            this.traerEmpleadoInfo()
+            
         },
 
         methods: {
             habilitarFormulario() {
                 this.validated = true;
+                console.log(window.user.rol)
+                if(window.user.rol == 33 || window.user.rol == 31 || window.user.rol == 30){
+                this.validated_admin = true;
+                }
+               
             },
             desabilitarFormulario() {
                 this.validated = false;
+                this.validated_admin = false;
                 console.log(this.ciudad_seleccionada);
             },
             traerEmpleadoInfo() {
@@ -214,6 +218,7 @@
                     .then(res => {
                         console.log(res.data);
                         this.validated = false;
+                        this.validated_admin = false;
                         swal("Registro actualizado", "Datos Correctos", "success");
                     });
             },

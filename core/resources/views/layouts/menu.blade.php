@@ -44,6 +44,7 @@
                 </ul>
             </li>
             {{-- @cannot('isDefault') --}}
+            @can('isAdmin')
             <li><a><i class="fa fa-gears"></i>Configuración<span class="fa fa-chevron-down"></span></a>
                 <ul class="nav child_menu" style="display: none">
                    
@@ -57,6 +58,7 @@
                 </ul>
                 
             </li>
+            @endcan
             {{-- @endcannot --}}
         </ul>
     </div>
@@ -65,7 +67,8 @@
         window.user =  @json(
             [
                 'rol' => Auth()->user()->cz1_id_rol,
-                'nombres' => Auth()->user()->cz1_nombres
+                'nombres' => Auth()->user()->cz1_nombres,
+                'id' => Auth()->user()->cz1_id_empleado
             ]
         )
                

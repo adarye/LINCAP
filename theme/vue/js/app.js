@@ -2313,7 +2313,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['informacion', 'usuario', 'apellidos', 'ciudades', 'barrios', 'validated', 'empleado_info', 'sexo', 'permiso_admin', 'getImage'],
+  props: ['informacion', 'usuario', 'apellidos', 'ciudades', 'barrios', 'validated', 'empleado_info', 'sexo', 'validated_admin', 'getImage'],
   data: function data() {
     return {};
   }
@@ -2367,7 +2367,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['empleado_info']
+  props: ['empleado_info', 'validated_admin']
 });
 
 /***/ }),
@@ -2427,6 +2427,7 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _js_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../js/router */ "./resources/js/router.js");
 //
 //
 //
@@ -2528,6 +2529,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 
 moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale('es');
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2544,14 +2546,20 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale('es');
       moment: moment__WEBPACK_IMPORTED_MODULE_0___default.a
     };
   },
-  mounted: function mounted() {
+  beforeMount: function beforeMount() {
     var _this = this;
 
-    this.getCO();
-    axios.get("/api/registros").then(function (res) {
-      _this.activos = res.data;
-      console.log(_this.activos);
-    });
+    console.log(window.user.rol);
+
+    if (window.user.rol == 30 || window.user.rol == 31 || window.user.rol == 33) {
+      this.getCO();
+      axios.get("/api/registros").then(function (res) {
+        _this.activos = res.data;
+        console.log(_this.activos);
+      });
+    } else {
+      _js_router__WEBPACK_IMPORTED_MODULE_1__["default"].push('/');
+    }
   },
   methods: {
     mostrarCaja: function mostrarCaja() {
@@ -2865,6 +2873,7 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale('es');
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _js_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../js/router */ "./resources/js/router.js");
 //
 //
 //
@@ -2963,6 +2972,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 
 moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale("es");
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2977,24 +2987,28 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale("es");
       moment: moment__WEBPACK_IMPORTED_MODULE_0___default.a
     };
   },
-  mounted: function mounted() {
+  beforeMount: function beforeMount() {
     var _this = this;
 
-    axios.get("/api/registros/retirados").then(function (res) {
-      console.log(res.data);
-      var x = res.data[0];
-      var y = res.data[1];
-      var re = y.filter(function (o) {
-        return !x.find(function (o2) {
-          return o.c0541_id === o2.c0541_id;
+    if (window.user.rol == 30 || window.user.rol == 31 || window.user.rol == 33) {
+      axios.get("/api/registros/retirados").then(function (res) {
+        console.log(res.data);
+        var x = res.data[0];
+        var y = res.data[1];
+        var re = y.filter(function (o) {
+          return !x.find(function (o2) {
+            return o.c0541_id === o2.c0541_id;
+          });
         });
-      });
-      console.log(re);
-      _this.retirados = re;
-      console.log(_this.retirados);
+        console.log(re);
+        _this.retirados = re;
+        console.log(_this.retirados);
 
-      _this.getCO();
-    });
+        _this.getCO();
+      });
+    } else {
+      _js_router__WEBPACK_IMPORTED_MODULE_1__["default"].push('/');
+    }
   },
   methods: {
     mostrarCaja: function mostrarCaja() {
@@ -3045,6 +3059,7 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale("es");
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _js_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../js/router */ "./resources/js/router.js");
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 //
@@ -3137,17 +3152,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale("es");
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -3155,6 +3162,7 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale("es");
       apellidos: "",
       informacion: {},
       validated: false,
+      validated_admin: false,
       permiso_admin: false,
       ubicacion: "",
       id_ciudad: 0,
@@ -3169,10 +3177,15 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale("es");
       estado: 0
     };
   },
-  mounted: function mounted() {
+  beforeMount: function beforeMount() {
     var _this = this;
 
-    console.log(this.$route.params.id);
+    if (window.user.rol == 30 || window.user.rol == 31 || window.user.rol == 33) {
+      console.log(this.$route.params.id);
+    } else {
+      _js_router__WEBPACK_IMPORTED_MODULE_1__["default"].push('/empleado/' + window.user.id);
+    }
+
     axios.get("/api/empleado/show/".concat(this.$route.params.id)).then(function (res) {
       _this.informacion = res.data[0];
       console.log(_this.informacion);
@@ -3187,9 +3200,15 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale("es");
   methods: {
     habilitarFormulario: function habilitarFormulario() {
       this.validated = true;
+      console.log(window.user.rol);
+
+      if (window.user.rol == 33 || window.user.rol == 31 || window.user.rol == 30) {
+        this.validated_admin = true;
+      }
     },
     desabilitarFormulario: function desabilitarFormulario() {
       this.validated = false;
+      this.validated_admin = false;
       console.log(this.ciudad_seleccionada);
     },
     traerEmpleadoInfo: function traerEmpleadoInfo() {
@@ -3248,6 +3267,7 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale("es");
       axios.put("/api/empleado/update/".concat(this.informacion.c0540_rowid_tercero), params).then(function (res) {
         console.log(res.data);
         _this3.validated = false;
+        _this3.validated_admin = false;
         swal("Registro actualizado", "Datos Correctos", "success");
       });
     },
@@ -3379,6 +3399,7 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale("es");
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _js_router__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../js/router */ "./resources/js/router.js");
 //
 //
 //
@@ -3452,6 +3473,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -3461,12 +3483,16 @@ __webpack_require__.r(__webpack_exports__);
       rol: {}
     };
   },
-  mounted: function mounted() {
+  beforeMount: function beforeMount() {
     var _this = this;
 
-    axios.get("/api/roles").then(function (res) {
-      _this.roles = res.data;
-    });
+    if (window.user.rol == 33) {
+      axios.get("/api/roles").then(function (res) {
+        _this.roles = res.data;
+      });
+    } else {
+      _js_router__WEBPACK_IMPORTED_MODULE_0__["default"].push('/');
+    }
   },
   methods: {
     crear: function crear() {
@@ -3491,8 +3517,22 @@ __webpack_require__.r(__webpack_exports__);
     eliminar: function eliminar(id, indice) {
       var _this3 = this;
 
-      axios["delete"]("/api/roles/delete/".concat(id)).then(function (res) {
-        _this3.roles.splice(indice, 1);
+      swal({
+        title: "Advertencia",
+        text: "¿Seguro de eliminar este rol?",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true
+      }).then(function (willDelete) {
+        if (willDelete) {
+          axios["delete"]("/api/roles/delete/".concat(id)).then(function (res) {
+            _this3.roles.splice(indice, 1);
+
+            swal("Eliminado", {
+              icon: "success"
+            });
+          });
+        }
       });
     },
     show: function show() {
@@ -3515,6 +3555,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _js_router__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../js/router */ "./resources/js/router.js");
 //
 //
 //
@@ -3691,6 +3732,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -3718,8 +3760,12 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   beforeMount: function beforeMount() {
-    this.cargarRoles();
-    this.created();
+    if (window.user.rol == 33) {
+      this.cargarRoles();
+      this.created();
+    } else {
+      _js_router__WEBPACK_IMPORTED_MODULE_0__["default"].push('/');
+    }
   },
   methods: {
     created: function created() {
@@ -3800,8 +3846,6 @@ __webpack_require__.r(__webpack_exports__);
           swal("Eliminado", {
             icon: "success"
           });
-        } else {
-          swal("Estuviste a tiempo");
         }
       });
     },
@@ -41213,7 +41257,7 @@ var render = function() {
               staticClass: "form-control",
               attrs: {
                 type: "date-time",
-                disabled: _vm.permiso_admin ? false : true
+                disabled: _vm.validated_admin ? false : true
               },
               domProps: { value: _vm.empleado_info.cz9_fecha_tpprueba },
               on: {
@@ -41255,7 +41299,7 @@ var render = function() {
                 rows: "4",
                 cols: "50",
                 type: "text",
-                disabled: _vm.permiso_admin ? false : true
+                disabled: _vm.validated_admin ? false : true
               },
               domProps: { value: _vm.empleado_info.cz9_reentrenamiento },
               on: {
@@ -41315,7 +41359,10 @@ var render = function() {
               }
             ],
             staticClass: "form-control",
-            attrs: { type: "email", disabled: "" },
+            attrs: {
+              type: "datetime",
+              disabled: _vm.validated_admin ? false : true
+            },
             domProps: { value: _vm.empleado_info.cz9_fecha_vacuna },
             on: {
               input: function($event) {
@@ -41344,7 +41391,6 @@ var render = function() {
                 expression: "empleado_info.cz9_lugar_vacuna"
               },
               { name: "uppercase", rawName: "v-uppercase" },
-              { name: "alphabetic-only", rawName: "v-alphabetic-only" },
               {
                 name: "max-length",
                 rawName: "v-max-length",
@@ -41353,7 +41399,10 @@ var render = function() {
               }
             ],
             staticClass: "form-control",
-            attrs: { type: "text", disabled: "" },
+            attrs: {
+              type: "text",
+              disabled: _vm.validated_admin ? false : true
+            },
             domProps: { value: _vm.empleado_info.cz9_lugar_vacuna },
             on: {
               input: function($event) {
@@ -41385,7 +41434,10 @@ var render = function() {
               }
             ],
             staticClass: "form-control",
-            attrs: { type: "email", disabled: "" },
+            attrs: {
+              type: "datetime",
+              disabled: _vm.validated_admin ? false : true
+            },
             domProps: { value: _vm.empleado_info.cz9_fecha_vacuna_tifoidea },
             on: {
               input: function($event) {
@@ -41414,7 +41466,6 @@ var render = function() {
                 expression: "empleado_info.cz9_lugar_vacuna_tifoidea"
               },
               { name: "uppercase", rawName: "v-uppercase" },
-              { name: "alphabetic-only", rawName: "v-alphabetic-only" },
               {
                 name: "max-length",
                 rawName: "v-max-length",
@@ -41423,7 +41474,10 @@ var render = function() {
               }
             ],
             staticClass: "form-control",
-            attrs: { type: "text", disabled: "" },
+            attrs: {
+              type: "text",
+              disabled: _vm.validated_admin ? false : true
+            },
             domProps: { value: _vm.empleado_info.cz9_lugar_vacuna_tifoidea },
             on: {
               input: function($event) {
@@ -41455,7 +41509,10 @@ var render = function() {
               }
             ],
             staticClass: "form-control",
-            attrs: { type: "email", disabled: "" },
+            attrs: {
+              type: "datetime",
+              disabled: _vm.validated_admin ? false : true
+            },
             domProps: { value: _vm.empleado_info.cz9_fecha_vacuna_toxoide },
             on: {
               input: function($event) {
@@ -41480,11 +41537,10 @@ var render = function() {
               {
                 name: "model",
                 rawName: "v-model",
-                value: _vm.empleado_info.cz9_lugar_vacuna_tifoidea,
-                expression: "empleado_info.cz9_lugar_vacuna_tifoidea"
+                value: _vm.empleado_info.cz9_lugar_vacuna_toxoide,
+                expression: "empleado_info.cz9_lugar_vacuna_toxoide"
               },
               { name: "uppercase", rawName: "v-uppercase" },
-              { name: "alphabetic-only", rawName: "v-alphabetic-only" },
               {
                 name: "max-length",
                 rawName: "v-max-length",
@@ -41493,8 +41549,11 @@ var render = function() {
               }
             ],
             staticClass: "form-control",
-            attrs: { type: "text", disabled: "" },
-            domProps: { value: _vm.empleado_info.cz9_lugar_vacuna_tifoidea },
+            attrs: {
+              type: "text",
+              disabled: _vm.validated_admin ? false : true
+            },
+            domProps: { value: _vm.empleado_info.cz9_lugar_vacuna_toxoide },
             on: {
               input: function($event) {
                 if ($event.target.composing) {
@@ -41502,7 +41561,7 @@ var render = function() {
                 }
                 _vm.$set(
                   _vm.empleado_info,
-                  "cz9_lugar_vacuna_tifoidea",
+                  "cz9_lugar_vacuna_toxoide",
                   $event.target.value
                 )
               }
@@ -43079,16 +43138,16 @@ var render = function() {
       _vm._v(" "),
       _c(
         "div",
-        { staticClass: "tab-content", attrs: { id: "pills-tabContent" } },
+        { staticClass: "tab-content", attrs: { id: "nav-tabContent" } },
         [
           _c(
             "div",
             {
               staticClass: "tab-pane fade show active",
               attrs: {
-                id: "pills-home",
+                id: "nav-home",
                 role: "tabpanel",
-                "aria-labelledby": "pills-home-tab"
+                "aria-labelledby": "nav-home-tab"
               }
             },
             [
@@ -43112,7 +43171,7 @@ var render = function() {
                     validated: _vm.validated,
                     empleado_info: _vm.empleado_info,
                     sexo: _vm.sexo,
-                    permiso_admin: _vm.permiso_admin
+                    validated_admin: _vm.validated_admin
                   },
                   false
                 )
@@ -43126,9 +43185,9 @@ var render = function() {
             {
               staticClass: "tab-pane fade",
               attrs: {
-                id: "pills-profile",
+                id: "nav-profile",
                 role: "tabpanel",
-                "aria-labelledby": "pills-profile-tab"
+                "aria-labelledby": "nav-profile-tab"
               }
             },
             [
@@ -43155,9 +43214,9 @@ var render = function() {
             {
               staticClass: "tab-pane fade",
               attrs: {
-                id: "pills-contact",
+                id: "nav-contact",
                 role: "tabpanel",
-                "aria-labelledby": "pills-contact-tab"
+                "aria-labelledby": "nav-contact-tab"
               }
             },
             [
@@ -43166,7 +43225,10 @@ var render = function() {
                 _vm._b(
                   {},
                   "InfSST",
-                  { empleado_info: _vm.empleado_info },
+                  {
+                    empleado_info: _vm.empleado_info,
+                    validated_admin: _vm.validated_admin
+                  },
                   false
                 )
               )
@@ -43364,68 +43426,64 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c(
-      "ul",
-      {
-        staticClass: "nav nav-pills mb-3",
-        attrs: { id: "pills-tab", role: "tablist" }
-      },
-      [
-        _c("li", { staticClass: "nav-item" }, [
+    return _c("nav", [
+      _c(
+        "div",
+        {
+          staticClass: "nav nav-tabs",
+          attrs: { id: "nav-tab", role: "tablist" }
+        },
+        [
           _c(
             "a",
             {
-              staticClass: "nav-link active",
+              staticClass: "nav-item nav-link active",
               attrs: {
-                id: "pills-home-tab",
-                "data-toggle": "pill",
-                href: "#pills-home",
+                id: "nav-home-tab",
+                "data-toggle": "tab",
+                href: "#nav-home",
                 role: "tab",
-                "aria-controls": "pills-home",
+                "aria-controls": "nav-home",
                 "aria-selected": "true"
               }
             },
             [_vm._v("Inf. Personal")]
-          )
-        ]),
-        _vm._v(" "),
-        _c("li", { staticClass: "nav-item" }, [
+          ),
+          _vm._v(" "),
           _c(
             "a",
             {
-              staticClass: "nav-link",
+              staticClass: "nav-item nav-link",
               attrs: {
-                id: "pills-profile-tab",
-                "data-toggle": "pill",
-                href: "#pills-profile",
+                id: "nav-profile-tab",
+                "data-toggle": "tab",
+                href: "#nav-profile",
                 role: "tab",
-                "aria-controls": "pills-profile",
+                "aria-controls": "nav-profile",
                 "aria-selected": "false"
               }
             },
             [_vm._v("Inf. Corporativa")]
-          )
-        ]),
-        _vm._v(" "),
-        _c("li", { staticClass: "nav-item" }, [
+          ),
+          _vm._v(" "),
           _c(
             "a",
             {
-              staticClass: "nav-link",
+              staticClass: "nav-item nav-link",
               attrs: {
-                id: "pills-contact-tab",
-                "data-toggle": "pill",
-                href: "#pills-contact",
+                id: "nav-contact-tab",
+                "data-toggle": "tab",
+                href: "#nav-contact",
                 role: "tab",
-                "aria-controls": "pills-contact",
+                "aria-controls": "nav-contact",
                 "aria-selected": "false"
               }
             },
             [_vm._v("Inf. SST")]
           )
-        ])
-      ]
-    )
+        ]
+      )
+    ])
   }
 ]
 render._withStripped = true
@@ -44902,6 +44960,104 @@ function normalizeComponent (
     options: options
   }
 }
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-router-user-roles/dist/vue-router-user-roles.common.js":
+/*!*********************************************************************************!*\
+  !*** ./node_modules/vue-router-user-roles/dist/vue-router-user-roles.common.js ***!
+  \*********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/*!
+ * vue-router-user-roles v0.1.92 
+ * (c) 2019 Anthony Gore
+ * Released under the MIT License.
+ */
+
+
+function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
+
+var Vue = _interopDefault(__webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js"));
+
+var RouteProtect = function RouteProtect (router) {
+  this.router = router;
+  this.vm = new Vue({
+    data: {
+      user: null
+    }
+  });
+};
+RouteProtect.prototype.get = function get () {
+  if (!this.vm.user) {
+    throw new Error("Attempt to access user before being set");
+  }
+  return this.vm.user;
+};
+RouteProtect.prototype.set = function set (user) {
+  this.vm.user = user;
+  if (this.to) {
+    var ref = this._hasAccessToRoute(this.to);
+      var access = ref.access;
+      var redirect = ref.redirect;
+    if (!access) {
+      this.router.push({ name: redirect });
+    }
+  }
+};
+RouteProtect.prototype.hasAccess = function hasAccess (ref) {
+    var name = ref.name;
+
+  var route = this.router.options.routes.find(function (r) { return r.name === name; });
+  if (!route) {
+    throw new Error(("Route " + name + " is not defined in the current router"));
+  }
+
+  return this._hasAccessToRoute(route).access;
+};
+RouteProtect.prototype._hasAccessToRoute = function _hasAccessToRoute (route) {
+    var this$1 = this;
+
+  if (this.vm.user && route.meta.permissions) {
+    var matched = route.meta.permissions.find(function (item) { return item.role === this$1.vm.user.role; });
+    if (matched) {
+      if ((typeof matched.access === "boolean" && !matched.access) ||
+          (typeof matched.access === "function" && !matched.access(this.vm.user, route))) {
+        return { access: false, redirect: matched.redirect };
+      }
+    }
+  }
+
+  return { access: true };
+};
+RouteProtect.prototype.resolve = function resolve (to, from, next) {
+  this.to = to;
+
+  var ref = this._hasAccessToRoute(to);
+    var access = ref.access;
+    var redirect = ref.redirect;
+  access ? next() : next({ name: redirect });
+  };
+
+function plugin (Vue$$1, opts) {
+  if (!opts.router) {
+    throw new Error("You must supply a router instance in the options.");
+  }
+  var rp = new RouteProtect(opts.router);
+  Vue$$1.prototype.$user = rp;
+  opts.router.beforeEach(function (to, from, next) { return rp.resolve(to, from, next); });
+}
+
+plugin.version = "0.1.92";
+
+if (typeof window !== "undefined" && window.Vue) {
+  window.Vue.use(plugin);
+}
+
+module.exports = plugin;
 
 
 /***/ }),
@@ -59846,10 +60002,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var sweetalert__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(sweetalert__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var vue_js_modal__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue-js-modal */ "./node_modules/vue-js-modal/dist/index.js");
 /* harmony import */ var vue_js_modal__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(vue_js_modal__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var vue_input_restriction_directives__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vue-input-restriction-directives */ "./node_modules/vue-input-restriction-directives/src/index.js");
-/* harmony import */ var v_click_outside__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! v-click-outside */ "./node_modules/v-click-outside/dist/v-click-outside.umd.js");
-/* harmony import */ var v_click_outside__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(v_click_outside__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var _auth__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./auth */ "./resources/js/auth.js");
+/* harmony import */ var vue_router_user_roles__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vue-router-user-roles */ "./node_modules/vue-router-user-roles/dist/vue-router-user-roles.common.js");
+/* harmony import */ var vue_router_user_roles__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(vue_router_user_roles__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var vue_input_restriction_directives__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vue-input-restriction-directives */ "./node_modules/vue-input-restriction-directives/src/index.js");
+/* harmony import */ var v_click_outside__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! v-click-outside */ "./node_modules/v-click-outside/dist/v-click-outside.umd.js");
+/* harmony import */ var v_click_outside__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(v_click_outside__WEBPACK_IMPORTED_MODULE_6__);
 /* harmony import */ var _components_Login__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/Login */ "./resources/js/components/Login.vue");
 /* harmony import */ var _components_tabs_InfPersonal__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/tabs/InfPersonal */ "./resources/js/components/tabs/InfPersonal.vue");
 /* harmony import */ var _components_tabs_InfCorporativa__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/tabs/InfCorporativa */ "./resources/js/components/tabs/InfCorporativa.vue");
@@ -59871,14 +60028,12 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_js_modal__WEBPACK_IMPORTED_MO
   }
 });
 
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_input_restriction_directives__WEBPACK_IMPORTED_MODULE_4__["default"]);
 
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(v_click_outside__WEBPACK_IMPORTED_MODULE_5___default.a); //AUTORIZACION
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_input_restriction_directives__WEBPACK_IMPORTED_MODULE_5__["default"]);
 
-window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
-console.log(window.user);
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(v_click_outside__WEBPACK_IMPORTED_MODULE_6___default.a); //AUTORIZACION
 
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.prototype.$auth = new _auth__WEBPACK_IMPORTED_MODULE_6__["default"](window.user); //importacion de componentes
+window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js"); //importacion de componentes
 
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('Login', _components_Login__WEBPACK_IMPORTED_MODULE_7__["default"]);
@@ -59899,52 +60054,6 @@ var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
   el: '#app',
   router: _router__WEBPACK_IMPORTED_MODULE_1__["default"]
 });
-
-/***/ }),
-
-/***/ "./resources/js/auth.js":
-/*!******************************!*\
-  !*** ./resources/js/auth.js ***!
-  \******************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Auth; });
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-var Auth =
-/*#__PURE__*/
-function () {
-  function Auth(user) {
-    _classCallCheck(this, Auth);
-
-    this.user = user;
-  }
-
-  _createClass(Auth, [{
-    key: "roles",
-    value: function roles() {
-      return this.user.rol.map(function (rol) {
-        return rol.cz1_id_rol;
-      });
-    }
-  }, {
-    key: "isAdmin",
-    value: function isAdmin() {
-      return this.roles().includes("Admin");
-    }
-  }]);
-
-  return Auth;
-}();
-
-
 
 /***/ }),
 
@@ -60346,6 +60455,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
     component: _views_usuarios_RestartPassword__WEBPACK_IMPORTED_MODULE_10__["default"]
   }, {
     path: '*',
+    name: '404',
     component: _views_404__WEBPACK_IMPORTED_MODULE_11__["default"]
   }]
 }));
@@ -60768,14 +60878,15 @@ __webpack_require__.r(__webpack_exports__);
 /*!********************************************!*\
   !*** ./resources/views/empleados/Show.vue ***!
   \********************************************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Show_vue_vue_type_template_id_443d08bd___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Show.vue?vue&type=template&id=443d08bd& */ "./resources/views/empleados/Show.vue?vue&type=template&id=443d08bd&");
 /* harmony import */ var _Show_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Show.vue?vue&type=script&lang=js& */ "./resources/views/empleados/Show.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _Show_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _Show_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -60805,7 +60916,7 @@ component.options.__file = "resources/views/empleados/Show.vue"
 /*!*********************************************************************!*\
   !*** ./resources/views/empleados/Show.vue?vue&type=script&lang=js& ***!
   \*********************************************************************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
