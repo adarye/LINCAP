@@ -27,23 +27,23 @@
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label>Fecha de Nacimiento</label>
-                    <input type="text" class="form-control" placeholder="Cedula"
+                    <input type="text" class="form-control" placeholder="Fecha de Nacimiento"
                         v-model="usuario.c0540_fecha_nacimiento" disabled />
                 </div>
                 <div class="form-group col-md-6">
                     <label>Fecha de expedicion</label>
-                    <input type="text" class="form-control" v-model="usuario.c0540_fecha_exp_identif" disabled />
+                    <input placeholder="Fecha de expedicion" type="text" class="form-control" v-model="usuario.c0540_fecha_exp_identif" disabled />
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label>Departamento de Expedicion</label>
-                    <input type="text" class="form-control" placeholder="Cedula" v-model="usuario.f012_descripcion"
+                    <input type="text" class="form-control" placeholder="Departamento de Expedicion" v-model="usuario.f012_descripcion"
                         disabled />
                 </div>
                 <div class="form-group col-md-6">
                     <label>Ciudad de expedicion</label>
-                    <input type="text" class="form-control" v-model="usuario.f013_descripcion" disabled />
+                    <input type="text" class="form-control" placeholder="Ciudad de expedicion" v-model="usuario.f013_descripcion" disabled />
                 </div>
             </div>
             <div class="form-row">
@@ -92,16 +92,16 @@
                 <div class="form-group col-md-6">
                     <label>Nombre de un familiar en Linco</label>
                     <input type="text" class="form-control" placeholder="opcional"
-                        :disabled="validated ? false : true" v-model="empleado_info.cz9_nombre_familiar" v-max-length="75" v-alphabetic-only  v-uppercase/>
+                        :disabled="validated ? false : true" v-model="empleado_info.cz9_nombre_familiar" v-max-length="75"   v-uppercase/>
                 </div>
                 <div class="form-group col-md-6">
                     <label>Nombre de un familiar</label>
-                    <input type="text" class="form-control" v-model="empleado_info.cz9_nombre_contacto" :disabled="validated ? false : true" v-max-length="55" v-uppercase  v-alphabetic-only  />
+                    <input type="text" class="form-control" v-model="empleado_info.cz9_nombre_contacto" :disabled="validated ? false : true" v-max-length="55" v-uppercase/>
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
-                    <label>Numero de telefono del familiar</label>
+                    <label>Numero de telefono  de {{ empleado_info.cz9_nombre_contacto }}</label>
                     <input type="text" class="form-control" :disabled="validated ? false : true" v-model="empleado_info.cz9_tel_contacto" v-max-length="25" v-numeric-only/>
                 </div>
                 <div class="form-group col-md-6">

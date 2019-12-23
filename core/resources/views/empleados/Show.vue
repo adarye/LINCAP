@@ -3,7 +3,13 @@
 
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item">Perfil</li>
+                <li class="breadcrumb-item" v-show="this.$route.params.ruta != null"><i class="fa fa-folder"> Empleados </i></li> 
+                <li class="breadcrumb-item"  v-show="this.$route.params.ruta == null"><i class="fa fa-male"> Perfil </i></li>
+                      
+                <li class="breadcrumb-item"  v-show="this.$route.params.ruta != null"> <i class="fa fa-user">  <router-link :to="{ name: this.$route.params.ruta }"> {{ this.$route.params.ruta  }} </router-link> </i></li>
+                
+
+                <li class="breadcrumb-item"><i class="fa fa-edit"> Actualizar</i></li>
                 <li class="breadcrumb-item active" aria-current="page"></li>
             </ol>
         </nav>
@@ -314,9 +320,9 @@
                 console.log(this.informacion);
             },
             cargarContrato() {
-                axios.get(`/api/empleado/${this.$route.params.id}`).then(res => {
+                axios.post(`/api/empleado/${this.$route.params.id}`,{estado: this.$route.params.ruta}).then(res => {
                     this.usuario = res.data;
-                    console.log(res.data);
+                    console.log('contrao' + res.data);
                 });
             },
             validarCampos() {
@@ -341,19 +347,21 @@
                     swal("Alerta", "El barrio es obligatorio", "warning");
                 } else if (this.informacion.f015_id_ciudad == "") {
                     swal("Alerta", "La ciudad es obligatoria", "warning");
-                } else if (this.empleado_info.cz9_tel_contacto == "") {
+                    
+                } else if (this.empleado_info.cz9_nombre_contacto == "") {
+                    swal(
+                        "Alerta",
+                        "El nombre del familiar es obligatorio",
+                        "warning"
+                    );
+                }
+                else if (this.empleado_info.cz9_tel_contacto == "") {
                     swal(
                         "Alerta",
                         "El numero del familiar es obligatorio",
                         "warning"
                     );
-                } else if (this.empleado_info.cz9_nombre_contacto == "") {
-                    swal(
-                        "Alerta",
-                        "El contacto familiar es obligatorio",
-                        "warning"
-                    );
-                } else {
+                }  else {
                     this.actualizar();
                 }
             },

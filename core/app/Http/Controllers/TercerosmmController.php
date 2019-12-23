@@ -15,9 +15,11 @@ class TercerosmmController extends Controller
         $this->middleware('auth');
     }
 
-    public function show($id)
+    public function show(Request $request, $id)
     {
-
+         
+        
+        //  . $request->estado;
         //TRAE DATOS DE CLIENTES PROVEEDORES Y TERCEROS
         return Terceros_mm::select(
             "dbo.t015_mm_contactos.f015_contacto",
@@ -211,6 +213,12 @@ class TercerosmmController extends Controller
             'dbo.w0540_empleados.c0540_rowid_tercero'
 
         )->join(
+            'dbo.w0550_contratos',
+            'dbo.w0540_empleados.c0540_rowid_tercero',
+            '=',
+            'dbo.w0550_contratos.c0550_rowid_tercero'
+
+        )->join(
             'dbo.z9_empleados_info',
             'dbo.w0540_empleados.c0540_rowid_tercero',
             '=',
@@ -222,8 +230,139 @@ class TercerosmmController extends Controller
     }
 
     //TRAE TODO LO RELACIONADO CON EL CONTRATO Y EL EMPLEADO
-    public function traerEmpleados($id)
+    public function traerEmpleados(Request $request, $id)
     {
+        // $estado = 1;
+        //  if($request->estado == 'Retirados'){
+        //      $estado = 2;
+        //  };
+        $user = Terceros_mm::select(
+            "dbo.t015_mm_contactos.f015_contacto",
+            "dbo.t015_mm_contactos.f015_direccion1",
+            "dbo.t015_mm_contactos.f015_id_barrio",
+            "dbo.t015_mm_contactos.f015_telefono",
+            "dbo.t015_mm_contactos.f015_email",
+            "dbo.t015_mm_contactos.f015_celular",
+            "dbo.t015_mm_contactos.f015_id_pais",
+            "dbo.t015_mm_contactos.f015_id_depto",
+            "dbo.t015_mm_contactos.f015_id_ciudad",
+            "dbo.t015_mm_contactos.f015_id_barrio",
+            "f200_apellido2",
+            "f200_apellido1",
+            "f200_nombres",
+            'dbo.w0540_empleados.c0540_rowid_tercero',
+            "c0540_fecha_exp_identif",
+            "c0540_ind_sexo",
+            "c0540_fecha_nacimiento",
+            "c0763_descripcion",
+            "c0550_fecha_ingreso",
+            "c0550_fecha_contrato_hasta",
+            "c0550_rowid_centros_trabajo",
+            "c0515_id",
+            "c0516_id",
+            "c0517_id",
+            "f284_descripcion",
+            "c0504_descripcion",
+            "f011_descripcion",
+            "f012_descripcion",
+            "f013_descripcion",
+            'f200_id',
+            'c0550_rowid',
+            'c0550_salario',
+            "c0540_id_ciudad_nacimiento"
+
+        )->join(
+            'dbo.t200_mm_terceros',
+            'dbo.t015_mm_contactos.f015_rowid',
+            '=',
+            'dbo.t200_mm_terceros.f200_rowid_contacto'
+
+        )->join(
+            'dbo.w0540_empleados',
+            'dbo.t200_mm_terceros.f200_rowid',
+            '=',
+            'dbo.w0540_empleados.c0540_rowid_tercero'
+
+        )->join(
+            'dbo.w0550_contratos',
+            'dbo.w0540_empleados.c0540_rowid_tercero',
+            '=',
+            'dbo.w0550_contratos.c0550_rowid_tercero'
+
+        )->join(
+            'dbo.w0763_gh01_cargos',
+            'dbo.w0763_gh01_cargos.c0763_rowid',
+            '=',
+            'dbo.w0550_contratos.c0550_rowid_cargo'
+        )->join(
+            'dbo.w0515_entidades_eps',
+            'dbo.w0550_contratos.c0550_rowid_entidad_eps',
+            '=',
+            'dbo.w0515_entidades_eps.c0515_rowid'
+
+        )->join(
+            'dbo.w0516_entidades_afp',
+            'dbo.w0550_contratos.c0550_rowid_entidad_pension',
+            '=',
+            'dbo.w0516_entidades_afp.c0516_rowid'
+
+        )->join(
+            'dbo.w0517_entidades_arp',
+            'dbo.w0550_contratos.c0550_rowid_entidad_arp',
+            '=',
+            'dbo.w0517_entidades_arp.c0517_rowid'
+
+        )->join(
+            'dbo.t284_co_ccosto',
+            'dbo.w0550_contratos.c0550_rowid_ccosto',
+            '=',
+            'dbo.t284_co_ccosto.f284_rowid'
+
+        )->join(
+            'dbo.w0504_tipos_nomina',
+            'dbo.w0550_contratos.c0550_rowid_tipo_nomina',
+            '=',
+            'dbo.w0504_tipos_nomina.c0504_rowid'
+        )->join(
+            'dbo.t011_mm_paises',
+            'dbo.w0540_empleados.c0540_id_pais_exp_identif',
+            '=',
+            'dbo.t011_mm_paises.f011_id'
+
+        )->join(
+            'dbo.t012_mm_deptos',
+            'dbo.w0540_empleados.c0540_id_depto_exp_identif',
+            '=',
+            'dbo.t012_mm_deptos.f012_id'
+
+        )->join(
+            'dbo.t013_mm_ciudades',
+            'dbo.w0540_empleados.c0540_id_ciudad_exp_identif',
+            '=',
+            'dbo.t013_mm_ciudades.f013_id'
+        )
+            ->where('c0550_ind_estado', 1)
+            ->where('f200_rowid', $id)
+        //->distinct("c0515_id")
+            ->first();
+
+            //return $user;
+            $this->c($id);
+            
+
+            if(isset($user['c0763_descripcion'])){
+                return 'si';
+                $this->c($id);
+                //return $user;
+                
+            }
+            else{
+                
+                $this->c();
+            }
+    }
+    public function c(){
+        return 'hola';
         return Terceros_mm::select(
             "dbo.t015_mm_contactos.f015_contacto",
             "dbo.t015_mm_contactos.f015_direccion1",
@@ -329,7 +468,7 @@ class TercerosmmController extends Controller
             '=',
             'dbo.t013_mm_ciudades.f013_id'
         )
-            ->where('c0550_ind_estado', '1')
+            ->where('c0550_ind_estado', 2)
             ->where('f200_rowid', $id)
         //->distinct("c0515_id")
             ->first();
