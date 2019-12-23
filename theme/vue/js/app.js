@@ -44964,104 +44964,6 @@ function normalizeComponent (
 
 /***/ }),
 
-/***/ "./node_modules/vue-router-user-roles/dist/vue-router-user-roles.common.js":
-/*!*********************************************************************************!*\
-  !*** ./node_modules/vue-router-user-roles/dist/vue-router-user-roles.common.js ***!
-  \*********************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/*!
- * vue-router-user-roles v0.1.92 
- * (c) 2019 Anthony Gore
- * Released under the MIT License.
- */
-
-
-function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
-
-var Vue = _interopDefault(__webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js"));
-
-var RouteProtect = function RouteProtect (router) {
-  this.router = router;
-  this.vm = new Vue({
-    data: {
-      user: null
-    }
-  });
-};
-RouteProtect.prototype.get = function get () {
-  if (!this.vm.user) {
-    throw new Error("Attempt to access user before being set");
-  }
-  return this.vm.user;
-};
-RouteProtect.prototype.set = function set (user) {
-  this.vm.user = user;
-  if (this.to) {
-    var ref = this._hasAccessToRoute(this.to);
-      var access = ref.access;
-      var redirect = ref.redirect;
-    if (!access) {
-      this.router.push({ name: redirect });
-    }
-  }
-};
-RouteProtect.prototype.hasAccess = function hasAccess (ref) {
-    var name = ref.name;
-
-  var route = this.router.options.routes.find(function (r) { return r.name === name; });
-  if (!route) {
-    throw new Error(("Route " + name + " is not defined in the current router"));
-  }
-
-  return this._hasAccessToRoute(route).access;
-};
-RouteProtect.prototype._hasAccessToRoute = function _hasAccessToRoute (route) {
-    var this$1 = this;
-
-  if (this.vm.user && route.meta.permissions) {
-    var matched = route.meta.permissions.find(function (item) { return item.role === this$1.vm.user.role; });
-    if (matched) {
-      if ((typeof matched.access === "boolean" && !matched.access) ||
-          (typeof matched.access === "function" && !matched.access(this.vm.user, route))) {
-        return { access: false, redirect: matched.redirect };
-      }
-    }
-  }
-
-  return { access: true };
-};
-RouteProtect.prototype.resolve = function resolve (to, from, next) {
-  this.to = to;
-
-  var ref = this._hasAccessToRoute(to);
-    var access = ref.access;
-    var redirect = ref.redirect;
-  access ? next() : next({ name: redirect });
-  };
-
-function plugin (Vue$$1, opts) {
-  if (!opts.router) {
-    throw new Error("You must supply a router instance in the options.");
-  }
-  var rp = new RouteProtect(opts.router);
-  Vue$$1.prototype.$user = rp;
-  opts.router.beforeEach(function (to, from, next) { return rp.resolve(to, from, next); });
-}
-
-plugin.version = "0.1.92";
-
-if (typeof window !== "undefined" && window.Vue) {
-  window.Vue.use(plugin);
-}
-
-module.exports = plugin;
-
-
-/***/ }),
-
 /***/ "./node_modules/vue-router/dist/vue-router.esm.js":
 /*!********************************************************!*\
   !*** ./node_modules/vue-router/dist/vue-router.esm.js ***!
@@ -60002,8 +59904,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var sweetalert__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(sweetalert__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var vue_js_modal__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue-js-modal */ "./node_modules/vue-js-modal/dist/index.js");
 /* harmony import */ var vue_js_modal__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(vue_js_modal__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var vue_router_user_roles__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vue-router-user-roles */ "./node_modules/vue-router-user-roles/dist/vue-router-user-roles.common.js");
-/* harmony import */ var vue_router_user_roles__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(vue_router_user_roles__WEBPACK_IMPORTED_MODULE_4__);
+!(function webpackMissingModule() { var e = new Error("Cannot find module 'vue-router-user-roles'"); e.code = 'MODULE_NOT_FOUND'; throw e; }());
 /* harmony import */ var vue_input_restriction_directives__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vue-input-restriction-directives */ "./node_modules/vue-input-restriction-directives/src/index.js");
 /* harmony import */ var v_click_outside__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! v-click-outside */ "./node_modules/v-click-outside/dist/v-click-outside.umd.js");
 /* harmony import */ var v_click_outside__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(v_click_outside__WEBPACK_IMPORTED_MODULE_6__);
@@ -60878,15 +60779,14 @@ __webpack_require__.r(__webpack_exports__);
 /*!********************************************!*\
   !*** ./resources/views/empleados/Show.vue ***!
   \********************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Show_vue_vue_type_template_id_443d08bd___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Show.vue?vue&type=template&id=443d08bd& */ "./resources/views/empleados/Show.vue?vue&type=template&id=443d08bd&");
 /* harmony import */ var _Show_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Show.vue?vue&type=script&lang=js& */ "./resources/views/empleados/Show.vue?vue&type=script&lang=js&");
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _Show_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _Show_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -60916,7 +60816,7 @@ component.options.__file = "resources/views/empleados/Show.vue"
 /*!*********************************************************************!*\
   !*** ./resources/views/empleados/Show.vue?vue&type=script&lang=js& ***!
   \*********************************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
