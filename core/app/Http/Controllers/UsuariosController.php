@@ -149,7 +149,9 @@ class UsuariosController extends Controller
             //GENERAMOS EL TOKEN Y LO ENVIAMOS AL CORREO
 
             $token = Str::random(40);
-            Mail::to($this->global[0]->f015_email)->send(new ResetPassword($token));
+            // $this->global[0]->f015_email
+             Mail::to('adavidparra0412@gmail.com')->send(new ResetPassword($token, $this->global[0]));
+           
 
             //GUARDAMOS EL TOKEN EN SU TABLA
 

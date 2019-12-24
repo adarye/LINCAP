@@ -10,6 +10,7 @@ use Illuminate\Queue\SerializesModels;
 class ResetPassword extends Mailable
 {
     public $token;
+    public $datos;
     use Queueable, SerializesModels;
 
     /**
@@ -17,10 +18,11 @@ class ResetPassword extends Mailable
      *
      * @return void
      */
-    public function __construct($token)
+    public function __construct($token, $datos)
     {
         $this->token = $token;
-        //
+        $this->datos = $datos;
+        Mailable::subject('Recuperacion de cuenta LINCAP');
     }
 
     /**

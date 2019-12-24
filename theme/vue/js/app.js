@@ -3352,11 +3352,19 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale("es");
     cargarContrato: function cargarContrato() {
       var _this7 = this;
 
-      axios.post("/api/empleado/".concat(this.$route.params.id), {
-        estado: this.$route.params.ruta
-      }).then(function (res) {
+      axios.get("/api/empleado/".concat(this.$route.params.id)).then(function (res) {
         _this7.usuario = res.data;
-        console.log('contrao' + res.data);
+        _this7.usuario.c0540_fecha_nacimiento = moment__WEBPACK_IMPORTED_MODULE_0___default()(_this7.usuario.c0540_fecha_nacimiento).format('ll');
+        _this7.usuario.c0540_fecha_exp_identif = moment__WEBPACK_IMPORTED_MODULE_0___default()(_this7.usuario.c0540_fecha_exp_identif).format('ll');
+        _this7.usuario.c0550_fecha_ingreso = moment__WEBPACK_IMPORTED_MODULE_0___default()(_this7.usuario.c0550_fecha_ingreso).format('ll');
+
+        if (_this7.usuario.c0550_fecha_contrato_hasta != null) {
+          _this7.usuario.c0550_fecha_contrato_hasta = moment__WEBPACK_IMPORTED_MODULE_0___default()(_this7.usuario.c0550_fecha_contrato_hasta).format('ll');
+        } else {
+          _this7.usuario.c0550_fecha_contrato_hasta = 'Fecha Indefinida';
+        }
+
+        console.log(res.data);
       });
     },
     validarCampos: function validarCampos() {
@@ -41856,7 +41864,7 @@ var render = function() {
             { name: "autofocus", rawName: "v-autofocus" }
           ],
           staticClass: "form-control",
-          attrs: { type: "text", placeholder: "Buscar empleado" },
+          attrs: { type: "text", placeholder: "Buscar" },
           domProps: { value: _vm.bempleado },
           on: {
             input: function($event) {
@@ -42552,7 +42560,7 @@ var render = function() {
             { name: "autofocus", rawName: "v-autofocus" }
           ],
           staticClass: "form-control",
-          attrs: { type: "text", placeholder: "Buscar empleado" },
+          attrs: { type: "text", placeholder: "Buscar" },
           domProps: { value: _vm.bempleado },
           on: {
             input: function($event) {
@@ -42920,7 +42928,7 @@ var render = function() {
             { name: "autofocus", rawName: "v-autofocus" }
           ],
           staticClass: "form-control",
-          attrs: { type: "text", placeholder: "Buscar empleado" },
+          attrs: { type: "text", placeholder: "Buscar" },
           domProps: { value: _vm.bempleado },
           on: {
             input: function($event) {
@@ -61011,15 +61019,14 @@ __webpack_require__.r(__webpack_exports__);
 /*!********************************************!*\
   !*** ./resources/views/empleados/Show.vue ***!
   \********************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Show_vue_vue_type_template_id_443d08bd___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Show.vue?vue&type=template&id=443d08bd& */ "./resources/views/empleados/Show.vue?vue&type=template&id=443d08bd&");
 /* harmony import */ var _Show_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Show.vue?vue&type=script&lang=js& */ "./resources/views/empleados/Show.vue?vue&type=script&lang=js&");
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _Show_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _Show_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -61049,7 +61056,7 @@ component.options.__file = "resources/views/empleados/Show.vue"
 /*!*********************************************************************!*\
   !*** ./resources/views/empleados/Show.vue?vue&type=script&lang=js& ***!
   \*********************************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

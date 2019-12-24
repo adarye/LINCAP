@@ -261,9 +261,10 @@ class ApiController extends Controller
         return $empleado;
     }
 
+    
     public function buscarTercero($id)
     {
-
+        if (Gate::allows('isAdmin')) {
         return Terceros::select(
             'c0541_rowid',
             'dbo.w0540_empleados.c0540_rowid_tercero',
@@ -280,8 +281,10 @@ class ApiController extends Controller
 
             )
             ->where('dbo.w0541_terceros_seleccion.c0541_id', '=', $id)
-            ->first();       
+            ->first();    
+    }   
     }
+
     public function myAvatar(Request $request)
 {
     // Verificamos si hay un file con nombre avatar

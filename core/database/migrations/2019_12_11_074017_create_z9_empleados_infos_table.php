@@ -18,14 +18,14 @@ class CreateZ9EmpleadosInfosTable extends Migration
             $table->string('cz9_nombre_familiar')->nullable(true);
             $table->string('cz9_nombre_contacto')->nullable(true);
             $table->string('cz9_tel_contacto')->nullable(true);
-            $table->dateTime('cz9_fecha_tpprueba')->nullable(true);
+            $table->date('cz9_fecha_tpprueba')->nullable(true);
             $table->string('cz9_talla_uniforme')->nullable(true);
             $table->string('cz9_talla_calzado')->nullable(true);
-            $table->dateTime('cz9_fecha_vacuna')->nullable(true);
+            $table->date('cz9_fecha_vacuna')->nullable(true);
             $table->string('cz9_lugar_vacuna')->nullable(true);
-            $table->dateTime('cz9_fecha_vacuna_tifoidea')->nullable(true);
+            $table->date('cz9_fecha_vacuna_tifoidea')->nullable(true);
             $table->string('cz9_lugar_vacuna_tifoidea')->nullable(true);
-            $table->dateTime('cz9_fecha_vacuna_toxoide')->nullable(true);
+            $table->date('cz9_fecha_vacuna_toxoide')->nullable(true);
             $table->string('cz9_lugar_vacuna_toxoide')->nullable(true);
             $table->string('cz9_reentrenamiento')->nullable(true);
             $table->string('cz9_mail_corp')->nullable(true);

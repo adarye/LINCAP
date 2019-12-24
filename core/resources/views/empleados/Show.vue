@@ -320,9 +320,19 @@
                 console.log(this.informacion);
             },
             cargarContrato() {
-                axios.post(`/api/empleado/${this.$route.params.id}`,{estado: this.$route.params.ruta}).then(res => {
+                axios.get(`/api/empleado/${this.$route.params.id}`).then(res => {                
                     this.usuario = res.data;
-                    console.log('contrao' + res.data);
+                    this.usuario.c0540_fecha_nacimiento =  moment(this.usuario.c0540_fecha_nacimiento).format('ll');
+                    this.usuario.c0540_fecha_exp_identif =  moment(this.usuario.c0540_fecha_exp_identif).format('ll');
+                     this.usuario.c0550_fecha_ingreso =  moment(this.usuario.c0550_fecha_ingreso).format('ll');
+                     if(this.usuario.c0550_fecha_contrato_hasta != null){
+                         this.usuario.c0550_fecha_contrato_hasta =  moment(this.usuario.c0550_fecha_contrato_hasta).format('ll');}
+                    else{
+                        this.usuario.c0550_fecha_contrato_hasta = 'Fecha Indefinida'
+                    }
+
+                
+                    console.log(res.data);
                 });
             },
             validarCampos() {
