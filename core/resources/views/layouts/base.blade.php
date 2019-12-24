@@ -32,17 +32,15 @@
                                 <div class="row text-center">
                                     @yield('breadcum')
                                 </div>
-                                <div class="col-md-12 col-sm-12 col-xs-12">
-                                    @yield('content')
-                                </div>
+                                @yield('content')
                                 <div class="clearfix"></div>
                             </div>
                         </div>
                     </div>
                     <br>
-                    @include('layouts.footer')
                 </div>
                 <!-- page content -->
+                @include('layouts.footer')
             </div>
         </div>
     </div>
