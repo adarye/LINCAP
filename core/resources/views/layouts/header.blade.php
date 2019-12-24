@@ -6,20 +6,22 @@
         </div>
         <nav class="nav navbar-nav">
             <ul class=" navbar-right">
-                <li class="nav-item dropdown open" style="padding-left: 15px;">
+                <li class="nav-item dropdown open" style="padding-left: 190px;">
                     <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown"
                         data-toggle="dropdown" aria-expanded="false">
-                        <img src="/../theme/images/profile/{{ Auth()->user()->cz1_avatar }}" alt="">JEFFERSON QUINTERO RINCON SDHFSOI OSIHFOSIDFHD OIF
+                        <?php $name = Auth()->user()->cz1_nombres; 
+                         $name_separado = explode(" ", $name)                         
+                        ?>
+                        <img src="/../theme/images/profile/{{ Auth()->user()->cz1_avatar }}"
+                            alt="">{{$name_separado [0]}}
                     </a>
                     <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="javascript:;"> Profile</a>
-                        <a class="dropdown-item" href="javascript:;">
-                            <span class="badge bg-red pull-right">50%</span>
-                            <span>Settings</span>
-                        </a>
-                        <a class="dropdown-item" href="javascript:;">Help</a>
-                        <a class="dropdown-item" href="login.html"><i class="fa fa-sign-out pull-right"></i> Log
-                            Out</a>
+                        <router-link class="dropdown-item" :to="{name: 'RestartPassword'}"><span> Cambiar
+                                contraseña</span></router-link>
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+                            <button class="dropdown-item"><i class="fa fa-sign-out pull-right"></i>Salir</button>
+                        </form>
                     </div>
                 </li>
             </ul>

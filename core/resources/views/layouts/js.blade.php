@@ -7,5 +7,6 @@
 <!-- Bootstrap -->
 {!!Html::script('theme/vendors/bootstrap/dist/js/bootstrap.bundle.min.js')!!}
 
+ 
 <!-- Custom Theme Scripts -->
 {!!Html::script('theme/build/js/custom.min.js')!!}
