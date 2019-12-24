@@ -42754,12 +42754,7 @@ var staticRenderFns = [
           _c("i", { staticClass: "fa fa-book" }, [
             _vm._v(" Informacion Corporativa")
           ])
-        ]),
-        _vm._v(" "),
-        _c("li", {
-          staticClass: "breadcrumb-item active",
-          attrs: { "aria-current": "page" }
-        })
+        ])
       ])
     ])
   },
