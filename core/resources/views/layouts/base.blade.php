@@ -26,7 +26,6 @@
                 @include('layouts.header')
                 <!-- page content -->
                 <div class="right_col" role="main">
-                    <div class="row">
                         <div class="col-md-12 col-sm-12 col-xs-12">
                             <div class="dashboard_graph">
                                 <div class="row text-center">
@@ -36,10 +35,9 @@
                                 <div class="clearfix"></div>
                             </div>
                         </div>
-                    </div>
                     <br>
                 </div>
-                <!-- page content -->
+                <!-- page content --
                 @include('layouts.footer')
             </div>
         </div>
