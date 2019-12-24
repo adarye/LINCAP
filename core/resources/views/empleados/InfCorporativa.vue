@@ -35,7 +35,8 @@
             </div>  
              <span v-if="mostrar == 1"><input class="select mt-2" v-model="numero" /></span>          
         </nav> 
-        <table class="table">
+        <div class="table-responsive-md table-responsive-sm">
+        <table class="table table-striped">
             <thead>
                 <tr>
                     
@@ -62,6 +63,7 @@
                 </tr>
             </tbody>
         </table>
+        </div>
         <div class="row">
             <div class="col-md-4 col-float"></div>
             <div v-show="bempleado == ''" class="col-md-4 col-center">

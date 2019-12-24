@@ -2798,6 +2798,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale('es');
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2874,6 +2876,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _js_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../js/router */ "./resources/js/router.js");
+//
+//
 //
 //
 //
@@ -42599,59 +42603,61 @@ var render = function() {
         : _vm._e()
     ]),
     _vm._v(" "),
-    _c("table", { staticClass: "table" }, [
-      _vm._m(1),
-      _vm._v(" "),
-      _c(
-        "tbody",
-        _vm._l(_vm.mbuscar, function(item, indice) {
-          return _c(
-            "tr",
-            {
-              directives: [
-                {
-                  name: "show",
-                  rawName: "v-show",
-                  value:
-                    ((_vm.pagina - 1) * _vm.numero <= indice &&
-                      _vm.pagina * _vm.numero > indice) ||
-                    _vm.bempleado != "",
-                  expression:
-                    "(pagina-1) * numero <= indice && pagina*numero > indice || bempleado != '' "
-                }
-              ],
-              key: indice
-            },
-            [
-              _c("th", { attrs: { scope: "row" } }, [
-                _vm._v(
-                  _vm._s(item.c0541_nombres) +
-                    " " +
-                    _vm._s(item.c0541_apellido1) +
-                    "\n                    " +
-                    _vm._s(item.c0541_apellido2) +
-                    "  "
-                )
-              ]),
-              _vm._v(" "),
-              _c("td", [_vm._v(_vm._s(item.f285_descripcion))]),
-              _vm._v(" "),
-              _c("td", [_vm._v(_vm._s(item.c0763_descripcion))]),
-              _vm._v(" "),
-              _c("td", [_vm._v(_vm._s(item.cz9_mail_corp))]),
-              _vm._v(" "),
-              _c("td", [_vm._v(_vm._s(item.cz9_tel_corp))]),
-              _vm._v(" "),
-              _c("td", [
-                _vm._v(
-                  "  " + _vm._s(item.cz9_cel_corp) + "   \n                "
-                )
-              ])
-            ]
-          )
-        }),
-        0
-      )
+    _c("div", { staticClass: "table-responsive-md table-responsive-sm" }, [
+      _c("table", { staticClass: "table table-striped" }, [
+        _vm._m(1),
+        _vm._v(" "),
+        _c(
+          "tbody",
+          _vm._l(_vm.mbuscar, function(item, indice) {
+            return _c(
+              "tr",
+              {
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value:
+                      ((_vm.pagina - 1) * _vm.numero <= indice &&
+                        _vm.pagina * _vm.numero > indice) ||
+                      _vm.bempleado != "",
+                    expression:
+                      "(pagina-1) * numero <= indice && pagina*numero > indice || bempleado != '' "
+                  }
+                ],
+                key: indice
+              },
+              [
+                _c("th", { attrs: { scope: "row" } }, [
+                  _vm._v(
+                    _vm._s(item.c0541_nombres) +
+                      " " +
+                      _vm._s(item.c0541_apellido1) +
+                      "\n                    " +
+                      _vm._s(item.c0541_apellido2) +
+                      "  "
+                  )
+                ]),
+                _vm._v(" "),
+                _c("td", [_vm._v(_vm._s(item.f285_descripcion))]),
+                _vm._v(" "),
+                _c("td", [_vm._v(_vm._s(item.c0763_descripcion))]),
+                _vm._v(" "),
+                _c("td", [_vm._v(_vm._s(item.cz9_mail_corp))]),
+                _vm._v(" "),
+                _c("td", [_vm._v(_vm._s(item.cz9_tel_corp))]),
+                _vm._v(" "),
+                _c("td", [
+                  _vm._v(
+                    "  " + _vm._s(item.cz9_cel_corp) + "   \n                "
+                  )
+                ])
+              ]
+            )
+          }),
+          0
+        )
+      ])
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "row" }, [
@@ -42967,94 +42973,98 @@ var render = function() {
         : _vm._e()
     ]),
     _vm._v(" "),
-    _c("table", { staticClass: "table" }, [
-      _vm._m(1),
-      _vm._v(" "),
-      _c(
-        "tbody",
-        _vm._l(_vm.mbuscar, function(item, indice) {
-          return _c(
-            "tr",
-            {
-              directives: [
-                {
-                  name: "show",
-                  rawName: "v-show",
-                  value:
-                    ((_vm.pagina - 1) * _vm.numero <= indice &&
-                      _vm.pagina * _vm.numero > indice) ||
-                    _vm.bempleado != "",
-                  expression:
-                    "\n                    (pagina - 1) * numero <= indice &&\n                        pagina * numero > indice || bempleado != ''\n                "
-                }
-              ],
-              key: indice
-            },
-            [
-              _c("th", { attrs: { scope: "row" } }, [
-                _vm._v(_vm._s(item.c0541_id))
-              ]),
-              _vm._v(" "),
-              _c("td", [
-                _vm._v(
-                  "\n                    " +
-                    _vm._s(item.c0541_nombres) +
-                    " " +
-                    _vm._s(item.c0541_apellido1) +
+    _c("div", { staticClass: "table-responsive-md table-responsive-sm" }, [
+      _c("table", { staticClass: "table table-striped" }, [
+        _vm._m(1),
+        _vm._v(" "),
+        _c(
+          "tbody",
+          _vm._l(_vm.mbuscar, function(item, indice) {
+            return _c(
+              "tr",
+              {
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value:
+                      ((_vm.pagina - 1) * _vm.numero <= indice &&
+                        _vm.pagina * _vm.numero > indice) ||
+                      _vm.bempleado != "",
+                    expression:
+                      "\n                    (pagina - 1) * numero <= indice &&\n                        pagina * numero > indice || bempleado != ''\n                "
+                  }
+                ],
+                key: indice
+              },
+              [
+                _c("th", { attrs: { scope: "row" } }, [
+                  _vm._v(_vm._s(item.c0541_id))
+                ]),
+                _vm._v(" "),
+                _c("td", [
+                  _vm._v(
                     "\n                    " +
-                    _vm._s(item.c0541_apellido2) +
-                    "\n                "
-                )
-              ]),
-              _vm._v(" "),
-              _c("td", [_vm._v(_vm._s(item.f285_descripcion))]),
-              _vm._v(" "),
-              _c("td", [_vm._v(_vm._s(item.c0763_descripcion))]),
-              _vm._v(" "),
-              _c("td", [
-                _vm._v(_vm._s(_vm.moment(item.c0550_fecha_ingreso).format("L")))
-              ]),
-              _vm._v(" "),
-              item.c0550_fecha_contrato_hasta != null
-                ? _c("td", [
-                    _vm._v(
+                      _vm._s(item.c0541_nombres) +
+                      " " +
+                      _vm._s(item.c0541_apellido1) +
                       "\n                    " +
-                        _vm._s(
-                          _vm
-                            .moment(item.c0550_fecha_contrato_hasta)
-                            .format("L")
-                        ) +
-                        "\n                "
-                    )
-                  ])
-                : _c("td", [_vm._v("No definida")]),
-              _vm._v(" "),
-              _c(
-                "td",
-                [
-                  _c(
-                    "router-link",
-                    {
-                      attrs: {
-                        to: {
-                          name: "showEmpleado",
-                          params: {
-                            id: item.c0550_rowid_tercero,
-                            ruta: "Retirados"
+                      _vm._s(item.c0541_apellido2) +
+                      "\n                "
+                  )
+                ]),
+                _vm._v(" "),
+                _c("td", [_vm._v(_vm._s(item.f285_descripcion))]),
+                _vm._v(" "),
+                _c("td", [_vm._v(_vm._s(item.c0763_descripcion))]),
+                _vm._v(" "),
+                _c("td", [
+                  _vm._v(
+                    _vm._s(_vm.moment(item.c0550_fecha_ingreso).format("L"))
+                  )
+                ]),
+                _vm._v(" "),
+                item.c0550_fecha_contrato_hasta != null
+                  ? _c("td", [
+                      _vm._v(
+                        "\n                    " +
+                          _vm._s(
+                            _vm
+                              .moment(item.c0550_fecha_contrato_hasta)
+                              .format("L")
+                          ) +
+                          "\n                "
+                      )
+                    ])
+                  : _c("td", [_vm._v("No definida")]),
+                _vm._v(" "),
+                _c(
+                  "td",
+                  [
+                    _c(
+                      "router-link",
+                      {
+                        attrs: {
+                          to: {
+                            name: "showEmpleado",
+                            params: {
+                              id: item.c0550_rowid_tercero,
+                              ruta: "Retirados"
+                            }
                           }
                         }
-                      }
-                    },
-                    [_c("li", { staticClass: "fa fa-search icon" })]
-                  )
-                ],
-                1
-              )
-            ]
-          )
-        }),
-        0
-      )
+                      },
+                      [_c("li", { staticClass: "fa fa-search icon" })]
+                    )
+                  ],
+                  1
+                )
+              ]
+            )
+          }),
+          0
+        )
+      ])
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "row" }, [
