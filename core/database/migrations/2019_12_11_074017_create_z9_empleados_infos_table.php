@@ -44,6 +44,6 @@ class CreateZ9EmpleadosInfosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('z9_empleados_infos');
+        Schema::dropIfExists('z9_empleados_info');
     }
 }

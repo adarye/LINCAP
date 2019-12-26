@@ -21,7 +21,6 @@ class CreateZ1UsuariosTable extends Migration
             $table->string('cz1_nombres');
             $table->bigInteger('cz1_id_rol');
             $table->Integer('cz1_id_empleado');
-            $table->Integer('cz1_estado');
             $table->string('cz1_avatar');
 
             $table->foreign('cz1_id_rol')->references('cz2_id')->on('z2_roles')->onDelete('cascade');

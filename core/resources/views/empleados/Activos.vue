@@ -120,7 +120,7 @@
         },
         beforeMount() {
             console.log(window.user.rol)
-            if(window.user.rol == 30 || window.user.rol == 31 || window.user.rol == 33){
+            if(window.user.rol == 1 || window.user.rol == 2 || window.user.rol == 3){
                  
                  this.getCO();
             axios.get("/api/registros").then(res => {

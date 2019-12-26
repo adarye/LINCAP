@@ -115,7 +115,7 @@
             };
         },
         beforeMount() {
-            if(window.user.rol == 30 || window.user.rol == 31 ||  window.user.rol ==33){
+            if(window.user.rol == 1 || window.user.rol == 2 || window.user.rol == 3){
                 axios.get("/api/registros/retirados").then(res => {
                 console.log(res.data);
                 const x = res.data[0];

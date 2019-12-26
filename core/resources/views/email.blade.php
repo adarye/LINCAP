@@ -4,16 +4,17 @@
     <body>
        
                    
-                   <p class="titulo">Usa este token para restablecer la contraseña de la cuenta Lincap {{ $datos->cz1_nombres }} </p>
-                  <h4>Este es tu token: {{ $token }}</h4>
+                   <a class="titulo" id="e">Usa este token para restablecer la contraseña de la cuenta Lincap {{ $datos->cz1_nombres }} </a>
+                  <p>Este es tu token: <b>{{ $token }}</b></p>
 
-                  <h4>Gracias,</h4>
-                   <h4> LINCO S.A.S. - Lincap</h4>
+                  <p>Gracias,</p>
+                   <p> LINCO S.A.S. - Lincap</p>
 
                    <style type="text/css">
-                   .tutulo{
+                   #e{
                        color: red;
                        font-size: 12px;
+                       font-style: italic;
                        
                        
 

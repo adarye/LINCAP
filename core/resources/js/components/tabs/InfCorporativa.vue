@@ -16,7 +16,7 @@
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label>Fecha de finalizacion</label>
-                    <input  placeholder="Fecha de finalizacion" type="email" class="form-control" v-model="usuario.c0550_fecha_contrato_hasta" disabled />
+                    <input  placeholder="Fecha de finalizacion" type="text" class="form-control" v-model="usuario.c0550_fecha_contrato_hasta" disabled />
                 </div>
                 <div class="form-group col-md-6">
                     <label>Lugar de Trabajo</label>

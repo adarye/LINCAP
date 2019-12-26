@@ -101,7 +101,7 @@
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
-                    <label>Numero de telefono  de {{ empleado_info.cz9_nombre_contacto }}</label>
+                    <label> Numero de telefono  de {{ empleado_info.cz9_nombre_contacto }}</label>
                     <input type="text" class="form-control" :disabled="validated ? false : true" v-model="empleado_info.cz9_tel_contacto" v-max-length="25" v-numeric-only/>
                 </div>
                 <div class="form-group col-md-6">
@@ -122,7 +122,7 @@
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label>Finalizacion del periodo de prueba</label>
-                    <input type="date-time" class="form-control" :disabled="validated_admin ? false : true"  v-model="empleado_info.cz9_fecha_tpprueba"/>
+                    <input type="date" class="form-control" :disabled="validated_admin ? false : true"  v-model="empleado_info.cz9_fecha_tpprueba"/>
                 </div>
                 <div class="form-group col-md-6">
                     <label>Reentrenamiento</label>

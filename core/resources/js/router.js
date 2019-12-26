@@ -5,9 +5,6 @@ import VueRouter from 'vue-router';
 Vue.use(VueRouter);
 
 
-
-
-
 //importacion de vistas
 
 //Vista de empleados
@@ -26,6 +23,10 @@ import IndexRoles from '../views/roles/Index';
 //Vista de usuarios
 import IndexUsuarios from '../views/usuarios/Index';
 import RestartPassword from '../views/usuarios/RestartPassword';
+
+//Vista Gestion Pruebas
+
+import IndexGP from '../views/gestion_pruebas/Index';
 
 //Vista de 404
 import v404 from '../views/404';
@@ -89,6 +90,12 @@ export default new Router({
             path: '/empleados/contrasena',
             name: 'RestartPassword',
             component: RestartPassword
+            
+        },
+        {
+            path: '/gestion/pruebas',
+            name: 'IndexGP',
+            component: IndexGP 
             
         },
         {

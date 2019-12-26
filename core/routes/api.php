@@ -65,3 +65,8 @@ Route::get('getCO', 'ApiController@getCO');
 
 //FOTOS
 Route::post('usuario/avatar/{id}', 'UsuariosController@myAvatar')->name('avatar');
+
+//GESTION PRUEBAS
+Route::post('gp/crear', 'GPController@crear');
+Route::put('gp/update', 'GPController@update');
+Route::get('gp', 'GPController@index');
