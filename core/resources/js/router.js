@@ -27,6 +27,7 @@ import RestartPassword from '../views/usuarios/RestartPassword';
 //Vista Gestion Pruebas
 
 import IndexGP from '../views/gestion_pruebas/Index';
+import Pendientes from '../views/gestion_pruebas/Pendientes';
 
 //Vista de 404
 import v404 from '../views/404';
@@ -96,6 +97,12 @@ export default new Router({
             path: '/gestion/pruebas',
             name: 'IndexGP',
             component: IndexGP 
+            
+        },
+        {
+            path: '/pruebas/pendientes',
+            name: 'Pendientes',
+            component: Pendientes 
             
         },
         {

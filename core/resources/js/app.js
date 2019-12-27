@@ -29,6 +29,9 @@ Vue.component('InfPersonal', InfPersonal)
 import InfCorporativa from './components/tabs/InfCorporativa';
 Vue.component('InfCorporativa', InfCorporativa)
 
+import ModActivos from './components/gestion_pruebas/ModActivos';
+ Vue.component('Activos', ModActivos)
+
 import InfSST from './components/tabs/InfSST';
 Vue.component('InfSST', InfSST)
 

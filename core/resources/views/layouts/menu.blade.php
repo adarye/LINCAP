@@ -31,19 +31,19 @@
             <li><a><i class="fa fa-file-text-o"></i>Evaluaciones<span class="fa fa-chevron-down"></span></a>
                 <ul class="nav child_menu" style="display: none">
                     @cannot('isDefault')
-                    <li><a href="#">Administrar</a></li>
+                    <li><a>Administrar</router-link></a></li>
                     @endcannot
-                    <li><a href="#">Pendientes</a></li>
+                    <li><a>Pendientes</router-link></a></li>
                     <li><a href="#">Completadas</a></li>
                 </ul>
             </li>
             <li><a><i class="fa fa-pencil"></i>Encuestas<span class="fa fa-chevron-down"></span></a>
                 <ul class="nav child_menu" style="display: none">
                     @cannot('isDefault')
-                    <li><a href="#">Administrar</a></li>
+                    <li> <router-link :to="{name: 'IndexGP',  params:{tipo: 1}}">Administrar</router-link></li>
                     @endcannot
 
-                    <li><a href="#">Pendientes</a></li>
+                <li> <router-link :to="{name: 'Pendientes', params:{tipo: 1}}">Pendientes</router-link></li>
                     <li><a href="#">Completadas</a></li>
                 </ul>
             </li>
