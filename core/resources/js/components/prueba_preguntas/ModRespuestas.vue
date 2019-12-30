@@ -1,0 +1,42 @@
+<template>
+    <div>
+        <div class="login_wrapper">
+            <div class=" animate form login_form">
+                <section class="login_content">
+                    <form @submit.prevent="crear">
+                        <h1>Respuestas</h1>
+                        <div class="col-md-12 col-center col-sm-8 form-group has-feedback"  v-for="i in n_respuestas-start" :key="i">
+                                              
+                                <input v-max-length="50" v-autofocus class="form-control"
+                                         :placeholder="'Respuesta ' +  i " onfocus />
+                        
+                        </div>
+                        <div class="col-md-12 col-sm-12 form-group has-feedback">
+                                    <button type="submit" class="btn btn-primary">Guardar</button>
+                                    <button type="button" @click="$emit('hideRespuestas')"
+                                        class="btn btn-danger">Cancelar</button>
+                                </div>  
+                    </form>
+                </section>
+            </div>
+        </div>
+    </div>
+</template>
+<script>
+    export default {
+        props: ['n_respuestas'],
+        data() {
+            return {
+ start: 0,
+    end: 10
+            }
+        },
+        methods: {
+            crear() {
+
+            }
+
+        }
+    }
+
+</script>

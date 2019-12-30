@@ -6,5 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class z5_prueba_preguntas extends Model
 {
-    //
+    protected $table = 'dbo.z5_prueba_preguntas';
+    protected $primaryKey = 'cz5_id';
+    public $timestamps = false;
 }

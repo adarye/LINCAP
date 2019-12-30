@@ -25,7 +25,7 @@
 
         },
 
-        mounted() {
+        created() {
             axios.get(`/api/pruebas/pendientes/${this.$route.params.categoria}`)
                 .then(res => {
                     this.pruebas = res.data

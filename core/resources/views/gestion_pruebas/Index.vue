@@ -125,17 +125,20 @@
                     </td>
                     <td>
                         
-                         <button type="button" class="btn btn-success btn-sm" @click="asignar(item.cz3_id)">
-                            <li class="fa fa-users"> Asignar </li>                               
+                         <button type="button" class="btn btn-success btn-sm" title="Asignar" @click="asignar(item.cz3_id)">
+                            <li class="fa fa-users"></li>                               
                         </button>
-                         <button type="button" class="btn btn-primary btn-sm" @click="editar(item)">
-                            <li class="fa fa-edit"> Editar </li>                          
+                         <button type="button" class="btn btn-primary btn-sm" title="Editar" @click="editar(item)">
+                            <li class="fa fa-edit"></li>                          
                         </button>
-                         <button type="button" class="btn btn-warning btn-sm" @click="cerrar(item.cz3_id)">
-                            <li class="fa fa-calendar"> Cerrar </li>                               
+                         <button type="button" class="btn btn-warning btn-sm" title="Cerrar" @click="cerrar(item.cz3_id)">
+                            <li class="fa fa-calendar"></li>                              
                         </button>
-                        <button type="button" class="btn btn-danger btn-sm" @click="eliminar(item.cz3_id, indice)">
-                            <li class="fa fa-trash-o"> Eliminar </li>                               
+                         <button type="button" class="btn btn-primary btn-sm" title="Administrar" @click="preguntas(item.cz3_id)">
+                            <li class="fa fa-gear"></li>                                         
+                        </button>
+                        <button type="button" class="btn btn-danger btn-sm" title="Eliminar" @click="eliminar(item.cz3_id, indice)">
+                            <li class="fa fa-trash-o"></li>                               
                         </button>
 
 
@@ -151,6 +154,7 @@ import moment from "moment";
     moment.locale("es");
   import datePicker from 'vue-bootstrap-datetimepicker';
   import 'pc-bootstrap4-datetimepicker/build/css/bootstrap-datetimepicker.css';
+  import router from '../../js/router';
    
     export default {
         components: {
@@ -185,7 +189,7 @@ import moment from "moment";
             },
         methods: {
             traerPruebas(){
-                axios.get('/api/gp')
+                axios.get(`/api/gp/${this.$route.params.categoria}`)
                 .then(res=>{
                     this.pruebas = res.data;
                 console.log(res.data)
@@ -201,9 +205,10 @@ import moment from "moment";
                 }
                 else{
                 console.log(this.datos)
-                axios.post('/api/gp/crear', this.datos)
+                axios.post('/api/gp/crear', [ this.datos, {categoria: this.$route.params.categoria}])
                 .then(res=>{
                     const pruebaServidor = res.data;
+                    console.log(pruebaServidor)
                   this.traerPruebas();
                    swal('Guardado', 'El registro se guardo correctamente', 'success')
                    this.$modal.hide('create')
@@ -275,6 +280,9 @@ import moment from "moment";
         asignar(id){
             this.id_prueba = id;
              this.$modal.show('asignar')
+        },
+        preguntas(id){
+                    router.push('/prueba/pregunta/' + id);
         }
         }
     }

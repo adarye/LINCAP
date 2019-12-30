@@ -28,4 +28,20 @@ class AsignacionController extends Controller
       $j =  json_decode($registros, true);
       return $registros;
     }
+    public function guardarTodos(Request $request){
+       $todos = (array)  $request->activos;
+       $i=0; 
+       
+      foreach ($todos as $req){
+        $a = $todos[$i];
+          $relacion = new z4_rel_ts_gp;
+           $relacion->cz4_gp_id =  $request->id_prueba;
+            $relacion->cz4_ts_id =  $a['c0550_rowid_tercero'];
+            $i++;
+            $relacion->save();
+             
+      }
+      
+    
+    }
 }

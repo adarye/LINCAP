@@ -71,12 +71,20 @@ Route::post('gp/crear', 'GPController@crear');
 Route::put('gp/update', 'GPController@update');
 Route::put('gp/cerrar', 'GPController@cerrar');
 Route::delete('gp/delete/{id}', 'GPController@delete');
-Route::get('gp', 'GPController@index');
+Route::get('gp/{categoria}', 'GPController@index');
+Route::get('gp/buscar/{id}', 'GPController@buscar');
 
 //GESTION PRUEBAS PARA USUARIOS
 Route::get('pruebas/pendientes/{id}', 'GPController@traerPendientes');
 
 //ASIGNACION PRUEBAS
 Route::post('asignacion/guardar', 'AsignacionController@guardar');
+Route::post('asignacion/guardarTodos', 'AsignacionController@guardarTodos');
 Route::post('asignacion/delete', 'AsignacionController@delete');
 Route::get('asignacion/index/{id}', 'AsignacionController@index');
+
+//PREGUNTA 
+Route::post('pregunta/guardar', 'PreguntasController@guardar');
+
+//RESPUESTAS
+Route::post('respuestaA/guardar', 'RaController@guardar');

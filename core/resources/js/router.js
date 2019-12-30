@@ -29,8 +29,12 @@ import RestartPassword from '../views/usuarios/RestartPassword';
 import IndexGP from '../views/gestion_pruebas/Index';
 import Pendientes from '../views/gestion_pruebas/Pendientes';
 
+//Vista preguntas 
+import IndexPreguntas from '../views/prueba_preguntas/Index.vue';
+
 //Vista de 404
 import v404 from '../views/404';
+
 
 export default new Router({
     mode: 'history',
@@ -100,9 +104,15 @@ export default new Router({
             
         },
         {
-            path: '/pruebas/pendientes',
+            path: '/pruebas/pendientes/:categoria',
             name: 'Pendientes',
             component: Pendientes 
+            
+        },
+        {
+            path: '/prueba/pregunta/:id',
+            name: 'IndexPreguntas',
+            component: IndexPreguntas 
             
         },
         {

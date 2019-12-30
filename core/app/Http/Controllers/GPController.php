@@ -8,7 +8,10 @@ use App\z3_gestion_pruebas;
 
 class GPController extends Controller
 {
-    public function crear(Request $request){
+    public function crear(Request $request){ 
+
+    return $request[0]->cz3_nombre;
+
         $prueba = new z3_gestion_pruebas();
         $prueba->cz3_nombre =  $request->cz3_nombre;
         $prueba->cz3_descripcion =  $request->cz3_descripcion;
@@ -21,9 +24,9 @@ class GPController extends Controller
         return $prueba;
     }
 
-    public function index(){
+    public function index($categoria){
         
-      return z3_gestion_pruebas::all()->where('cz3_id_creador',  Auth()->user()->cz1_id_empleado);
+      return z3_gestion_pruebas::all()->where('cz3_id_creador',  Auth()->user()->cz1_id_empleado)->where('cz3_categoria', $categoria);
     }
     public function update(Request $request){
        
@@ -46,6 +49,10 @@ class GPController extends Controller
         $prueba = z3_gestion_pruebas::find($id);
         $prueba->delete();
     }
+    public function buscar($id){
+        return z3_gestion_pruebas::find($id);
+    }
+
 
     public function traerPendientes($id){
        return z3_gestion_pruebas::select(

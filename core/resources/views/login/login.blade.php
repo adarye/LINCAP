@@ -14,6 +14,7 @@
             <div class="animate form login_form">
                 <section class="login_content shadow-lg p-3 mb-5 bg-white rounded">
                     <form>
+                        @csrf
                         <h1>Login Lincap</h1>
                         <Login></Login>
 

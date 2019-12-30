@@ -32,6 +32,9 @@ Vue.component('InfCorporativa', InfCorporativa)
 import ModActivos from './components/gestion_pruebas/ModActivos';
  Vue.component('Activos', ModActivos)
 
+ import ModRespuestas from './components/prueba_preguntas/ModRespuestas';
+ Vue.component('Respuestas', ModRespuestas)
+
 import InfSST from './components/tabs/InfSST';
 Vue.component('InfSST', InfSST)
 

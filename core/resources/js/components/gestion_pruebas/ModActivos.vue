@@ -1,6 +1,10 @@
 <template>
     <div>
+
         <nav class="navbar navbar-light bg-light my-2">
+            <div class="col-md-2 col-center has-feedback">
+                <button type="button" class="btn btn-primary" @click="guardarTodos">Todos</button>
+            </div>
             <div class="col-md-4 col-center col-sm-2  has-feedback">
                 <select v-model="selectCO" class="form-control">
                     <option value="co">CENTRO DE OPERACIÓN</option>
@@ -28,28 +32,30 @@
                 <tbody>
                     <tr v-for="(item, indice) in mbuscar" :key="indice"
                         v-show="(pagina-1) * numero <= indice && pagina*numero > indice || bempleado != ''">
-                      
-                      
+
+
                         <th scope="row">{{ item.c0541_id }}</th>
+
                         <td>
                             {{ item.c0541_nombres }} {{ item.c0541_apellido1 }}
                             {{ item.c0541_apellido2 }}
                         </td>
                         <td>{{ item.f285_descripcion }}</td>
                         <td>{{ item.c0763_descripcion }}</td>
-                        <td>
-                            
-                            <span v-if="seleccionados.filter(c0550_rowid_tercero => c0550_rowid_tercero == item.c0550_rowid_tercero ) != ''">
-                                <button @click="excluir(item.c0550_rowid_tercero)">
-                                    <li class="fa fa-check-square-o">
-                                    </li>
-                                </button>
-                            </span>
-                            <span v-else><button @click="incluir(item.c0550_rowid_tercero)">
-                                    <li class="fa fa-square-o">
-                                    </li>
-                                </button></span>
 
+                        <td>
+
+
+                            <span
+                                v-if="seleccionados.filter(c0550_rowid_tercero => c0550_rowid_tercero == item.c0550_rowid_tercero ) != ''">
+                                <li class="fa fa-check-square-o" @click="excluir(item.c0550_rowid_tercero)">
+                                </li>
+
+                            </span>
+                            <span v-else>
+                                <li class="fa fa-square-o" @click="incluir(item.c0550_rowid_tercero)">
+                                </li>
+                            </span>
                         </td>
                     </tr>
                 </tbody>
@@ -80,6 +86,7 @@
 
         data() {
             return {
+
                 seleccionados: [],
                 CO: [],
                 activos: [],
@@ -95,9 +102,7 @@
         beforeMount() {
             this.getCO();
             this.traerRelacion()
-            axios.get("/api/registros").then(res => {
-                this.activos = res.data;         
-            });
+            this.traerActivos();
         },
         methods: {
             mostrarCaja: function () {
@@ -108,39 +113,68 @@
                     this.numero = this.selectPag
                 }
             },
-            traerRelacion(){
+            traerActivos() {
+                axios.get("/api/registros").then(res => {
+                    this.activos = res.data;
+
+                });
+            },
+            traerRelacion() {
                 axios.get(`/api/asignacion/index/${this.id_prueba}`).then(res => {
-                     for (var i = 0; i<res.data.length; i++) {
-                    this.seleccionados.push(res.data[i].cz4_ts_id)       
+                    for (var i = 0; i < res.data.length; i++) {
+                        this.seleccionados.push(res.data[i].cz4_ts_id)
                     }
-                      
-            });
+
+                });
             },
             getCO: function () {
                 axios.get("/api/getCO").then(res => {
                     this.CO = res.data;
-                    
+
                 });
             },
             incluir(c0550_rowid_tercero) {
                 this.seleccionados.push(c0550_rowid_tercero)
-                 axios.post("/api/asignacion/guardar",{id: c0550_rowid_tercero, id_prueba:this.id_prueba})
-                .then(res => {
-                    console.log(res.data)
-                });
+                axios.post("/api/asignacion/guardar", {
+                        id: c0550_rowid_tercero,
+                        id_prueba: this.id_prueba
+                    })
+                    .then(res => {
+                        console.log(res.data)
+                    });
 
             },
             excluir(item) {
-                //  console.log(this.seleccionados[0] + 'dff' + item)
-                for (var i = 0; i<this.seleccionados.length; i++) {
-                    if (this.seleccionados[i] === item){
-                         this.seleccionados.splice(i, 1);
-                     axios.post("/api/asignacion/delete",{id_ts: item, id_prueba:this.id_prueba})
-                     .then(res => {
-                     console.log(res.data)
-                });
+                for (var i = 0; i < this.seleccionados.length; i++) {
+                    if (this.seleccionados[i] === item) {
+                        this.seleccionados.splice(i, 1);
+                        axios.post("/api/asignacion/delete", {
+                                id_ts: item,
+                                id_prueba: this.id_prueba
+                            })
+                            .then(res => {
+                                console.log(res.data)
+                            });
                     }
                 }
+            },
+            guardarTodos() {
+                swal("Cargando...", {
+               buttons: false,
+               closeOnClickOutside: false
+                    });
+                axios.post("/api/asignacion/guardarTodos", {
+                    id_prueba: this.id_prueba,
+                    activos: this.activos,
+                    seleccionados: this.seleccionados
+                }).then(res => {
+                    this.traerRelacion();
+                    swal('Se han seleccionado todos', '', 'success')
+
+
+                }).catch(res=>{
+                     swal('Ha sucedido un error inesperado', '', 'error')
+                })
             }
 
         },
