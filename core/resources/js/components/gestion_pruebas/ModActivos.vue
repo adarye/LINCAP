@@ -1,9 +1,6 @@
 <template>
     <div>
         <nav class="navbar navbar-light bg-light my-2">
-            <div class="col-md-2 col-center col-sm-2  has-feedback">
-                <button class="btn btn-primary" @click="guardar">Guardar</button>
-            </div>
             <div class="col-md-4 col-center col-sm-2  has-feedback">
                 <select v-model="selectCO" class="form-control">
                     <option value="co">CENTRO DE OPERACIÓN</option>
@@ -31,7 +28,8 @@
                 <tbody>
                     <tr v-for="(item, indice) in mbuscar" :key="indice"
                         v-show="(pagina-1) * numero <= indice && pagina*numero > indice || bempleado != ''">
-
+                      
+                      
                         <th scope="row">{{ item.c0541_id }}</th>
                         <td>
                             {{ item.c0541_nombres }} {{ item.c0541_apellido1 }}
@@ -40,6 +38,7 @@
                         <td>{{ item.f285_descripcion }}</td>
                         <td>{{ item.c0763_descripcion }}</td>
                         <td>
+                            
                             <span v-if="seleccionados.filter(c0550_rowid_tercero => c0550_rowid_tercero == item.c0550_rowid_tercero ) != ''">
                                 <button @click="excluir(item.c0550_rowid_tercero)">
                                     <li class="fa fa-check-square-o">
@@ -82,7 +81,6 @@
         data() {
             return {
                 seleccionados: [],
-                seleccionados2:[],
                 CO: [],
                 activos: [],
                 selectPag: 4,
@@ -126,26 +124,24 @@
             },
             incluir(c0550_rowid_tercero) {
                 this.seleccionados.push(c0550_rowid_tercero)
-                 this.seleccionados2.push(c0550_rowid_tercero)
-                console.log( this.seleccionados)
+                 axios.post("/api/asignacion/guardar",{id: c0550_rowid_tercero, id_prueba:this.id_prueba})
+                .then(res => {
+                    console.log(res.data)
+                });
+
             },
             excluir(item) {
                 //  console.log(this.seleccionados[0] + 'dff' + item)
                 for (var i = 0; i<this.seleccionados.length; i++) {
                     if (this.seleccionados[i] === item){
-                    this.seleccionados.splice(i, 1);
+                         this.seleccionados.splice(i, 1);
+                     axios.post("/api/asignacion/delete",{id_ts: item, id_prueba:this.id_prueba})
+                     .then(res => {
+                     console.log(res.data)
+                });
                     }
                 }
-            },
-            guardar() {
-                axios.post("/api/asignacion/guardar",{seleccionados: this.seleccionados2, id_prueba:this.id_prueba})
-                .then(res => {
-                    swal('Guardado', 'Las asignaciones se han guardado', 'success')
-                    console.log(res.data)
-                });
-
             }
-
 
         },
         computed: {

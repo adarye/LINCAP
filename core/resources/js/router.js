@@ -94,7 +94,7 @@ export default new Router({
             
         },
         {
-            path: '/gestion/pruebas',
+            path: '/gestion/pruebas/:categoria',
             name: 'IndexGP',
             component: IndexGP 
             

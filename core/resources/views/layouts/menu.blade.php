@@ -40,7 +40,7 @@
             <li><a><i class="fa fa-pencil"></i>Encuestas<span class="fa fa-chevron-down"></span></a>
                 <ul class="nav child_menu" style="display: none">
                     @cannot('isDefault')
-                    <li> <router-link :to="{name: 'IndexGP',  params:{tipo: 1}}">Administrar</router-link></li>
+                    <li> <router-link v-bind:to="'/gestion/pruebas/' + 1">Administrar</router-link></li>
                     @endcannot
 
                 <li> <router-link :to="{name: 'Pendientes', params:{tipo: 1}}">Pendientes</router-link></li>

@@ -36,12 +36,10 @@
                                     v-model="datos.cz3_descripcion" placeholder="Descripcion" />
                             </div>
                             <div class="col-md-12 col-center col-sm-8 form-group has-feedback">
-                               <input  v-max-length="80" type="text" class="form-control"
-                                    v-model="datos.cz3_fecha_apertura" placeholder="Fecha de Apertura" />    
+                               <date-picker  v-model="datos.cz3_fecha_apertura"  :config="options"></date-picker>    
                             </div>
                             <div class="col-md-12 col-center col-sm-8 form-group has-feedback">
-                               <input  v-max-length="80" type="text" class="form-control"
-                                    v-model="datos.cz3_fecha_cierre" placeholder="Fecha de cierre" />    
+                                    <date-picker  v-model="datos.cz3_fecha_cierre"  :config="options"></date-picker> 
                             </div>
                             <div class="col-md-12 col-sm-12 form-group has-feedback">
                                 <button type="submit" class="btn btn-primary">Guardar</button>
@@ -76,12 +74,10 @@
                                     v-model="datos.cz3_descripcion" placeholder="Descripcion" />
                             </div>
                             <div class="col-md-12 col-center col-sm-8 form-group has-feedback">
-                               <input  v-max-length="80" type="text" class="form-control"
-                                    v-model="datos.cz3_fecha_apertura" placeholder="Fecha de Apertura" />    
+                                     <date-picker  v-model="datos.cz3_fecha_apertura"  :config="options"></date-picker>  
                             </div>
                             <div class="col-md-12 col-center col-sm-8 form-group has-feedback">
-                               <input  v-max-length="80" type="text" class="form-control"
-                                    v-model="datos.cz3_fecha_cierre" placeholder="Fecha de cierre" />    
+                                <date-picker  v-model="datos.cz3_fecha_cierre"  :config="options"></date-picker>   
                             </div>
                             <div class="col-md-12 col-sm-12 form-group has-feedback">
                                 <button type="submit" class="btn btn-primary">Actualizar</button>
@@ -153,16 +149,26 @@
 <script>
 import moment from "moment";
     moment.locale("es");
+  import datePicker from 'vue-bootstrap-datetimepicker';
+  import 'pc-bootstrap4-datetimepicker/build/css/bootstrap-datetimepicker.css';
+   
     export default {
+        components: {
+      datePicker
+    },
         data() {
             return {
+                options: {
+          format: 'YYYY/DD/MM hh:ss',
+          useCurrent: false,
+        } ,
                 pruebas: [],
                 datos: {
                     cz3_id:null,
                     cz3_nombre: null,
                     cz3_descripcion: null,
                     cz3_fecha_apertura: '12/11/2019 12:09:00',
-                    cz3_fecha_cierre:  '12/11/2019 12:09:00'
+                    cz3_fecha_cierre:  '12/11/2019 12:09:00 AM'
                 },
                 
                 titulo: 'Crear Encuesta',
