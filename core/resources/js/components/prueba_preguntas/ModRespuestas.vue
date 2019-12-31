@@ -5,17 +5,17 @@
                 <section class="login_content">
                     <form @submit.prevent="crear">
                         <h1>Respuestas</h1>
-                        <div class="col-md-12 col-center col-sm-8 form-group has-feedback"  v-for="i in n_respuestas-start" :key="i">
-                                              
-                                <input v-max-length="50" v-autofocus class="form-control"
-                                         :placeholder="'Respuesta ' +  i " onfocus />
-                        
+                        <div class="col-md-12 col-center col-sm-8 form-group has-feedback"
+                            v-for="i in n_respuestas-start" :key="i">
+
+                            <input v-max-length="50" v-autofocus class="form-control" :placeholder="'Respuesta ' +  i "
+                                onfocus v-model="res[i - 1]"/>
+
                         </div>
                         <div class="col-md-12 col-sm-12 form-group has-feedback">
-                                    <button type="submit" class="btn btn-primary">Guardar</button>
-                                    <button type="button" @click="$emit('hideRespuestas')"
-                                        class="btn btn-danger">Cancelar</button>
-                                </div>  
+                            <button type="button" @click="$emit('hideRespuestas')"
+                                class="btn btn-danger">Volver</button>
+                        </div>
                     </form>
                 </section>
             </div>
@@ -24,16 +24,22 @@
 </template>
 <script>
     export default {
-        props: ['n_respuestas'],
+        props: ['n_respuestas','res'],
         data() {
             return {
- start: 0,
-    end: 10
+                start: 0,
+                end: 10,
+                
             }
         },
-        methods: {
-            crear() {
+        mounted(){
+           
+        },
 
+        methods: {
+            crear() {   
+                 console.log(this.res)
+             
             }
 
         }

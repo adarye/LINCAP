@@ -22,15 +22,15 @@
                            <option  value="ra"> Respuesta Abierta</option>
                             </select>
                                 </div>
-                                <div class="col-md-9 col-center col-sm-7 form-group has-feedback">
+                                <div class="col-md-8 col-center col-sm-7 form-group has-feedback">
                                     <div v-if="tipo_respuesta == 'smur' || tipo_respuesta == 'smmr' ">
                                         <input v-max-length="300" v-autofocus  class="form-control"
                                         v-model="n_respuestas" placeholder="Numero de Respuestas" onfocus v-numeric-only />
                                     </div>
                                 </div>
-                                 <span  class="col-md-3 col-center col-sm-5 form-group" v-if="n_respuestas != null">
-                                     <button class="fa fa-arrow-right btn btn-lg btn-dark"  @click="showRespuestas"></button>
-                                     </span>
+                                 
+                                     <button type="button" class="fa fa-arrow-right btn btn-lg btn-dark mt-1"  @click="showRespuestas" v-if="n_respuestas != null &&  tipo_respuesta != 'ra' "></button>
+                                     
                                
                                 <div class="col-md-12 col-sm-12 form-group has-feedback">
                                     <button type="submit" class="btn btn-primary">Guardar</button>
@@ -43,7 +43,7 @@
             </div>
              </modal>
              <modal name="respuestas" :clickToClose="false" :adaptive="true" :width="450" :height="600">
-                 <Respuestas v-bind="{n_respuestas:  n_respuestas}" v-on:hideRespuestas="hideRespuestas"></Respuestas>
+                 <MRespuestas v-bind="{n_respuestas:  n_respuestas, res:res}" v-on:hideRespuestas="hideRespuestas"></MRespuestas>
 
                       
              </modal>
@@ -52,6 +52,8 @@
                 <button type="button" class="btn btn-primary" @click="$modal.show('crear')">Generar Pregunta</button>
             </div>
          </nav>
+         <Respuestas v-bind="{respuestas: respuestas}"></Respuestas>
+        
     </div>
 </template>
 <script>
@@ -61,11 +63,14 @@ export default {
             n_respuestas: null,
             tipo_respuesta: 'Seleccione...',
             pregunta: '',
-            datos: {}
+            datos: {},
+            respuestas: [],
+            res: []
         }
     },
     mounted(){
-        this.buscar()
+         this.buscar()
+         this.traerRespuestas();
     },
     methods:{
         buscar(){
@@ -76,22 +81,47 @@ export default {
             })
         },
         crear(){
+           
             const params= {
                 cz5_categoria: this.tipo_respuesta,
                 cz5_pregunta: this.pregunta,
                 cz5_gp_id: this.$route.params.id
             }
+            
          axios.post('/api/pregunta/guardar', params)
          .then(res=>{
-             console.log(res.data)
+             if( this.tipo_respuesta == 'ra'){
+             this.guardarPA(res.data.cz5_id)
+             }
+             else{
+                 this.guardarPS(res.data.cz5_id)
+             }
          })
-
+            
+            
          
         },
-        guardarPA(){
-           axios.post('/api/respuestaA/guardar', params)
+        guardarPA(id){
+           axios.post('/api/respuestaA/guardar',{id: id} )
          .then(res=>{
              console.log(res.data)
+              this.traerRespuestas();
+         })
+      },
+
+      guardarPS(id){
+           axios.post('/api/respuestaS/guardar',{id: id, respuestas: this.res} )
+         .then(res=>{
+             console.log(res.data)
+              this.traerRespuestas();
+         })
+      },
+
+        traerRespuestas(){
+           axios.get(`/api/pregunta/index/${this.$route.params.id}`)
+         .then(res=>{
+            this.respuestas =res.data
+            console.log(this.respuestas)
          })
         },
 

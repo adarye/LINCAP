@@ -13,11 +13,11 @@ class CreateZ7RtaSmursTable extends Migration
      */
     public function up()
     {
-        Schema::create('z7_rta_smurs', function (Blueprint $table) {
+        Schema::create('z7_rta_smur', function (Blueprint $table) {
             $table->bigIncrements('cz7_id');
             $table->bigInteger('cz7_pp_id');
-            $table->text('cz7_rta');
-            $table->text('cz7_rta_correcta');
+            $table->text('cz7_rta')->nullable(true);
+            $table->text('cz7_rta_correcta')->nullable(true);
             
             $table->foreign('cz7_pp_id')->references('cz5_id')->on('z5_prueba_preguntas')->onDelete('cascade');
 

@@ -85,6 +85,12 @@ Route::get('asignacion/index/{id}', 'AsignacionController@index');
 
 //PREGUNTA 
 Route::post('pregunta/guardar', 'PreguntasController@guardar');
+Route::get('pregunta/index/{id}', 'PreguntasController@traerRespuestas');
 
-//RESPUESTAS
+//RESPUESTAS ABIERTAS
 Route::post('respuestaA/guardar', 'RaController@guardar');
+
+//RESPUESTAS DE SELECCION
+Route::post('respuestaS/guardar', 'RsController@guardar');
+Route::get('respuestaS/buscar/{id}', 'RsController@traerRS');
+

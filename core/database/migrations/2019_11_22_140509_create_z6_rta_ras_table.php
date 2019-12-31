@@ -13,10 +13,10 @@ class CreateZ6RtaRasTable extends Migration
      */
     public function up()
     {
-        Schema::create('z6_rta_ras', function (Blueprint $table) {
+        Schema::create('z6_rta_ra', function (Blueprint $table) {
             $table->bigIncrements('cz6_id');
             $table->bigInteger('cz6_pp_id');
-            $table->text('cz6_rta');
+            $table->text('cz6_rta')->nullable(true);
 
             $table->foreign('cz6_pp_id')->references('cz5_id')->on('z5_prueba_preguntas')->onDelete('cascade');
 
