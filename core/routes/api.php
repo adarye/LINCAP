@@ -65,3 +65,18 @@ Route::get('getCO', 'ApiController@getCO');
 
 //FOTOS
 Route::post('usuario/avatar/{id}', 'UsuariosController@myAvatar')->name('avatar');
+
+//GESTION PRUEBAS
+Route::post('gp/crear', 'GPController@crear');
+Route::put('gp/update', 'GPController@update');
+Route::put('gp/cerrar', 'GPController@cerrar');
+Route::delete('gp/delete/{id}', 'GPController@delete');
+Route::get('gp', 'GPController@index');
+
+//GESTION PRUEBAS PARA USUARIOS
+Route::get('pruebas/pendientes/{id}', 'GPController@traerPendientes');
+
+//ASIGNACION PRUEBAS
+Route::post('asignacion/guardar', 'AsignacionController@guardar');
+Route::post('asignacion/delete', 'AsignacionController@delete');
+Route::get('asignacion/index/{id}', 'AsignacionController@index');

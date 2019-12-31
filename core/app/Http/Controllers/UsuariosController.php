@@ -25,8 +25,7 @@ class UsuariosController extends Controller
         return z1_usuarios::select(
             'cz2_nombre',
             'cz1_cc',
-            'cz1_id',
-            'cz1_estado',           
+            'cz1_id',          
              'cz1_nombres',
              'cz1_id_rol'
 
@@ -49,7 +48,6 @@ class UsuariosController extends Controller
         $usuario->cz1_id_empleado = $request->cz1_id_empleado;
         $usuario->cz1_nombres = $request->cz1_nombres;
         $usuario->cz1_avatar = 'user.png';
-        $usuario->cz1_estado = 1;
         $usuario->save();
         }
 

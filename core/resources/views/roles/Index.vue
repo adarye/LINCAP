@@ -83,7 +83,7 @@ import router from '../../js/router';
             };
         },
         beforeMount() {
-             if(window.user.rol == 33){
+             if(window.user.rol == 1){
             axios.get("/api/roles").then(res => {
                 this.roles = res.data;
             });

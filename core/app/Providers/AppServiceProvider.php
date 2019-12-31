@@ -35,24 +35,24 @@ class AppServiceProvider extends ServiceProvider
         
 
         Gate::define('isAdmin', function($user) {
-            return $user->cz1_id_rol == '33';
+            return $user->cz1_id_rol == '1';
          });
      
          // define a author user role
          // returns true if user role is set to author
          Gate::define('isRRHH', function($user) {
-             return $user->cz1_id_rol == '30';
+             return $user->cz1_id_rol == '2';
          });
      
          // define a author user role
          // returns true if user role is set to author
          Gate::define('isSST', function($user) {
-             return $user->cz1_id_rol == '31';
+             return $user->cz1_id_rol == '3';
          });
 
           // returns true if user role is set to author
           Gate::define('isDefault', function($user) {
-            return $user->cz1_id_rol == '34';
+            return $user->cz1_id_rol == '4';
         });
         
     }

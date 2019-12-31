@@ -1,29 +1,6 @@
 <template>
     <div>
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><i class="fa fa-folder-open"> Empleados</i></li>
-                <li class="breadcrumb-item"><i class="fa fa-user"> Activos</i></li>
-                <li class="breadcrumb-item active" aria-current="page"></li>
-            </ol>
-        </nav>
-        
         <nav class="navbar navbar-light bg-light my-2">
-
-            <div class=" pull-right">
-                Ver
-            </div>
-            <div class="col-md-1">
-                <select v-model="selectPag" @click.prevent="mostrarCaja()" class="form-control">
-                    <option value="10">10</option>
-                    <option value="25">25</option>
-                    <option value="0">Personalizado </option>
-                </select>
-            </div>
-            <div class=" pull-left">
-                Registros
-            </div>
-
             <div class="col-md-4 col-center col-sm-2  has-feedback">
                 <select v-model="selectCO" class="form-control">
                     <option value="co">CENTRO DE OPERACIÓN</option>
@@ -33,10 +10,10 @@
             </div>
             <div class="col-md-6 col-center has-feedback">
                 <input type="text" v-model="bempleado" class="form-control" v-autofocus placeholder="Buscar" />
-            </div>  
-             <span v-if="mostrar == 1"><input class="select mt-2" v-model="numero" /></span>          
+            </div>
+            <span v-if="mostrar == 1"><input class="select mt-2" v-model="numero" /></span>
         </nav>
-        
+
         <div class="table-responsive-md table-responsive-sm">
             <table class="table table-striped">
                 <thead>
@@ -45,15 +22,14 @@
                         <th scope="col" class="texto">Nombre</th>
                         <th scope="col" class="texto">C. O</th>
                         <th scope="col" class="texto">Cargo</th>
-                        <th scope="col" class="texto">Fecha de Ingreso</th>
-                        <th scope="col" class="texto">Contrato hasta</th>
                         <th scope="col" class="texto">Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr v-for="(item, indice) in mbuscar" :key="indice"
                         v-show="(pagina-1) * numero <= indice && pagina*numero > indice || bempleado != ''">
-
+                      
+                      
                         <th scope="row">{{ item.c0541_id }}</th>
                         <td>
                             {{ item.c0541_nombres }} {{ item.c0541_apellido1 }}
@@ -61,19 +37,19 @@
                         </td>
                         <td>{{ item.f285_descripcion }}</td>
                         <td>{{ item.c0763_descripcion }}</td>
-                        <td>{{ moment(item.c0550_fecha_ingreso).format('L') }}</td>
-                        <td v-if="item.c0550_fecha_contrato_hasta != null">
-                            {{ moment(item.c0550_fecha_contrato_hasta).format('L') }}</td>
-                        <td v-else>No definida</td>
                         <td>
-                            <router-link :to="{
-                                name: 'showEmpleado',
-                                params: { id: item.c0550_rowid_tercero, ruta: 'Activos' }
-                            }">
-                                <li class="fa fa-search icon">
+                            
+                            <span v-if="seleccionados.filter(c0550_rowid_tercero => c0550_rowid_tercero == item.c0550_rowid_tercero ) != ''">
+                                <button @click="excluir(item.c0550_rowid_tercero)">
+                                    <li class="fa fa-check-square-o">
+                                    </li>
+                                </button>
+                            </span>
+                            <span v-else><button @click="incluir(item.c0550_rowid_tercero)">
+                                    <li class="fa fa-square-o">
+                                    </li>
+                                </button></span>
 
-                                </li>
-                            </router-link>
                         </td>
                     </tr>
                 </tbody>
@@ -81,37 +57,35 @@
         </div>
         <div class="row">
             <div class="col-md-4 col-float"></div>
-            <div v-show="bempleado == ''" class="col-md-4 col-center">
-                <button type="button" @click.prevent="pagina=pagina-1" v-show="pagina!=1" class="btn btn-primary">
-                    <li class="fa fa-long-arrow-left"></li>
-                </button>
-                <button type="button" @click.prevent="pagina=pagina+1" v-show="(pagina*numero)/(mbuscar.length) < 1"
-                    class="btn btn-success">
-                    <li class="fa fa-long-arrow-right"></li>
-                </button>
-            </div>
+            <!-- <div v-show="bempleado == ''" class="col-md-4 col-center"> -->
+            <button type="button" @click.prevent="pagina=pagina-1" v-show="pagina!=1" class="btn btn-primary">
+                <li class="fa fa-long-arrow-left"></li>
+            </button>
+            <button type="button" @click.prevent="pagina=pagina+1" v-show="(pagina*numero)/(mbuscar.length) < 1"
+                class="btn btn-success">
+                <li class="fa fa-long-arrow-right"></li>
+            </button>
+            <!-- </div> -->
 
-            <div class="pull-right mt-2">Página {{ pagina }} / {{ Math.ceil(mbuscar.length / numero) }} de
-                {{ mbuscar.length }} Registros</div>
+            <!-- <div class="pull-right mt-2">Página {{ pagina }} / {{ Math.ceil(mbuscar.length / numero) }} de
+                {{ mbuscar.length }} Registros</div> -->
         </div>
-
     </div>
 </template>
 <script>
     import moment from 'moment';
     moment.locale('es');
-    import router from '../../js/router';
     export default {
+        props: ['id_prueba'],
 
         data() {
             return {
-                sortKey: ['c0763_descripcion'],
-                sortOrder: ['asc'],
+                seleccionados: [],
                 CO: [],
                 activos: [],
-                selectPag: 25,
+                selectPag: 4,
                 selectCO: 'co',
-                numero: 25,
+                numero: 4,
                 mostrar: 0,
                 bempleado: '',
                 pagina: 1,
@@ -119,19 +93,11 @@
             };
         },
         beforeMount() {
-            console.log(window.user.rol)
-            if(window.user.rol == 1 || window.user.rol == 2 || window.user.rol == 3){
-                 
-                 this.getCO();
+            this.getCO();
+            this.traerRelacion()
             axios.get("/api/registros").then(res => {
-                this.activos = res.data;
-                console.log(this.activos);
-
+                this.activos = res.data;         
             });
-            }else{
-            router.push('/');
-            
-            }
         },
         methods: {
             mostrarCaja: function () {
@@ -142,13 +108,40 @@
                     this.numero = this.selectPag
                 }
             },
+            traerRelacion(){
+                axios.get(`/api/asignacion/index/${this.id_prueba}`).then(res => {
+                     for (var i = 0; i<res.data.length; i++) {
+                    this.seleccionados.push(res.data[i].cz4_ts_id)       
+                    }
+                      
+            });
+            },
             getCO: function () {
                 axios.get("/api/getCO").then(res => {
                     this.CO = res.data;
-                    console.log(this.CO);
+                    
                 });
-            }
+            },
+            incluir(c0550_rowid_tercero) {
+                this.seleccionados.push(c0550_rowid_tercero)
+                 axios.post("/api/asignacion/guardar",{id: c0550_rowid_tercero, id_prueba:this.id_prueba})
+                .then(res => {
+                    console.log(res.data)
+                });
 
+            },
+            excluir(item) {
+                //  console.log(this.seleccionados[0] + 'dff' + item)
+                for (var i = 0; i<this.seleccionados.length; i++) {
+                    if (this.seleccionados[i] === item){
+                         this.seleccionados.splice(i, 1);
+                     axios.post("/api/asignacion/delete",{id_ts: item, id_prueba:this.id_prueba})
+                     .then(res => {
+                     console.log(res.data)
+                });
+                    }
+                }
+            }
 
         },
         computed: {

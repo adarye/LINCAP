@@ -190,7 +190,6 @@ import router from '../../js/router';
                     cz1_password: "",
                     cz1_id_rol: "Roles",
                     cz1_id_empleado: 0,
-                    cz1_estado: null,
                     cz1_nombres: null
                 },
                 cz1_id: 0,
@@ -203,7 +202,7 @@ import router from '../../js/router';
             };
         },
         beforeMount() {
-              if(window.user.rol == 33){
+              if(window.user.rol == 1){
             this.cargarRoles();
             this.created();
               }
@@ -298,7 +297,6 @@ import router from '../../js/router';
                 this.usuario.cz1_password = item.cz1_contrasena;
                 this.usuario.cz1_id_rol = item.cz1_id_rol;
                 this.usuario.cz1_ts_id = item.cz1_ts_id;
-                this.usuario.cz1_estado = item.cz1_estado;
                 this.cz1_id = item.cz1_id;
                 this.modoEditar = true;
 

@@ -4,7 +4,7 @@
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label>Fecha de la vacuna</label>
-                            <input type="datetime" class="form-control" :disabled="validated_admin ? false : true" v-model="empleado_info.cz9_fecha_vacuna" />
+                            <input type="date" class="form-control" :disabled="validated_admin ? false : true" v-model="empleado_info.cz9_fecha_vacuna" />
                         </div>
                         <div class="form-group col-md-6">
                             <label>Lugar de las vacuna</label>
@@ -14,7 +14,7 @@
                      <div class="form-row">
                         <div class="form-group col-md-6">
                             <label>Fecha de la vacuna tifoidea </label>
-                            <input type="datetime" class="form-control" :disabled="validated_admin ? false : true" v-model="empleado_info.cz9_fecha_vacuna_tifoidea" />
+                            <input type="date" class="form-control" :disabled="validated_admin ? false : true" v-model="empleado_info.cz9_fecha_vacuna_tifoidea" />
                         </div>
                         <div class="form-group col-md-6">
                             <label>Lugar de las vacuna tifoidea</label>
@@ -24,7 +24,7 @@
                      <div class="form-row">
                         <div class="form-group col-md-6">
                             <label>Fecha de la vacuna toxoide </label>
-                            <input type="datetime" class="form-control" :disabled="validated_admin ? false : true" v-model="empleado_info.cz9_fecha_vacuna_toxoide"/>
+                            <input type="date" class="form-control" :disabled="validated_admin ? false : true" v-model="empleado_info.cz9_fecha_vacuna_toxoide"/>
                         </div>
                         <div class="form-group col-md-6">
                             <label>Lugar de las vacuna toxoide</label>

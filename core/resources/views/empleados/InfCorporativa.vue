@@ -4,7 +4,7 @@
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><i class="fa fa-folder-open"> Empleados</i></li>
                 <li class="breadcrumb-item"><i class="fa fa-book"> Informacion Corporativa</i></li>
-                <li class="breadcrumb-item active" aria-current="page"></li>
+                
             </ol>
         </nav>
        <nav class="navbar navbar-light bg-light my-2">

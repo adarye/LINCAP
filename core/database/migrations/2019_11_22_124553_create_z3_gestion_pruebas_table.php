@@ -18,6 +18,7 @@ class CreateZ3GestionPruebasTable extends Migration
             $table->string('cz3_nombre');
             $table->string('cz3_categoria');
             $table->string('cz3_descripcion');
+            $table->Integer('cz3_id_creador');
             $table->timestamp('cz3_fecha_apertura');
             $table->dateTime('cz3_fecha_cierre');
 

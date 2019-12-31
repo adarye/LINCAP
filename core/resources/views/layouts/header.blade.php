@@ -16,7 +16,7 @@
                             alt="">{{$name_separado [0]}}
                     </a>
                     <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
-                        <router-link class="dropdown-item" :to="{name: 'RestartPassword'}"><span> Cambiar
+                        <router-link  class="dropdown-item" :to="{name: 'RestartPassword'}"><span> Cambiar
                                 contraseña</span></router-link>
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf

@@ -121,7 +121,7 @@
             };
         },
         beforeMount() {
-            if(window.user.rol == 30 || window.user.rol == 31 || window.user.rol == 33){
+            if(window.user.rol == 1 || window.user.rol == 2 || window.user.rol == 3){
                 console.log(this.$route.params.id);            
             }else{
             router.push('/empleado/' + window.user.id);      
@@ -145,7 +145,7 @@
             habilitarFormulario() {
                 this.validated = true;
                 console.log(window.user.rol)
-                if(window.user.rol == 33 || window.user.rol == 31 || window.user.rol == 30){
+                if(window.user.rol == 1 || window.user.rol == 2 || window.user.rol == 3){
                 this.validated_admin = true;
                 }
                
