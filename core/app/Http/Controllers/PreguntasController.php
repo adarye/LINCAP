@@ -14,5 +14,29 @@ class PreguntasController extends Controller
        $pregunta->cz5_categoria = $request->cz5_categoria;
        $pregunta->cz5_gp_id = $request->cz5_gp_id;
        $pregunta->save();
+       return $pregunta;
+    }
+    public function traerRespuestas($id){
+
+       $ra=  z5_prueba_preguntas::select('cz5_pregunta', 'cz5_categoria')
+        ->join(
+           'dbo.z6_rta_ra',
+           'dbo.z5_prueba_preguntas.cz5_id'
+           ,'=',
+           'dbo.z6_rta_ra.cz6_pp_id'
+        )
+        ->where('cz5_gp_id', $id)->get();
+
+
+        $rs=  z5_prueba_preguntas::select('cz5_pregunta', 'cz5_categoria', 'cz7_rta')
+       ->join(
+            'dbo.z7_rta_smurs',
+            'dbo.z5_prueba_preguntas.cz5_id'
+            ,'=',
+            'dbo.z7_rta_smurs.cz7_pp_id'
+         )
+        ->where('cz5_gp_id', $id)->get();
+        
+        return json_encode(array_merge(json_decode( $ra, true),json_decode($rs, true)));
     }
 }
