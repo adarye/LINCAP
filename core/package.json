@@ -27,6 +27,7 @@
         "@lazy-copilot/datetimepicker": "^0.1.47",
         "luxon": "^1.21.3",
         "moment": "^2.24.0",
+        "npm": "^6.13.4",
         "save": "^2.4.0",
         "sweetalert": "^2.1.2",
         "v-click-outside": "^3.0.0",

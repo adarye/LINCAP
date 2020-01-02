@@ -26,15 +26,15 @@
                 @include('layouts.header')
                 <!-- page content -->
                 <div class="right_col" role="main">
-                        <div class="col-md-12 col-sm-12 col-xs-12">
-                            <div class="dashboard_graph">
-                                <div class="row text-center">
-                                    @yield('breadcum')
-                                </div>
-                                @yield('content')
-                                <div class="clearfix"></div>
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="dashboard_graph">
+                            <div class="row text-center">
+                                @yield('breadcum')
                             </div>
+                            @yield('content')
+                            <div class="clearfix"></div>
                         </div>
+                    </div>
                     <br>
                 </div>
                 <!-- page content --
