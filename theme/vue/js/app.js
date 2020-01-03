@@ -2314,31 +2314,42 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["respuestas"],
+  props: ["preguntas"],
   data: function data() {
     return {
-      rs: []
+      d: null,
+      id: null,
+      respuestas: [],
+      g: []
     };
   },
-  methods: {
-    cargar: function cargar(id) {
-      var _this = this;
+  beforeMount: function beforeMount() {
+    var _this = this;
 
-      axios.get("/api/respuestaS/buscar/".concat(id)).then(function (res) {
-        _this.rs = res.data;
+    console.log(this.preguntas.length);
+
+    for (var i in this.preguntas) {
+      axios.get("/api/respuestaS/buscar/".concat(this.preguntas[i].cz5_id)).then(function (res) {
         console.log(res.data);
+
+        _this.respuestas.push(res.data);
       });
+    }
+  },
+  methods: {
+    cargar: function cargar() {
+      var _this2 = this;
+
+      for (var i in this.preguntas) {
+        axios.get("/api/respuestaS/buscar/".concat(this.preguntas[i].cz5_id)).then(function (res) {
+          console.log(res.data);
+
+          _this2.respuestas.push(res.data);
+        });
+      }
+    },
+    mostrar: function mostrar() {// console.log(this.respuestas[0])
     }
   },
   computed: {}
@@ -3910,7 +3921,7 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale("es");
   data: function data() {
     return {
       options: {
-        format: 'YYYY/DD/MM hh:ss',
+        format: 'YYYY/DD/MM  HH:MM:SS',
         useCurrent: false
       },
       pruebas: [],
@@ -3918,8 +3929,8 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale("es");
         cz3_id: null,
         cz3_nombre: null,
         cz3_descripcion: null,
-        cz3_fecha_apertura: '12/11/2019 12:09:00',
-        cz3_fecha_cierre: '12/11/2019 12:09:00 AM'
+        cz3_fecha_apertura: null,
+        cz3_fecha_cierre: null
       },
       titulo: 'Crear Encuesta',
       fecha_actual: '',
@@ -3928,8 +3939,6 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale("es");
   },
   beforeMount: function beforeMount() {
     this.traerPruebas();
-    this.fecha_actual = moment__WEBPACK_IMPORTED_MODULE_0___default()().format("YYYY/DD/MM h:mm:ss");
-    console.log(this.fecha_actual);
   },
   methods: {
     traerPruebas: function traerPruebas() {
@@ -3943,15 +3952,22 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale("es");
     crear: function crear() {
       var _this2 = this;
 
-      if (this.datos.cz3_nombre == null || this.datos.cz3_descripcion == null || this.datos.cz3_fecha_apertura == null) {
+      this.fecha_actual = moment__WEBPACK_IMPORTED_MODULE_0___default()().diff(this.datos.cz3_fecha_apertura);
+      console.log(this.fecha_actual);
+
+      if (this.datos.cz3_nombre == null || this.datos.cz3_descripcion == null || this.datos.cz3_fecha_apertura == null || this.datos.cz3_fecha_cierre == null) {
         swal('Advertencia', 'Todos los campos son necesarios', 'warning');
+      } else if (this.datos.cz3_fecha_apertura <= this.fecha_actual) {
+        swal('Advertencia', 'La fecha de apertura debe partir desde un dia vigente', 'warning');
+      } else if (this.datos.cz3_fecha_cierre < this.datos.cz3_fecha_apertura) {
+        swal('Advertencia', 'Debe haber un rango entre las fechas', 'warning');
       } else {
         console.log(this.datos);
-        axios.post('/api/gp/crear', [this.datos, {
+        axios.post('/api/gp/crear', {
+          datos: this.datos,
           categoria: this.$route.params.categoria
-        }]).then(function (res) {
-          var pruebaServidor = res.data;
-          console.log(pruebaServidor);
+        }).then(function (res) {
+          console.log(res.data);
 
           _this2.traerPruebas();
 
@@ -3981,15 +3997,25 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale("es");
     actualizar: function actualizar() {
       var _this3 = this;
 
-      axios.put('/api/gp/update', this.datos).then(function (res) {
-        _this3.traerPruebas();
+      this.fecha_actual = moment__WEBPACK_IMPORTED_MODULE_0___default()().format("YYYY/DD/MM h:mm:ss");
 
-        swal('Prueba Actualizada', '', 'success');
+      if (this.datos.cz3_nombre == null || this.datos.cz3_descripcion == null || this.datos.cz3_fecha_apertura == null || this.datos.cz3_fecha_cierre == null) {
+        swal('Advertencia', 'Todos los campos son necesarios', 'warning');
+      } else if (this.datos.cz3_fecha_apertura <= this.fecha_actual) {
+        swal('Advertencia', 'La fecha de apertura debe partir desde un dia vigente', 'warning');
+      } else if (this.datos.cz3_fecha_cierre < this.datos.cz3_fecha_apertura) {
+        swal('Advertencia', 'Debe haber un rango entre las fechas', 'warning');
+      } else {
+        axios.put('/api/gp/update', this.datos).then(function (res) {
+          _this3.traerPruebas();
 
-        _this3.$modal.hide('editar');
+          swal('Prueba Actualizada', '', 'success');
 
-        _this3.limpiar();
-      });
+          _this3.$modal.hide('editar');
+
+          _this3.limpiar();
+        });
+      }
     },
     cerrar: function cerrar(id) {
       var _this4 = this;
@@ -4153,6 +4179,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -4161,7 +4191,8 @@ __webpack_require__.r(__webpack_exports__);
       pregunta: '',
       datos: {},
       respuestas: [],
-      res: []
+      res: [],
+      rs: []
     };
   },
   mounted: function mounted() {
@@ -55618,73 +55649,36 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    _vm._l(_vm.respuestas, function(item, indice) {
-      return _c("article", { key: indice }, [
-        _c("div", { staticClass: "row mt-2" }, [
-          _c("div", { staticClass: "col-md-12" }, [
-            _c("p", { staticClass: "lead" }, [
-              _vm._v(_vm._s(item.cz5_pregunta))
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-md-12" }, [
-            item.cz5_categoria == "ra"
-              ? _c("span", [
-                  _c("textarea", {
-                    directives: [
-                      {
-                        name: "max-length",
-                        rawName: "v-max-length",
-                        value: 300,
-                        expression: "300"
-                      },
-                      { name: "autofocus", rawName: "v-autofocus" }
-                    ],
-                    staticClass: "form-control",
-                    attrs: {
-                      rows: "4",
-                      cols: "50",
-                      placeholder: "Pregunta Abierta",
-                      onfocus: ""
-                    }
-                  })
-                ])
-              : item.cz5_categoria == "smur"
-              ? _c("span", [
-                  _c(
-                    "div",
-                    { staticClass: "form-check" },
-                    [
-                      _vm._v(
-                        "\n                        " +
-                          _vm._s(_vm.cargar(item.cz5_id)) +
-                          "\n                        "
-                      ),
-                      _vm._l(_vm.rs, function(h, indice) {
-                        return _c("span", { key: indice }, [
-                          _c("input", {
-                            staticClass: "form-check-input",
-                            attrs: { type: "checkbox", value: "" }
-                          }),
-                          _vm._v(" "),
-                          _c("p", [_vm._v(_vm._s(h.cz7_rta))])
-                        ])
-                      })
-                    ],
-                    2
-                  )
-                ])
-              : _vm._e()
-          ]),
-          _vm._v(" "),
-          _c("p")
+    [
+      _c("button", { on: { click: _vm.cargar } }, [_vm._v(" fkf")]),
+      _vm._v(" "),
+      _vm._l(_vm.preguntas, function(item, indice) {
+        return _c("article", { key: indice }, [
+          _c("div", { staticClass: "row mt-2" }, [
+            _c("div", { staticClass: "col-md-12" }, [
+              _c("p", { staticClass: "lead" }, [
+                _vm._v(_vm._s(item.cz5_pregunta))
+              ])
+            ]),
+            _vm._v(" "),
+            _vm._m(0, true)
+          ])
         ])
-      ])
-    }),
-    0
+      })
+    ],
+    2
   )
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-12" }, [
+      _c("div", { staticClass: "form-check" })
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -60271,7 +60265,7 @@ var render = function() {
       _vm._v(" "),
       _c(
         "Respuestas",
-        _vm._b({}, "Respuestas", { respuestas: _vm.respuestas }, false)
+        _vm._b({}, "Respuestas", { preguntas: _vm.respuestas }, false)
       )
     ],
     1

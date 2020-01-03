@@ -10,15 +10,17 @@ class GPController extends Controller
 {
     public function crear(Request $request){ 
 
-    return $request[0]->cz3_nombre;
+    // return $request->datos;
+        
+     
 
         $prueba = new z3_gestion_pruebas();
-        $prueba->cz3_nombre =  $request->cz3_nombre;
-        $prueba->cz3_descripcion =  $request->cz3_descripcion;
-        $prueba->cz3_categoria = 1;
+        $prueba->cz3_nombre =  $request->datos['cz3_nombre'];
+        $prueba->cz3_descripcion =  $request->datos['cz3_descripcion'];
+        $prueba->cz3_categoria = $request->categoria;
         $prueba->cz3_id_creador = Auth()->user()->cz1_id_empleado;
-        $prueba->cz3_fecha_apertura = $request->cz3_fecha_apertura;
-        $prueba->cz3_fecha_cierre = $request->cz3_fecha_cierre;
+        $prueba->cz3_fecha_apertura = $request->datos['cz3_fecha_apertura'];
+        $prueba->cz3_fecha_cierre = $request->datos['cz3_fecha_cierre'];
         $prueba->save();
 
         return $prueba;
