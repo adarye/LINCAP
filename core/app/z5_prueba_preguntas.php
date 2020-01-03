@@ -10,8 +10,8 @@ class z5_prueba_preguntas extends Model
     protected $primaryKey = 'cz5_id';
     public $timestamps = false;
 
-    // public function z7_rta_smur(){
-    //     return $this->hasMany('App\z7_rta_smur', 'cz7_pp_id');
-    // }
+    public function respuestas(){
+        return $this->hasMany('App\z7_rta_smur', 'cz7_pp_id');
+    }
 }
 

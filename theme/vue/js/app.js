@@ -2311,9 +2311,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["preguntas"],
   data: function data() {
@@ -2324,32 +2321,17 @@ __webpack_require__.r(__webpack_exports__);
       g: []
     };
   },
-  beforeMount: function beforeMount() {
-    var _this = this;
-
-    console.log(this.preguntas.length);
-
-    for (var i in this.preguntas) {
-      axios.get("/api/respuestaS/buscar/".concat(this.preguntas[i].cz5_id)).then(function (res) {
-        console.log(res.data);
-
-        _this.respuestas.push(res.data);
-      });
-    }
-  },
   methods: {
     cargar: function cargar() {
-      var _this2 = this;
+      var _this = this;
 
       for (var i in this.preguntas) {
         axios.get("/api/respuestaS/buscar/".concat(this.preguntas[i].cz5_id)).then(function (res) {
           console.log(res.data);
 
-          _this2.respuestas.push(res.data);
+          _this.respuestas.push(res.data);
         });
       }
-    },
-    mostrar: function mostrar() {// console.log(this.respuestas[0])
     }
   },
   computed: {}
@@ -55649,24 +55631,20 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    [
-      _c("button", { on: { click: _vm.cargar } }, [_vm._v(" fkf")]),
-      _vm._v(" "),
-      _vm._l(_vm.preguntas, function(item, indice) {
-        return _c("article", { key: indice }, [
-          _c("div", { staticClass: "row mt-2" }, [
-            _c("div", { staticClass: "col-md-12" }, [
-              _c("p", { staticClass: "lead" }, [
-                _vm._v(_vm._s(item.cz5_pregunta))
-              ])
-            ]),
-            _vm._v(" "),
-            _vm._m(0, true)
-          ])
+    _vm._l(_vm.preguntas, function(item, indice) {
+      return _c("article", { key: indice }, [
+        _c("div", { staticClass: "row mt-2" }, [
+          _c("div", { staticClass: "col-md-12" }, [
+            _c("p", { staticClass: "lead" }, [
+              _vm._v(_vm._s(item.cz5_pregunta))
+            ])
+          ]),
+          _vm._v(" "),
+          _vm._m(0, true)
         ])
-      })
-    ],
-    2
+      ])
+    }),
+    0
   )
 }
 var staticRenderFns = [

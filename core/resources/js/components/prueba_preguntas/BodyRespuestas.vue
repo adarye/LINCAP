@@ -1,7 +1,6 @@
 <template>
     <div>
-        <!-- {{ this.cargar() }} -->
-    <button @click="cargar"> fkf</button>
+       
         <article v-for="(item, indice) in preguntas" :key="indice">
             <div class="row mt-2">
                 <div class="col-md-12">
@@ -12,9 +11,7 @@
                                      
                     </div>
                 </div>
-            </div>
-              
-            
+            </div>   
         </article>
 
     </div>
@@ -31,31 +28,15 @@
 
             };
         },
-        beforeMount(){
-            console.log(this.preguntas.length)
-              for (var i in this.preguntas) {
-                  axios.get(`/api/respuestaS/buscar/${this.preguntas[i].cz5_id}`).then(res => {
-                     console.log(res.data);
-                    this.respuestas.push(res.data)
-                 });              
-                }  
-               
-                
-        },
         methods: {      
             cargar() {  
-                for (var i in this.preguntas) {
-                   
+                for (var i in this.preguntas) {                   
                   axios.get(`/api/respuestaS/buscar/${this.preguntas[i].cz5_id}`).then(res => {
                      console.log(res.data);
                     this.respuestas.push(res.data)
                  });              
-                }  
-                
+                }                  
             },
-            mostrar(){
-                // console.log(this.respuestas[0])
-            }
         },
         computed: {}
     };
