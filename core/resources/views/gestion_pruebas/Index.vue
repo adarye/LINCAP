@@ -74,7 +74,7 @@
                                     v-model="datos.cz3_descripcion" placeholder="Descripcion" />
                             </div>
                             <div class="col-md-12 col-center col-sm-8 form-group has-feedback">
-                                     <date-picker  v-model="datos.cz3_fecha_apertura"  :config="options"></date-picker>  
+                                     <date-picker  v-model="datos.cz3_fecha_apertura" :config="options"></date-picker>  
                             </div>
                             <div class="col-md-12 col-center col-sm-8 form-group has-feedback">
                                 <date-picker  v-model="datos.cz3_fecha_cierre"  :config="options"></date-picker>   
@@ -163,7 +163,7 @@ import moment from "moment";
         data() {
             return {
                 options: {
-          format: 'YYYY/DD/MM hh:ss',
+          format: 'YYYY/DD/MM  HH:MM:SS',
           useCurrent: false,
         } ,
                 pruebas: [],
@@ -171,8 +171,8 @@ import moment from "moment";
                     cz3_id:null,
                     cz3_nombre: null,
                     cz3_descripcion: null,
-                    cz3_fecha_apertura: '12/11/2019 12:09:00',
-                    cz3_fecha_cierre:  '12/11/2019 12:09:00 AM'
+                    cz3_fecha_apertura: null,
+                    cz3_fecha_cierre:  null
                 },
                 
                 titulo: 'Crear Encuesta',
@@ -183,8 +183,7 @@ import moment from "moment";
         beforeMount(){    
               
                 this.traerPruebas();
-                 this.fecha_actual =  moment().format("YYYY/DD/MM h:mm:ss");
-                console.log(this.fecha_actual)
+                 
              
             },
         methods: {
@@ -198,17 +197,23 @@ import moment from "moment";
                 })
             },
             crear() {
-                
+                this.fecha_actual = moment().diff(this.datos.cz3_fecha_apertura);
+                console.log(this.fecha_actual)
                  if(this.datos.cz3_nombre == null || this.datos.cz3_descripcion == null ||
-                this.datos.cz3_fecha_apertura == null){
+                this.datos.cz3_fecha_apertura == null || this.datos.cz3_fecha_cierre == null){
                       swal('Advertencia', 'Todos los campos son necesarios', 'warning')
+                }else if(this.datos.cz3_fecha_apertura  <= this.fecha_actual){
+                       swal('Advertencia', 'La fecha de apertura debe partir desde un dia vigente', 'warning')
+                }
+                else if(this.datos.cz3_fecha_cierre  < this.datos.cz3_fecha_apertura){
+                       swal('Advertencia', 'Debe haber un rango entre las fechas', 'warning')
                 }
                 else{
                 console.log(this.datos)
-                axios.post('/api/gp/crear', [ this.datos, {categoria: this.$route.params.categoria}])
+                axios.post('/api/gp/crear', { datos: this.datos, categoria: this.$route.params.categoria})
                 .then(res=>{
-                    const pruebaServidor = res.data;
-                    console.log(pruebaServidor)
+                   
+                    console.log(res.data)
                   this.traerPruebas();
                    swal('Guardado', 'El registro se guardo correctamente', 'success')
                    this.$modal.hide('create')
@@ -236,6 +241,17 @@ import moment from "moment";
             },
 
             actualizar(){
+                 this.fecha_actual =  moment().format("YYYY/DD/MM h:mm:ss");
+                 if(this.datos.cz3_nombre == null || this.datos.cz3_descripcion == null ||
+                this.datos.cz3_fecha_apertura == null || this.datos.cz3_fecha_cierre == null){
+                      swal('Advertencia', 'Todos los campos son necesarios', 'warning')
+                }else if(this.datos.cz3_fecha_apertura  <= this.fecha_actual){
+                       swal('Advertencia', 'La fecha de apertura debe partir desde un dia vigente', 'warning')
+                }
+                else if(this.datos.cz3_fecha_cierre  < this.datos.cz3_fecha_apertura){
+                       swal('Advertencia', 'Debe haber un rango entre las fechas', 'warning')
+                }
+                else{
                 axios.put('/api/gp/update', this.datos)
                 .then(res=>{
                     this.traerPruebas();
@@ -243,6 +259,7 @@ import moment from "moment";
                     this.$modal.hide('editar')
                     this.limpiar();
                 })
+                }
             }, cerrar(id){
                 swal({
                     title: "Advertencia",

@@ -52,7 +52,11 @@
                 <button type="button" class="btn btn-primary" @click="$modal.show('crear')">Generar Pregunta</button>
             </div>
          </nav>
-         <Respuestas v-bind="{respuestas: respuestas}"></Respuestas>
+         <Respuestas v-bind="{preguntas: respuestas}"></Respuestas>
+       
+       
+
+         
         
     </div>
 </template>
@@ -65,12 +69,14 @@ export default {
             pregunta: '',
             datos: {},
             respuestas: [],
-            res: []
+            res: [],
+            rs:[]
         }
     },
     mounted(){
          this.buscar()
          this.traerRespuestas();
+           
     },
     methods:{
         buscar(){
@@ -123,6 +129,7 @@ export default {
             this.respuestas =res.data
             console.log(this.respuestas)
          })
+         
         },
 
         hideRespuestas(){
@@ -142,7 +149,6 @@ export default {
                 this.$modal.show('respuestas')
             }
         }
-        
     }
 }
 </script>
