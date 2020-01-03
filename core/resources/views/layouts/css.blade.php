@@ -7,8 +7,9 @@
 {{-- Estilos personalizados --}}
 {!!Html::style('theme/build/css/estilos.css')!!}
 <!-- Animate.css -->
-{!!Html::style('theme/vendors/animate.css/animate.min.css')!!}
-
+{!! Html::style('theme/vendors/animate.css/animate.min.css') !!}
+<!-- iCheck.css -->
+{!! Html::style('theme/vendors/iCheck/skins/flat/green.css') !!}
 
 <!-- Custom Theme Style -->
 {!!Html::style('theme/build/css/custom.min.css')!!}

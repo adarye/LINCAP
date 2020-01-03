@@ -38,6 +38,9 @@ import ModActivos from './components/gestion_pruebas/ModActivos';
  import Respuestas from './components/prueba_preguntas/BodyRespuestas';
  Vue.component('Respuestas', Respuestas)
 
+ import Editar from './components/prueba_preguntas/EditPregunta';
+ Vue.component('Editar', Editar)
+
 import InfSST from './components/tabs/InfSST';
 Vue.component('InfSST', InfSST)
 

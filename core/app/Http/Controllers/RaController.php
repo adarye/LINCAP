@@ -15,4 +15,5 @@ class RaController extends Controller
 
        return $ra;
     }
+    
 }

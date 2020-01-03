@@ -44,15 +44,14 @@
              </modal>
              <modal name="respuestas" :clickToClose="false" :adaptive="true" :width="450" :height="600">
                  <MRespuestas v-bind="{n_respuestas:  n_respuestas, res:res}" v-on:hideRespuestas="hideRespuestas"></MRespuestas>
-
-                      
+         
              </modal>
             
             <div class="col-md-2">
                 <button type="button" class="btn btn-primary" @click="$modal.show('crear')">Generar Pregunta</button>
             </div>
          </nav>
-         <Respuestas v-bind="{preguntas: respuestas}"></Respuestas>
+         <Respuestas v-bind="{ id:$route.params.id}"></Respuestas>
        
        
 
@@ -61,21 +60,21 @@
     </div>
 </template>
 <script>
+import EventBus from '../../js/bus'
 export default {
     data(){
         return{
             n_respuestas: null,
             tipo_respuesta: 'Seleccione...',
             pregunta: '',
-            datos: {},
-            respuestas: [],
+            datos: {},        
             res: [],
             rs:[]
         }
     },
     mounted(){
          this.buscar()
-         this.traerRespuestas();
+        
            
     },
     methods:{
@@ -102,35 +101,28 @@ export default {
              else{
                  this.guardarPS(res.data.cz5_id)
              }
-         })
-            
-            
-         
+             
+         })                            
         },
         guardarPA(id){
            axios.post('/api/respuestaA/guardar',{id: id} )
          .then(res=>{
              console.log(res.data)
-              this.traerRespuestas();
+              EventBus.$emit('cargar', 'o')
+              swal('Mensaje', 'Pregunta creada exitosamente', 'success')
+             
          })
       },
 
       guardarPS(id){
-           axios.post('/api/respuestaS/guardar',{id: id, respuestas: this.res} )
+           axios.post('/api/respuestaS/guardar',{id: id, respuestas: this.res, categoria:this.tipo_respuesta} )
          .then(res=>{
              console.log(res.data)
-              this.traerRespuestas();
+              EventBus.$emit('cargar', this.tipo_respuesta) 
+               swal('Mensaje', 'Pregunta creada exitosamente', 'success') 
+             
          })
       },
-
-        traerRespuestas(){
-           axios.get(`/api/pregunta/index/${this.$route.params.id}`)
-         .then(res=>{
-            this.respuestas =res.data
-            console.log(this.respuestas)
-         })
-         
-        },
 
         hideRespuestas(){
 
