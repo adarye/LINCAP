@@ -20,11 +20,11 @@
                                 <div class="col-md-8 col-center col-sm-7 form-group has-feedback">
                                     <div v-if="tipo_respuesta == 'smur' || tipo_respuesta == 'smmr' ">
                                         <input v-max-length="300" v-autofocus  class="form-control"
-                                        placeholder="Numero de Respuestas" onfocus v-numeric-only v-model="numero" />
+                                        placeholder="Numero de Respuestas" onfocus v-numeric-only v-model="numero" disabled />
                                     </div>
                                 </div>
                                  
-                                     <button type="button" class="fa fa-arrow-right btn btn-lg btn-dark mt-1" @click="$modal.show('respuestas')"></button>
+                                     <button type="button" class="fa fa-arrow-right btn btn-lg btn-dark mt-1" v-show="tipo_respuesta == 'smur' || tipo_respuesta == 'smmr'" @click="$modal.show('respuestas')"></button>
                                      
                                
                                 <div class="col-md-12 col-sm-12 form-group has-feedback">
@@ -49,18 +49,21 @@ export default {
         return{
           tipo_respuesta: '',
           numero: null,
-          res: []
+          res: [],
+          size: null
         }
     },
     mounted(){
         this.tipo_respuesta = this.params.cz5_categoria
-        if( this.tipo_respuesta == 'smur' || this.tipo_respuesta == 'smmr' ){
+        if( this.tipo_respuesta == 'smur'   ){
         this.numero = this.params.respuestas.length
+        }
+        else if(this.tipo_respuesta == 'smmr'){
+            this.numero = this.params.smmr.length
         }
         
     },
-
-    
+   
     methods:{
         actualizar(){
             axios.put('/api/respuestaA/update',this.params)
@@ -74,12 +77,20 @@ export default {
             this.$modal.hide('respuestas')
         },
         actualizarRS(){
-            if( this.tipo_respuesta == 'smur' || this.tipo_respuesta == 'smmr' ){
-            axios.put('/api/respuestaS/update',this.params.respuestas)
+
+            if( this.tipo_respuesta == 'smur'){
+            axios.put('/api/respuestaS/update',{size:  this.params.respuestas.length, respuestas:this.params.respuestas})
             .then(res=>{
                 console.log(res.data)
             })
             }
+             else if( this.tipo_respuesta == 'smmr'){
+                 axios.put('/api/respuestaS/updateSMMR',{size:  this.params.smmr.length, smmr:this.params.smmr})
+            .then(res=>{
+                console.log(res.data)
+            })
+            }
+
 
         }
     }

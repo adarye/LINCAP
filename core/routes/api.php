@@ -88,6 +88,7 @@ Route::post('pregunta/guardar', 'PreguntasController@guardar');
 Route::get('pregunta/index/{id}', 'PreguntasController@traerSMUR');
 Route::get('respuestaA/buscar/{id}', 'PreguntasController@traerRA');
 Route::get('respuestaM/buscar/{id}', 'PreguntasController@traerSMMR');
+Route::delete('pregunta/delete/{id}', 'PreguntasController@delete');
 
 
 //RESPUESTAS ABIERTAS
@@ -98,5 +99,6 @@ Route::put('respuestaA/update', 'PreguntasController@updateRA');
 //RESPUESTAS DE SELECCION
 Route::post('respuestaS/guardar', 'RsController@guardar');
 Route::put('respuestaS/update', 'RsController@update');
+Route::put('respuestaS/updateSMMR', 'RsController@updateSMMR');
 
 

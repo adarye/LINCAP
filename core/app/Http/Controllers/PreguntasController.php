@@ -44,4 +44,8 @@ public function updateRA(Request $request){
   $ra->save();
   return $ra;
 }
+public function delete($id){
+  $pregunta = z5_prueba_preguntas::find($id);
+  $pregunta->delete();
+}
 }

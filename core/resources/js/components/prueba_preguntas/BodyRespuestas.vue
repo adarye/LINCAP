@@ -3,10 +3,14 @@
         <p v-show="resRA.length">Preguntas con respuesta abierta.</p>
         <article v-for="(dato, i) in resRA" :key="`A-${i}`">
             <div class="row mt-2">
-                <div class="col-md-8">
+                <div class="col-md-6">
                     <p class="lead">{{  dato.cz5_pregunta }}</p>
                 </div>
-                <a @click="editar(dato)" class="fa fa-pencil float-right" />
+                <div class="col-md-2">
+                    <button @click="editar(dato)" class="fa fa-pencil float-right btn-sm btn-primary" />
+                    <button @click="eliminar(dato.cz5_id)" class="fa fa-trash float-right btn-sm btn-danger"></button>
+                </div>
+
             </div>
             <div class="row mb-3">
                 <div class="col-md-9">
@@ -15,13 +19,20 @@
                 </div>
             </div>
         </article>
+
+
         <p v-show=" resSMUR.length">Preguntas de selección multiple con única respuestas.</p>
         <article v-for="(item, indice) in  resSMUR" :key="indice" class="my-3">
             <div class="row mt-2">
-                <div class="col-md-8">
-                    <p class="lead">{{ indice  + 1 + '. ' + item.cz5_pregunta }} <a @click="editar(item)" class="fa fa-pencil float-right" /></p>
-                     
+                <div class="col-md-6">
+                    <p class="lead">{{ indice  + 1 + '. ' + item.cz5_pregunta }}
+                    </p>
                 </div>
+                <div class="col-md-2">
+                    <button @click="editar(item)" class="fa fa-pencil float-right btn-sm btn-primary" />
+                    <button @click="eliminar(item.cz5_id)" class="fa fa-trash float-right btn-sm btn-danger" />
+                </div>
+
                 <div class="col-md-12">
                     <article v-for="(item2, i) in item.respuestas" :key="i">
                         <input class="flat" type="radio" :name="item.cz5_id" :value="item2.cz7_id"> {{ item2.cz7_rta }}
@@ -29,11 +40,17 @@
                 </div>
             </div>
         </article>
+
+
         <p v-show="resSMMR.length">Preguntas de selección multiple con multiple respuestas.</p>
         <article v-for="(item3, i) in resSMMR" :key="`o-${i}`">
             <div class="row mt-2">
-                <div class="col-md-12">
+                <div class="col-md-6">
                     <p class="lead">{{  item3.cz5_pregunta }}</p>
+                </div>
+                <div class="col-md-2">
+                    <button @click="editar(item3)" class="fa fa-pencil float-right btn-sm btn-primary" />
+                    <button @click="eliminar(item3.cz5_id)" class="fa fa-trash float-right btn-sm btn-danger" />
                 </div>
             </div>
             <div class="col-md-12">
@@ -42,6 +59,8 @@
                 </article>
             </div>
         </article>
+
+
         <modal name="editar" :clickToClose="false" :adaptive="true" :width="450" :height="450">
             <Editar v-on:hide="hide" v-bind="{params : params}">
             </Editar>
@@ -62,15 +81,9 @@
             };
         },
         mounted() {
-            this.traerRa();
-            this.traerSMMR();
-            this.traerPregunta_SMUR();
-
+            this.cargar();
             EventBus.$on('cargar', (item) => {
-                this.traerSMMR()
-                this.traerRa();
-                this.traerPregunta_SMUR();
-
+                this.cargar()
             });
 
         },
@@ -102,15 +115,42 @@
             contar() {
                 this.contador = this.contador + 1
             },
-            editar(dato){
+            editar(dato) {
                 this.$modal.show('editar')
                 this.params = dato
-                 console.log(dato)
+                console.log(dato)
             },
-             hide(){
-                 
-            this.$modal.hide('editar')
-        }
+            eliminar(id) {
+                swal({
+                    title: "Advertencia",
+                    text: "¿Esta seguro de eliminar esta pregunta?",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true
+                }).then(willDelete => {
+                    if (willDelete) {
+                        axios.delete(`/api/pregunta/delete/${id}`)
+                            .then(res => {
+                                console.log(res.data)
+                                this.cargar();
+                                swal("Eliminado", {
+                                    icon: "success"
+                                });
+                            });
+                    }
+                });
+
+
+            },
+            cargar() {
+                this.traerSMMR()
+                this.traerRa();
+                this.traerPregunta_SMUR();
+            },
+            hide() {
+
+                this.$modal.hide('editar')
+            }
         },
         computed: {}
     };
