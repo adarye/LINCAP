@@ -57,3 +57,7 @@
 .centro{
   align-items: center;
 }
+.titulo{
+  font-style: italic;
+  color: rgba(9, 15, 82, 0.897);
+}

@@ -1,10 +1,10 @@
 <template>
     <div>
-        <p v-show="resRA.length">Preguntas con respuesta abierta.</p>
+        <h4 class="display-5 titulo mb-3" v-show="resRA.length">Preguntas con respuesta abierta</h4>
         <article v-for="(dato, i) in resRA" :key="`A-${i}`">
             <div class="row mt-2">
                 <div class="col-md-6">
-                    <p class="lead">{{  dato.cz5_pregunta }}</p>
+                    <p class="lead">{{dato.cz5_pregunta }}</p>
                 </div>
                 <div class="col-md-2">
                     <button @click="editar(dato)" class="fa fa-pencil float-right btn-sm btn-primary" />
@@ -21,11 +21,11 @@
         </article>
 
 
-        <p v-show=" resSMUR.length">Preguntas de selección multiple con única respuestas.</p>
+        <h4 class="display-5 titulo my-3" v-show=" resSMUR.length">Preguntas de selección multiple con única respuestas</h4>
         <article v-for="(item, indice) in  resSMUR" :key="indice" class="my-3">
             <div class="row mt-2">
                 <div class="col-md-6">
-                    <p class="lead">{{ indice  + 1 + '. ' + item.cz5_pregunta }}
+                    <p class="lead">{{ item.cz5_pregunta }}
                     </p>
                 </div>
                 <div class="col-md-2">
@@ -42,7 +42,7 @@
         </article>
 
 
-        <p v-show="resSMMR.length">Preguntas de selección multiple con multiple respuestas.</p>
+        <h4  class="display-5 titulo my-3" v-show="resSMMR.length">Preguntas de selección multiple con multiple respuestas</h4>
         <article v-for="(item3, i) in resSMMR" :key="`o-${i}`">
             <div class="row mt-2">
                 <div class="col-md-6">
@@ -55,7 +55,7 @@
             </div>
             <div class="col-md-12">
                 <article v-for="(item4, i) in item3.smmr" :key="`s-${i}`">
-                    <input class="flat" type="checkbox" :value="item4.cz8_id"> {{ item4.cz8_rta }}
+                    <input class="flat" type="checkbox" :value="item4.cz8_id">{{ item4.cz8_rta }}
                 </article>
             </div>
         </article>
@@ -76,7 +76,7 @@
                 resSMUR: [],
                 resRA: [],
                 resSMMR: [],
-                contador: 0,
+                contador: 1,
                 params: null
             };
         },

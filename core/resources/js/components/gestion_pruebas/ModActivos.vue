@@ -159,8 +159,13 @@
                 }
             },
             guardarTodos() {
-                swal("Cargando...", {
+               const wrapper = document.createElement('div');
+            wrapper.innerHTML =
+             "<div class='spinner-border text-primary' role='status'> <span class='sr-only'>Loading...</span> </div> Cargando... ";
+                swal( {
                buttons: false,
+               html: true,
+               content: wrapper,
                closeOnClickOutside: false
                     });
                 axios.post("/api/asignacion/guardarTodos", {
@@ -168,6 +173,7 @@
                     activos: this.activos,
                     seleccionados: this.seleccionados
                 }).then(res => {
+                    console.log(res.data)
                     this.traerRelacion();
                     swal('Se han seleccionado todos', '', 'success')
 

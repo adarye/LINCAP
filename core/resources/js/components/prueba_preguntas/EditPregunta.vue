@@ -65,12 +65,18 @@ export default {
     },
    
     methods:{
+        
         actualizar(){
+               if (this.params.cz5_pregunta == "" || this.tipo_respuesta == "Seleccione...") {
+                swal("Advertencia", "Llene todos los campos", "warning");
+            } 
+            else{
             axios.put('/api/respuestaA/update',this.params)
             .then(res=>{
             swal('Mensaje', 'Pregunta Actualizada', 'success')
             this.actualizarRS()
             })
+            }
            
         },
         hideRespuestas(){

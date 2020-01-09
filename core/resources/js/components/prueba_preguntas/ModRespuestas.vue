@@ -9,8 +9,8 @@
                             v-for="i in n_respuestas-start" :key="i">
                     
                     
-                            <input v-show="typeof(res.respuestas) === 'undefined' && typeof(res.smmr) === 'undefined' "  v-max-length="50" v-autofocus class="form-control" :placeholder="'Respuesta ' +  i "
-                                onfocus v-model="res[i - 1]"/>
+                            <input v-show="typeof(res.respuestas) === 'undefined' && typeof(res.smmr) === 'undefined' "  v-max-length="50"  class="form-control" :placeholder="'Respuesta ' +  i "
+                                 v-model="res[i - 1]"/>
                                 <div v-if="typeof(res.respuestas) != 'undefined'">
                         <input  v-max-length="50"  class="form-control" :placeholder="'Respuesta ' +  i "
                                 onfocus v-model="res.respuestas[i - 1].cz7_rta"/>

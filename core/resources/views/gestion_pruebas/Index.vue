@@ -15,31 +15,34 @@
             </ol>
         </nav>
 
-        <modal name="create" :clickToClose="false" :adaptive="true" :width="500" :height="500">
+        <modal name="create" :clickToClose="false" :adaptive="true" :width="400" :height="500">
             <div class="login_wrapper">
                 <div class="animate form login_form">
-                    <section class="login_content shadow-lg p-3 mb-5 bg-white rounded">              
-                          
-                        <form  @submit.prevent="crear">
-                              
+                    <section class="login_content shadow-lg p-3 mb-5 bg-white rounded">
+
+                        <form @submit.prevent="crear">
+
                             <h1>Crear</h1>
 
                             <div class="col-md-12 col-center col-sm-8 form-group has-feedback">
 
                             </div>
                             <div class="col-md-12 col-center col-sm-8 form-group has-feedback">
-                                <input  v-max-length="70" v-autofocus type="text" class="form-control"
+                                <input v-max-length="70" v-autofocus type="text" class="form-control"
                                     v-model="datos.cz3_nombre" placeholder="Nombre" />
                             </div>
-                           <div class="col-md-12 col-center col-sm-8 form-group has-feedback">
+                            <div class="col-md-12 col-center col-sm-8 form-group has-feedback">
                                 <textarea rows="4" cols="50" type="text" class="form-control"
                                     v-model="datos.cz3_descripcion" placeholder="Descripcion" />
+                                </div>
+                            <div class="col-md-12 col-center col-sm-8 form-group has-feedback">
+                               <!-- <date-picker  v-model="datos.cz3_fecha_apertura"  :config="options"></date-picker>     -->
+                               <datetime  v-model="datos.cz3_fecha_apertura" type="datetime" format="yyyy-dd-LL HH:mm"  placeholder="Fecha de Apertura"></datetime>
                             </div>
                             <div class="col-md-12 col-center col-sm-8 form-group has-feedback">
-                               <date-picker  v-model="datos.cz3_fecha_apertura"  :config="options"></date-picker>    
-                            </div>
-                            <div class="col-md-12 col-center col-sm-8 form-group has-feedback">
-                                    <date-picker  v-model="datos.cz3_fecha_cierre"  :config="options"></date-picker> 
+                                    <!-- <date-picker  v-model="datos.cz3_fecha_cierre"  :config="options"></date-picker>  -->
+                                    <Datetime  v-model="datos.cz3_fecha_cierre" type="datetime" format="yyyy-dd-LL HH:mm" placeholder="Fecha de Cierre"></Datetime>
+                                  
                             </div>
                             <div class="col-md-12 col-sm-12 form-group has-feedback">
                                 <button type="submit" class="btn btn-primary">Guardar</button>
@@ -74,10 +77,11 @@
                                     v-model="datos.cz3_descripcion" placeholder="Descripcion" />
                             </div>
                             <div class="col-md-12 col-center col-sm-8 form-group has-feedback">
-                                     <date-picker  v-model="datos.cz3_fecha_apertura" :config="options"></date-picker>  
+                                     <Datetime  v-model="datos.cz3_fecha_apertura" type="datetime" format="yyyy-dd-LL HH:mm" :placeholder="[[datos.cz3_fecha_apertura]]"  ></Datetime>
+                                     
                             </div>
                             <div class="col-md-12 col-center col-sm-8 form-group has-feedback">
-                                <date-picker  v-model="datos.cz3_fecha_cierre"  :config="options"></date-picker>   
+                                <Datetime v-model="datos.cz3_fecha_cierre" type="datetime" format="yyyy-dd-LL HH:mm" :placeholder="datos.cz3_fecha_cierre"></Datetime>
                             </div>
                             <div class="col-md-12 col-sm-12 form-group has-feedback">
                                 <button type="submit" class="btn btn-primary">Actualizar</button>
@@ -112,7 +116,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="(item, indice) in pruebas" :key="indice">
+                <tr v-for="(item, indice) in pruebas" :key="indice" v-show="(pagina-1) * numero <= indice && pagina*numero > indice">
                     <th scope="row">{{ item.cz3_nombre }}</th>
                     <td>
                         {{ item.cz3_descripcion }}
@@ -145,27 +149,41 @@
                     </td>
                 </tr>
             </tbody>
+            
         </table>
+         <div class="row">
+            <div class="col-md-4 col-float"></div>
+        <div class="col-md-6 col-center">
+             <button type="button" @click.prevent="pagina=pagina-1" v-show="pagina!=1" class="btn btn-primary">
+                    <li class="fa fa-long-arrow-left"></li>
+                </button>
+                
+                <button type="button" @click.prevent="pagina=pagina+1" v-show="(pagina*numero)/(pruebas.length) < 1"
+                    class="btn btn-success">
+                    <li class="fa fa-long-arrow-right"></li>
+                </button>
+                </div>
+                </div>
         </div>
     </div>
 </template>
 <script>
 import moment from "moment";
     moment.locale("es");
-  import datePicker from 'vue-bootstrap-datetimepicker';
-  import 'pc-bootstrap4-datetimepicker/build/css/bootstrap-datetimepicker.css';
-  import router from '../../js/router';
+    import router from '../../js/router'
+    import { Datetime } from 'vue-datetime'
+import 'vue-datetime/dist/vue-datetime.min.css'
+    
+ 
    
     export default {
         components: {
-      datePicker
+            Datetime
+     
     },
         data() {
             return {
-                options: {
-          format: 'YYYY/DD/MM  HH:MM:SS',
-          useCurrent: false,
-        } ,
+               
                 pruebas: [],
                 datos: {
                     cz3_id:null,
@@ -177,7 +195,13 @@ import moment from "moment";
                 
                 titulo: 'Crear Encuesta',
                 fecha_actual:  '',
-                id_prueba: ''
+                id_prueba: '',
+                moment: moment,
+
+                selectPag: 3,
+                numero: 3,
+                mostrar: 0,
+                pagina: 1
             }       
         },
         beforeMount(){    
@@ -197,16 +221,10 @@ import moment from "moment";
                 })
             },
             crear() {
-                this.fecha_actual = moment().diff(this.datos.cz3_fecha_apertura);
-                console.log(this.fecha_actual)
+                 
                  if(this.datos.cz3_nombre == null || this.datos.cz3_descripcion == null ||
-                this.datos.cz3_fecha_apertura == null || this.datos.cz3_fecha_cierre == null){
+                this.datos.cz3_fecha_apertura == '' || this.datos.cz3_fecha_cierre == ''){
                       swal('Advertencia', 'Todos los campos son necesarios', 'warning')
-                }else if(this.datos.cz3_fecha_apertura  <= this.fecha_actual){
-                       swal('Advertencia', 'La fecha de apertura debe partir desde un dia vigente', 'warning')
-                }
-                else if(this.datos.cz3_fecha_cierre  < this.datos.cz3_fecha_apertura){
-                       swal('Advertencia', 'Debe haber un rango entre las fechas', 'warning')
                 }
                 else{
                 console.log(this.datos)
@@ -223,12 +241,17 @@ import moment from "moment";
                 }    
             },
             editar(item){
+                
              this.titulo = 'Editar Encuesta'
+             this.datos.cz3_fecha_apertura = item.cz3_fecha_apertura
+             
+             this.datos.cz3_fecha_cierre = item.cz3_fecha_cierre
              this.datos.cz3_id = item.cz3_id
              this.datos.cz3_nombre = item.cz3_nombre
              this.datos.cz3_descripcion = item.cz3_descripcion
-             this.datos.cz3_fecha_apertura = item.cz3_fecha_apertura
-             this.datos.cz3_fecha_cierre = item.cz3_fecha_cierre
+            
+             console.log(this.datos.cz3_fecha_apertura)
+              console.log(this.datos)
              this.$modal.show('editar')
 
             },
@@ -241,15 +264,11 @@ import moment from "moment";
             },
 
             actualizar(){
-                 this.fecha_actual =  moment().format("YYYY/DD/MM h:mm:ss");
-                 if(this.datos.cz3_nombre == null || this.datos.cz3_descripcion == null ||
-                this.datos.cz3_fecha_apertura == null || this.datos.cz3_fecha_cierre == null){
+            //       this.fecha_actual =  moment().format("YYYY/DD/MM h:mm:ss");
+            //   var i = diff(this.datos.cz3_fecha_apertura, 'days')
+            //   console.log(i)
+                 if(this.datos.cz3_nombre == '' || this.datos.cz3_descripcion == ''){
                       swal('Advertencia', 'Todos los campos son necesarios', 'warning')
-                }else if(this.datos.cz3_fecha_apertura  <= this.fecha_actual){
-                       swal('Advertencia', 'La fecha de apertura debe partir desde un dia vigente', 'warning')
-                }
-                else if(this.datos.cz3_fecha_cierre  < this.datos.cz3_fecha_apertura){
-                       swal('Advertencia', 'Debe haber un rango entre las fechas', 'warning')
                 }
                 else{
                 axios.put('/api/gp/update', this.datos)
@@ -260,7 +279,8 @@ import moment from "moment";
                     this.limpiar();
                 })
                 }
-            }, cerrar(id){
+            },
+             cerrar(id){
                 swal({
                     title: "Advertencia",
                     text: "¿Quiere cerrar esta prueba?",
