@@ -36,13 +36,10 @@
                                     v-model="datos.cz3_descripcion" placeholder="Descripcion" />
                                 </div>
                             <div class="col-md-12 col-center col-sm-8 form-group has-feedback">
-                               <!-- <date-picker  v-model="datos.cz3_fecha_apertura"  :config="options"></date-picker>     -->
-                               <datetime  v-model="datos.cz3_fecha_apertura" type="datetime" format="yyyy-dd-LL HH:mm"  placeholder="Fecha de Apertura"></datetime>
+                               <datePicker  v-model="datos.cz3_fecha_apertura" :config="options"></datePicker>
                             </div>
                             <div class="col-md-12 col-center col-sm-8 form-group has-feedback">
-                                    <!-- <date-picker  v-model="datos.cz3_fecha_cierre"  :config="options"></date-picker>  -->
-                                    <Datetime  v-model="datos.cz3_fecha_cierre" type="datetime" format="yyyy-dd-LL HH:mm" placeholder="Fecha de Cierre"></Datetime>
-                                  
+                                      <datePicker  v-model="datos.cz3_fecha_cierre" :config="options"></datePicker>        
                             </div>
                             <div class="col-md-12 col-sm-12 form-group has-feedback">
                                 <button type="submit" class="btn btn-primary">Guardar</button>
@@ -77,11 +74,11 @@
                                     v-model="datos.cz3_descripcion" placeholder="Descripcion" />
                             </div>
                             <div class="col-md-12 col-center col-sm-8 form-group has-feedback">
-                                     <Datetime  v-model="datos.cz3_fecha_apertura" type="datetime" format="yyyy-dd-LL HH:mm" :placeholder="[[datos.cz3_fecha_apertura]]"  ></Datetime>
+                                    <datePicker v-model="datos.cz3_fecha_apertura" :config="options2" :placeholder="datos.cz3_fecha_apertura"></datePicker>
                                      
                             </div>
                             <div class="col-md-12 col-center col-sm-8 form-group has-feedback">
-                                <Datetime v-model="datos.cz3_fecha_cierre" type="datetime" format="yyyy-dd-LL HH:mm" :placeholder="datos.cz3_fecha_cierre"></Datetime>
+                                <datePicker v-model="datos.cz3_fecha_cierre" :config="options2" :placeholder="datos.cz3_fecha_cierre"></datePicker>
                             </div>
                             <div class="col-md-12 col-sm-12 form-group has-feedback">
                                 <button type="submit" class="btn btn-primary">Actualizar</button>
@@ -95,7 +92,7 @@
                 </div>
             </div>
         </modal>
-        <modal name="asignar" :adaptive="true" :width="800" :height="450">
+        <modal name="asignar" :adaptive="true" :width="810" :height="450">
           <Activos v-bind="{
               id_prueba : id_prueba
           }"></Activos>
@@ -104,67 +101,9 @@
         <button type="button" class="btn btn-round btn-success" @click="$modal.show('create');"
             title="Nuevo">Nuevo</button>
              
-       <div class="table-responsive-md table-responsive-sm">
-            <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th scope="col">Nombre</th>
-                    <th scope="col">Descripcion</th>
-                    <th scope="col">Fecha de Apertura</th>
-                    <th scope="col">Fecha de Cierre</th>
-                    <th scope="col">Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr v-for="(item, indice) in pruebas" :key="indice" v-show="(pagina-1) * numero <= indice && pagina*numero > indice">
-                    <th scope="row">{{ item.cz3_nombre }}</th>
-                    <td>
-                        {{ item.cz3_descripcion }}
-                    </td>
-                    <td>
-                        {{ item.cz3_fecha_apertura }}
-                    </td>
-                     <td>
-                        {{ item.cz3_fecha_cierre }}
-                    </td>
-                    <td>
-                        
-                         <button type="button" class="btn btn-success btn-sm" title="Asignar" @click="asignar(item.cz3_id)">
-                            <li class="fa fa-users"></li>                               
-                        </button>
-                         <button type="button" class="btn btn-primary btn-sm" title="Editar" @click="editar(item)">
-                            <li class="fa fa-edit"></li>                          
-                        </button>
-                         <button type="button" class="btn btn-warning btn-sm" title="Cerrar" @click="cerrar(item.cz3_id)">
-                            <li class="fa fa-calendar"></li>                              
-                        </button>
-                         <button type="button" class="btn btn-primary btn-sm" title="Administrar" @click="preguntas(item.cz3_id)">
-                            <li class="fa fa-gear"></li>                                         
-                        </button>
-                        <button type="button" class="btn btn-danger btn-sm" title="Eliminar" @click="eliminar(item.cz3_id, indice)">
-                            <li class="fa fa-trash-o"></li>                               
-                        </button>
-
-
-                    </td>
-                </tr>
-            </tbody>
-            
-        </table>
-         <div class="row">
-            <div class="col-md-4 col-float"></div>
-        <div class="col-md-6 col-center">
-             <button type="button" @click.prevent="pagina=pagina-1" v-show="pagina!=1" class="btn btn-primary">
-                    <li class="fa fa-long-arrow-left"></li>
-                </button>
-                
-                <button type="button" @click.prevent="pagina=pagina+1" v-show="(pagina*numero)/(pruebas.length) < 1"
-                    class="btn btn-success">
-                    <li class="fa fa-long-arrow-right"></li>
-                </button>
-                </div>
-                </div>
-        </div>
+      <Pruebas v-bind="{pruebas: pruebas}" v-on:asignar="asignar" v-on:eliminar="eliminar"
+      v-on:editar="editar" v-on:cerrar="cerrar" v-on:preguntas="preguntas">
+      </Pruebas>
     </div>
 </template>
 <script>
@@ -173,17 +112,28 @@ import moment from "moment";
     import router from '../../js/router'
     import { Datetime } from 'vue-datetime'
 import 'vue-datetime/dist/vue-datetime.min.css'
+
+import 'pc-bootstrap4-datetimepicker/build/css/bootstrap-datetimepicker.css';
+ import datePicker from 'vue-bootstrap-datetimepicker';
+
     
  
    
     export default {
         components: {
-            Datetime
+            Datetime, datePicker
      
     },
         data() {
             return {
-               
+                options: {
+                     format: 'YYYY-DD-MM LT',
+                      
+                }, 
+                options2: {
+                    format: 'YYYY-DD-MM LT',
+                     useCurrent: false
+                },
                 pruebas: [],
                 datos: {
                     cz3_id:null,
@@ -198,10 +148,7 @@ import 'vue-datetime/dist/vue-datetime.min.css'
                 id_prueba: '',
                 moment: moment,
 
-                selectPag: 3,
-                numero: 3,
-                mostrar: 0,
-                pagina: 1
+                
             }       
         },
         beforeMount(){    
@@ -243,9 +190,8 @@ import 'vue-datetime/dist/vue-datetime.min.css'
             editar(item){
                 
              this.titulo = 'Editar Encuesta'
-             this.datos.cz3_fecha_apertura = item.cz3_fecha_apertura
-             
-             this.datos.cz3_fecha_cierre = item.cz3_fecha_cierre
+             this.datos.cz3_fecha_apertura = moment(item.cz3_fecha_apertura).format('YYYY-DD-MM LT');
+             this.datos.cz3_fecha_cierre = moment(item.cz3_fecha_cierre).format('YYYY-DD-MM LT');
              this.datos.cz3_id = item.cz3_id
              this.datos.cz3_nombre = item.cz3_nombre
              this.datos.cz3_descripcion = item.cz3_descripcion
@@ -264,9 +210,7 @@ import 'vue-datetime/dist/vue-datetime.min.css'
             },
 
             actualizar(){
-            //       this.fecha_actual =  moment().format("YYYY/DD/MM h:mm:ss");
-            //   var i = diff(this.datos.cz3_fecha_apertura, 'days')
-            //   console.log(i)
+                // this.options2.format = 'YYYY-DD-MM LT'
                  if(this.datos.cz3_nombre == '' || this.datos.cz3_descripcion == ''){
                       swal('Advertencia', 'Todos los campos son necesarios', 'warning')
                 }
@@ -276,6 +220,7 @@ import 'vue-datetime/dist/vue-datetime.min.css'
                     this.traerPruebas();
                     swal('Prueba Actualizada', '', 'success')
                     this.$modal.hide('editar')
+                    //  this.options2.format = 'YYYY-MM-DD LT'
                     this.limpiar();
                 })
                 }

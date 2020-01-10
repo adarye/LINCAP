@@ -61,3 +61,11 @@
   font-style: italic;
   color: rgba(9, 15, 82, 0.897);
 }
+.my-custom-scrollbar {
+  position: relative;
+  height: 300px;
+  overflow: auto;
+  }
+  .table-wrapper-scroll-y {
+  display: block;
+  }

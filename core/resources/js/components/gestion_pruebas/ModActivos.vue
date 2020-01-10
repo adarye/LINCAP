@@ -3,7 +3,7 @@
 
         <nav class="navbar navbar-light bg-light my-2">
             <div class="col-md-2 col-center has-feedback">
-                <button type="button" class="btn btn-primary" @click="guardarTodos">Todos</button>
+                <button type="button" class="btn btn-primary" @click="guardarTodos(mbuscar)">Todos</button>
             </div>
             <div class="col-md-4 col-center col-sm-2  has-feedback">
                 <select v-model="selectCO" class="form-control">
@@ -18,7 +18,7 @@
             <span v-if="mostrar == 1"><input class="select mt-2" v-model="numero" /></span>
         </nav>
 
-        <div class="table-responsive-md table-responsive-sm">
+        <div class="table-responsive-md table-responsive-sm table-wrapper-scroll-y my-custom-scrollbar">
             <table class="table table-striped">
                 <thead>
                     <tr>
@@ -63,7 +63,7 @@
         </div>
         <div class="row">
             <div class="col-md-4 col-float"></div>
-            <!-- <div v-show="bempleado == ''" class="col-md-4 col-center"> -->
+             <div v-show="bempleado == ''" class="col-md-4 col-center"> 
             <button type="button" @click.prevent="pagina=pagina-1" v-show="pagina!=1" class="btn btn-primary">
                 <li class="fa fa-long-arrow-left"></li>
             </button>
@@ -71,7 +71,7 @@
                 class="btn btn-success">
                 <li class="fa fa-long-arrow-right"></li>
             </button>
-            <!-- </div> -->
+             </div> 
 
             <!-- <div class="pull-right mt-2">Página {{ pagina }} / {{ Math.ceil(mbuscar.length / numero) }} de
                 {{ mbuscar.length }} Registros</div> -->
@@ -158,7 +158,16 @@
                     }
                 }
             },
-            guardarTodos() {
+            guardarTodos(filtrados) {
+                 var empleados = null
+                if(filtrados.length == 0){
+                      empleados = this.activos
+                }
+                else{
+                     empleados = filtrados
+                }
+                console.log(empleados)
+               
                const wrapper = document.createElement('div');
             wrapper.innerHTML =
              "<div class='spinner-border text-primary' role='status'> <span class='sr-only'>Loading...</span> </div> Cargando... ";
@@ -170,7 +179,7 @@
                     });
                 axios.post("/api/asignacion/guardarTodos", {
                     id_prueba: this.id_prueba,
-                    activos: this.activos,
+                    activos: empleados,
                     seleccionados: this.seleccionados
                 }).then(res => {
                     console.log(res.data)
