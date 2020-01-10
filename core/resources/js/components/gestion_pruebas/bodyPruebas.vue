@@ -109,8 +109,8 @@ import moment from "moment";
         props: ['pruebas'],
         data() {
             return {
-                selectPag: 3,
-                numero: 3,
+                selectPag: 5,
+                numero: 5,
                 mostrar: 0,
                 pagina: 1,
                 bprueba: '',

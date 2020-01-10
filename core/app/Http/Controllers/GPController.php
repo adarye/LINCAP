@@ -65,7 +65,8 @@ class GPController extends Controller
             'f200_nombres',
             'f200_apellido1',
             'f200_apellido2',
-             'cz3_id_creador'
+             'cz3_id_creador',
+             'cz3_id'
         )
         ->join(
           'dbo.z4_rel_ts_gps',
@@ -81,5 +82,8 @@ class GPController extends Controller
           )->where('cz4_ts_id', Auth()->user()->cz1_id_empleado)
           ->where('cz3_categoria', $id)
           ->get();
+
+         
     }
 }
+

@@ -28,6 +28,7 @@ import RestartPassword from '../views/usuarios/RestartPassword';
 
 import IndexGP from '../views/gestion_pruebas/Index';
 import Pendientes from '../views/gestion_pruebas/Pendientes';
+import Encuesta from '../js/components/cliente/Encuesta';
 
 //Vista preguntas 
 import IndexPreguntas from '../views/prueba_preguntas/Index.vue';
@@ -112,8 +113,12 @@ export default new Router({
         {
             path: '/prueba/pregunta/:id',
             name: 'IndexPreguntas',
-            component: IndexPreguntas 
-            
+            component: IndexPreguntas      
+        },
+        {
+            path: '/presentar/encuesta/:id',
+            name: 'Presentar',
+            component: Encuesta      
         },
         {
             path: '*',

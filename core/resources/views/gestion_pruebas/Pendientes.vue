@@ -14,8 +14,9 @@
         <p>{{ item.cz3_descripcion }}</p>
         
         <p class="lead">
-           
-                <a class="btn btn-primary btn-lg" href="#" role="button" v-show=" moment().diff(item.cz3_fecha_cierre) < 0 &&  moment().diff(item.cz3_fecha_apertura) > 0">Presentar</a>
+            
+               <router-link class="btn btn-primary btn-lg" v-bind:to="'/presentar/encuesta/'+ item.cz3_id " role="button" v-show=" moment().diff(item.cz3_fecha_cierre) < 0 &&  moment().diff(item.cz3_fecha_apertura) > 0">Presentar</router-link>
+               
         </p>
         
     </div>
@@ -33,11 +34,7 @@ import moment from "moment";
                 pruebas: [],
                 fecha_actual: '',
                 moment: moment
-               
-
-
             }
-
         },
 
         mounted() {           

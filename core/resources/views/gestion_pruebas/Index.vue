@@ -159,19 +159,32 @@ import 'pc-bootstrap4-datetimepicker/build/css/bootstrap-datetimepicker.css';
             },
         methods: {
             traerPruebas(){
+
                 axios.get(`/api/gp/${this.$route.params.categoria}`)
                 .then(res=>{
-                    this.pruebas = res.data;
-                console.log(res.data)
+                    console.log(res.data)
+                    this.pruebas = res.data
 
 
                 })
             },
             crear() {
-                 
+                console.log(this.datos.cz3_fecha_apertura + ' ' + this.datos.cz3_fecha_cierre)
+                var fechaA = moment(this.datos.cz3_fecha_apertura).format('YYYY-DD-MM LT')
+                var fechaAC = moment(fechaA).format('LLLL')
+                var fechaC = moment(this.datos.cz3_fecha_cierre).format('YYYY-DD-MM LT')
+                 var fechaCC = moment(fechaC).format('LLLL')
+                console.log(fechaAC + ' ' + fechaCC )
+                 var apertura = moment().diff(fechaA)
+
+                console.log( moment(fechaA).isAfter(fechaC))
+
                  if(this.datos.cz3_nombre == null || this.datos.cz3_descripcion == null ||
-                this.datos.cz3_fecha_apertura == '' || this.datos.cz3_fecha_cierre == ''){
+                this.datos.cz3_fecha_apertura == null || this.datos.cz3_fecha_cierre == null){
                       swal('Advertencia', 'Todos los campos son necesarios', 'warning')
+                }
+                else if(apertura > 0 || moment(fechaA).isAfter(fechaC) ){
+                     swal('Advertencia', 'Las fechas deben tener un rango en vigencia', 'warning')
                 }
                 else{
                 console.log(this.datos)
@@ -210,7 +223,7 @@ import 'pc-bootstrap4-datetimepicker/build/css/bootstrap-datetimepicker.css';
             },
 
             actualizar(){
-                // this.options2.format = 'YYYY-DD-MM LT'
+               
                  if(this.datos.cz3_nombre == '' || this.datos.cz3_descripcion == ''){
                       swal('Advertencia', 'Todos los campos son necesarios', 'warning')
                 }
