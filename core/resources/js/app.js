@@ -14,6 +14,12 @@ Vue.use(VueInputRestrictionDirectives);
 import vClickOutside from 'v-click-outside'
 Vue.use(vClickOutside)
 
+//datetime picker
+
+
+
+
+
 
 
 //AUTORIZACION
@@ -32,6 +38,9 @@ Vue.component('InfCorporativa', InfCorporativa)
 import ModActivos from './components/gestion_pruebas/ModActivos';
  Vue.component('Activos', ModActivos)
 
+ import BodyPruebas from './components/gestion_pruebas/BodyPruebas';
+ Vue.component('Pruebas', BodyPruebas)
+ 
  import ModRespuestas from './components/prueba_preguntas/ModRespuestas';
  Vue.component('MRespuestas', ModRespuestas)
 

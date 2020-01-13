@@ -9,10 +9,16 @@
                             v-for="i in n_respuestas-start" :key="i">
                     
                     
-                            <input v-show="res.length == 0" v-max-length="50" v-autofocus class="form-control" :placeholder="'Respuesta ' +  i "
-                                onfocus v-model="res[i - 1]"/>
-                        <input v-show="res.length != 0" v-max-length="50"  class="form-control" :placeholder="'Respuesta ' +  i "
+                            <input v-show="typeof(res.respuestas) === 'undefined' && typeof(res.smmr) === 'undefined' "  v-max-length="50"  class="form-control" :placeholder="'Respuesta ' +  i "
+                                 v-model="res[i - 1]"/>
+                                <div v-if="typeof(res.respuestas) != 'undefined'">
+                        <input  v-max-length="50"  class="form-control" :placeholder="'Respuesta ' +  i "
                                 onfocus v-model="res.respuestas[i - 1].cz7_rta"/>
+                                </div>
+                                <div v-if="typeof(res.smmr) != 'undefined'">
+                        <input  v-max-length="50"  class="form-control" :placeholder="'Respuesta ' +  i "
+                                onfocus v-model="res.smmr[i - 1].cz8_rta"/>
+                                </div>
                                
 
                         </div>
@@ -32,13 +38,13 @@
         data() {
             return {
                 start: 0,
-                end: 10,
+                end: 10
+                
                 
             }
         },
         created(){
-            
-        //   console.log(this.res.respuestas[0].cz7_rta)
+        console.log('g' + this.res.length)
         },
 
         methods: {

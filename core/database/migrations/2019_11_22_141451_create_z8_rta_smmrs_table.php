@@ -16,8 +16,8 @@ class CreateZ8RtaSmmrsTable extends Migration
         Schema::create('z8_rta_smmrs', function (Blueprint $table) {
             $table->bigIncrements('cz8_id');
             $table->bigInteger('cz8_pp_id');
-            $table->text('cz8_rta');
-                       
+            $table->text('cz8_rta')->nullable(true);
+            $table->text('cz8_rta_correcta')->nullable(true);
             $table->foreign('cz8_pp_id')->references('cz5_id')->on('z5_prueba_preguntas')->onDelete('cascade');
 
             $table->timestamps();

@@ -37,11 +37,17 @@ class AsignacionController extends Controller
 
         foreach ($todos as $req) {
             $a = $todos[$i];
-            $relacion = new z4_rel_ts_gp;
-            $relacion->cz4_gp_id = $request->id_prueba;
-            $relacion->cz4_ts_id = $a['c0550_rowid_tercero'];
+            $all = z4_rel_ts_gp::where('cz4_ts_id', $a['c0550_rowid_tercero'])
+                ->where('cz4_gp_id', $request->id_prueba)
+                ->get();
+            if (count($all) <= 0) {
+                $relacion = new z4_rel_ts_gp;
+                $relacion->cz4_gp_id = $request->id_prueba;
+                $relacion->cz4_ts_id = $a['c0550_rowid_tercero'];
+                $relacion->save();
+            } 
             $i++;
-            $relacion->save();
+
         }
 
     }

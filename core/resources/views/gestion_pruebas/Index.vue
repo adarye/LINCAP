@@ -15,31 +15,31 @@
             </ol>
         </nav>
 
-        <modal name="create" :clickToClose="false" :adaptive="true" :width="500" :height="500">
+        <modal name="create" :clickToClose="false" :adaptive="true" :width="400" :height="500">
             <div class="login_wrapper">
                 <div class="animate form login_form">
-                    <section class="login_content shadow-lg p-3 mb-5 bg-white rounded">              
-                          
-                        <form  @submit.prevent="crear">
-                              
+                    <section class="login_content shadow-lg p-3 mb-5 bg-white rounded">
+
+                        <form @submit.prevent="crear">
+
                             <h1>Crear</h1>
 
                             <div class="col-md-12 col-center col-sm-8 form-group has-feedback">
 
                             </div>
                             <div class="col-md-12 col-center col-sm-8 form-group has-feedback">
-                                <input  v-max-length="70" v-autofocus type="text" class="form-control"
+                                <input v-max-length="70" v-autofocus type="text" class="form-control"
                                     v-model="datos.cz3_nombre" placeholder="Nombre" />
                             </div>
-                           <div class="col-md-12 col-center col-sm-8 form-group has-feedback">
+                            <div class="col-md-12 col-center col-sm-8 form-group has-feedback">
                                 <textarea rows="4" cols="50" type="text" class="form-control"
                                     v-model="datos.cz3_descripcion" placeholder="Descripcion" />
+                                </div>
+                            <div class="col-md-12 col-center col-sm-8 form-group has-feedback">
+                               <datePicker  v-model="datos.cz3_fecha_apertura" :config="options"></datePicker>
                             </div>
                             <div class="col-md-12 col-center col-sm-8 form-group has-feedback">
-                               <date-picker  v-model="datos.cz3_fecha_apertura"  :config="options"></date-picker>    
-                            </div>
-                            <div class="col-md-12 col-center col-sm-8 form-group has-feedback">
-                                    <date-picker  v-model="datos.cz3_fecha_cierre"  :config="options"></date-picker> 
+                                      <datePicker  v-model="datos.cz3_fecha_cierre" :config="options"></datePicker>        
                             </div>
                             <div class="col-md-12 col-sm-12 form-group has-feedback">
                                 <button type="submit" class="btn btn-primary">Guardar</button>
@@ -74,10 +74,11 @@
                                     v-model="datos.cz3_descripcion" placeholder="Descripcion" />
                             </div>
                             <div class="col-md-12 col-center col-sm-8 form-group has-feedback">
-                                     <date-picker  v-model="datos.cz3_fecha_apertura" :config="options"></date-picker>  
+                                    <datePicker v-model="datos.cz3_fecha_apertura" :config="options2" :placeholder="datos.cz3_fecha_apertura"></datePicker>
+                                     
                             </div>
                             <div class="col-md-12 col-center col-sm-8 form-group has-feedback">
-                                <date-picker  v-model="datos.cz3_fecha_cierre"  :config="options"></date-picker>   
+                                <datePicker v-model="datos.cz3_fecha_cierre" :config="options2" :placeholder="datos.cz3_fecha_cierre"></datePicker>
                             </div>
                             <div class="col-md-12 col-sm-12 form-group has-feedback">
                                 <button type="submit" class="btn btn-primary">Actualizar</button>
@@ -91,7 +92,7 @@
                 </div>
             </div>
         </modal>
-        <modal name="asignar" :adaptive="true" :width="800" :height="450">
+        <modal name="asignar" :adaptive="true" :width="810" :height="450">
           <Activos v-bind="{
               id_prueba : id_prueba
           }"></Activos>
@@ -100,72 +101,39 @@
         <button type="button" class="btn btn-round btn-success" @click="$modal.show('create');"
             title="Nuevo">Nuevo</button>
              
-       <div class="table-responsive-md table-responsive-sm">
-            <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th scope="col">Nombre</th>
-                    <th scope="col">Descripcion</th>
-                    <th scope="col">Fecha de Apertura</th>
-                    <th scope="col">Fecha de Cierre</th>
-                    <th scope="col">Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr v-for="(item, indice) in pruebas" :key="indice">
-                    <th scope="row">{{ item.cz3_nombre }}</th>
-                    <td>
-                        {{ item.cz3_descripcion }}
-                    </td>
-                    <td>
-                        {{ item.cz3_fecha_apertura }}
-                    </td>
-                     <td>
-                        {{ item.cz3_fecha_cierre }}
-                    </td>
-                    <td>
-                        
-                         <button type="button" class="btn btn-success btn-sm" title="Asignar" @click="asignar(item.cz3_id)">
-                            <li class="fa fa-users"></li>                               
-                        </button>
-                         <button type="button" class="btn btn-primary btn-sm" title="Editar" @click="editar(item)">
-                            <li class="fa fa-edit"></li>                          
-                        </button>
-                         <button type="button" class="btn btn-warning btn-sm" title="Cerrar" @click="cerrar(item.cz3_id)">
-                            <li class="fa fa-calendar"></li>                              
-                        </button>
-                         <button type="button" class="btn btn-primary btn-sm" title="Administrar" @click="preguntas(item.cz3_id)">
-                            <li class="fa fa-gear"></li>                                         
-                        </button>
-                        <button type="button" class="btn btn-danger btn-sm" title="Eliminar" @click="eliminar(item.cz3_id, indice)">
-                            <li class="fa fa-trash-o"></li>                               
-                        </button>
-
-
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        </div>
+      <Pruebas v-bind="{pruebas: pruebas}" v-on:asignar="asignar" v-on:eliminar="eliminar"
+      v-on:editar="editar" v-on:cerrar="cerrar" v-on:preguntas="preguntas">
+      </Pruebas>
     </div>
 </template>
 <script>
 import moment from "moment";
     moment.locale("es");
-  import datePicker from 'vue-bootstrap-datetimepicker';
-  import 'pc-bootstrap4-datetimepicker/build/css/bootstrap-datetimepicker.css';
-  import router from '../../js/router';
+    import router from '../../js/router'
+    import { Datetime } from 'vue-datetime'
+import 'vue-datetime/dist/vue-datetime.min.css'
+
+import 'pc-bootstrap4-datetimepicker/build/css/bootstrap-datetimepicker.css';
+ import datePicker from 'vue-bootstrap-datetimepicker';
+
+    
+ 
    
     export default {
         components: {
-      datePicker
+            Datetime, datePicker
+     
     },
         data() {
             return {
                 options: {
-          format: 'YYYY/DD/MM  HH:MM:SS',
-          useCurrent: false,
-        } ,
+                     format: 'YYYY-DD-MM LT',
+                      
+                }, 
+                options2: {
+                    format: 'YYYY-DD-MM LT',
+                     useCurrent: false
+                },
                 pruebas: [],
                 datos: {
                     cz3_id:null,
@@ -177,7 +145,10 @@ import moment from "moment";
                 
                 titulo: 'Crear Encuesta',
                 fecha_actual:  '',
-                id_prueba: ''
+                id_prueba: '',
+                moment: moment,
+
+                
             }       
         },
         beforeMount(){    
@@ -188,25 +159,32 @@ import moment from "moment";
             },
         methods: {
             traerPruebas(){
+
                 axios.get(`/api/gp/${this.$route.params.categoria}`)
                 .then(res=>{
-                    this.pruebas = res.data;
-                console.log(res.data)
+                    console.log(res.data)
+                    this.pruebas = res.data
 
 
                 })
             },
             crear() {
-                this.fecha_actual = moment().diff(this.datos.cz3_fecha_apertura);
-                console.log(this.fecha_actual)
+                console.log(this.datos.cz3_fecha_apertura + ' ' + this.datos.cz3_fecha_cierre)
+                var fechaA = moment(this.datos.cz3_fecha_apertura).format('YYYY-DD-MM LT')
+                var fechaAC = moment(fechaA).format('LLLL')
+                var fechaC = moment(this.datos.cz3_fecha_cierre).format('YYYY-DD-MM LT')
+                 var fechaCC = moment(fechaC).format('LLLL')
+                console.log(fechaAC + ' ' + fechaCC )
+                 var apertura = moment().diff(fechaA)
+
+                console.log( moment(fechaA).isAfter(fechaC))
+
                  if(this.datos.cz3_nombre == null || this.datos.cz3_descripcion == null ||
                 this.datos.cz3_fecha_apertura == null || this.datos.cz3_fecha_cierre == null){
                       swal('Advertencia', 'Todos los campos son necesarios', 'warning')
-                }else if(this.datos.cz3_fecha_apertura  <= this.fecha_actual){
-                       swal('Advertencia', 'La fecha de apertura debe partir desde un dia vigente', 'warning')
                 }
-                else if(this.datos.cz3_fecha_cierre  < this.datos.cz3_fecha_apertura){
-                       swal('Advertencia', 'Debe haber un rango entre las fechas', 'warning')
+                else if(apertura > 0 || moment(fechaA).isAfter(fechaC) ){
+                     swal('Advertencia', 'Las fechas deben tener un rango en vigencia', 'warning')
                 }
                 else{
                 console.log(this.datos)
@@ -223,12 +201,16 @@ import moment from "moment";
                 }    
             },
             editar(item){
+                
              this.titulo = 'Editar Encuesta'
+             this.datos.cz3_fecha_apertura = moment(item.cz3_fecha_apertura).format('YYYY-DD-MM LT');
+             this.datos.cz3_fecha_cierre = moment(item.cz3_fecha_cierre).format('YYYY-DD-MM LT');
              this.datos.cz3_id = item.cz3_id
              this.datos.cz3_nombre = item.cz3_nombre
              this.datos.cz3_descripcion = item.cz3_descripcion
-             this.datos.cz3_fecha_apertura = item.cz3_fecha_apertura
-             this.datos.cz3_fecha_cierre = item.cz3_fecha_cierre
+            
+             console.log(this.datos.cz3_fecha_apertura)
+              console.log(this.datos)
              this.$modal.show('editar')
 
             },
@@ -241,15 +223,9 @@ import moment from "moment";
             },
 
             actualizar(){
-                 this.fecha_actual =  moment().format("YYYY/DD/MM h:mm:ss");
-                 if(this.datos.cz3_nombre == null || this.datos.cz3_descripcion == null ||
-                this.datos.cz3_fecha_apertura == null || this.datos.cz3_fecha_cierre == null){
+               
+                 if(this.datos.cz3_nombre == '' || this.datos.cz3_descripcion == ''){
                       swal('Advertencia', 'Todos los campos son necesarios', 'warning')
-                }else if(this.datos.cz3_fecha_apertura  <= this.fecha_actual){
-                       swal('Advertencia', 'La fecha de apertura debe partir desde un dia vigente', 'warning')
-                }
-                else if(this.datos.cz3_fecha_cierre  < this.datos.cz3_fecha_apertura){
-                       swal('Advertencia', 'Debe haber un rango entre las fechas', 'warning')
                 }
                 else{
                 axios.put('/api/gp/update', this.datos)
@@ -257,10 +233,12 @@ import moment from "moment";
                     this.traerPruebas();
                     swal('Prueba Actualizada', '', 'success')
                     this.$modal.hide('editar')
+                    //  this.options2.format = 'YYYY-MM-DD LT'
                     this.limpiar();
                 })
                 }
-            }, cerrar(id){
+            },
+             cerrar(id){
                 swal({
                     title: "Advertencia",
                     text: "¿Quiere cerrar esta prueba?",
