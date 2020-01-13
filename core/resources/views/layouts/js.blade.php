@@ -6,6 +6,8 @@
 {!!Html::script('theme/vendors/jquery/dist/jquery.min.js')!!}
 <!-- Bootstrap -->
 {!!Html::script('theme/vendors/bootstrap/dist/js/bootstrap.bundle.min.js')!!}
+<!-- iCheck -->
+{!!Html::script('theme/vendors/iCheck/icheck.min.js')!!}
 
  
 <!-- Custom Theme Scripts -->
