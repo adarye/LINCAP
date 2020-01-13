@@ -2595,176 +2595,10 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale('es');
 /*!******************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/prueba_preguntas/BodyRespuestas.vue?vue&type=script&lang=js& ***!
   \******************************************************************************************************************************************************************************************/
-/*! exports provided: default */
-<<<<<<< HEAD
+/*! no static exports found */
 /***/ (function(module, exports) {
 
-throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nSyntaxError: C:\\xampp\\htdocs\\lincap\\core\\resources\\js\\components\\prueba_preguntas\\BodyRespuestas.vue: Unexpected token (73:0)\n\n\u001b[0m \u001b[90m 71 | \u001b[39m            }\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 72 | \u001b[39m        }\u001b[33m,\u001b[39m\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 73 | \u001b[39m\u001b[33m<<\u001b[39m\u001b[33m<<\u001b[39m\u001b[33m<<\u001b[39m\u001b[33m<\u001b[39m \u001b[33mHEAD\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m    | \u001b[39m\u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 74 | \u001b[39m        methods\u001b[33m:\u001b[39m {      \u001b[0m\n\u001b[0m \u001b[90m 75 | \u001b[39m            cargar() {  \u001b[0m\n\u001b[0m \u001b[90m 76 | \u001b[39m                \u001b[36mfor\u001b[39m (\u001b[36mvar\u001b[39m i \u001b[36min\u001b[39m \u001b[36mthis\u001b[39m\u001b[33m.\u001b[39mpreguntas) {                   \u001b[0m\n    at Parser.raise (C:\\xampp\\htdocs\\lincap\\core\\node_modules\\@babel\\parser\\lib\\index.js:6930:17)\n    at Parser.unexpected (C:\\xampp\\htdocs\\lincap\\core\\node_modules\\@babel\\parser\\lib\\index.js:8323:16)\n    at Parser.parseIdentifierName (C:\\xampp\\htdocs\\lincap\\core\\node_modules\\@babel\\parser\\lib\\index.js:10282:18)\n    at Parser.parseIdentifier (C:\\xampp\\htdocs\\lincap\\core\\node_modules\\@babel\\parser\\lib\\index.js:10260:23)\n    at Parser.parseMaybePrivateName (C:\\xampp\\htdocs\\lincap\\core\\node_modules\\@babel\\parser\\lib\\index.js:9604:19)\n    at Parser.parsePropertyName (C:\\xampp\\htdocs\\lincap\\core\\node_modules\\@babel\\parser\\lib\\index.js:10072:98)\n    at Parser.parseObjectMember (C:\\xampp\\htdocs\\lincap\\core\\node_modules\\@babel\\parser\\lib\\index.js:9973:10)\n    at Parser.parseObj (C:\\xampp\\htdocs\\lincap\\core\\node_modules\\@babel\\parser\\lib\\index.js:9903:25)\n    at Parser.parseExprAtom (C:\\xampp\\htdocs\\lincap\\core\\node_modules\\@babel\\parser\\lib\\index.js:9525:28)\n    at Parser.parseExprSubscripts (C:\\xampp\\htdocs\\lincap\\core\\node_modules\\@babel\\parser\\lib\\index.js:9165:23)\n    at Parser.parseMaybeUnary (C:\\xampp\\htdocs\\lincap\\core\\node_modules\\@babel\\parser\\lib\\index.js:9145:21)\n    at Parser.parseExprOps (C:\\xampp\\htdocs\\lincap\\core\\node_modules\\@babel\\parser\\lib\\index.js:9011:23)\n    at Parser.parseMaybeConditional (C:\\xampp\\htdocs\\lincap\\core\\node_modules\\@babel\\parser\\lib\\index.js:8984:23)\n    at Parser.parseMaybeAssign (C:\\xampp\\htdocs\\lincap\\core\\node_modules\\@babel\\parser\\lib\\index.js:8930:21)\n    at Parser.parseExportDefaultExpression (C:\\xampp\\htdocs\\lincap\\core\\node_modules\\@babel\\parser\\lib\\index.js:11790:24)\n    at Parser.parseExport (C:\\xampp\\htdocs\\lincap\\core\\node_modules\\@babel\\parser\\lib\\index.js:11692:31)\n    at Parser.parseStatementContent (C:\\xampp\\htdocs\\lincap\\core\\node_modules\\@babel\\parser\\lib\\index.js:10715:27)\n    at Parser.parseStatement (C:\\xampp\\htdocs\\lincap\\core\\node_modules\\@babel\\parser\\lib\\index.js:10611:17)\n    at Parser.parseBlockOrModuleBlockBody (C:\\xampp\\htdocs\\lincap\\core\\node_modules\\@babel\\parser\\lib\\index.js:11187:25)\n    at Parser.parseBlockBody (C:\\xampp\\htdocs\\lincap\\core\\node_modules\\@babel\\parser\\lib\\index.js:11174:10)\n    at Parser.parseTopLevel (C:\\xampp\\htdocs\\lincap\\core\\node_modules\\@babel\\parser\\lib\\index.js:10542:10)\n    at Parser.parse (C:\\xampp\\htdocs\\lincap\\core\\node_modules\\@babel\\parser\\lib\\index.js:12051:10)\n    at parse (C:\\xampp\\htdocs\\lincap\\core\\node_modules\\@babel\\parser\\lib\\index.js:12102:38)\n    at parser (C:\\xampp\\htdocs\\lincap\\core\\node_modules\\@babel\\core\\lib\\transformation\\normalize-file.js:168:34)\n    at normalizeFile (C:\\xampp\\htdocs\\lincap\\core\\node_modules\\@babel\\core\\lib\\transformation\\normalize-file.js:102:11)\n    at runSync (C:\\xampp\\htdocs\\lincap\\core\\node_modules\\@babel\\core\\lib\\transformation\\index.js:44:43)\n    at runAsync (C:\\xampp\\htdocs\\lincap\\core\\node_modules\\@babel\\core\\lib\\transformation\\index.js:35:14)\n    at process.nextTick (C:\\xampp\\htdocs\\lincap\\core\\node_modules\\@babel\\core\\lib\\transform.js:34:34)\n    at _combinedTickCallback (internal/process/next_tick.js:131:7)\n    at process._tickCallback (internal/process/next_tick.js:180:9)");
-=======
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _bus__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../bus */ "./resources/js/bus.js");
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["id"],
-  data: function data() {
-    return {
-      resSMUR: [],
-      resRA: [],
-      resSMMR: [],
-      contador: 1,
-      params: null
-    };
-  },
-  mounted: function mounted() {
-    var _this = this;
-
-    this.cargar();
-    _bus__WEBPACK_IMPORTED_MODULE_0__["default"].$on('cargar', function (item) {
-      _this.cargar();
-    });
-  },
-  methods: {
-    traerRa: function traerRa() {
-      var _this2 = this;
-
-      console.log(this.id);
-      axios.get("/api/respuestaA/buscar/".concat(this.id)).then(function (res) {
-        _this2.resRA = res.data;
-        console.log(_this2.resRA);
-      });
-    },
-    traerSMMR: function traerSMMR() {
-      var _this3 = this;
-
-      console.log(this.id);
-      axios.get("/api/respuestaM/buscar/".concat(this.id)).then(function (res) {
-        _this3.resSMMR = res.data;
-        console.log(_this3.resSMMR);
-      });
-    },
-    traerPregunta_SMUR: function traerPregunta_SMUR() {
-      var _this4 = this;
-
-      axios.get("/api/pregunta/index/".concat(this.id)).then(function (res) {
-        _this4.resSMUR = res.data;
-        console.log(_this4.resSMUR);
-      });
-    },
-    contar: function contar() {
-      this.contador = this.contador + 1;
-    },
-    editar: function editar(dato) {
-      this.$modal.show('editar');
-      this.params = dato;
-      console.log(dato);
-    },
-    eliminar: function eliminar(id) {
-      var _this5 = this;
-
-      swal({
-        title: "Advertencia",
-        text: "¿Esta seguro de eliminar esta pregunta?",
-        icon: "warning",
-        buttons: true,
-        dangerMode: true
-      }).then(function (willDelete) {
-        if (willDelete) {
-          axios["delete"]("/api/pregunta/delete/".concat(id)).then(function (res) {
-            console.log(res.data);
-
-            _this5.cargar();
-
-            swal("Eliminado", {
-              icon: "success"
-            });
-          });
-        }
-      });
-    },
-    cargar: function cargar() {
-      this.traerSMMR();
-      this.traerRa();
-      this.traerPregunta_SMUR();
-    },
-    hide: function hide() {
-      this.$modal.hide('editar');
-    }
-  },
-  computed: {}
-});
->>>>>>> 2c7a0c840481d9db16e42bd82dde118487134813
+throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nSyntaxError: C:\\xampp\\htdocs\\lincap\\core\\resources\\js\\components\\prueba_preguntas\\BodyRespuestas.vue: Unexpected token (99:0)\n\n\u001b[0m \u001b[90m  97 | \u001b[39m            }\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m  98 | \u001b[39m        }\u001b[33m,\u001b[39m\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m  99 | \u001b[39m\u001b[33m<<\u001b[39m\u001b[33m<<\u001b[39m\u001b[33m<<\u001b[39m\u001b[33m<\u001b[39m \u001b[33mHEAD\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m     | \u001b[39m\u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 100 | \u001b[39m        methods\u001b[33m:\u001b[39m {      \u001b[0m\n\u001b[0m \u001b[90m 101 | \u001b[39m            cargar() {  \u001b[0m\n\u001b[0m \u001b[90m 102 | \u001b[39m                \u001b[36mfor\u001b[39m (\u001b[36mvar\u001b[39m i \u001b[36min\u001b[39m \u001b[36mthis\u001b[39m\u001b[33m.\u001b[39mpreguntas) {                   \u001b[0m\n    at Parser.raise (C:\\xampp\\htdocs\\lincap\\core\\node_modules\\@babel\\parser\\lib\\index.js:6930:17)\n    at Parser.unexpected (C:\\xampp\\htdocs\\lincap\\core\\node_modules\\@babel\\parser\\lib\\index.js:8323:16)\n    at Parser.parseIdentifierName (C:\\xampp\\htdocs\\lincap\\core\\node_modules\\@babel\\parser\\lib\\index.js:10282:18)\n    at Parser.parseIdentifier (C:\\xampp\\htdocs\\lincap\\core\\node_modules\\@babel\\parser\\lib\\index.js:10260:23)\n    at Parser.parseMaybePrivateName (C:\\xampp\\htdocs\\lincap\\core\\node_modules\\@babel\\parser\\lib\\index.js:9604:19)\n    at Parser.parsePropertyName (C:\\xampp\\htdocs\\lincap\\core\\node_modules\\@babel\\parser\\lib\\index.js:10072:98)\n    at Parser.parseObjectMember (C:\\xampp\\htdocs\\lincap\\core\\node_modules\\@babel\\parser\\lib\\index.js:9973:10)\n    at Parser.parseObj (C:\\xampp\\htdocs\\lincap\\core\\node_modules\\@babel\\parser\\lib\\index.js:9903:25)\n    at Parser.parseExprAtom (C:\\xampp\\htdocs\\lincap\\core\\node_modules\\@babel\\parser\\lib\\index.js:9525:28)\n    at Parser.parseExprSubscripts (C:\\xampp\\htdocs\\lincap\\core\\node_modules\\@babel\\parser\\lib\\index.js:9165:23)\n    at Parser.parseMaybeUnary (C:\\xampp\\htdocs\\lincap\\core\\node_modules\\@babel\\parser\\lib\\index.js:9145:21)\n    at Parser.parseExprOps (C:\\xampp\\htdocs\\lincap\\core\\node_modules\\@babel\\parser\\lib\\index.js:9011:23)\n    at Parser.parseMaybeConditional (C:\\xampp\\htdocs\\lincap\\core\\node_modules\\@babel\\parser\\lib\\index.js:8984:23)\n    at Parser.parseMaybeAssign (C:\\xampp\\htdocs\\lincap\\core\\node_modules\\@babel\\parser\\lib\\index.js:8930:21)\n    at Parser.parseExportDefaultExpression (C:\\xampp\\htdocs\\lincap\\core\\node_modules\\@babel\\parser\\lib\\index.js:11790:24)\n    at Parser.parseExport (C:\\xampp\\htdocs\\lincap\\core\\node_modules\\@babel\\parser\\lib\\index.js:11692:31)\n    at Parser.parseStatementContent (C:\\xampp\\htdocs\\lincap\\core\\node_modules\\@babel\\parser\\lib\\index.js:10715:27)\n    at Parser.parseStatement (C:\\xampp\\htdocs\\lincap\\core\\node_modules\\@babel\\parser\\lib\\index.js:10611:17)\n    at Parser.parseBlockOrModuleBlockBody (C:\\xampp\\htdocs\\lincap\\core\\node_modules\\@babel\\parser\\lib\\index.js:11187:25)\n    at Parser.parseBlockBody (C:\\xampp\\htdocs\\lincap\\core\\node_modules\\@babel\\parser\\lib\\index.js:11174:10)\n    at Parser.parseTopLevel (C:\\xampp\\htdocs\\lincap\\core\\node_modules\\@babel\\parser\\lib\\index.js:10542:10)\n    at Parser.parse (C:\\xampp\\htdocs\\lincap\\core\\node_modules\\@babel\\parser\\lib\\index.js:12051:10)\n    at parse (C:\\xampp\\htdocs\\lincap\\core\\node_modules\\@babel\\parser\\lib\\index.js:12102:38)\n    at parser (C:\\xampp\\htdocs\\lincap\\core\\node_modules\\@babel\\core\\lib\\transformation\\normalize-file.js:168:34)\n    at normalizeFile (C:\\xampp\\htdocs\\lincap\\core\\node_modules\\@babel\\core\\lib\\transformation\\normalize-file.js:102:11)\n    at runSync (C:\\xampp\\htdocs\\lincap\\core\\node_modules\\@babel\\core\\lib\\transformation\\index.js:44:43)\n    at runAsync (C:\\xampp\\htdocs\\lincap\\core\\node_modules\\@babel\\core\\lib\\transformation\\index.js:35:14)\n    at process.nextTick (C:\\xampp\\htdocs\\lincap\\core\\node_modules\\@babel\\core\\lib\\transform.js:34:34)\n    at _combinedTickCallback (internal/process/next_tick.js:131:7)\n    at process._tickCallback (internal/process/next_tick.js:180:9)");
 
 /***/ }),
 
@@ -66121,239 +65955,7 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-<<<<<<< HEAD
 var render = function () {}
-=======
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    [
-      _c(
-        "h4",
-        {
-          directives: [
-            {
-              name: "show",
-              rawName: "v-show",
-              value: _vm.resRA.length,
-              expression: "resRA.length"
-            }
-          ],
-          staticClass: "display-5 titulo mb-3"
-        },
-        [_vm._v("Preguntas con respuesta abierta")]
-      ),
-      _vm._v(" "),
-      _vm._l(_vm.resRA, function(dato, i) {
-        return _c("article", { key: "A-" + i }, [
-          _c("div", { staticClass: "row mt-2" }, [
-            _c("div", { staticClass: "col-md-6" }, [
-              _c("p", { staticClass: "lead" }, [
-                _vm._v(_vm._s(dato.cz5_pregunta))
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-md-2" }, [
-              _c("button", {
-                staticClass: "fa fa-pencil float-right btn-sm btn-primary",
-                on: {
-                  click: function($event) {
-                    return _vm.editar(dato)
-                  }
-                }
-              }),
-              _vm._v(" "),
-              _c("button", {
-                staticClass: "fa fa-trash float-right btn-sm btn-danger",
-                on: {
-                  click: function($event) {
-                    return _vm.eliminar(dato.cz5_id)
-                  }
-                }
-              })
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "row mb-3" }, [
-            _c("div", { staticClass: "col-md-9" }, [
-              _c("textarea", {
-                directives: [
-                  { name: "uppercase", rawName: "v-uppercase" },
-                  {
-                    name: "max-length",
-                    rawName: "v-max-length",
-                    value: 200,
-                    expression: "200"
-                  }
-                ],
-                staticClass: "form-control",
-                attrs: { rows: "4", cols: "50", type: "text" }
-              })
-            ])
-          ])
-        ])
-      }),
-      _vm._v(" "),
-      _c(
-        "h4",
-        {
-          directives: [
-            {
-              name: "show",
-              rawName: "v-show",
-              value: _vm.resSMUR.length,
-              expression: " resSMUR.length"
-            }
-          ],
-          staticClass: "display-5 titulo my-3"
-        },
-        [_vm._v("Preguntas de selección multiple con única respuestas")]
-      ),
-      _vm._v(" "),
-      _vm._l(_vm.resSMUR, function(item, indice) {
-        return _c("article", { key: indice, staticClass: "my-3" }, [
-          _c("div", { staticClass: "row mt-2" }, [
-            _c("div", { staticClass: "col-md-6" }, [
-              _c("p", { staticClass: "lead" }, [
-                _vm._v(_vm._s(item.cz5_pregunta) + "\n                ")
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-md-2" }, [
-              _c("button", {
-                staticClass: "fa fa-pencil float-right btn-sm btn-primary",
-                on: {
-                  click: function($event) {
-                    return _vm.editar(item)
-                  }
-                }
-              }),
-              _vm._v(" "),
-              _c("button", {
-                staticClass: "fa fa-trash float-right btn-sm btn-danger",
-                on: {
-                  click: function($event) {
-                    return _vm.eliminar(item.cz5_id)
-                  }
-                }
-              })
-            ]),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "col-md-12" },
-              _vm._l(item.respuestas, function(item2, i) {
-                return _c("article", { key: i }, [
-                  _c("input", {
-                    staticClass: "flat",
-                    attrs: { type: "radio", name: item.cz5_id },
-                    domProps: { value: item2.cz7_id }
-                  }),
-                  _vm._v(" " + _vm._s(item2.cz7_rta) + "\n                ")
-                ])
-              }),
-              0
-            )
-          ])
-        ])
-      }),
-      _vm._v(" "),
-      _c(
-        "h4",
-        {
-          directives: [
-            {
-              name: "show",
-              rawName: "v-show",
-              value: _vm.resSMMR.length,
-              expression: "resSMMR.length"
-            }
-          ],
-          staticClass: "display-5 titulo my-3"
-        },
-        [_vm._v("Preguntas de selección multiple con multiple respuestas")]
-      ),
-      _vm._v(" "),
-      _vm._l(_vm.resSMMR, function(item3, i) {
-        return _c("article", { key: "o-" + i }, [
-          _c("div", { staticClass: "row mt-2" }, [
-            _c("div", { staticClass: "col-md-6" }, [
-              _c("p", { staticClass: "lead" }, [
-                _vm._v(_vm._s(item3.cz5_pregunta))
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-md-2" }, [
-              _c("button", {
-                staticClass: "fa fa-pencil float-right btn-sm btn-primary",
-                on: {
-                  click: function($event) {
-                    return _vm.editar(item3)
-                  }
-                }
-              }),
-              _vm._v(" "),
-              _c("button", {
-                staticClass: "fa fa-trash float-right btn-sm btn-danger",
-                on: {
-                  click: function($event) {
-                    return _vm.eliminar(item3.cz5_id)
-                  }
-                }
-              })
-            ])
-          ]),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "col-md-12" },
-            _vm._l(item3.smmr, function(item4, i) {
-              return _c("article", { key: "s-" + i }, [
-                _c("input", {
-                  staticClass: "flat",
-                  attrs: { type: "checkbox" },
-                  domProps: { value: item4.cz8_id }
-                }),
-                _vm._v(_vm._s(item4.cz8_rta) + "\n            ")
-              ])
-            }),
-            0
-          )
-        ])
-      }),
-      _vm._v(" "),
-      _c(
-        "modal",
-        {
-          attrs: {
-            name: "editar",
-            clickToClose: false,
-            adaptive: true,
-            width: 450,
-            height: 450
-          }
-        },
-        [
-          _c(
-            "Editar",
-            _vm._b(
-              { on: { hide: _vm.hide } },
-              "Editar",
-              { params: _vm.params },
-              false
-            )
-          )
-        ],
-        1
-      )
-    ],
-    2
-  )
-}
->>>>>>> 2c7a0c840481d9db16e42bd82dde118487134813
 var staticRenderFns = []
 
 
@@ -88112,10 +87714,10 @@ var regionDayMap = {
 /*!*********************************************!*\
   !*** ./node_modules/weekstart/package.json ***!
   \*********************************************/
-/*! exports provided: _from, _id, _inBundle, _integrity, _location, _phantomChildren, _requested, _requiredBy, _resolved, _shasum, _spec, _where, author, bugs, bundleDependencies, deprecated, description, devDependencies, homepage, keywords, license, main, module, name, repository, scripts, types, umd:main, version, default */
+/*! exports provided: _args, _from, _id, _inBundle, _integrity, _location, _phantomChildren, _requested, _requiredBy, _resolved, _spec, _where, author, bugs, description, devDependencies, homepage, keywords, license, main, module, name, repository, scripts, types, umd:main, version, default */
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"_from\":\"weekstart@^1.0.1\",\"_id\":\"weekstart@1.0.1\",\"_inBundle\":false,\"_integrity\":\"sha512-h6B1HSJxg7sZEXqIpDqAtwiDBp3x5y2jY8WYcUSBhLTcTCy7laQzBmamqMuQM5fpvo1pgpma0OCRpE2W8xrA9A==\",\"_location\":\"/weekstart\",\"_phantomChildren\":{},\"_requested\":{\"type\":\"range\",\"registry\":true,\"raw\":\"weekstart@^1.0.1\",\"name\":\"weekstart\",\"escapedName\":\"weekstart\",\"rawSpec\":\"^1.0.1\",\"saveSpec\":null,\"fetchSpec\":\"^1.0.1\"},\"_requiredBy\":[\"#USER\",\"/\"],\"_resolved\":\"https://registry.npmjs.org/weekstart/-/weekstart-1.0.1.tgz\",\"_shasum\":\"950970b48e5797e06fc1a762f3d0f013312321e1\",\"_spec\":\"weekstart@^1.0.1\",\"_where\":\"C:\\\\xampp\\\\htdocs\\\\lincap\\\\core\",\"author\":{\"name\":\"Denis Sikuler\"},\"bugs\":{\"url\":\"https://github.com/gamtiq/weekstart/issues\"},\"bundleDependencies\":false,\"deprecated\":false,\"description\":\"Library to get first day of week.\",\"devDependencies\":{\"@babel/preset-env\":\"7.6.3\",\"eslint\":\"6.5.1\",\"eslint-config-guard\":\"1.0.3\",\"ink-docstrap\":\"1.3.2\",\"jest\":\"24.9.0\",\"jsdoc\":\"3.6.3\",\"microbundle\":\"0.4.4\",\"version-bump-prompt\":\"5.0.5\"},\"homepage\":\"https://github.com/gamtiq/weekstart\",\"keywords\":[\"week\",\"start\",\"first\",\"day\",\"locale\",\"country\",\"region\"],\"license\":\"MIT\",\"main\":\"dist/commonjs/main.js\",\"module\":\"dist/es-module/main.js\",\"name\":\"weekstart\",\"repository\":{\"type\":\"git\",\"url\":\"git://github.com/gamtiq/weekstart.git\"},\"scripts\":{\"all\":\"npm run check-all && npm run doc && npm run build\",\"build\":\"npm run build-umd && npm run build-commonjs && npm run build-esm && npm run build-umd-min\",\"build-commonjs\":\"microbundle build \\\"src/!(*.test).js\\\" --output dist/commonjs --format cjs --strict --no-compress\",\"build-esm\":\"microbundle build \\\"src/!(*.test).js\\\" --output dist/es-module --format es --no-compress\",\"build-umd\":\"microbundle build src/main.js src/full.js --output dist --format umd --strict --no-compress\",\"build-umd-min\":\"microbundle build src/main.js src/full.js --output dist/min --format umd --strict\",\"check\":\"npm run lint && npm test\",\"check-all\":\"npm run lint-all && npm test\",\"doc\":\"jsdoc -c jsdoc-conf.json\",\"lint\":\"eslint --cache --max-warnings 0 \\\"**/*.js\\\"\",\"lint-all\":\"eslint --max-warnings 0 \\\"**/*.js\\\"\",\"lint-all-error\":\"eslint \\\"**/*.js\\\"\",\"lint-error\":\"eslint --cache \\\"**/*.js\\\"\",\"release\":\"bump patch --commit --tag --all --push package.json package-lock.json bower.json component.json\",\"release-major\":\"bump major --commit --tag --all --push package.json package-lock.json bower.json component.json\",\"release-minor\":\"bump minor --commit --tag --all --push package.json package-lock.json bower.json component.json\",\"test\":\"jest\"},\"types\":\"./index.d.ts\",\"umd:main\":\"dist/main.js\",\"version\":\"1.0.1\"}");
+module.exports = JSON.parse("{\"_args\":[[\"weekstart@1.0.1\",\"C:\\\\xampp\\\\htdocs\\\\lincap\\\\core\"]],\"_from\":\"weekstart@1.0.1\",\"_id\":\"weekstart@1.0.1\",\"_inBundle\":false,\"_integrity\":\"sha512-h6B1HSJxg7sZEXqIpDqAtwiDBp3x5y2jY8WYcUSBhLTcTCy7laQzBmamqMuQM5fpvo1pgpma0OCRpE2W8xrA9A==\",\"_location\":\"/weekstart\",\"_phantomChildren\":{},\"_requested\":{\"type\":\"version\",\"registry\":true,\"raw\":\"weekstart@1.0.1\",\"name\":\"weekstart\",\"escapedName\":\"weekstart\",\"rawSpec\":\"1.0.1\",\"saveSpec\":null,\"fetchSpec\":\"1.0.1\"},\"_requiredBy\":[\"/\"],\"_resolved\":\"https://registry.npmjs.org/weekstart/-/weekstart-1.0.1.tgz\",\"_spec\":\"1.0.1\",\"_where\":\"C:\\\\xampp\\\\htdocs\\\\lincap\\\\core\",\"author\":{\"name\":\"Denis Sikuler\"},\"bugs\":{\"url\":\"https://github.com/gamtiq/weekstart/issues\"},\"description\":\"Library to get first day of week.\",\"devDependencies\":{\"@babel/preset-env\":\"7.6.3\",\"eslint\":\"6.5.1\",\"eslint-config-guard\":\"1.0.3\",\"ink-docstrap\":\"1.3.2\",\"jest\":\"24.9.0\",\"jsdoc\":\"3.6.3\",\"microbundle\":\"0.4.4\",\"version-bump-prompt\":\"5.0.5\"},\"homepage\":\"https://github.com/gamtiq/weekstart\",\"keywords\":[\"week\",\"start\",\"first\",\"day\",\"locale\",\"country\",\"region\"],\"license\":\"MIT\",\"main\":\"dist/commonjs/main.js\",\"module\":\"dist/es-module/main.js\",\"name\":\"weekstart\",\"repository\":{\"type\":\"git\",\"url\":\"git://github.com/gamtiq/weekstart.git\"},\"scripts\":{\"all\":\"npm run check-all && npm run doc && npm run build\",\"build\":\"npm run build-umd && npm run build-commonjs && npm run build-esm && npm run build-umd-min\",\"build-commonjs\":\"microbundle build \\\"src/!(*.test).js\\\" --output dist/commonjs --format cjs --strict --no-compress\",\"build-esm\":\"microbundle build \\\"src/!(*.test).js\\\" --output dist/es-module --format es --no-compress\",\"build-umd\":\"microbundle build src/main.js src/full.js --output dist --format umd --strict --no-compress\",\"build-umd-min\":\"microbundle build src/main.js src/full.js --output dist/min --format umd --strict\",\"check\":\"npm run lint && npm test\",\"check-all\":\"npm run lint-all && npm test\",\"doc\":\"jsdoc -c jsdoc-conf.json\",\"lint\":\"eslint --cache --max-warnings 0 \\\"**/*.js\\\"\",\"lint-all\":\"eslint --max-warnings 0 \\\"**/*.js\\\"\",\"lint-all-error\":\"eslint \\\"**/*.js\\\"\",\"lint-error\":\"eslint --cache \\\"**/*.js\\\"\",\"release\":\"bump patch --commit --tag --all --push package.json package-lock.json bower.json component.json\",\"release-major\":\"bump major --commit --tag --all --push package.json package-lock.json bower.json component.json\",\"release-minor\":\"bump minor --commit --tag --all --push package.json package-lock.json bower.json component.json\",\"test\":\"jest\"},\"types\":\"./index.d.ts\",\"umd:main\":\"dist/main.js\",\"version\":\"1.0.1\"}");
 
 /***/ }),
 
@@ -88537,14 +88139,15 @@ __webpack_require__.r(__webpack_exports__);
 /*!*********************************************************************!*\
   !*** ./resources/js/components/prueba_preguntas/BodyRespuestas.vue ***!
   \*********************************************************************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _BodyRespuestas_vue_vue_type_template_id_99276a64___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./BodyRespuestas.vue?vue&type=template&id=99276a64& */ "./resources/js/components/prueba_preguntas/BodyRespuestas.vue?vue&type=template&id=99276a64&");
 /* harmony import */ var _BodyRespuestas_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./BodyRespuestas.vue?vue&type=script&lang=js& */ "./resources/js/components/prueba_preguntas/BodyRespuestas.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _BodyRespuestas_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _BodyRespuestas_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -88574,13 +88177,15 @@ component.options.__file = "resources/js/components/prueba_preguntas/BodyRespues
 /*!**********************************************************************************************!*\
   !*** ./resources/js/components/prueba_preguntas/BodyRespuestas.vue?vue&type=script&lang=js& ***!
   \**********************************************************************************************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_BodyRespuestas_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./BodyRespuestas.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/prueba_preguntas/BodyRespuestas.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_BodyRespuestas_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_BodyRespuestas_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_BodyRespuestas_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_BodyRespuestas_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_BodyRespuestas_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_BodyRespuestas_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0___default.a); 
 
 /***/ }),
 
