@@ -161,11 +161,10 @@ import 'pc-bootstrap4-datetimepicker/build/css/bootstrap-datetimepicker.css';
             traerPruebas(){
 
                 axios.get(`/api/gp/${this.$route.params.categoria}`)
-                .then(res=>{
-                    console.log(res.data)
+                .then(res=>{                    
                     this.pruebas = res.data
-
-
+                    console.log('gp')
+                    console.log(res.data)
                 })
             },
             crear() {

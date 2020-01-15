@@ -244,7 +244,14 @@
             cargarBarrios(event) {
                 axios.get(`/api/barrios/${event.target.value}`).then(res => {
                     this.barrios = res.data;
-
+                     if(this.barrios.length == 0 ){
+                       this.informacion.f015_id_barrio = ""
+                        swal(
+                        "No se encontraron barrios",
+                        "Comuníquese con los proveedores de LINCAP para agregar mas barrios",
+                        "warning"
+                    );
+                     }
                     this.informacion.f015_id_ciudad = event.target.value;
                 });
             },
@@ -345,13 +352,27 @@
                         "El numero de telefono es obligatorio",
                         "warning"
                     );
-                } else if (this.informacion.f015_celular == "") {
+                } else if (this.informacion.f015_id_barrio == "") {
+                    swal(
+                        "Alerta",
+                        "El barrio es obligatorio",
+                        "warning"
+                    );
+                }else if (this.informacion.f015_id_ciudad == "") {
+                    swal(
+                        "Alerta",
+                        "La ciudad es obligatoria",
+                        "warning"
+                    );
+                }
+                else if (this.informacion.f015_celular == "") {
                     swal(
                         "Alerta",
                         "El numero de celular es obligatorio",
                         "warning"
                     );
-                } else if (this.informacion.f015_direccion1 == "") {
+                }
+                 else if (this.informacion.f015_direccion1 == "") {
                     swal("Alerta", "La direccion es obligatoria", "warning");
                 } else if (this.informacion.f015_id_barrio == "") {
                     swal("Alerta", "El barrio es obligatorio", "warning");

@@ -2,8 +2,9 @@
     <div>
 
         <nav class="navbar navbar-light bg-light my-2">
-            <div class="col-md-2 col-center has-feedback">
+            <div class="col-md-4 col-center has-feedback">
                 <button type="button" class="btn btn-primary" @click="guardarTodos(mbuscar)">Todos</button>
+                <button type="button" class="btn btn-danger" @click="quitarTodos(mbuscar)">Quitar</button>
             </div>
             <div class="col-md-4 col-center col-sm-2  has-feedback">
                 <select v-model="selectCO" class="form-control">
@@ -12,7 +13,7 @@
                         {{ item.f285_descripcion }}</option>
                 </select>
             </div>
-            <div class="col-md-6 col-center has-feedback">
+            <div class="col-md-4 col-center has-feedback">
                 <input type="text" v-model="bempleado" class="form-control" v-autofocus placeholder="Buscar" />
             </div>
             <span v-if="mostrar == 1"><input class="select mt-2" v-model="numero" /></span>
@@ -127,6 +128,15 @@
 
                 });
             },
+            quitarRelacion(){
+                this.seleccionados = []
+                 axios.get(`/api/asignacion/index/${this.id_prueba}`).then(res => {
+                    for (var i = 0; i < res.data.length; i++) {
+                        this.seleccionados.push(res.data[i].cz4_ts_id)
+                    }
+
+                });
+            },
             getCO: function () {
                 axios.get("/api/getCO").then(res => {
                     this.CO = res.data;
@@ -170,7 +180,7 @@
                
                const wrapper = document.createElement('div');
             wrapper.innerHTML =
-             "<div class='spinner-border text-primary' role='status'> <span class='sr-only'>Loading...</span> </div> Cargando... ";
+             "<div class='spinner-border text-primary row' role='status'> <span class='sr-only'>Loading...</span> </div>  <div class=''>Esto puede tomar varios minutos</div> ";
                 swal( {
                buttons: false,
                html: true,
@@ -185,6 +195,40 @@
                     console.log(res.data)
                     this.traerRelacion();
                     swal('Se han seleccionado todos', '', 'success')
+
+
+                }).catch(res=>{
+                     swal('Ha sucedido un error inesperado', '', 'error')
+                })
+            },
+
+            quitarTodos(filtrados) {
+                 var empleados = null
+                if(filtrados.length == 0){
+                      empleados = this.activos
+                }
+                else{
+                     empleados = filtrados
+                }
+                console.log(empleados)
+               
+               const wrapper = document.createElement('div');
+            wrapper.innerHTML =
+             "<div class='spinner-border text-primary row' role='status'> <span class='sr-only'>Loading...</span> </div> <div >Esto puede tomar varios minutos</div> ";
+                swal( {
+               buttons: false,
+               html: true,
+               content: wrapper,
+               closeOnClickOutside: false
+                    });
+                axios.post("/api/asignacion/quitarTodos", {
+                    id_prueba: this.id_prueba,
+                    activos: empleados,
+                    seleccionados: this.seleccionados
+                }).then(res => {
+                    console.log(res.data)
+                    this.quitarRelacion();
+                    swal('Se han quitado las asignaciones', '', 'success')
 
 
                 }).catch(res=>{

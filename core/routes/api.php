@@ -80,6 +80,7 @@ Route::get('pruebas/pendientes/{id}', 'GPController@traerPendientes');
 //ASIGNACION PRUEBAS
 Route::post('asignacion/guardar', 'AsignacionController@guardar');
 Route::post('asignacion/guardarTodos', 'AsignacionController@guardarTodos');
+Route::post('asignacion/quitarTodos', 'AsignacionController@quitarTodos');
 Route::post('asignacion/delete', 'AsignacionController@delete');
 Route::get('asignacion/index/{id}', 'AsignacionController@index');
 

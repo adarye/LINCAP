@@ -138,14 +138,6 @@ export default {
                 this.guardarPregunta()
             }
         },
-        guardarPA(id) {
-            axios.post("/api/respuestaA/guardar", { id: id }).then(res => {
-                console.log(res.data);
-                EventBus.$emit("cargar", "o");
-                swal("Mensaje", "Pregunta creada exitosamente", "success");
-                this.limpiar();
-            });
-        },
         guardarPregunta(){
              const params = {
                 cz5_categoria: this.tipo_respuesta,
@@ -153,10 +145,12 @@ export default {
                 cz5_gp_id: this.$route.params.id
             };
          axios.post("/api/pregunta/guardar", params).then(res => {
-                        if (this.tipo_respuesta == "ra") {
-                            this.guardarPA(res.data.cz5_id);
-                        } else {
+                        if (this.tipo_respuesta == "smur" || this.tipo_respuesta == "smmr") {
                             this.guardarPS(res.data.cz5_id);
+                        } else {
+                            EventBus.$emit("cargar", "o");
+                           swal("Mensaje", "Pregunta creada exitosamente", "success");
+                           this.limpiar();
                         }
                     });
         },

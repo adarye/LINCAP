@@ -43,13 +43,8 @@ class PreguntasController extends Controller
     }
     public function traerRA($id)
     {
-        return z5_prueba_preguntas::select('cz6_id', 'cz5_pregunta', 'cz5_categoria', 'cz5_id')->
-            join(
-            'z6_rta_ra',
-            'z5_prueba_preguntas.cz5_id',
-            '=',
-            'z6_rta_ra.cz6_pp_id'
-        )->where('cz5_gp_id', $id)->get();
+        return z5_prueba_preguntas::select( 'cz5_pregunta', 'cz5_categoria', 'cz5_id')->
+           where('cz5_gp_id', $id)->get();
     }
     public function traerSMMR($id)
     {

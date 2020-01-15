@@ -11,11 +11,12 @@ const mix = require('laravel-mix');
  |
  */
 
- mix.setPublicPath('../theme/vue').
- js('resources/js/app.js', 'js')
+mix.setPublicPath('../theme/vue').
+js('resources/js/app.js', 'js')
     .sass('resources/sass/app.scss', 'css');
-    
-    mix.browserSync({
-        proxy: 'http://lincap.linco.com.co',
-        open: false
-    });
+
+mix.browserSync({
+    proxy: 'http://lincap.linco.com.co',
+    open: false,
+});
+mix.disableNotifications();

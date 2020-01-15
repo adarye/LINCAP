@@ -2459,6 +2459,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale('es');
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2507,11 +2508,21 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale('es');
         }
       });
     },
-    getCO: function getCO() {
+    quitarRelacion: function quitarRelacion() {
       var _this3 = this;
 
+      this.seleccionados = [];
+      axios.get("/api/asignacion/index/".concat(this.id_prueba)).then(function (res) {
+        for (var i = 0; i < res.data.length; i++) {
+          _this3.seleccionados.push(res.data[i].cz4_ts_id);
+        }
+      });
+    },
+    getCO: function getCO() {
+      var _this4 = this;
+
       axios.get("/api/getCO").then(function (res) {
-        _this3.CO = res.data;
+        _this4.CO = res.data;
       });
     },
     incluir: function incluir(c0550_rowid_tercero) {
@@ -2537,7 +2548,7 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale('es');
       }
     },
     guardarTodos: function guardarTodos(filtrados) {
-      var _this4 = this;
+      var _this5 = this;
 
       var empleados = null;
 
@@ -2549,7 +2560,7 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale('es');
 
       console.log(empleados);
       var wrapper = document.createElement('div');
-      wrapper.innerHTML = "<div class='spinner-border text-primary' role='status'> <span class='sr-only'>Loading...</span> </div> Cargando... ";
+      wrapper.innerHTML = "<div class='spinner-border text-primary row' role='status'> <span class='sr-only'>Loading...</span> </div>  <div class=''>Esto puede tomar varios minutos</div> ";
       swal({
         buttons: false,
         html: true,
@@ -2563,9 +2574,43 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale('es');
       }).then(function (res) {
         console.log(res.data);
 
-        _this4.traerRelacion();
+        _this5.traerRelacion();
 
         swal('Se han seleccionado todos', '', 'success');
+      })["catch"](function (res) {
+        swal('Ha sucedido un error inesperado', '', 'error');
+      });
+    },
+    quitarTodos: function quitarTodos(filtrados) {
+      var _this6 = this;
+
+      var empleados = null;
+
+      if (filtrados.length == 0) {
+        empleados = this.activos;
+      } else {
+        empleados = filtrados;
+      }
+
+      console.log(empleados);
+      var wrapper = document.createElement('div');
+      wrapper.innerHTML = "<div class='spinner-border text-primary row' role='status'> <span class='sr-only'>Loading...</span> </div> <div >Esto puede tomar varios minutos</div> ";
+      swal({
+        buttons: false,
+        html: true,
+        content: wrapper,
+        closeOnClickOutside: false
+      });
+      axios.post("/api/asignacion/quitarTodos", {
+        id_prueba: this.id_prueba,
+        activos: empleados,
+        seleccionados: this.seleccionados
+      }).then(function (res) {
+        console.log(res.data);
+
+        _this6.quitarRelacion();
+
+        swal('Se han quitado las asignaciones', '', 'success');
       })["catch"](function (res) {
         swal('Ha sucedido un error inesperado', '', 'error');
       });
@@ -2573,16 +2618,16 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale('es');
   },
   computed: {
     mbuscar: function mbuscar() {
-      var _this5 = this;
+      var _this7 = this;
 
       return this.activos.filter(function (activo) {
-        if (_this5.selectCO == null || _this5.selectCO == 'co') {
+        if (_this7.selectCO == null || _this7.selectCO == 'co') {
           var nombre_completo = activo.c0541_nombres + ' ' + activo.c0541_apellido1 + ' ' + activo.c0541_apellido2;
-          return activo.c0541_id.toUpperCase().includes(_this5.bempleado.toUpperCase()) || nombre_completo.toUpperCase().includes(_this5.bempleado.toUpperCase()) || activo.c0763_descripcion.toUpperCase().includes(_this5.bempleado.toUpperCase());
+          return activo.c0541_id.toUpperCase().includes(_this7.bempleado.toUpperCase()) || nombre_completo.toUpperCase().includes(_this7.bempleado.toUpperCase()) || activo.c0763_descripcion.toUpperCase().includes(_this7.bempleado.toUpperCase());
         } else {
           var _nombre_completo = activo.c0541_nombres + " " + activo.c0541_apellido1 + " " + activo.c0541_apellido2;
 
-          return activo.f285_id.includes(_this5.selectCO) && _nombre_completo.toUpperCase().includes(_this5.bempleado.toUpperCase()) || activo.f285_id.includes(_this5.selectCO) && activo.c0541_id.toUpperCase().includes(_this5.bempleado.toUpperCase()) || activo.f285_id.includes(_this5.selectCO) && activo.c0763_descripcion.toUpperCase().includes(_this5.bempleado.toUpperCase());
+          return activo.f285_id.includes(_this7.selectCO) && _nombre_completo.toUpperCase().includes(_this7.bempleado.toUpperCase()) || activo.f285_id.includes(_this7.selectCO) && activo.c0541_id.toUpperCase().includes(_this7.bempleado.toUpperCase()) || activo.f285_id.includes(_this7.selectCO) && activo.c0763_descripcion.toUpperCase().includes(_this7.bempleado.toUpperCase());
         }
       });
     }
@@ -4160,6 +4205,12 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale("es");
 
       axios.get("/api/barrios/".concat(event.target.value)).then(function (res) {
         _this5.barrios = res.data;
+
+        if (_this5.barrios.length == 0) {
+          _this5.informacion.f015_id_barrio = "";
+          swal("No se encontraron barrios", "Comuníquese con los proveedores de LINCAP para agregar mas barrios", "warning");
+        }
+
         _this5.informacion.f015_id_ciudad = event.target.value;
       });
     },
@@ -4238,6 +4289,10 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale("es");
         swal("Alerta", "El email es obligatorio", "warning");
       } else if (this.informacion.f015_telefono == "") {
         swal("Alerta", "El numero de telefono es obligatorio", "warning");
+      } else if (this.informacion.f015_id_barrio == "") {
+        swal("Alerta", "El barrio es obligatorio", "warning");
+      } else if (this.informacion.f015_id_ciudad == "") {
+        swal("Alerta", "La ciudad es obligatoria", "warning");
       } else if (this.informacion.f015_celular == "") {
         swal("Alerta", "El numero de celular es obligatorio", "warning");
       } else if (this.informacion.f015_direccion1 == "") {
@@ -4441,8 +4496,9 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale("es");
       var _this = this;
 
       axios.get("/api/gp/".concat(this.$route.params.categoria)).then(function (res) {
-        console.log(res.data);
         _this.pruebas = res.data;
+        console.log('gp');
+        console.log(res.data);
       });
     },
     crear: function crear() {
@@ -4772,21 +4828,8 @@ __webpack_require__.r(__webpack_exports__);
         this.guardarPregunta();
       }
     },
-    guardarPA: function guardarPA(id) {
-      var _this2 = this;
-
-      axios.post("/api/respuestaA/guardar", {
-        id: id
-      }).then(function (res) {
-        console.log(res.data);
-        _js_bus__WEBPACK_IMPORTED_MODULE_0__["default"].$emit("cargar", "o");
-        swal("Mensaje", "Pregunta creada exitosamente", "success");
-
-        _this2.limpiar();
-      });
-    },
     guardarPregunta: function guardarPregunta() {
-      var _this3 = this;
+      var _this2 = this;
 
       var params = {
         cz5_categoria: this.tipo_respuesta,
@@ -4794,15 +4837,18 @@ __webpack_require__.r(__webpack_exports__);
         cz5_gp_id: this.$route.params.id
       };
       axios.post("/api/pregunta/guardar", params).then(function (res) {
-        if (_this3.tipo_respuesta == "ra") {
-          _this3.guardarPA(res.data.cz5_id);
+        if (_this2.tipo_respuesta == "smur" || _this2.tipo_respuesta == "smmr") {
+          _this2.guardarPS(res.data.cz5_id);
         } else {
-          _this3.guardarPS(res.data.cz5_id);
+          _js_bus__WEBPACK_IMPORTED_MODULE_0__["default"].$emit("cargar", "o");
+          swal("Mensaje", "Pregunta creada exitosamente", "success");
+
+          _this2.limpiar();
         }
       });
     },
     guardarPS: function guardarPS(id) {
-      var _this4 = this;
+      var _this3 = this;
 
       axios.post("/api/respuestaS/guardar", {
         id: id,
@@ -4810,10 +4856,10 @@ __webpack_require__.r(__webpack_exports__);
         categoria: this.tipo_respuesta
       }).then(function (res) {
         console.log(res.data);
-        _js_bus__WEBPACK_IMPORTED_MODULE_0__["default"].$emit("cargar", _this4.tipo_respuesta);
+        _js_bus__WEBPACK_IMPORTED_MODULE_0__["default"].$emit("cargar", _this3.tipo_respuesta);
         swal("Mensaje", "Pregunta creada exitosamente", "success");
 
-        _this4.limpiar();
+        _this3.limpiar();
       });
     },
     hideRespuestas: function hideRespuestas() {
@@ -65799,7 +65845,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", [
     _c("nav", { staticClass: "navbar navbar-light bg-light my-2" }, [
-      _c("div", { staticClass: "col-md-2 col-center has-feedback" }, [
+      _c("div", { staticClass: "col-md-4 col-center has-feedback" }, [
         _c(
           "button",
           {
@@ -65812,6 +65858,20 @@ var render = function() {
             }
           },
           [_vm._v("Todos")]
+        ),
+        _vm._v(" "),
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-danger",
+            attrs: { type: "button" },
+            on: {
+              click: function($event) {
+                return _vm.quitarTodos(_vm.mbuscar)
+              }
+            }
+          },
+          [_vm._v("Quitar")]
         )
       ]),
       _vm._v(" "),
@@ -65865,7 +65925,7 @@ var render = function() {
         )
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "col-md-6 col-center has-feedback" }, [
+      _c("div", { staticClass: "col-md-4 col-center has-feedback" }, [
         _c("input", {
           directives: [
             {
@@ -89477,14 +89537,15 @@ __webpack_require__.r(__webpack_exports__);
 /*!********************************************!*\
   !*** ./resources/views/empleados/Show.vue ***!
   \********************************************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Show_vue_vue_type_template_id_443d08bd___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Show.vue?vue&type=template&id=443d08bd& */ "./resources/views/empleados/Show.vue?vue&type=template&id=443d08bd&");
 /* harmony import */ var _Show_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Show.vue?vue&type=script&lang=js& */ "./resources/views/empleados/Show.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _Show_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _Show_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -89514,7 +89575,7 @@ component.options.__file = "resources/views/empleados/Show.vue"
 /*!*********************************************************************!*\
   !*** ./resources/views/empleados/Show.vue?vue&type=script&lang=js& ***!
   \*********************************************************************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
