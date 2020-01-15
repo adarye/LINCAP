@@ -28,7 +28,7 @@ class GPController extends Controller
 
     public function index($categoria){
         
-      return z3_gestion_pruebas::all()->where('cz3_id_creador',  Auth()->user()->cz1_id_empleado)->where('cz3_categoria', $categoria);
+      return z3_gestion_pruebas::select('cz3_nombre','cz3_categoria', 'cz3_descripcion','cz3_id_creador','cz3_fecha_apertura', 'cz3_fecha_cierre')->where('cz3_id_creador',  Auth()->user()->cz1_id_empleado)->where('cz3_categoria', $categoria)->get();
     }
     public function update(Request $request){
        
