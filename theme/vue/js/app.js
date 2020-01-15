@@ -2595,10 +2595,170 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale('es');
 /*!******************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/prueba_preguntas/BodyRespuestas.vue?vue&type=script&lang=js& ***!
   \******************************************************************************************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nSyntaxError: C:\\xampp\\htdocs\\lincap\\core\\resources\\js\\components\\prueba_preguntas\\BodyRespuestas.vue: Unexpected token (99:0)\n\n\u001b[0m \u001b[90m  97 | \u001b[39m            }\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m  98 | \u001b[39m        }\u001b[33m,\u001b[39m\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m  99 | \u001b[39m\u001b[33m<<\u001b[39m\u001b[33m<<\u001b[39m\u001b[33m<<\u001b[39m\u001b[33m<\u001b[39m \u001b[33mHEAD\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m     | \u001b[39m\u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 100 | \u001b[39m        methods\u001b[33m:\u001b[39m {      \u001b[0m\n\u001b[0m \u001b[90m 101 | \u001b[39m            cargar() {  \u001b[0m\n\u001b[0m \u001b[90m 102 | \u001b[39m                \u001b[36mfor\u001b[39m (\u001b[36mvar\u001b[39m i \u001b[36min\u001b[39m \u001b[36mthis\u001b[39m\u001b[33m.\u001b[39mpreguntas) {                   \u001b[0m\n    at Parser.raise (C:\\xampp\\htdocs\\lincap\\core\\node_modules\\@babel\\parser\\lib\\index.js:6930:17)\n    at Parser.unexpected (C:\\xampp\\htdocs\\lincap\\core\\node_modules\\@babel\\parser\\lib\\index.js:8323:16)\n    at Parser.parseIdentifierName (C:\\xampp\\htdocs\\lincap\\core\\node_modules\\@babel\\parser\\lib\\index.js:10282:18)\n    at Parser.parseIdentifier (C:\\xampp\\htdocs\\lincap\\core\\node_modules\\@babel\\parser\\lib\\index.js:10260:23)\n    at Parser.parseMaybePrivateName (C:\\xampp\\htdocs\\lincap\\core\\node_modules\\@babel\\parser\\lib\\index.js:9604:19)\n    at Parser.parsePropertyName (C:\\xampp\\htdocs\\lincap\\core\\node_modules\\@babel\\parser\\lib\\index.js:10072:98)\n    at Parser.parseObjectMember (C:\\xampp\\htdocs\\lincap\\core\\node_modules\\@babel\\parser\\lib\\index.js:9973:10)\n    at Parser.parseObj (C:\\xampp\\htdocs\\lincap\\core\\node_modules\\@babel\\parser\\lib\\index.js:9903:25)\n    at Parser.parseExprAtom (C:\\xampp\\htdocs\\lincap\\core\\node_modules\\@babel\\parser\\lib\\index.js:9525:28)\n    at Parser.parseExprSubscripts (C:\\xampp\\htdocs\\lincap\\core\\node_modules\\@babel\\parser\\lib\\index.js:9165:23)\n    at Parser.parseMaybeUnary (C:\\xampp\\htdocs\\lincap\\core\\node_modules\\@babel\\parser\\lib\\index.js:9145:21)\n    at Parser.parseExprOps (C:\\xampp\\htdocs\\lincap\\core\\node_modules\\@babel\\parser\\lib\\index.js:9011:23)\n    at Parser.parseMaybeConditional (C:\\xampp\\htdocs\\lincap\\core\\node_modules\\@babel\\parser\\lib\\index.js:8984:23)\n    at Parser.parseMaybeAssign (C:\\xampp\\htdocs\\lincap\\core\\node_modules\\@babel\\parser\\lib\\index.js:8930:21)\n    at Parser.parseExportDefaultExpression (C:\\xampp\\htdocs\\lincap\\core\\node_modules\\@babel\\parser\\lib\\index.js:11790:24)\n    at Parser.parseExport (C:\\xampp\\htdocs\\lincap\\core\\node_modules\\@babel\\parser\\lib\\index.js:11692:31)\n    at Parser.parseStatementContent (C:\\xampp\\htdocs\\lincap\\core\\node_modules\\@babel\\parser\\lib\\index.js:10715:27)\n    at Parser.parseStatement (C:\\xampp\\htdocs\\lincap\\core\\node_modules\\@babel\\parser\\lib\\index.js:10611:17)\n    at Parser.parseBlockOrModuleBlockBody (C:\\xampp\\htdocs\\lincap\\core\\node_modules\\@babel\\parser\\lib\\index.js:11187:25)\n    at Parser.parseBlockBody (C:\\xampp\\htdocs\\lincap\\core\\node_modules\\@babel\\parser\\lib\\index.js:11174:10)\n    at Parser.parseTopLevel (C:\\xampp\\htdocs\\lincap\\core\\node_modules\\@babel\\parser\\lib\\index.js:10542:10)\n    at Parser.parse (C:\\xampp\\htdocs\\lincap\\core\\node_modules\\@babel\\parser\\lib\\index.js:12051:10)\n    at parse (C:\\xampp\\htdocs\\lincap\\core\\node_modules\\@babel\\parser\\lib\\index.js:12102:38)\n    at parser (C:\\xampp\\htdocs\\lincap\\core\\node_modules\\@babel\\core\\lib\\transformation\\normalize-file.js:168:34)\n    at normalizeFile (C:\\xampp\\htdocs\\lincap\\core\\node_modules\\@babel\\core\\lib\\transformation\\normalize-file.js:102:11)\n    at runSync (C:\\xampp\\htdocs\\lincap\\core\\node_modules\\@babel\\core\\lib\\transformation\\index.js:44:43)\n    at runAsync (C:\\xampp\\htdocs\\lincap\\core\\node_modules\\@babel\\core\\lib\\transformation\\index.js:35:14)\n    at process.nextTick (C:\\xampp\\htdocs\\lincap\\core\\node_modules\\@babel\\core\\lib\\transform.js:34:34)\n    at _combinedTickCallback (internal/process/next_tick.js:131:7)\n    at process._tickCallback (internal/process/next_tick.js:180:9)");
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _bus__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../bus */ "./resources/js/bus.js");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ["id"],
+  data: function data() {
+    return {
+      resSMUR: [],
+      resRA: [],
+      resSMMR: [],
+      contador: 1,
+      params: null
+    };
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    this.cargar();
+    _bus__WEBPACK_IMPORTED_MODULE_0__["default"].$on('cargar', function (item) {
+      _this.cargar();
+    });
+  },
+  methods: {
+    traerRa: function traerRa() {
+      var _this2 = this;
+
+      console.log(this.id);
+      axios.get("/api/respuestaA/buscar/".concat(this.id)).then(function (res) {
+        _this2.resRA = res.data;
+        console.log(_this2.resRA);
+      });
+    },
+    traerSMMR: function traerSMMR() {
+      var _this3 = this;
+
+      console.log(this.id);
+      axios.get("/api/respuestaM/buscar/".concat(this.id)).then(function (res) {
+        _this3.resSMMR = res.data;
+        console.log(_this3.resSMMR);
+      });
+    },
+    traerPregunta_SMUR: function traerPregunta_SMUR() {
+      var _this4 = this;
+
+      axios.get("/api/pregunta/index/".concat(this.id)).then(function (res) {
+        _this4.resSMUR = res.data;
+        console.log(_this4.resSMUR);
+      });
+    },
+    contar: function contar() {
+      this.contador = this.contador + 1;
+    },
+    editar: function editar(dato) {
+      this.$modal.show('editar');
+      this.params = dato;
+      console.log(dato);
+    },
+    eliminar: function eliminar(id) {
+      var _this5 = this;
+
+      swal({
+        title: "Advertencia",
+        text: "¿Esta seguro de eliminar esta pregunta?",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true
+      }).then(function (willDelete) {
+        if (willDelete) {
+          axios["delete"]("/api/pregunta/delete/".concat(id)).then(function (res) {
+            console.log(res.data);
+
+            _this5.cargar();
+
+            swal("Eliminado", {
+              icon: "success"
+            });
+          });
+        }
+      });
+    },
+    cargar: function cargar() {
+      this.traerSMMR();
+      this.traerRa();
+      this.traerPregunta_SMUR();
+    },
+    hide: function hide() {
+      this.$modal.hide('editar');
+    }
+  },
+  computed: {}
+});
 
 /***/ }),
 
@@ -65955,8 +66115,237 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function () {}
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _c(
+        "h4",
+        {
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value: _vm.resRA.length,
+              expression: "resRA.length"
+            }
+          ],
+          staticClass: "display-5 titulo mb-3"
+        },
+        [_vm._v("Preguntas con respuesta abierta")]
+      ),
+      _vm._v(" "),
+      _vm._l(_vm.resRA, function(dato, i) {
+        return _c("article", { key: "A-" + i }, [
+          _c("div", { staticClass: "row mt-2" }, [
+            _c("div", { staticClass: "col-md-6" }, [
+              _c("p", { staticClass: "lead" }, [
+                _vm._v(_vm._s(dato.cz5_pregunta))
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-md-2" }, [
+              _c("button", {
+                staticClass: "fa fa-pencil float-right btn-sm btn-primary",
+                on: {
+                  click: function($event) {
+                    return _vm.editar(dato)
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c("button", {
+                staticClass: "fa fa-trash float-right btn-sm btn-danger",
+                on: {
+                  click: function($event) {
+                    return _vm.eliminar(dato.cz5_id)
+                  }
+                }
+              })
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "row mb-3" }, [
+            _c("div", { staticClass: "col-md-9" }, [
+              _c("textarea", {
+                directives: [
+                  { name: "uppercase", rawName: "v-uppercase" },
+                  {
+                    name: "max-length",
+                    rawName: "v-max-length",
+                    value: 200,
+                    expression: "200"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: { rows: "4", cols: "50", type: "text" }
+              })
+            ])
+          ])
+        ])
+      }),
+      _vm._v(" "),
+      _c(
+        "h4",
+        {
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value: _vm.resSMUR.length,
+              expression: " resSMUR.length"
+            }
+          ],
+          staticClass: "display-5 titulo my-3"
+        },
+        [_vm._v("Preguntas de selección multiple con única respuestas")]
+      ),
+      _vm._v(" "),
+      _vm._l(_vm.resSMUR, function(item, indice) {
+        return _c("article", { key: indice, staticClass: "my-3" }, [
+          _c("div", { staticClass: "row mt-2" }, [
+            _c("div", { staticClass: "col-md-6" }, [
+              _c("p", { staticClass: "lead" }, [
+                _vm._v(_vm._s(item.cz5_pregunta) + "\n                ")
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-md-2" }, [
+              _c("button", {
+                staticClass: "fa fa-pencil float-right btn-sm btn-primary",
+                on: {
+                  click: function($event) {
+                    return _vm.editar(item)
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c("button", {
+                staticClass: "fa fa-trash float-right btn-sm btn-danger",
+                on: {
+                  click: function($event) {
+                    return _vm.eliminar(item.cz5_id)
+                  }
+                }
+              })
+            ]),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "col-md-12" },
+              _vm._l(item.respuestas, function(item2, i) {
+                return _c("article", { key: i }, [
+                  _c("input", {
+                    staticClass: "flat",
+                    attrs: { type: "radio", name: item.cz5_id },
+                    domProps: { value: item2.cz7_id }
+                  }),
+                  _vm._v(" " + _vm._s(item2.cz7_rta) + "\n                ")
+                ])
+              }),
+              0
+            )
+          ])
+        ])
+      }),
+      _vm._v(" "),
+      _c(
+        "h4",
+        {
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value: _vm.resSMMR.length,
+              expression: "resSMMR.length"
+            }
+          ],
+          staticClass: "display-5 titulo my-3"
+        },
+        [_vm._v("Preguntas de selección multiple con multiple respuestas")]
+      ),
+      _vm._v(" "),
+      _vm._l(_vm.resSMMR, function(item3, i) {
+        return _c("article", { key: "o-" + i }, [
+          _c("div", { staticClass: "row mt-2" }, [
+            _c("div", { staticClass: "col-md-6" }, [
+              _c("p", { staticClass: "lead" }, [
+                _vm._v(_vm._s(item3.cz5_pregunta))
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-md-2" }, [
+              _c("button", {
+                staticClass: "fa fa-pencil float-right btn-sm btn-primary",
+                on: {
+                  click: function($event) {
+                    return _vm.editar(item3)
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c("button", {
+                staticClass: "fa fa-trash float-right btn-sm btn-danger",
+                on: {
+                  click: function($event) {
+                    return _vm.eliminar(item3.cz5_id)
+                  }
+                }
+              })
+            ])
+          ]),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "col-md-12" },
+            _vm._l(item3.smmr, function(item4, i) {
+              return _c("article", { key: "s-" + i }, [
+                _c("input", {
+                  staticClass: "flat",
+                  attrs: { type: "checkbox" },
+                  domProps: { value: item4.cz8_id }
+                }),
+                _vm._v(_vm._s(item4.cz8_rta) + "\n            ")
+              ])
+            }),
+            0
+          )
+        ])
+      }),
+      _vm._v(" "),
+      _c(
+        "modal",
+        {
+          attrs: {
+            name: "editar",
+            clickToClose: false,
+            adaptive: true,
+            width: 450,
+            height: 450
+          }
+        },
+        [
+          _c(
+            "Editar",
+            _vm._b(
+              { on: { hide: _vm.hide } },
+              "Editar",
+              { params: _vm.params },
+              false
+            )
+          )
+        ],
+        1
+      )
+    ],
+    2
+  )
+}
 var staticRenderFns = []
+render._withStripped = true
 
 
 
@@ -88139,15 +88528,14 @@ __webpack_require__.r(__webpack_exports__);
 /*!*********************************************************************!*\
   !*** ./resources/js/components/prueba_preguntas/BodyRespuestas.vue ***!
   \*********************************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _BodyRespuestas_vue_vue_type_template_id_99276a64___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./BodyRespuestas.vue?vue&type=template&id=99276a64& */ "./resources/js/components/prueba_preguntas/BodyRespuestas.vue?vue&type=template&id=99276a64&");
 /* harmony import */ var _BodyRespuestas_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./BodyRespuestas.vue?vue&type=script&lang=js& */ "./resources/js/components/prueba_preguntas/BodyRespuestas.vue?vue&type=script&lang=js&");
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _BodyRespuestas_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _BodyRespuestas_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -88177,15 +88565,13 @@ component.options.__file = "resources/js/components/prueba_preguntas/BodyRespues
 /*!**********************************************************************************************!*\
   !*** ./resources/js/components/prueba_preguntas/BodyRespuestas.vue?vue&type=script&lang=js& ***!
   \**********************************************************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_BodyRespuestas_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./BodyRespuestas.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/prueba_preguntas/BodyRespuestas.vue?vue&type=script&lang=js&");
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_BodyRespuestas_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_BodyRespuestas_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_BodyRespuestas_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_BodyRespuestas_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
- /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_BodyRespuestas_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0___default.a); 
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_BodyRespuestas_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 

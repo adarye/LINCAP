@@ -1,16 +1,7 @@
 <template>
     <div>
-<<<<<<< HEAD
-<<<<<<< HEAD
-       
-        <article v-for="(item, indice) in preguntas" :key="indice">
-=======
-        <p v-show="resRA.length">Preguntas con respuesta abierta.</p>
-=======
         <h4 class="display-5 titulo mb-3" v-show="resRA.length">Preguntas con respuesta abierta</h4>
->>>>>>> 2c7a0c840481d9db16e42bd82dde118487134813
         <article v-for="(dato, i) in resRA" :key="`A-${i}`">
->>>>>>> 53d491668783f12a86a0fb3f26782ccaba67d472
             <div class="row mt-2">
                 <div class="col-md-6">
                     <p class="lead">{{dato.cz5_pregunta }}</p>
@@ -57,23 +48,16 @@
                 <div class="col-md-6">
                     <p class="lead">{{  item3.cz5_pregunta }}</p>
                 </div>
-<<<<<<< HEAD
-<<<<<<< HEAD
-            </div>   
-=======
-=======
                 <div class="col-md-2">
                     <button @click="editar(item3)" class="fa fa-pencil float-right btn-sm btn-primary" />
                     <button @click="eliminar(item3.cz5_id)" class="fa fa-trash float-right btn-sm btn-danger" />
                 </div>
->>>>>>> 2c7a0c840481d9db16e42bd82dde118487134813
             </div>
             <div class="col-md-12">
                 <article v-for="(item4, i) in item3.smmr" :key="`s-${i}`">
                     <input class="flat" type="checkbox" :value="item4.cz8_id">{{ item4.cz8_rta }}
                 </article>
             </div>
->>>>>>> 53d491668783f12a86a0fb3f26782ccaba67d472
         </article>
 
 
@@ -96,17 +80,6 @@
                 params: null
             };
         },
-<<<<<<< HEAD
-        methods: {      
-            cargar() {  
-                for (var i in this.preguntas) {                   
-                  axios.get(`/api/respuestaS/buscar/${this.preguntas[i].cz5_id}`).then(res => {
-                     console.log(res.data);
-                    this.respuestas.push(res.data)
-                 });              
-                }                  
-            },
-=======
         mounted() {
             this.cargar();
             EventBus.$on('cargar', (item) => {
@@ -174,18 +147,10 @@
                 this.traerRa();
                 this.traerPregunta_SMUR();
             },
-<<<<<<< HEAD
-             hide(){
-                 
-            this.$modal.hide('editar')
-        }
->>>>>>> 53d491668783f12a86a0fb3f26782ccaba67d472
-=======
             hide() {
 
                 this.$modal.hide('editar')
             }
->>>>>>> 2c7a0c840481d9db16e42bd82dde118487134813
         },
         computed: {}
     };
