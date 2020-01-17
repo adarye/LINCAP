@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 
 class PreguntasController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function guardar(Request $request)
     {
         $pregunta = new z5_prueba_preguntas();
@@ -44,7 +48,7 @@ class PreguntasController extends Controller
     public function traerRA($id)
     {
         return z5_prueba_preguntas::select( 'cz5_pregunta', 'cz5_categoria', 'cz5_id')->
-           where('cz5_gp_id', $id)->get();
+           where('cz5_gp_id', $id)->where('cz5_categoria', 'ra')->get();
     }
     public function traerSMMR($id)
     {
