@@ -75,6 +75,11 @@
                                 @click="$emit('preguntas',item.cz3_id)">
                                 <li class="fa fa-gear"></li>
                             </button>
+                             <button type="button" class="btn btn-success btn-sm" title="Estadisticas"
+                                @click="$emit('estadisticas',item.cz3_id)">
+                               
+                                <li class="fa fa-bar-chart"></li>
+                            </button>
                             <button type="button" class="btn btn-danger btn-sm" title="Eliminar"
                                 @click="$emit('eliminar',item.cz3_id, indice)">
                                 <li class="fa fa-trash-o"></li>
@@ -115,7 +120,8 @@ import moment from "moment";
                 pagina: 1,
                 bprueba: '',
                 select: 'Todas',
-                moment: moment
+                moment: moment,
+                id: null
             }
 
         },
@@ -128,8 +134,17 @@ import moment from "moment";
                     this.numero = this.selectPag
                 }
             }
+                
+        //     },
+        //      asignados(){
+        //       axios.get(`/api/asignacion/contar/${this.id}`)
+        //       .then(res=>{
+                  
+        //       })
+        //   }
         },
         computed: {
+         
             mbuscar: function () {
                 return this.pruebas.filter((prueba) => {
                   if (this.select == null || this.select == 'Todas') {

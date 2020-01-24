@@ -125,7 +125,9 @@ export default {
     },    
     computed: {
         mbuscar: function(){
-            return this.activos.filter((activo) => {         
+            
+            return this.activos.filter((activo) => { 
+                this.pagina = 1        
                 if(this.selectCO == null || this.selectCO == 'co'){
                     const nombre_completo =
                         activo.c0541_nombres +

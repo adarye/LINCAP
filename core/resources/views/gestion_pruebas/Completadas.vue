@@ -13,12 +13,6 @@
         <hr class="my-4">
         <p>{{ item.cz3_descripcion }}</p>
         
-        <p class="lead">
-               <router-link class="btn btn-primary btn-lg" v-bind:to="'/presentar/encuesta/'+ item.cz3_id +'/'+ id" role="button" v-show=" moment().diff(item.cz3_fecha_cierre) < 0 &&  moment().diff(item.cz3_fecha_apertura) > 0 && item.cz4_estado == 0">Presentar</router-link>
-                <router-link class="btn btn-success btn-lg" v-bind:to="'/presentar/encuesta/'+ item.cz3_id +'/'+ id" role="button" v-show=" moment().diff(item.cz3_fecha_cierre) < 0 &&  moment().diff(item.cz3_fecha_apertura) > 0 && item.cz4_estado == 1">Continuar</router-link>
-               
-        </p>
-        
     </div>
     
 </div>
@@ -33,15 +27,12 @@ import moment from "moment";
             return {
                 pruebas: [],
                 fecha_actual: '',
-                moment: moment,
-                id: null
+                moment: moment
             }
         },
 
-        beforeMount() {
-           this.id = user.id
-            console.log(this.id)        
-            axios.get(`/api/pruebas/pendientes/${this.$route.params.categoria}`)
+        mounted() {           
+            axios.get(`/api/pruebas/completadas/${this.$route.params.categoria}`)
                 .then(res => {
                     this.pruebas = res.data   
                     console.log(this.pruebas)            

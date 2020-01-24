@@ -153,7 +153,9 @@
         },
         computed: {
             mbuscar: function () {
+            
                 return this.retirados.filter(retirado => {
+                    this.pagina = 1
                     if (this.selectCO == null || this.selectCO == 'co') {
                         const nombre_completo =
                             retirado.c0541_nombres +

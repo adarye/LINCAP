@@ -44,7 +44,7 @@
                     @endcannot
 
                 <li> <router-link v-bind:to="'/pruebas/pendientes/' + 1">Pendientes</router-link></li>
-                    <li><a href="#">Completadas</a></li>
+                    <li><router-link v-bind:to="'/pruebas/completadas/' + 1">Completadas</router-link></li>
                 </ul>
             </li>
             {{-- @cannot('isDefault') --}}

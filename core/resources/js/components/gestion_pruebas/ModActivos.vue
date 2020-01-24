@@ -2,24 +2,31 @@
     <div>
 
         <nav class="navbar navbar-light bg-light my-2">
-            <div class="col-md-4 col-center has-feedback">
+            <div class="col-md-2 col-center has-feedback">
                 <button type="button" class="btn btn-primary" @click="guardarTodos(mbuscar)">Todos</button>
                 <button type="button" class="btn btn-danger" @click="quitarTodos(mbuscar)">Quitar</button>
             </div>
-            <div class="col-md-4 col-center col-sm-2  has-feedback">
+            <div class="col-md-3 col-center col-sm-2  has-feedback">
+                <select v-model="selectEM" class="form-control">
+                    <option value="MOSTRAR TODOS">MOSTRAR TODOS</option>
+                    <option value="SELECCIONADOS">SELECCIONADOS</option>
+                    <option value="NO SELECCIONADOS">NO SELECCIONADOS</option>
+                </select>
+            </div>
+            <div class="col-md-3 col-center col-sm-2  has-feedback">
                 <select v-model="selectCO" class="form-control">
                     <option value="co">CENTRO DE OPERACIÓN</option>
                     <option v-for="(item, indice) in CO" :key="indice" v-bind:value="item.f285_id">
                         {{ item.f285_descripcion }}</option>
                 </select>
             </div>
-            <div class="col-md-4 col-center has-feedback">
+            <div class="col-md-3 col-center has-feedback">
                 <input type="text" v-model="bempleado" class="form-control" v-autofocus placeholder="Buscar" />
             </div>
             <span v-if="mostrar == 1"><input class="select mt-2" v-model="numero" /></span>
         </nav>
 
-        <div class="table-responsive-md table-responsive-sm table-wrapper-scroll-y my-custom-scrollbar">
+        <div class="table-responsive-md table-responsive-sm">
             <table class="table table-striped">
                 <thead>
                     <tr>
@@ -49,13 +56,17 @@
 
                             <span
                                 v-if="seleccionados.filter(c0550_rowid_tercero => c0550_rowid_tercero == item.c0550_rowid_tercero ) != ''">
-                                <li class="fa fa-check-square-o" @click="excluir(item.c0550_rowid_tercero)">
-                                </li>
+                                <button class=" btn btn-primary fa fa-check-square-o"
+                                    @click="excluir(item.c0550_rowid_tercero)">
+                                </button>
+                                <button class="btn btn-success fa fa-search-plus"
+                                    @click="buscarEncuesta(item.c0550_rowid_tercero)"></button>
 
                             </span>
                             <span v-else>
-                                <li class="fa fa-square-o" @click="incluir(item.c0550_rowid_tercero)">
-                                </li>
+                                <button class="btn btn-outline-primary fa fa-square-o"
+                                    @click="incluir(item.c0550_rowid_tercero)">
+                                </button>
                             </span>
                         </td>
                     </tr>
@@ -64,26 +75,33 @@
         </div>
         <div class="row">
             <div class="col-md-4 col-float"></div>
-             <div v-show="bempleado == ''" class="col-md-4 col-center"> 
-            <button type="button" @click.prevent="pagina=pagina-1" v-show="pagina!=1" class="btn btn-primary">
-                <li class="fa fa-long-arrow-left"></li>
-            </button>
-            <button type="button" @click.prevent="pagina=pagina+1" v-show="(pagina*numero)/(mbuscar.length) < 1"
-                class="btn btn-success">
-                <li class="fa fa-long-arrow-right"></li>
-            </button>
-             </div> 
+            <div v-show="bempleado == ''" class="col-md-4 col-center">
+                <button type="button" @click.prevent="pagina=pagina-1" v-show="pagina!=1" class="btn btn-primary">
+                    <li class="fa fa-long-arrow-left"></li>
+                </button>
+                <button type="button" @click.prevent="pagina=pagina+1" v-show="(pagina*numero)/(mbuscar.length) < 1"
+                    class="btn btn-success">
+                    <li class="fa fa-long-arrow-right"></li>
+                </button>
+            </div>
+            <div class="col-md-4">
+                 <div class="pull-right mt-2">Página {{ pagina }} / {{ Math.ceil(mbuscar.length / numero) }} de
+                {{ mbuscar.length }} Registros</div>
+        </div>
+           
 
             <!-- <div class="pull-right mt-2">Página {{ pagina }} / {{ Math.ceil(mbuscar.length / numero) }} de
                 {{ mbuscar.length }} Registros</div> -->
         </div>
     </div>
+    
 </template>
 <script>
     import moment from 'moment';
     moment.locale('es');
+    import router from '../../router'
     export default {
-        props: ['id_prueba'],
+
 
         data() {
             return {
@@ -91,16 +109,19 @@
                 seleccionados: [],
                 CO: [],
                 activos: [],
-                selectPag: 4,
+                selectPag: 15,
                 selectCO: 'co',
-                numero: 4,
+                numero: 15,
                 mostrar: 0,
                 bempleado: '',
                 pagina: 1,
-                moment: moment
+                moment: moment,
+                id_prueba: null,
+                selectEM: 'MOSTRAR TODOS'
             };
         },
         beforeMount() {
+            this.id_prueba = this.$route.params.id
             this.getCO();
             this.traerRelacion()
             this.traerActivos();
@@ -125,12 +146,13 @@
                     for (var i = 0; i < res.data.length; i++) {
                         this.seleccionados.push(res.data[i].cz4_ts_id)
                     }
+                    console.log(this.seleccionados)
 
                 });
             },
-            quitarRelacion(){
+            quitarRelacion() {
                 this.seleccionados = []
-                 axios.get(`/api/asignacion/index/${this.id_prueba}`).then(res => {
+                axios.get(`/api/asignacion/index/${this.id_prueba}`).then(res => {
                     for (var i = 0; i < res.data.length; i++) {
                         this.seleccionados.push(res.data[i].cz4_ts_id)
                     }
@@ -169,24 +191,23 @@
                 }
             },
             guardarTodos(filtrados) {
-                 var empleados = null
-                if(filtrados.length == 0){
-                      empleados = this.activos
-                }
-                else{
-                     empleados = filtrados
+                var empleados = null
+                if (filtrados.length == 0) {
+                    empleados = this.activos
+                } else {
+                    empleados = filtrados
                 }
                 console.log(empleados)
-               
-               const wrapper = document.createElement('div');
-            wrapper.innerHTML =
-             "<div class='spinner-border text-primary row' role='status'> <span class='sr-only'>Loading...</span> </div>  <div class=''>Esto puede tomar varios minutos</div> ";
-                swal( {
-               buttons: false,
-               html: true,
-               content: wrapper,
-               closeOnClickOutside: false
-                    });
+
+                const wrapper = document.createElement('div');
+                wrapper.innerHTML =
+                    "<div class='spinner-border text-primary row' role='status'> <span class='sr-only'>Loading...</span> </div>  <div class=''>Esto puede tomar varios minutos</div> ";
+                swal({
+                    buttons: false,
+                    html: true,
+                    content: wrapper,
+                    closeOnClickOutside: false
+                });
                 axios.post("/api/asignacion/guardarTodos", {
                     id_prueba: this.id_prueba,
                     activos: empleados,
@@ -197,30 +218,29 @@
                     swal('Se han seleccionado todos', '', 'success')
 
 
-                }).catch(res=>{
-                     swal('Ha sucedido un error inesperado', '', 'error')
+                }).catch(res => {
+                    swal('Ha sucedido un error inesperado', '', 'error')
                 })
             },
 
             quitarTodos(filtrados) {
-                 var empleados = null
-                if(filtrados.length == 0){
-                      empleados = this.activos
-                }
-                else{
-                     empleados = filtrados
+                var empleados = null
+                if (filtrados.length == 0) {
+                    empleados = this.activos
+                } else {
+                    empleados = filtrados
                 }
                 console.log(empleados)
-               
-               const wrapper = document.createElement('div');
-            wrapper.innerHTML =
-             "<div class='spinner-border text-primary row' role='status'> <span class='sr-only'>Loading...</span> </div> <div >Esto puede tomar varios minutos</div> ";
-                swal( {
-               buttons: false,
-               html: true,
-               content: wrapper,
-               closeOnClickOutside: false
-                    });
+
+                const wrapper = document.createElement('div');
+                wrapper.innerHTML =
+                    "<div class='spinner-border text-primary row' role='status'> <span class='sr-only'>Loading...</span> </div> <div >Esto puede tomar varios minutos</div> ";
+                swal({
+                    buttons: false,
+                    html: true,
+                    content: wrapper,
+                    closeOnClickOutside: false
+                });
                 axios.post("/api/asignacion/quitarTodos", {
                     id_prueba: this.id_prueba,
                     activos: empleados,
@@ -231,25 +251,36 @@
                     swal('Se han quitado las asignaciones', '', 'success')
 
 
-                }).catch(res=>{
-                     swal('Ha sucedido un error inesperado', '', 'error')
+                }).catch(res => {
+                    swal('Ha sucedido un error inesperado', '', 'error')
                 })
+            },
+            buscarEncuesta(id) {
+                router.push('/presentar/encuesta/' + this.id_prueba + '/' + id)
             }
 
         },
         computed: {
 
             mbuscar: function () {
+
+                // return this.activos.filter((activo) => activo.c0550_rowid_tercero == this.seleccionados ) 
+
                 return this.activos.filter((activo) => {
-                    if (this.selectCO == null || this.selectCO == 'co') {
+                    this.pagina = 1
+                    if (this.selectCO == null || this.selectCO == 'co' && this.selectEM ==
+                        'MOSTRAR TODOS') {
                         const nombre_completo = activo.c0541_nombres + ' ' + activo.c0541_apellido1 + ' ' +
                             activo.c0541_apellido2
+
 
                         return activo.c0541_id.toUpperCase().includes(this.bempleado.toUpperCase()) ||
                             nombre_completo.toUpperCase().includes(this.bempleado.toUpperCase()) ||
                             activo.c0763_descripcion.toUpperCase().includes(this.bempleado.toUpperCase())
 
-                    } else {
+
+
+                    } else if (this.selectEM == "MOSTRAR TODOS" && this.selectCO != 'co') {
                         const nombre_completo =
                             activo.c0541_nombres +
                             " " +
@@ -271,9 +302,143 @@
                                 .toUpperCase()
                                 .includes(this.bempleado.toUpperCase()))
                         );
+                    } else if (this.selectCO != 'co' && this.selectEM == 'SELECCIONADOS') {
+                        if(this.bempleado == ""){
+                          return this.seleccionados.filter(c0550_rowid_tercero => c0550_rowid_tercero ==
+                                    activo.c0550_rowid_tercero) != '' &&  activo.f285_id.includes(this.selectCO)
+                        }
+                        const nombre_completo =
+                            activo.c0541_nombres +
+                            " " +
+                            activo.c0541_apellido1 +
+                            " " +
+                            activo.c0541_apellido2;
+                        return (
+                            (this.seleccionados.filter(c0550_rowid_tercero => c0550_rowid_tercero ==
+                                activo.c0550_rowid_tercero) != '' &&
+                                nombre_completo
+                                .toUpperCase()
+                                .includes(this.bempleado.toUpperCase())
+                                &&
+                                activo.f285_id.includes(this.selectCO)
+                               
+                            ) ||
+                            (this.seleccionados.filter(c0550_rowid_tercero => c0550_rowid_tercero ==
+                                activo.c0550_rowid_tercero) != '' &&
+                                activo.c0541_id
+                                .toUpperCase()
+                                .includes(this.bempleado.toUpperCase())
+                                &&
+                                activo.f285_id.includes(this.selectCO)
+                                ) ||
+                            ( this.seleccionados.filter(c0550_rowid_tercero => c0550_rowid_tercero ==
+                                activo.c0550_rowid_tercero) != '' &&
+                                activo.c0763_descripcion
+                                .toUpperCase()
+                                .includes(this.bempleado.toUpperCase())
+                                &&
+                                activo.f285_id.includes(this.selectCO)
+                                )
+                        );
+
+                    } 
+                    else if (this.selectEM == "SELECCIONADOS") {
+                        const nombre_completo =
+                            activo.c0541_nombres +
+                            " " +
+                            activo.c0541_apellido1 +
+                            " " +
+                            activo.c0541_apellido2;
+                        return (this.seleccionados.filter(c0550_rowid_tercero => c0550_rowid_tercero ==
+                                activo.c0550_rowid_tercero) != '' &&
+                                nombre_completo
+                                .toUpperCase()
+                                .includes(this.bempleado.toUpperCase())
+                            ) ||
+                            (this.seleccionados.filter(c0550_rowid_tercero => c0550_rowid_tercero ==
+                                    activo.c0550_rowid_tercero) != '' &&
+                                activo.c0541_id
+                                .toUpperCase()
+                                .includes(this.bempleado.toUpperCase())
+                            ) ||
+                            (this.seleccionados.filter(c0550_rowid_tercero => c0550_rowid_tercero ==
+                                    activo.c0550_rowid_tercero) != '' &&
+                                activo.c0763_descripcion
+                                .toUpperCase()
+                                .includes(this.bempleado.toUpperCase())
+                            )
                     }
+                    else if (this.selectCO != 'co' && this.selectEM == 'NO SELECCIONADOS') {
+                        if(this.bempleado == ""){
+                          return this.seleccionados.filter(c0550_rowid_tercero => c0550_rowid_tercero ==
+                                    activo.c0550_rowid_tercero) == '' &&  activo.f285_id.includes(this.selectCO)
+                        }
+                        const nombre_completo =
+                            activo.c0541_nombres +
+                            " " +
+                            activo.c0541_apellido1 +
+                            " " +
+                            activo.c0541_apellido2;
+                        return (
+                            (this.seleccionados.filter(c0550_rowid_tercero => c0550_rowid_tercero ==
+                                activo.c0550_rowid_tercero) == '' &&
+                                nombre_completo
+                                .toUpperCase()
+                                .includes(this.bempleado.toUpperCase())
+                                &&
+                                activo.f285_id.includes(this.selectCO)
+                               
+                            ) ||
+                            (this.seleccionados.filter(c0550_rowid_tercero => c0550_rowid_tercero ==
+                                activo.c0550_rowid_tercero) == '' &&
+                                activo.c0541_id
+                                .toUpperCase()
+                                .includes(this.bempleado.toUpperCase())
+                                &&
+                                activo.f285_id.includes(this.selectCO)
+                                ) ||
+                            ( this.seleccionados.filter(c0550_rowid_tercero => c0550_rowid_tercero ==
+                                activo.c0550_rowid_tercero) == '' &&
+                                activo.c0763_descripcion
+                                .toUpperCase()
+                                .includes(this.bempleado.toUpperCase())
+                                &&
+                                activo.f285_id.includes(this.selectCO)
+                                )
+                        );
+
+                    } 
+                    else if (this.selectEM == "NO SELECCIONADOS") {
+                        const nombre_completo =
+                            activo.c0541_nombres +
+                            " " +
+                            activo.c0541_apellido1 +
+                            " " +
+                            activo.c0541_apellido2;
+                        return (this.seleccionados.filter(c0550_rowid_tercero => c0550_rowid_tercero ==
+                                activo.c0550_rowid_tercero) == '' &&
+                                nombre_completo
+                                .toUpperCase()
+                                .includes(this.bempleado.toUpperCase())
+                            ) ||
+                            (this.seleccionados.filter(c0550_rowid_tercero => c0550_rowid_tercero ==
+                                    activo.c0550_rowid_tercero) == '' &&
+                                activo.c0541_id
+                                .toUpperCase()
+                                .includes(this.bempleado.toUpperCase())
+                            ) ||
+                            (this.seleccionados.filter(c0550_rowid_tercero => c0550_rowid_tercero ==
+                                    activo.c0550_rowid_tercero) == '' &&
+                                activo.c0763_descripcion
+                                .toUpperCase()
+                                .includes(this.bempleado.toUpperCase())
+                            )
+                    }
+                    
                 })
             }
+
+            
 
         }
     };

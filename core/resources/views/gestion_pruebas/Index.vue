@@ -36,10 +36,10 @@
                                     v-model="datos.cz3_descripcion" placeholder="Descripcion" />
                                 </div>
                             <div class="col-md-12 col-center col-sm-8 form-group has-feedback">
-                               <datePicker  v-model="datos.cz3_fecha_apertura" :config="options"></datePicker>
+                               <datePicker placeholder="Fecha de Apertura"  v-model="datos.cz3_fecha_apertura" :config="options"></datePicker>
                             </div>
                             <div class="col-md-12 col-center col-sm-8 form-group has-feedback">
-                                      <datePicker  v-model="datos.cz3_fecha_cierre" :config="options"></datePicker>        
+                                      <datePicker  placeholder="Fecha de Cierre"  v-model="datos.cz3_fecha_cierre" :config="options"></datePicker>        
                             </div>
                             <div class="col-md-12 col-sm-12 form-group has-feedback">
                                 <button type="submit" class="btn btn-primary">Guardar</button>
@@ -74,7 +74,7 @@
                                     v-model="datos.cz3_descripcion" placeholder="Descripcion" />
                             </div>
                             <div class="col-md-12 col-center col-sm-8 form-group has-feedback">
-                                    <datePicker v-model="datos.cz3_fecha_apertura" :config="options2" :placeholder="datos.cz3_fecha_apertura"></datePicker>
+                                    <datePicker disabled v-model="datos.cz3_fecha_apertura" :config="options2" :placeholder="datos.cz3_fecha_apertura"></datePicker>
                                      
                             </div>
                             <div class="col-md-12 col-center col-sm-8 form-group has-feedback">
@@ -102,7 +102,7 @@
             title="Nuevo">Nuevo</button>
              
       <Pruebas v-bind="{pruebas: pruebas}" v-on:asignar="asignar" v-on:eliminar="eliminar"
-      v-on:editar="editar" v-on:cerrar="cerrar" v-on:preguntas="preguntas">
+      v-on:editar="editar" v-on:cerrar="cerrar" v-on:preguntas="preguntas" v-on:estadisticas="estadisticas">
       </Pruebas>
     </div>
 </template>
@@ -273,10 +273,15 @@ import 'pc-bootstrap4-datetimepicker/build/css/bootstrap-datetimepicker.css';
         },
         asignar(id){
             this.id_prueba = id;
-             this.$modal.show('asignar')
+             router.push('/gestion/pruebas/asignar/' + id);
+            //  this.$modal.show('asignar')
         },
         preguntas(id){
                     router.push('/prueba/pregunta/' + id);
+        },
+        estadisticas(id){
+            console.log('entro')
+             router.push('/gestion/prueba/estadistica/' + id);
         }
         }
     }

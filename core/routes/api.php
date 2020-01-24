@@ -76,6 +76,8 @@ Route::get('gp/buscar/{id}', 'GPController@buscar');
 
 //GESTION PRUEBAS PARA USUARIOS
 Route::get('pruebas/pendientes/{id}', 'GPController@traerPendientes');
+Route::get('pruebas/completadas/{id}', 'GPController@traerCompletadas');
+Route::put('pruebas/finalizar/{id}', 'AsignacionController@finalizarPrueba');
 
 //ASIGNACION PRUEBAS
 Route::post('asignacion/guardar', 'AsignacionController@guardar');
@@ -83,6 +85,7 @@ Route::post('asignacion/guardarTodos', 'AsignacionController@guardarTodos');
 Route::post('asignacion/quitarTodos', 'AsignacionController@quitarTodos');
 Route::post('asignacion/delete', 'AsignacionController@delete');
 Route::get('asignacion/index/{id}', 'AsignacionController@index');
+Route::get('asignacion/contar/{id}','AsignacionController@contar');
 
 //PREGUNTA 
 Route::post('pregunta/guardar', 'PreguntasController@guardar');
@@ -101,5 +104,14 @@ Route::put('respuestaA/update', 'PreguntasController@updateRA');
 Route::post('respuestaS/guardar', 'RsController@guardar');
 Route::put('respuestaS/update', 'RsController@update');
 Route::put('respuestaS/updateSMMR', 'RsController@updateSMMR');
+
+//GUARDAR RESPUESTAS
+Route::post('respuesta/smur/guardar', 'RespuestasController@guardarSMUR');
+Route::post('respuesta/smmr/guardar', 'RespuestasController@guardarSMMR');
+Route::post('respuesta/ra/guardar', 'RespuestasController@guardarRA');
+
+Route::get('respuesta/smur/buscar/{id}/{empleado}', 'RespuestasController@traerRespuestasSMUR');
+Route::get('respuesta/smmr/buscar/{id}/{empleado}', 'RespuestasController@traerRespuestasSMMR');
+Route::get('respuesta/ra/buscar/{id}/{empleado}', 'RespuestasController@traerRespuestasRA');
 
 

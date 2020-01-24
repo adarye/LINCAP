@@ -6,7 +6,7 @@ import router from './router';
 import swal from 'sweetalert';
 //Vue.use(VModal)
 import VModal from 'vue-js-modal';
-Vue.use (VModal , {  dynamic: true ,  dynamicDefaults: {  clickToClose: false, adaptive:true } } ) 
+Vue.use(VModal, { dynamic: true, dynamicDefaults: { clickToClose: false, adaptive: true } })
 
 import VueInputRestrictionDirectives from 'vue-input-restriction-directives';
 Vue.use(VueInputRestrictionDirectives);
@@ -14,7 +14,11 @@ Vue.use(VueInputRestrictionDirectives);
 import vClickOutside from 'v-click-outside'
 Vue.use(vClickOutside)
 
-//datetime picker
+//charts
+
+import VueGoogleCharts from 'vue-google-charts'
+
+Vue.use(VueGoogleCharts)
 
 
 
@@ -36,19 +40,19 @@ import InfCorporativa from './components/tabs/InfCorporativa';
 Vue.component('InfCorporativa', InfCorporativa)
 
 import ModActivos from './components/gestion_pruebas/ModActivos';
- Vue.component('Activos', ModActivos)
+Vue.component('Activos', ModActivos)
 
- import BodyPruebas from './components/gestion_pruebas/BodyPruebas';
- Vue.component('Pruebas', BodyPruebas)
- 
- import ModRespuestas from './components/prueba_preguntas/ModRespuestas';
- Vue.component('MRespuestas', ModRespuestas)
+import BodyPruebas from './components/gestion_pruebas/BodyPruebas';
+Vue.component('Pruebas', BodyPruebas)
 
- import Respuestas from './components/prueba_preguntas/BodyRespuestas';
- Vue.component('Respuestas', Respuestas)
+import ModRespuestas from './components/prueba_preguntas/ModRespuestas';
+Vue.component('MRespuestas', ModRespuestas)
 
- import Editar from './components/prueba_preguntas/EditPregunta';
- Vue.component('Editar', Editar)
+import Respuestas from './components/prueba_preguntas/BodyRespuestas';
+Vue.component('Respuestas', Respuestas)
+
+import Editar from './components/prueba_preguntas/EditPregunta';
+Vue.component('Editar', Editar)
 
 import InfSST from './components/tabs/InfSST';
 Vue.component('InfSST', InfSST)
@@ -62,16 +66,16 @@ Vue.directive("autofocus", autofocus);
 // 		el.value = el.value.toUpperCase()
 // 	},
 // })
-Vue.directive('uppercase', (el,  binding ) => {
-	let processedValue = el.value.toUpperCase();
-	el.value = processedValue;
-	binding.value = el.value;
- });
+Vue.directive('uppercase', (el, binding) => {
+    let processedValue = el.value.toUpperCase();
+    el.value = processedValue;
+    binding.value = el.value;
+});
 
 
 
-const app = new Vue ({
+const app = new Vue({
     el: '#app',
-	router
-	  
+    router
+
 });

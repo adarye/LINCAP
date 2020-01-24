@@ -17,9 +17,12 @@ class CreateZ4RelTsGpsTable extends Migration
             $table->bigIncrements('cz4_id');
             $table->bigInteger('cz4_gp_id');
             $table->Integer('cz4_ts_id');
+            $table->Integer('cz4_estado');
 
             $table->foreign('cz4_gp_id')->references('cz3_id')->on('z3_gestion_pruebas')->onDelete('cascade');
             $table->foreign('cz4_ts_id')->references('f200_rowid')->on('dbo.t200_mm_terceros')->onDelete('cascade');
+           
+
             $table->timestamps();
         });
     }
