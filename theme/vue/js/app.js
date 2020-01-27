@@ -2086,6 +2086,7 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _bus__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../bus */ "./resources/js/bus.js");
+/* harmony import */ var _router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../router */ "./resources/js/router.js");
 //
 //
 //
@@ -2156,6 +2157,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -2170,15 +2181,15 @@ __webpack_require__.r(__webpack_exports__);
       respuestas_smur: [],
       respuestas_smmr: [],
       respuestas_ra: [],
-      editar: true
+      editar: true,
+      id_creador: null,
+      fecha_cierre: null,
+      fecha_apertura: null,
+      estado_prueba: null
     };
   },
-  mounted: function mounted() {
+  beforeMount: function beforeMount() {
     var _this = this;
-
-    if (this.$route.params.empleado != user.id) {
-      this.editar = false;
-    }
 
     this.id = this.$route.params.id;
     this.cargar();
@@ -2187,6 +2198,23 @@ __webpack_require__.r(__webpack_exports__);
     });
   },
   methods: {
+    validar: function validar() {
+      this.conseguirEstado();
+
+      if ((this.fecha_cierre < new Date() || this.fecha_apertura > new Date()) && this.id_creador != user.id) {
+        this.$router.go(-1);
+      }
+
+      if (this.$route.params.empleado != user.id) {
+        this.editar = false;
+        swal('Modo observador', 'No podra editar la prueba', 'warning');
+
+        if (this.id_creador != user.id) {
+          swal('Acceso denegado', '', 'warning');
+          this.$router.go(-1);
+        }
+      }
+    },
     traerRa: function traerRa() {
       var _this2 = this;
 
@@ -2217,10 +2245,10 @@ __webpack_require__.r(__webpack_exports__);
       this.contador = this.contador + 1;
     },
     cargar: function cargar() {
+      this.buscar();
       this.traerSMMR();
       this.traerRa();
       this.traerPregunta_SMUR();
-      this.buscar();
       this.buscarResmur();
       this.buscarResmmr();
       this.buscarRa();
@@ -2260,6 +2288,8 @@ __webpack_require__.r(__webpack_exports__);
       var _this5 = this;
 
       axios.get("/api/respuesta/smur/buscar/".concat(this.id, "/").concat(this.$route.params.empleado)).then(function (res) {
+        console.log(res.data);
+
         for (var i = 0; i < res.data.length; i++) {
           _this5.respuestas_smur.push(res.data[i].cz11_rta);
         }
@@ -2295,11 +2325,34 @@ __webpack_require__.r(__webpack_exports__);
 
       axios.get("/api/gp/buscar/".concat(this.$route.params.id)).then(function (res) {
         _this8.id = res.data.cz3_id;
+        _this8.id_creador = res.data.cz3_id_creador;
+        _this8.fecha_cierre = new Date(res.data.cz3_fecha_cierre);
+        _this8.fecha_apertura = new Date(res.data.cz3_fecha_apertura); //AQUI SABEMOS SI TIENE PERMISOS PARA VER LAS PRUEBAS DE OTROS USUARIOS
+
+        _this8.validar();
       });
     },
     finalizar: function finalizar() {
+      var _this9 = this;
+
       axios.put("/api/pruebas/finalizar/".concat(this.$route.params.id)).then(function (res) {
-        console.log(res.data);
+        swal('Prueba Finalizada', 'Ya no podras modificarla', 'success');
+
+        _this9.$router.go(-1);
+      });
+    },
+    conseguirEstado: function conseguirEstado() {
+      var _this10 = this;
+
+      axios.get("/api/asignacion/estado/".concat(this.$route.params.id, "/").concat(this.$route.params.empleado)).then(function (res) {
+        _this10.estado_prueba = res.data.cz4_estado;
+        console.log(_this10.estado_prueba);
+
+        if (_this10.estado_prueba == 2 && user.id != _this10.id_creador) {
+          swal('Advertencia', 'Esta prueba ya finalizo', 'warning');
+
+          _this10.$router.go(-1);
+        }
       });
     }
   },
@@ -65586,6 +65639,57 @@ var render = function() {
   return _c(
     "div",
     [
+      _c(
+        "div",
+        {
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value: _vm.estado_prueba == 0,
+              expression: "estado_prueba == 0"
+            }
+          ],
+          staticClass: "alert alert-primary lead",
+          attrs: { role: "alert" }
+        },
+        [_vm._v("\n     Esta encuesta no ha sido iniciada\n     ")]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value: _vm.estado_prueba == 1,
+              expression: "estado_prueba == 1"
+            }
+          ],
+          staticClass: "alert alert-warning lead",
+          attrs: { role: "alert" }
+        },
+        [_vm._v("\n     Esta encuesta ya ha sido iniciada\n     ")]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value: _vm.estado_prueba == 2,
+              expression: "estado_prueba == 2"
+            }
+          ],
+          staticClass: "alert alert-success lead",
+          attrs: { role: "alert" }
+        },
+        [_vm._v("\n     Esta encuesta ya esta finalizada\n     ")]
+      ),
+      _vm._v(" "),
       _c(
         "h4",
         {

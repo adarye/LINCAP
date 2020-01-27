@@ -5,16 +5,32 @@ namespace App\Http\Controllers;
 use App\z11_resultados;
 use Illuminate\Http\Request;
 use App\z4_rel_ts_gp;
+use Illuminate\Support\Facades\Gate;
+use App\z3_gestion_pruebas;
+use Carbon\Carbon;
 
 class RespuestasController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function guardarSMUR(Request $request)
     {
+
         $estado = z4_rel_ts_gp::select('cz4_id')->where('cz4_ts_id', Auth()->user()->cz1_id_empleado)
         ->where('cz4_gp_id', $request->id_gp)->first();
         $estado->cz4_estado = '1';
         $estado->save();
-        
+
+    //     $fecha = Carbon::createFromFormat('d/m/Y', '11/06/2020');
+    //     $date = Carbon::now();
+    //     $date = $date->format('d-m-Y');
+
+    //    if ($fecha->greaterThan($date)){
+    //          return 'hola';
+    //      }
+    //       return $fecha.'  '. $date;
 
         $register = z11_resultados::select('cz11_id')->where('cz11_id_empleado', Auth()->user()->cz1_id_empleado)
         ->where('cz11_pp_id', $request->id_pp)->delete();
@@ -93,18 +109,38 @@ class RespuestasController extends Controller
 
     public function traerRespuestasSMUR($id, $empleado)
     {
+         $prueba = z3_gestion_pruebas::find($id);
+        //  return $prueba->cz3;
+         if( Gate::allows('isAdmin') || 
+         Gate::allows('isRRHH') || Gate::allows('isSST')   || $empleado == Auth()->user()->cz1_id_empleado){
+              if($prueba->cz3_id_creador == Auth()->user()->cz1_id_empleado || $empleado == Auth()->user()->cz1_id_empleado){    
         return z11_resultados::select('cz11_rta')->where('cz11_id_gp', $id)
-            ->where('cz11_id_empleado', $empleado)->where('cz11_categoria', 'smur')->get();
+        ->where('cz11_id_empleado', $empleado)->where('cz11_categoria', 'smur')->get();
+              }
+    }
     }
     public function traerRespuestasSMMR($id, $empleado)
     {
-        return z11_resultados::select('cz11_rta')->where('cz11_id_gp', $id)
+        $prueba = z3_gestion_pruebas::find($id);
+        if(Gate::allows('isAdmin') || 
+        Gate::allows('isRRHH') || Gate::allows('isSST') || $empleado == Auth()->user()->cz1_id_empleado) {
+            if($prueba->cz3_id_creador == Auth()->user()->cz1_id_empleado || $empleado == Auth()->user()->cz1_id_empleado){
+            return z11_resultados::select('cz11_rta')->where('cz11_id_gp', $id)
             ->where('cz11_id_empleado', $empleado)->where('cz11_categoria', 'smmr')->get();
+            }
+        }
     }
     public function traerRespuestasRA($id, $empleado)
     {
+        $prueba = z3_gestion_pruebas::find($id);
+
+        if(Gate::allows('isAdmin') || 
+        Gate::allows('isRRHH') || Gate::allows('isSST') || $empleado == Auth()->user()->cz1_id_empleado) {
+            if($prueba->cz3_id_creador == Auth()->user()->cz1_id_empleado || $empleado == Auth()->user()->cz1_id_empleado){ 
         return z11_resultados::select('cz11_rta_ra', 'cz11_pp_id')->where('cz11_id_gp', $id)
             ->where('cz11_id_empleado', $empleado)->where('cz11_categoria', 'ra')->get();
+            } 
+        }
     }
 
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\z3_gestion_pruebas;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class GPController extends Controller
 {
@@ -13,6 +14,8 @@ class GPController extends Controller
     }
     public function crear(Request $request)
     {
+        if(Gate::allows('isAdmin') || 
+        Gate::allows('isRRHH') || Gate::allows('isSST') ) {
 
         $prueba = new z3_gestion_pruebas();
         $prueba->cz3_nombre = $request->datos['cz3_nombre'];
@@ -24,18 +27,24 @@ class GPController extends Controller
         $prueba->save();
 
         return $prueba;
+        }
     }
 
     public function index($categoria)
     {
+        if(Gate::allows('isAdmin') || 
+        Gate::allows('isRRHH') || Gate::allows('isSST') ) {
 
         return z3_gestion_pruebas::select('cz3_id', 'cz3_nombre', 'cz3_categoria',
             'cz3_descripcion', 'cz3_id_creador', 'cz3_fecha_apertura','cz3_fecha_cierre')
             ->where('cz3_id_creador', Auth()->user()->cz1_id_empleado)
             ->where('cz3_categoria', $categoria)->get();
+        }
     }
     public function update(Request $request)
     {
+        if(Gate::allows('isAdmin') || 
+        Gate::allows('isRRHH') || Gate::allows('isSST') ) {
 
         $prueba = z3_gestion_pruebas::find($request->cz3_id);
         $prueba->cz3_nombre = $request->cz3_nombre;
@@ -45,21 +54,32 @@ class GPController extends Controller
         $prueba->save();
 
         return $prueba;
+        }
     }
     public function cerrar(Request $request)
     {
+        if(Gate::allows('isAdmin') || 
+        Gate::allows('isRRHH') || Gate::allows('isSST') ) {
         $prueba = z3_gestion_pruebas::find($request->id);
+        if($prueba->cz3_id_creador == Auth()->user()->cz1_id_empleado){
         $prueba->cz3_fecha_cierre = $request->fecha_actual;
         $prueba->save();
         return $prueba;
+        }
+        }
     }
     public function delete($id)
     {
+        if(Gate::allows('isAdmin') || 
+        Gate::allows('isRRHH') || Gate::allows('isSST') ) {
         $prueba = z3_gestion_pruebas::find($id);
+        if($prueba->cz3_id_creador == Auth()->user()->cz1_id_empleado){
         $prueba->delete();
+        }
+        }
     }
     public function buscar($id)
-    {
+    {      
         return z3_gestion_pruebas::find($id);
     }
 

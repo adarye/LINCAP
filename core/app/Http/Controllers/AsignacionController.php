@@ -4,13 +4,21 @@ namespace App\Http\Controllers;
 
 use App\z4_rel_ts_gp;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class AsignacionController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function guardar(Request $request)
     {
+        if(Gate::allows('isAdmin') || 
+        Gate::allows('isRRHH') || Gate::allows('isSST') ) {
         //return $request->seleccionados;
-
         $relacion = new z4_rel_ts_gp;
         $relacion->cz4_gp_id = $request->id_prueba;
         $relacion->cz4_ts_id = $request->id;
@@ -18,21 +26,30 @@ class AsignacionController extends Controller
         $relacion->save();
 
         return $relacion;
+        }
     }
     public function delete(Request $request)
     {
         //return $request->seleccionados;
+        if(Gate::allows('isAdmin') || 
+        Gate::allows('isRRHH') || Gate::allows('isSST') ) {
         $prueba = z4_rel_ts_gp::where('cz4_ts_id', $request->id_ts)->where('cz4_gp_id', $request->id_prueba)->first();
         $prueba->delete();
+        }
     }
     public function index($id)
     {
+        if (Gate::allows('isAdmin') || 
+        Gate::allows('isRRHH') || Gate::allows('isSST') ) {
         $registros = z4_rel_ts_gp::select('cz4_ts_id')->where('cz4_gp_id', $id)->get();
         $j = json_decode($registros, true);
         return $registros;
+        }
     }
     public function guardarTodos(Request $request)
     {
+        if(Gate::allows('isAdmin') || 
+        Gate::allows('isRRHH') || Gate::allows('isSST') ) {
         $todos = (array) $request->activos;
         $i = 0;
 
@@ -51,10 +68,13 @@ class AsignacionController extends Controller
             $i++;
 
         }
+    }
 
     }
     public function quitarTodos(Request $request)
     {
+        if(Gate::allows('isAdmin') || 
+        Gate::allows('isRRHH') || Gate::allows('isSST') ) {
         $todos = (array) $request->activos;
         $i = 0;
 
@@ -71,6 +91,7 @@ class AsignacionController extends Controller
             $i++;
 
         }
+    }
     
     }
     public function finalizarPrueba($id){
@@ -82,5 +103,9 @@ class AsignacionController extends Controller
 
     public function contar($id){
         return z4_rel_ts_gp::where('cz4_gp_id',$id)->count();
+    }
+    public function conseguirEstado($id, $empleado){
+        return  z4_rel_ts_gp::select('cz4_id', 'cz4_estado')->where('cz4_ts_id', $empleado)
+        ->where('cz4_gp_id', $id)->first();
     }
 }
