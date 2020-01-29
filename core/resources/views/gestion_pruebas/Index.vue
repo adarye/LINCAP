@@ -277,7 +277,7 @@ import 'pc-bootstrap4-datetimepicker/build/css/bootstrap-datetimepicker.css';
             //  this.$modal.show('asignar')
         },
         preguntas(id){
-                    router.push('/prueba/pregunta/' + id);
+                    router.push('/prueba/pregunta/'+this.$route.params.categoria + '/' + id);
         },
         estadisticas(id){
             console.log('entro')

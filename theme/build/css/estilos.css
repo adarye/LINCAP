@@ -6,12 +6,10 @@
 }
 
 .empresa-text {
-    color:#FFF;
+    color: #FFF;
     font-weight: 600;
     text-align: center;
     font-style: italic;
-    
-    
 }
 
 .user-text {
@@ -20,52 +18,74 @@
     font-style: italic;
 }
 
-
-.router-link-exact-active{
+.router-link-exact-active {
     font-size: 13px !important;
-    background-color: #fcf1f149  !important;
+    background-color: #fcf1f149 !important;
 }
 
-.fade-enter-active, .fade-leave-active {
-  transition: opacity .5s
+.fade-enter-active,
+.fade-leave-active {
+    transition: opacity .5s
 }
-.fade-enter, .fade-leave-to /* .fade-leave-active in <2.1.8 */ {
-  opacity: 0
+
+.fade-enter,
+.fade-leave-to
+/* .fade-leave-active in <2.1.8 */
+
+{
+    opacity: 0
 }
-.col-center{
-  float: none;
-  margin: 0 auto;
+
+.col-center {
+    float: none;
+    margin: 0 auto;
 }
-.select{
-  width: 120px;
+
+.select {
+    width: 120px;
 }
-.texto{
-  font-weight: 600;
-  font-style: italic;
+
+.texto {
+    font-weight: 600;
+    font-style: italic;
 }
-.titulos{
-  color: #536A7F; font-family: 'Lato', sans-serif; 
-  font-size: 30px; 
-  font-weight: 300; 
-  line-height: 58px; 
- 
-  font-style: italic; 
+
+.titulos {
+    color: #536A7F;
+    font-family: 'Lato', sans-serif;
+    font-size: 30px;
+    font-weight: 300;
+    line-height: 58px;
+    font-style: italic;
 }
-.icon{
-  font-size: 17px;
+
+.icon {
+    font-size: 17px;
 }
-.centro{
-  align-items: center;
+
+.centro {
+    align-items: center;
 }
-.titulo{
-  font-style: italic;
-  color: rgba(9, 15, 82, 0.897);
+
+.titulo {
+    font-style: italic;
+    color: rgba(9, 15, 82, 0.897);
 }
+
 .my-custom-scrollbar {
-  position: relative;
-  height: 300px;
-  overflow: auto;
-  }
-  .table-wrapper-scroll-y {
-  display: block;
-  }
+    position: relative;
+    height: 300px;
+    overflow: auto;
+}
+
+.table-wrapper-scroll-y {
+    display: block;
+}
+
+
+/* ESTILOS PARA IMAGENES*/
+
+.img {
+    width: 200px;
+    height: 200px;
+}

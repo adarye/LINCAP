@@ -5,6 +5,10 @@
             <li><a><i class="fa fa-male"></i>Perfil<span class="fa fa-chevron-down"></span></a>
                 <ul class="nav child_menu" style="display: none">
                     <li>
+                        <router-link :to="{name: 'IndexNoticias'}">Noticias
+                        </router-link>
+                    </li>
+                    <li>
                         <router-link v-bind:to="'/empleado/' +  {{ Auth()->user()->cz1_id_empleado }}">Actualizar datos
                         </router-link>
                     </li>

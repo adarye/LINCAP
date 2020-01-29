@@ -6,6 +6,7 @@ use App\z5_prueba_preguntas;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use App\z4_rel_ts_gp;
+use Carbon\Carbon;
 
 class PreguntasController extends Controller
 {
