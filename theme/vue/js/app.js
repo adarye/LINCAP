@@ -4596,6 +4596,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -4607,9 +4621,15 @@ __webpack_require__.r(__webpack_exports__);
       resSMMR: [],
       resRA: [],
       resSMUR: [],
-      datacollection: null,
       prueba: [],
-      array: ['ene', 'feb']
+      datacollection: null,
+      chartData: [[['Pregunta', 'Trabajadores'], ['Si', 10], ['No', 8]], [['Pregunta', 'Trabajadores'], ['Si', 19], ['No', 100]]],
+      chartOptions: {
+        chart: {
+          title: 'Encuesta LINCO',
+          subtitle: ''
+        }
+      }
     };
   },
   mounted: function mounted() {
@@ -71013,7 +71033,72 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "small" }, [_vm._v("\n    Hola\n\n")])
+  return _c(
+    "div",
+    { staticClass: "small" },
+    [
+      _c(
+        "h4",
+        {
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value: _vm.resSMUR.length,
+              expression: " resSMUR.length"
+            }
+          ],
+          staticClass: "display-5 titulo my-3"
+        },
+        [_vm._v("Preguntas de selección multiple con única respuestas")]
+      ),
+      _vm._v(" "),
+      _vm._l(_vm.resSMUR, function(item, indice) {
+        return _c("article", { key: indice, staticClass: "my-3" }, [
+          _c("div", { staticClass: "row mt-2" }, [
+            _c("div", { staticClass: "col-md-6" }, [
+              _c("p", { staticClass: "lead" }, [
+                _vm._v(_vm._s(item.cz5_pregunta) + "\n                ")
+              ])
+            ]),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "col-md-12" },
+              _vm._l(item.respuestas, function(item2, i) {
+                return _c("article", { key: i }, [
+                  _c("input", {
+                    staticClass: "flat",
+                    attrs: { type: "radio", name: item.cz5_id },
+                    domProps: { value: item2.cz7_id }
+                  }),
+                  _vm._v(" " + _vm._s(item2.cz7_rta) + "\n                ")
+                ])
+              }),
+              0
+            )
+          ])
+        ])
+      }),
+      _vm._v(" "),
+      _c("GChart", {
+        attrs: {
+          type: "ColumnChart",
+          data: _vm.chartData[0],
+          options: _vm.chartOptions
+        }
+      }),
+      _vm._v(" "),
+      _c("GChart", {
+        attrs: {
+          type: "ColumnChart",
+          data: _vm.chartData[1],
+          options: _vm.chartOptions
+        }
+      })
+    ],
+    2
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
