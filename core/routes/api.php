@@ -123,3 +123,6 @@ Route::post('noticia/actualizar', 'NoticiasController@actualizar');
 Route::get('noticia/download-file/{id}', 'NoticiasController@descargar');
 Route::delete('noticia/delete/{id}', 'NoticiasController@delete');
 
+//GUARDAR RESPUESTAS CORRECTAS
+Route::put('smur/update', 'RsController@guardarCorrectaSMUR');
+Route::put('smmr/update/{opcion}', 'RsController@guardarCorrectaSMMR');

@@ -31,6 +31,7 @@ import EstadisticasGP from '../views/gestion_pruebas/Estadisticas';
 import Pendientes from '../views/gestion_pruebas/Pendientes';
 import Completadas from '../views/gestion_pruebas/Completadas';
 import Encuesta from '../js/components/cliente/Encuesta';
+import Evaluacion from '../js/components/cliente/Evaluacion';
 import Asignacion from '../js/components/gestion_pruebas/ModActivos'
 
 //Vista preguntas 
@@ -135,7 +136,7 @@ export default new Router({
 
         },
         {
-            path: '/prueba/pregunta/:cat/:id',
+            path: '/prueba/preguntas/:cat/:id',
             name: 'IndexPreguntas',
             component: IndexPreguntas
         },
@@ -143,6 +144,11 @@ export default new Router({
             path: '/presentar/encuesta/:id/:empleado',
             name: 'Presentar',
             component: Encuesta
+        },
+        {
+            path: '/presentar/evaluacion/:id/:empleado',
+            name: 'PresentarEvaluacion',
+            component: Evaluacion
         },
         {
             path: '/',

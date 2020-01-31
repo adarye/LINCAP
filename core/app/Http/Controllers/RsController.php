@@ -17,7 +17,7 @@ class RsController extends Controller
                 $respuestas = new z7_rta_smur;
                 $respuestas->cz7_pp_id = $request->id;
                 $respuestas->cz7_rta = $req;
-                $respuestas->cz7_rta_correcta = 'ddd';
+                // $respuestas->cz7_rta_correcta = 'ddd';
                 $i++;
                 $respuestas->save();
             }
@@ -39,10 +39,11 @@ class RsController extends Controller
     }
     public function update(Request $request)
     {   
+        
         for ($i = 0; $i < $request->size; $i++) {
-            $respuestas =  z7_rta_smur::find($request->respuestas[$i]['cz7_id']);
-            $respuestas->cz7_rta_correcta = 'ddd';
+            $respuestas = z7_rta_smur::find($request->respuestas[$i]['cz7_id']);
             $respuestas->cz7_rta = $request->respuestas[$i]['cz7_rta'];
+            // $respuestas->cz7_rta_correcta = $request->respuestas[$i]['cz7_rta_correcta'];;
             $respuestas->save();    
          }
          return $i;
@@ -57,4 +58,17 @@ class RsController extends Controller
          }
          return $i;
     }
+    public function guardarCorrectaSMUR(Request $request){
+         z7_rta_smur::select('cz7_pp_id')->where('cz7_pp_id', $request->cz7_pp_id)->update(['cz7_rta_correcta' => $request->cz7_id]);
+    }
+    public function guardarCorrectaSMMR(Request $request, $opcion){
+      
+        // return $request;
+       $res =  $request->cz8_id;
+        if($opcion == "true"){
+            $res = null;
+            
+        }
+       return z8_rta_smmr::select('cz8_id')->where('cz8_id', $request->cz8_id)->update(['cz8_rta_correcta' => $res]);
+   }
 }

@@ -13,10 +13,12 @@
         <hr class="my-4">
         <p>{{ item.cz3_descripcion }}</p>
         
-        <p class="lead">
-               <router-link class="btn btn-primary btn-lg" v-bind:to="'/presentar/encuesta/'+ item.cz3_id +'/'+ id" role="button" v-show=" moment().diff(item.cz3_fecha_cierre) < 0 &&  moment().diff(item.cz3_fecha_apertura) > 0 && item.cz4_estado == 0">Presentar</router-link>
-                <router-link class="btn btn-success btn-lg" v-bind:to="'/presentar/encuesta/'+ item.cz3_id +'/'+ id" role="button" v-show=" moment().diff(item.cz3_fecha_cierre) < 0 &&  moment().diff(item.cz3_fecha_apertura) > 0 && item.cz4_estado == 1">Continuar</router-link>
-               
+         <p class="lead" v-show="$route.params.categoria == 1">
+               <router-link class="btn btn-primary btn-lg" v-bind:to="'/presentar/encuesta/' + item.cz3_id +'/'+ id" role="button" v-show=" moment().diff(item.cz3_fecha_cierre) < 0 &&  moment().diff(item.cz3_fecha_apertura) > 0 && item.cz4_estado == 0">Presentar</router-link>
+                <router-link class="btn btn-success btn-lg" v-bind:to="'/presentar/encuesta/' +  item.cz3_id +'/'+ id" role="button" v-show=" moment().diff(item.cz3_fecha_cierre) < 0 &&  moment().diff(item.cz3_fecha_apertura) > 0 && item.cz4_estado == 1">Continuar</router-link>
+         </p>  
+        <p class="lead" v-show="$route.params.categoria == '2'">
+               <button @click="presentarEva(item.cz3_id)" class="btn btn-primary btn-lg"  role="button">Presentar</button>
         </p>
         
     </div>
@@ -28,7 +30,10 @@
 <script>
 import moment from "moment";
     moment.locale("es");
+    import router from '../../js/router'
+    
     export default {
+        
         data() {
             return {
                 pruebas: [],
@@ -48,6 +53,23 @@ import moment from "moment";
                 })
         },
         methods:{
+            presentarEva(prueba){
+                 swal({
+                    title: "Advertencia",
+                    text: "Si te sales despues de estar en la evaluacion, o recargas la pagina, la prueba sera anulada",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true
+                })
+                .then(willDelete => {
+                    if (willDelete) {
+                    
+                    router.push('/presentar/evaluacion/' + prueba +'/'+ this.id)
+                    }
+
+
+                })
+            }
             
         }
     }

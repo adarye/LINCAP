@@ -35,7 +35,7 @@
 
                 <div class="col-md-12">
                     <article v-for="(item2, i) in item.respuestas" :key="i">
-                        <input class="flat" type="radio" :name="item.cz5_id" :value="item2.cz7_id"> {{ item2.cz7_rta }}
+                        <input :checked="item2.cz7_id == item2.cz7_rta_correcta" class="flat" type="radio" @click="guardarSMURcorrecta(item2)" :name="item.cz5_id" :value="item2.cz7_id"> {{ item2.cz7_rta }}
                     </article>
                 </div>
             </div>
@@ -55,7 +55,7 @@
             </div>
             <div class="col-md-12">
                 <article v-for="(item4, i) in item3.smmr" :key="`s-${i}`">
-                    <input class="flat" type="checkbox" :value="item4.cz8_id">{{ item4.cz8_rta }}
+                    <input  @click="guardarSMMRcorrecta(item4,item4.cz8_id == item4.cz8_rta_correcta)" :checked="item4.cz8_id == item4.cz8_rta_correcta" class="flat" type="checkbox" :value="item4.cz8_id">{{ item4.cz8_rta }}
                 </article>
             </div>
         </article>
@@ -150,6 +150,23 @@
             hide() {
 
                 this.$modal.hide('editar')
+            },
+            guardarSMURcorrecta(item){
+                if(this.$route.params.cat == 2){
+                axios.put('/api/smur/update', item)
+                .then(res=>{
+                    console.log(res.data)
+                })
+                }
+            },
+             guardarSMMRcorrecta(item, opcion){
+                  if(this.$route.params.cat == 2){
+                 console.log(opcion)
+                axios.put(`/api/smmr/update/${opcion}`, item)
+                .then(res=>{
+                    console.log(res.data)
+                })
+                  }
             }
         },
         computed: {}

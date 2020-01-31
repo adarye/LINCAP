@@ -85,7 +85,8 @@ export default {
         actualizarRS(){
 
             if( this.tipo_respuesta == 'smur'){
-            axios.put('/api/respuestaS/update',{size:  this.params.respuestas.length, respuestas:this.params.respuestas})
+            axios.put('/api/respuestaS/update',{size:  this.params.respuestas.length, respuestas:this.params.respuestas
+            })
             .then(res=>{
                 console.log(res.data)
             })
