@@ -36,6 +36,9 @@ import Asignacion from '../js/components/gestion_pruebas/ModActivos'
 //Vista preguntas 
 import IndexPreguntas from '../views/prueba_preguntas/Index.vue';
 
+//Vista de noticias
+import IndexNoticias from '../views/noticias/Index.vue';
+
 //Vista de 404
 import v404 from '../views/404';
 
@@ -131,9 +134,8 @@ export default new Router({
             component: Asignacion
 
         },
-
         {
-            path: '/prueba/pregunta/:id',
+            path: '/prueba/pregunta/:cat/:id',
             name: 'IndexPreguntas',
             component: IndexPreguntas
         },
@@ -141,6 +143,11 @@ export default new Router({
             path: '/presentar/encuesta/:id/:empleado',
             name: 'Presentar',
             component: Encuesta
+        },
+        {
+            path: '/',
+            name: 'IndexNoticias',
+            component: IndexNoticias
         },
         {
             path: '*',

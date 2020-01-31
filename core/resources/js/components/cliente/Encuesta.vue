@@ -1,5 +1,14 @@
 <template>
     <div>
+        <div class="alert alert-primary lead" role="alert" v-show="estado_prueba == 0">
+         Esta encuesta no ha sido iniciada
+         </div>
+         <div class="alert alert-warning lead" role="alert" v-show="estado_prueba == 1">
+         Esta encuesta ya ha sido iniciada
+         </div>
+          <div class="alert alert-success lead" role="alert" v-show="estado_prueba == 2">
+         Esta encuesta ya esta finalizada
+         </div>
         <h4 class="display-5 titulo mb-3" v-show="resRA.length">Preguntas con respuesta abierta</h4>
         <article v-for="(dato, i) in resRA" :key="`A-${i}`">
             <div class="row mt-2">
@@ -70,6 +79,7 @@
 </template>
 <script>
     import EventBus from '../../bus';
+    import router from '../../router'
     export default {
         data() {
             return {
@@ -83,24 +93,48 @@
                 respuestas_smur: [],
                 respuestas_smmr: [],
                 respuestas_ra: [],
-                editar:true
+                editar:true,
+                id_creador: null,
+                fecha_cierre: null,
+                fecha_apertura:null,
+                estado_prueba: null
 
 
             };
         },
-        mounted() {
-            if(this.$route.params.empleado != user.id){
-                this.editar = false
-            }
-           
+       
+        beforeMount() {
             this.id = this.$route.params.id
+           
             this.cargar();
             EventBus.$on('cargar', (item) => {
                 this.cargar()
             });
+           
+
+            
 
         },
         methods: {
+            validar(){
+                
+               this.conseguirEstado()
+                 if( (this.fecha_cierre < new Date() || this.fecha_apertura > new Date()) && this.id_creador != user.id){
+                    this.$router.go(-1)
+                 }
+                if(this.$route.params.empleado != user.id){
+                 this.editar = false
+                swal('Modo observador', 'No podra editar la prueba', 'warning')
+                if(this.id_creador != user.id){
+                    swal('Acceso denegado', '', 'warning')
+                   this.$router.go(-1)
+                 }
+                  
+                
+            }
+              
+
+            },
             traerRa() {
                 console.log(this.id)
                 axios.get(`/api/respuestaA/buscar/${this.id}`)
@@ -130,10 +164,10 @@
             },
            
             cargar() {
+                  this.buscar()
                 this.traerSMMR()
                 this.traerRa();
                 this.traerPregunta_SMUR();
-                this.buscar()
                 this.buscarResmur()
                 this.buscarResmmr()
                 this.buscarRa();
@@ -160,7 +194,7 @@
             buscarResmur(){
                 axios.get(`/api/respuesta/smur/buscar/${this.id}/${this.$route.params.empleado}`)
                 .then(res=>{
-                   
+                   console.log(res.data)
                      for (var i = 0; i < res.data.length; i++) {
                         this.respuestas_smur.push(res.data[i].cz11_rta)
                     }
@@ -194,13 +228,36 @@
              buscar() {
             axios.get(`/api/gp/buscar/${this.$route.params.id}`).then(res => {
                 this.id = res.data.cz3_id
+                this.id_creador = res.data.cz3_id_creador
+
+                this.fecha_cierre = new Date(res.data.cz3_fecha_cierre);
+                this.fecha_apertura = new Date(res.data.cz3_fecha_apertura);
+                //AQUI SABEMOS SI TIENE PERMISOS PARA VER LAS PRUEBAS DE OTROS USUARIOS
+               this.validar()
+               
+              
             });
         },
         finalizar(){
             axios.put(`/api/pruebas/finalizar/${this.$route.params.id}`)
             .then(res=>{
-                console.log(res.data)
+                swal('Prueba Finalizada', 'Ya no podras modificarla', 'success')
+                  this.$router.go(-1)
             })
+        },
+        conseguirEstado(){
+            axios.get(`/api/asignacion/estado/${this.$route.params.id}/${this.$route.params.empleado}`)
+            .then(res=>{
+               this.estado_prueba = res.data.cz4_estado
+               console.log(this.estado_prueba)
+               if(this.estado_prueba == 2 && user.id != this.id_creador){
+                    swal('Advertencia', 'Esta prueba ya finalizo', 'warning')
+                   this.$router.go(-1)
+                   
+                   
+               }
+            })
+
         }
            
         },

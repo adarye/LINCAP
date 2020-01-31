@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="csrf-token" content="X9k311dzPktty6tKFtUFcSCurvAkKpuxI20z7Izn">
+    <!-- Bootstrap -->
+<link media="all" type="text/css" rel="stylesheet" href="http://lincap.linco.com.co/theme/vendors/bootstrap/dist/css/bootstrap.min.css">
+<!-- Font Awesome -->
+<link media="all" type="text/css" rel="stylesheet" href="http://lincap.linco.com.co/theme/vendors/font-awesome/css/font-awesome.min.css">
+
+<link media="all" type="text/css" rel="stylesheet" href="http://lincap.linco.com.co/theme/build/css/estilos.css">
+<!-- Animate.css -->
+<link media="all" type="text/css" rel="stylesheet" href="http://lincap.linco.com.co/theme/vendors/animate.css/animate.min.css">
+<!-- iCheck.css -->
+<link media="all" type="text/css" rel="stylesheet" href="http://lincap.linco.com.co/theme/vendors/iCheck/skins/flat/green.css">
+
+<!-- Custom Theme Style -->
+<link media="all" type="text/css" rel="stylesheet" href="http://lincap.linco.com.co/theme/build/css/custom.min.css">
+    <title>LINCO - Lincap</title>
+    <link rel="icon" type="image/png" href="http://lincap.linco.com.co/theme/images/system/favicon.ico" />
+</head>
+
+<body class="nav-md">
+    <div id="app">
+        <div class="container body">
+            <div class="main_container">
+                <div class="col-md-3 left_col">
+                    <div class="left_col scroll-view">
+                        <a href="#"><img alt="" class="img-circle empresa-logo"
+                                src="http://lincap.linco.com.co/theme/images/system/logo_linco_vertical.jpg"></a>
+                        <p class="empresa-text profile">[ Lincap ]<br>
+                            LOGISTICA INSTITUCIONAL COLOMBIANA S.A.S</p>
+                        <div class="clearfix"></div>
+                        <!-- menu profile quick info -->
+<div class="profile clearfix">
+    <div class="profile_pic">
+        <img src="/../theme/images/profile/1580228509Captura.PNG" alt="" class="img-circle profile_img">
+    </div>
+    <div class="profile_info">
+        <p class="user-text">JEFFERSON QUINTERO RINCON</p>
+    </div>
+</div>
+<!-- /menu profile quick info -->
+                        <!-- sidebar menu -->
+<div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+    <div class="menu_section">
+        <ul class="nav side-menu">
+            <li><a><i class="fa fa-male"></i>Perfil<span class="fa fa-chevron-down"></span></a>
+                <ul class="nav child_menu" style="display: none">
+                    <li>
+                        <router-link :to="{name: 'IndexNoticias'}">Noticias
+                        </router-link>
+                    </li>
+                    <li>
+                        <router-link v-bind:to="'/empleado/' +  4547">Actualizar datos
+                        </router-link>
+                    </li>
+                    <li>
+                        <a target="_blank" href="http://lincap.linco.com.co/imprimir">Certificado laboral</a>
+                    </li>
+                </ul>
+            </li>
+            <li><a><i class="fa fa-folder-open"></i>Empleados<span class="fa fa-chevron-down"></span></a>
+                <ul class="nav child_menu" style="display: none">
+                                        <li>
+                        <router-link :to="{name: 'Activos'}" id="activos">Activos</router-link>
+                    </li>
+                    <li>
+                        <router-link :to="{name: 'Retirados'}">Retirados</router-link>
+                    </li>
+                                        <li>
+                        <router-link :to="{name: 'InfCorporativa'}">InfCorporativa</router-link>
+                    </li>
+                </ul>
+            </li>
+            <li><a><i class="fa fa-file-text-o"></i>Evaluaciones<span class="fa fa-chevron-down"></span></a>
+                <ul class="nav child_menu" style="display: none">
+                                        <li><router-link v-bind:to="'/gestion/pruebas/' + 2">Administrar</router-link></li>
+                                        <li><router-link v-bind:to="'/pruebas/pendientes/' + 2">Pendientes</router-link></li>
+                    <li><a href="#">Completadas</a></li>
+                </ul>
+            </li>
+            <li><a><i class="fa fa-pencil"></i>Encuestas<span class="fa fa-chevron-down"></span></a>
+                <ul class="nav child_menu" style="display: none">
+                                        <li> <router-link v-bind:to="'/gestion/pruebas/' + 1">Administrar</router-link></li>
+                    
+                <li> <router-link v-bind:to="'/pruebas/pendientes/' + 1">Pendientes</router-link></li>
+                    <li><router-link v-bind:to="'/pruebas/completadas/' + 1">Completadas</router-link></li>
+                </ul>
+            </li>
+            
+                        <li><a><i class="fa fa-gears"></i>Configuración<span class="fa fa-chevron-down"></span></a>
+                <ul class="nav child_menu" style="display: none">
+
+                    <li>
+                        <router-link :to="{name: 'Roles'}">Roles</router-link>
+                    </li>
+                    <li>
+                        <router-link :to="{name: 'IndexUsuario'}">Usuarios</router-link>
+                    </li>
+
+                </ul>
+
+            </li>
+                        
+        </ul>
+    </div>
+    <script type="application/javascript">
+        window.user = {"rol":"1","nombres":"JEFFERSON QUINTERO RINCON","id":"4547"}    </script>
+</div>
+<!-- /sidebar menu -->
+                    </div>
+                </div>
+                <!-- top navigation -->
+<div class="top_nav">
+    <div class="nav_menu">
+        <div class="nav toggle">
+            <a id="mmenu_toggle"><i class="fa fa-bars"></i></a>
+        </div>
+        <nav class="nav navbar-nav">
+            <ul class=" navbar-right">
+                <li class="nav-item dropdown open" style="padding-left: 15px;">
+                    <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown"
+                        data-toggle="dropdown" aria-expanded="false">
+                                                <img src="/../theme/images/profile/1580228509Captura.PNG"
+                            alt="">JEFFERSON
+                    </a>
+                    <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
+                        <router-link  class="dropdown-item" :to="{name: 'RestartPassword'}"><span> Cambiar
+                                contraseña</span></router-link>
+                        <form method="POST" action="http://lincap.linco.com.co/login/salir">
+                            <input type="hidden" name="_token" value="X9k311dzPktty6tKFtUFcSCurvAkKpuxI20z7Izn">                            <button class="dropdown-item"><i class="fa fa-sign-out pull-right"></i>Salir</button>
+                        </form>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+<!-- /top navigation -->
+                <!-- page content -->
+                <div class="right_col" role="main">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="dashboard_graph">
+                            <div class="row text-center">
+                                                            </div>
+                             
+   <transition  name="fade" mode="out-in">
+    <router-view :key="$route.fullPath"></router-view>
+   </transition>
+  
+ 
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                    <br>
+                </div>
+                <!-- page content --
+                <!-- footer content -->
+<footer>
+    <div class="pull-right">
+        Copyright © 2019 <a href="https://www.linco.com.co">LINCO</a>
+    </div>
+    <div class="clearfix"></div>
+</footer>
+<!-- /footer content -->
+            </div>
+        </div>
+    </div>
+    <script src="http://lincap.linco.com.co/theme/vue/js/app.js"></script>
+<!-- jQuery -->
+<script src="http://lincap.linco.com.co/theme/vendors/jquery/dist/jquery.min.js"></script>
+<!-- Bootstrap -->
+<script src="http://lincap.linco.com.co/theme/vendors/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<!-- iCheck -->
+<script src="http://lincap.linco.com.co/theme/vendors/iCheck/icheck.min.js"></script>
+
+ 
+<!-- Custom Theme Scripts -->
+<script src="http://lincap.linco.com.co/theme/build/js/custom.min.js"></script>
+</body>
+
+</html>

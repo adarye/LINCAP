@@ -57,6 +57,11 @@ Vue.component('Editar', Editar)
 import InfSST from './components/tabs/InfSST';
 Vue.component('InfSST', InfSST)
 
+import BodyNoticias from './components/noticias/BodyNoticias';
+Vue.component('BodyNoticias', BodyNoticias)
+
+
+
 import autofocus from "vue-autofocus-directive";
 Vue.directive("autofocus", autofocus);
 

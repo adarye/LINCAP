@@ -301,6 +301,7 @@
                 if (this.estado != 0) {
                     let formData = new FormData();
                     formData.append("imagen", this.imagen);
+                    console.log(formData)
 
                     axios
                         .post(`/api/usuario/avatar/${this.$route.params.id}`, formData)

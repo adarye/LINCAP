@@ -125,6 +125,9 @@ import moment from "moment";
             }
 
         },
+        mounted(){
+            console.log(this.pruebas)
+        },
         methods: {
             mostrarCaja: function () {
                 if (this.selectPag == 0) {

@@ -1,0 +1,17 @@
+Al ingresar como admin
+
+1 - Incluir equipo al dominio
+2 - Verificar licencia de windows
+3 - Bajar office - cscript ospp.vbs /dstatus -  cscript ospp.vbs /unpkey:value
+4 - Mirar version de office, instalarlo y activarlo
+5 - Dejar siesa nomina y skype en el escritorio
+6 - Configurar Scan - poner usuarios del dominio en seguridad
+7 - Ejecutar glpi
+
+Cuando Ingrese el usuario
+
+1 - Poner predeterminado pdf
+2 - Poner outlook en documents
+3 - Ingresar al correo
+4 - Poner firma
+5 - abrir Siesa Nomina

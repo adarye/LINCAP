@@ -86,6 +86,7 @@ Route::post('asignacion/quitarTodos', 'AsignacionController@quitarTodos');
 Route::post('asignacion/delete', 'AsignacionController@delete');
 Route::get('asignacion/index/{id}', 'AsignacionController@index');
 Route::get('asignacion/contar/{id}','AsignacionController@contar');
+Route::get('asignacion/estado/{id}/{empleado}','AsignacionController@conseguirEstado');
 
 //PREGUNTA 
 Route::post('pregunta/guardar', 'PreguntasController@guardar');
@@ -110,8 +111,15 @@ Route::post('respuesta/smur/guardar', 'RespuestasController@guardarSMUR');
 Route::post('respuesta/smmr/guardar', 'RespuestasController@guardarSMMR');
 Route::post('respuesta/ra/guardar', 'RespuestasController@guardarRA');
 
+//BUSCAR RESPUESTAS
 Route::get('respuesta/smur/buscar/{id}/{empleado}', 'RespuestasController@traerRespuestasSMUR');
 Route::get('respuesta/smmr/buscar/{id}/{empleado}', 'RespuestasController@traerRespuestasSMMR');
 Route::get('respuesta/ra/buscar/{id}/{empleado}', 'RespuestasController@traerRespuestasRA');
 
+//NOTICIAS
+Route::get('noticias/', 'NoticiasController@index');
+Route::post('noticia/guardar', 'NoticiasController@guardar');
+Route::post('noticia/actualizar', 'NoticiasController@actualizar');
+Route::get('noticia/download-file/{id}', 'NoticiasController@descargar');
+Route::delete('noticia/delete/{id}', 'NoticiasController@delete');
 
