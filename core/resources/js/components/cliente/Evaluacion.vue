@@ -1,11 +1,11 @@
 <template>
     <div>
-         <div class="alert alert-warning lead" role="alert" v-show="estado_prueba == 1">
-         Esta evaluacion ya ha sido iniciada
-         </div>
-          <div class="alert alert-success lead" role="alert" v-show="estado_prueba == 2">
-         Esta evaluacion ya esta finalizada
-         </div>
+        <div class="alert alert-warning lead" role="alert" v-show="estado_prueba == 1">
+            Esta evaluacion ya ha sido iniciada
+        </div>
+        <div class="alert alert-success lead" role="alert" v-show="estado_prueba == 2">
+            Esta evaluacion ya esta finalizada
+        </div>
         <h4 class="display-5 titulo mb-3" v-show="resRA.length">Preguntas con respuesta abierta</h4>
         <article v-for="(dato, i) in resRA" :key="`A-${i}`">
             <div class="row mt-2">
@@ -18,53 +18,67 @@
             </div>
             <div class="row mb-3">
                 <div class="col-md-9">
-                  
-                    <textarea :disabled="editar ? false : true" v-model="respuestas_ra[i]"  @change="guardarRA(dato.cz5_id, dato.cz5_gp_id,  dato.cz5_categoria, respuestas_ra[i] )" rows="4" cols="50" type="text" class="form-control" v-uppercase v-max-length="200">
+
+                    <textarea :disabled="editar ? false : true" v-model="respuestas_ra[i]"
+                        @change="guardarRA(dato.cz5_id, dato.cz5_gp_id,  dato.cz5_categoria, respuestas_ra[i] )"
+                        rows="4" cols="50" type="text" class="form-control" v-uppercase v-max-length="200">
                     </textarea>
                 </div>
             </div>
         </article>
 
 
-        <h4 class="display-5 titulo my-3" v-show=" resSMUR.length">Preguntas de selección multiple con única respuestas</h4>
+        <h4 class="display-5 titulo my-3" v-show=" resSMUR.length">Preguntas de selección multiple con única respuestas
+        </h4>
         <article v-for="(item, indice) in  resSMUR" :key="indice" class="my-3">
             <div class="row mt-2">
                 <div class="col-md-6">
                     <p class="lead">{{ item.cz5_pregunta }}
+                        <span v-show="notas_smur[indice] >0" class="badge badge-success">
+                            Correcta</span> 
+                            <span v-show="notas_smur[indice] ==0" class="badge badge-danger">
+                            Incorrecta</span>
                     </p>
+
                 </div>
                 <div class="col-md-2">
-                    
+
                 </div>
 
                 <div class="col-md-12">
                     <article v-for="(item2, i) in item.respuestas" :key="i">
                         <!-- {{respuestas.filter(cz7_id => cz7_id == item.cz7_id )}} -->
-                        
+
                         <input :disabled="editar ? false : true"
-                         @click="guardarSMUR(item.cz5_id, item.cz5_gp_id, item2.cz7_id, item.cz5_categoria)" 
-                         :checked="respuestas_smur.filter(cz7_id => cz7_id == item2.cz7_id ) != ''"  class="flat" type="radio" :name="item.cz5_id" :value="item2.cz7_id"> {{ item2.cz7_rta }}                 
+                            @click="guardarSMUR(item.cz5_id, item.cz5_gp_id, item2.cz7_id, item.cz5_categoria)"
+                            :checked="respuestas_smur.filter(cz7_id => cz7_id == item2.cz7_id ) != ''" class="flat"
+                            type="radio" :name="item.cz5_id" :value="item2.cz7_id"> {{ item2.cz7_rta }}
                     </article>
-                    
+
                 </div>
             </div>
         </article>
 
 
-        <h4  class="display-5 titulo my-3" v-show="resSMMR.length">Preguntas de selección multiple con multiple respuestas</h4>
+        <h4 class="display-5 titulo my-3" v-show="resSMMR.length">Preguntas de selección multiple con multiple
+            respuestas</h4>
         <article v-for="(item3, i) in resSMMR" :key="`o-${i}`">
             <div class="row mt-2">
                 <div class="col-md-6">
                     <p class="lead">{{  item3.cz5_pregunta }}</p>
                 </div>
-                
+
             </div>
             <div class="col-md-12">
                 <article v-for="(item4, i) in item3.smmr" :key="`s-${i}`">
-                    <input 
-                    :disabled="editar ? false : true"
-                     @click="guardarSMMR(item3.cz5_id, item3.cz5_gp_id, item4.cz8_id, item3.cz5_categoria)" 
-                    class="flat" type="checkbox" :checked="respuestas_smmr.filter(cz8_id => cz8_id == item4.cz8_id ) != ''" :value="item4.cz8_id">{{ item4.cz8_rta }}
+                    <input :disabled="editar ? false : true"
+                        @click="guardarSMMR(item3.cz5_id, item3.cz5_gp_id, item4.cz8_id, item3.cz5_categoria)"
+                        class="flat" type="checkbox"
+                        :checked="respuestas_smmr.filter(cz8_id => cz8_id == item4.cz8_id ) != ''"
+                        :value="item4.cz8_id">{{ item4.cz8_rta }}
+                        
+                        <!-- <p>{{notas_smmr[i].filter(cz11_rta => cz11_id == item4.cz8_id)}}   {{i}} </p> -->
+                         
                 </article>
             </div>
         </article>
@@ -77,7 +91,7 @@
 <script>
     import EventBus from '../../bus';
     import router from '../../router'
-    
+
     export default {
         data() {
             return {
@@ -91,53 +105,58 @@
                 respuestas_smur: [],
                 respuestas_smmr: [],
                 respuestas_ra: [],
-                editar:true,
+                editar: true,
                 id_creador: null,
                 fecha_cierre: null,
-                fecha_apertura:null,
+                fecha_apertura: null,
                 estado_prueba: null,
-                
+                notas_smur: [],
+                notas_smmr: [],
+                id_empleado:''
 
 
             };
         },
-       
-        beforeMount() {
+
+        created() {
+            console.log('evaluacion')
             this.id = this.$route.params.id
-           
+            this.id_empleado = this.$route.params.empleado
+
             this.cargar();
             EventBus.$on('cargar', (item) => {
                 this.cargar()
             });
 
         },
-     mounted() {
-          //  router.onReady(this.advertir)
-         window.addEventListener('beforeunload', this.finalizar)
-         
-    },
-    beforeDestroy() {
-      window.onbeforeunload = this.finalizar()
-        
-    },
+        mounted() {
+            //  router.onReady(this.advertir)
+            window.addEventListener('beforeunload', this.cancelar)
+
+        },
+        beforeDestroy() {
+            window.onbeforeunload = this.cancelar()
+
+        },
         methods: {
-            validar(){
-                
-               this.conseguirEstado()
-                 if( (this.fecha_cierre < new Date() || this.fecha_apertura > new Date()) && this.id_creador != user.id){
+            validar() {
+
+                this.conseguirEstado()
+                if ((this.fecha_cierre < new Date() || this.fecha_apertura > new Date()) && this.id_creador != user
+                    .id) {
                     this.$router.go(-1)
-                 }
-                if(this.$route.params.empleado != user.id){
-                 this.editar = false
-                swal('Modo observador', 'No podra editar la prueba', 'warning')
-                if(this.id_creador != user.id){
-                    swal('Acceso denegado', '', 'warning')
-                   this.$router.go(-1)
-                 }
-                  
-                
-            }
-              
+                }
+                if (this.$route.params.empleado != user.id) {
+                    this.editar = false
+                    swal('Modo observador', 'No podra editar la prueba', 'warning')
+                    if (this.id_creador != user.id) {
+                        swal('Acceso denegado', '', 'warning')
+                        this.$router.go(-1)
+                    }
+
+
+                }
+
 
             },
             traerRa() {
@@ -167,9 +186,9 @@
             contar() {
                 this.contador = this.contador + 1
             },
-           
+
             cargar() {
-                  this.buscar()
+                this.buscar()
                 this.traerSMMR()
                 this.traerRa();
                 this.traerPregunta_SMUR();
@@ -177,101 +196,148 @@
                 this.buscarResmmr()
                 this.buscarRa();
             },
-            guardarRA(id_pp, id_gp, categoria, ra){
+            guardarRA(id_pp, id_gp, categoria, ra) {
                 console.log(ra)
-                 axios.post('/api/respuesta/ra/guardar', {id_gp: id_gp, id_pp: id_pp,  categoria: categoria, rta_ra: ra })
-                .then(res =>{
-                    console.log(res.data)
-                })
+                axios.post('/api/respuesta/ra/guardar', {
+                        id_gp: id_gp,
+                        id_pp: id_pp,
+                        categoria: categoria,
+                        rta_ra: ra
+                    })
+                    .then(res => {
+                        console.log(res.data)
+                    })
             },
-            guardarSMUR(id_pp, id_gp, id_rta, categoria){
-                axios.post('/api/respuesta/smur/guardar', {id_gp: id_gp, id_pp: id_pp, id_rta:id_rta, categoria: categoria })
-                .then(res =>{
-                    console.log(res.data)
-                })
+            guardarSMUR(id_pp, id_gp, id_rta, categoria) {
+                axios.post('/api/respuesta/smur/guardar', {
+                        id_gp: id_gp,
+                        id_pp: id_pp,
+                        id_rta: id_rta,
+                        categoria: categoria
+                    })
+                    .then(res => {
+                        console.log(res.data)
+                    })
             },
-               guardarSMMR(id_pp, id_gp, id_rta, categoria){
-                axios.post('/api/respuesta/smmr/guardar', {id_gp: id_gp, id_pp: id_pp, id_rta:id_rta, categoria: categoria })
-                .then(res =>{
-                    console.log(res.data)
-                })
+            guardarSMMR(id_pp, id_gp, id_rta, categoria) {
+                axios.post('/api/respuesta/smmr/guardar', {
+                        id_gp: id_gp,
+                        id_pp: id_pp,
+                        id_rta: id_rta,
+                        categoria: categoria
+                    })
+                    .then(res => {
+                        console.log(res.data)
+                    })
             },
-            buscarResmur(){
-                axios.get(`/api/respuesta/smur/buscar/${this.id}/${this.$route.params.empleado}`)
-                .then(res=>{
-                   console.log(res.data)
-                     for (var i = 0; i < res.data.length; i++) {
-                        this.respuestas_smur.push(res.data[i].cz11_rta)
-                    }
-                     console.log(this.respuestas_smur)
-                   
-                })
+            buscarResmur() {
+                axios.get(`/api/respuesta/smur/buscar/${this.id}/${this.id_empleado}`)
+                    .then(res => {
+                        
+
+                        for (var i = 0; i < res.data.length; i++) {
+                            this.respuestas_smur.push(res.data[i].cz11_rta)
+                             this.notas_smur.push(res.data[i].cz11_nota)
+                        }
+                        
+
+                    })
             },
-            buscarResmmr(){
+            buscarResmmr() {
                 axios.get(`/api/respuesta/smmr/buscar/${this.id}/${this.$route.params.empleado}`)
-                .then(res=>{
-                   
-                     for (var i = 0; i < res.data.length; i++) {
-                        this.respuestas_smmr.push(res.data[i].cz11_rta)
-                    }
-                     console.log(this.respuestas_smmr)
-                   
-                })
+                    .then(res => {
+                        this.notas_smmr = res.data
+                        console.log(this.notas_smmr)
+                       
+                        for (var i = 0; i < res.data.length; i++) {
+                            this.respuestas_smmr.push(res.data[i].cz11_rta)
+                            // this.notas_smmr.push(res.data[i].cz11_nota)
+                        }
+                         console.log(this.respuestas_smmr)
+                        
+
+                    })
             },
-            buscarRa(){
-             axios.get(`/api/respuesta/ra/buscar/${this.id}/${this.$route.params.empleado}`)
-                .then(res=>{
-                    // this.respuestas_ra = res.data
-                   
-                     for (var i = 0; i < res.data.length; i++) {
-                        this.respuestas_ra.push( res.data[i].cz11_rta_ra)
-                    }      
-                    console.log(this.respuestas_ra)        
-                })
+            buscarRa() {
+                axios.get(`/api/respuesta/ra/buscar/${this.id}/${this.$route.params.empleado}`)
+                    .then(res => {
+                        // this.respuestas_ra = res.data
+
+                        for (var i = 0; i < res.data.length; i++) {
+                            this.respuestas_ra.push(res.data[i].cz11_rta_ra)
+                        }
+                        console.log(this.respuestas_ra)
+                    })
 
             },
-             buscar() {
-            axios.get(`/api/gp/buscar/${this.$route.params.id}`).then(res => {
-                this.id = res.data.cz3_id
-                this.id_creador = res.data.cz3_id_creador
+            buscar() {
+                axios.get(`/api/gp/buscar/${this.$route.params.id}`).then(res => {
+                    this.id = res.data.cz3_id
+                    this.id_creador = res.data.cz3_id_creador
 
-                this.fecha_cierre = new Date(res.data.cz3_fecha_cierre);
-                this.fecha_apertura = new Date(res.data.cz3_fecha_apertura);
-                //AQUI SABEMOS SI TIENE PERMISOS PARA VER LAS PRUEBAS DE OTROS USUARIOS
-               this.validar()
-               
-              
-            });
-        },
-        finalizar(){
-             
-            console.log('entro')
-            axios.put(`/api/pruebas/finalizar/${this.id}`)
-            .then(res=>{
-                swal('Prueba Finalizada', 'Ya no podras modificarla', 'success')
-                  
-            })
-        },
-        conseguirEstado(){
-            axios.get(`/api/asignacion/estado/${this.$route.params.id}/${this.$route.params.empleado}`)
-            .then(res=>{
-               this.estado_prueba = res.data.cz4_estado
-               console.log(this.estado_prueba)
-               if(this.estado_prueba == 2 && user.id != this.id_creador){
-                    swal('Advertencia', 'Esta prueba ya finalizo', 'warning')
-                   this.$router.go(-1)
-                   
-                   
-               }
-            })
+                    this.fecha_cierre = new Date(res.data.cz3_fecha_cierre);
+                    this.fecha_apertura = new Date(res.data.cz3_fecha_apertura);
+                    //AQUI SABEMOS SI TIENE PERMISOS PARA VER LAS PRUEBAS DE OTROS USUARIOS
+                    this.validar()
 
-        }
-           
+
+                });
+            },
+            finalizar() {
+                this.calificar()
+                axios.put(`/api/pruebas/finalizar/${this.id}`)
+                    .then(res => {
+                        router.go(-1)
+
+                    })
+            },
+            conseguirEstado() {
+                axios.get(`/api/asignacion/estado/${this.$route.params.id}/${this.$route.params.empleado}`)
+                    .then(res => {
+                        this.estado_prueba = res.data.cz4_estado
+                        console.log(this.estado_prueba)
+                        if (this.estado_prueba == 2 && user.id != this.id_creador) {
+                            swal('Advertencia', 'Esta prueba ya finalizo', 'warning')
+                            this.$router.go(-1)
+
+
+                        }
+                    })
+
+            },
+            calificar() {
+                if (!this.resRA.length) {
+                    axios.get(`/api/evaluacion/calificar/${user.id} / ${this.id}`)
+                        .then(res => {
+                            console.log(res.data)
+
+                            if (res.data >= 3.5) {
+                                swal('Excelente', 'Tu nota final fue de ' + Number(res.data.toFixed(2)), 'success')
+                            } else {
+                                swal('Nota', 'Tu nota fue de ' + Number(res.data.toFixed(2)), 'warning')
+                            }
+                        })
+                } else {
+                    swal('Informacion', 'Esta prueba consta de preguntas abiertas, por esto sera calificada después.',
+                        'success')
+                }
+            },
+            cancelar() {
+                if (this.id_creador != user.id) {
+                    axios.put(`/api/pruebas/finalizar/${this.id}`)
+                        .then(res => {
+                            swal('Prueba Finalizada', 'Ya no podras modificarla', 'success')
+
+                        })
+                }
+
+            }
+
         },
         computed: {
-            
+
         }
-        
+
     };
 
 </script>

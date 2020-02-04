@@ -119,6 +119,7 @@
             validar(){
                 
                this.conseguirEstado()
+               console.log('ddd' + this.id_creador)
                  if( (this.fecha_cierre < new Date() || this.fecha_apertura > new Date()) && this.id_creador != user.id){
                     this.$router.go(-1)
                  }
@@ -232,6 +233,7 @@
 
                 this.fecha_cierre = new Date(res.data.cz3_fecha_cierre);
                 this.fecha_apertura = new Date(res.data.cz3_fecha_apertura);
+                
                 //AQUI SABEMOS SI TIENE PERMISOS PARA VER LAS PRUEBAS DE OTROS USUARIOS
                this.validar()
                

@@ -126,3 +126,6 @@ Route::delete('noticia/delete/{id}', 'NoticiasController@delete');
 //GUARDAR RESPUESTAS CORRECTAS
 Route::put('smur/update', 'RsController@guardarCorrectaSMUR');
 Route::put('smmr/update/{opcion}', 'RsController@guardarCorrectaSMMR');
+
+//CALIFICAR EVALUACION
+Route::get('evaluacion/calificar/{emp}/{id}','RespuestasController@calificar');

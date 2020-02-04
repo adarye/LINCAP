@@ -256,7 +256,17 @@
                 })
             },
             buscarEncuesta(id) {
+                axios.get(`/api/gp/buscar/${this.id_prueba}`)
+                .then(res=>{
+                   console.log(res.data)
+                    if(res.data.cz3_categoria == 1){
                 router.push('/presentar/encuesta/' + this.id_prueba + '/' + id)
+                }
+                else if(res.data.cz3_categoria == 2){
+                     router.push('/presentar/evaluacion/' + this.id_prueba + '/' + id)
+                }
+                })
+               
             }
 
         },

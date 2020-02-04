@@ -2200,6 +2200,7 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     validar: function validar() {
       this.conseguirEstado();
+      console.log('ddd' + this.id_creador);
 
       if ((this.fecha_cierre < new Date() || this.fecha_apertura > new Date()) && this.id_creador != user.id) {
         this.$router.go(-1);
@@ -2448,6 +2449,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2467,13 +2482,18 @@ __webpack_require__.r(__webpack_exports__);
       id_creador: null,
       fecha_cierre: null,
       fecha_apertura: null,
-      estado_prueba: null
+      estado_prueba: null,
+      notas_smur: [],
+      notas_smmr: [],
+      id_empleado: ''
     };
   },
-  beforeMount: function beforeMount() {
+  created: function created() {
     var _this = this;
 
+    console.log('evaluacion');
     this.id = this.$route.params.id;
+    this.id_empleado = this.$route.params.empleado;
     this.cargar();
     _bus__WEBPACK_IMPORTED_MODULE_0__["default"].$on('cargar', function (item) {
       _this.cargar();
@@ -2481,10 +2501,10 @@ __webpack_require__.r(__webpack_exports__);
   },
   mounted: function mounted() {
     //  router.onReady(this.advertir)
-    window.addEventListener('beforeunload', this.finalizar);
+    window.addEventListener('beforeunload', this.cancelar);
   },
   beforeDestroy: function beforeDestroy() {
-    window.onbeforeunload = this.finalizar();
+    window.onbeforeunload = this.cancelar();
   },
   methods: {
     validar: function validar() {
@@ -2576,22 +2596,24 @@ __webpack_require__.r(__webpack_exports__);
     buscarResmur: function buscarResmur() {
       var _this5 = this;
 
-      axios.get("/api/respuesta/smur/buscar/".concat(this.id, "/").concat(this.$route.params.empleado)).then(function (res) {
-        console.log(res.data);
-
+      axios.get("/api/respuesta/smur/buscar/".concat(this.id, "/").concat(this.id_empleado)).then(function (res) {
         for (var i = 0; i < res.data.length; i++) {
           _this5.respuestas_smur.push(res.data[i].cz11_rta);
-        }
 
-        console.log(_this5.respuestas_smur);
+          _this5.notas_smur.push(res.data[i].cz11_nota);
+        }
       });
     },
     buscarResmmr: function buscarResmmr() {
       var _this6 = this;
 
       axios.get("/api/respuesta/smmr/buscar/".concat(this.id, "/").concat(this.$route.params.empleado)).then(function (res) {
+        _this6.notas_smmr = res.data;
+        console.log(_this6.notas_smmr);
+
         for (var i = 0; i < res.data.length; i++) {
-          _this6.respuestas_smmr.push(res.data[i].cz11_rta);
+          _this6.respuestas_smmr.push(res.data[i].cz11_rta); // this.notas_smmr.push(res.data[i].cz11_nota)
+
         }
 
         console.log(_this6.respuestas_smmr);
@@ -2622,9 +2644,9 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     finalizar: function finalizar() {
-      console.log('entro');
+      this.calificar();
       axios.put("/api/pruebas/finalizar/".concat(this.id)).then(function (res) {
-        swal('Prueba Finalizada', 'Ya no podras modificarla', 'success');
+        _router__WEBPACK_IMPORTED_MODULE_1__["default"].go(-1);
       });
     },
     conseguirEstado: function conseguirEstado() {
@@ -2640,6 +2662,28 @@ __webpack_require__.r(__webpack_exports__);
           _this9.$router.go(-1);
         }
       });
+    },
+    calificar: function calificar() {
+      if (!this.resRA.length) {
+        axios.get("/api/evaluacion/calificar/".concat(user.id, " / ").concat(this.id)).then(function (res) {
+          console.log(res.data);
+
+          if (res.data >= 3.5) {
+            swal('Excelente', 'Tu nota final fue de ' + Number(res.data.toFixed(2)), 'success');
+          } else {
+            swal('Nota', 'Tu nota fue de ' + Number(res.data.toFixed(2)), 'warning');
+          }
+        });
+      } else {
+        swal('Informacion', 'Esta prueba consta de preguntas abiertas, por esto sera calificada después.', 'success');
+      }
+    },
+    cancelar: function cancelar() {
+      if (this.id_creador != user.id) {
+        axios.put("/api/pruebas/finalizar/".concat(this.id)).then(function (res) {
+          swal('Prueba Finalizada', 'Ya no podras modificarla', 'success');
+        });
+      }
     }
   },
   computed: {}
@@ -3094,76 +3138,86 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale('es');
       });
     },
     buscarEncuesta: function buscarEncuesta(id) {
-      _router__WEBPACK_IMPORTED_MODULE_1__["default"].push('/presentar/encuesta/' + this.id_prueba + '/' + id);
+      var _this7 = this;
+
+      axios.get("/api/gp/buscar/".concat(this.id_prueba)).then(function (res) {
+        console.log(res.data);
+
+        if (res.data.cz3_categoria == 1) {
+          _router__WEBPACK_IMPORTED_MODULE_1__["default"].push('/presentar/encuesta/' + _this7.id_prueba + '/' + id);
+        } else if (res.data.cz3_categoria == 2) {
+          _router__WEBPACK_IMPORTED_MODULE_1__["default"].push('/presentar/evaluacion/' + _this7.id_prueba + '/' + id);
+        }
+      });
     }
   },
   computed: {
     mbuscar: function mbuscar() {
-      var _this7 = this;
+      var _this8 = this;
 
       // return this.activos.filter((activo) => activo.c0550_rowid_tercero == this.seleccionados ) 
       return this.activos.filter(function (activo) {
-        _this7.pagina = 1;
+        _this8.pagina = 1;
 
-        if (_this7.selectCO == null || _this7.selectCO == 'co' && _this7.selectEM == 'MOSTRAR TODOS') {
+        if (_this8.selectCO == null || _this8.selectCO == 'co' && _this8.selectEM == 'MOSTRAR TODOS') {
           var nombre_completo = activo.c0541_nombres + ' ' + activo.c0541_apellido1 + ' ' + activo.c0541_apellido2;
-          return activo.c0541_id.toUpperCase().includes(_this7.bempleado.toUpperCase()) || nombre_completo.toUpperCase().includes(_this7.bempleado.toUpperCase()) || activo.c0763_descripcion.toUpperCase().includes(_this7.bempleado.toUpperCase());
-        } else if (_this7.selectEM == "MOSTRAR TODOS" && _this7.selectCO != 'co') {
+          return activo.c0541_id.toUpperCase().includes(_this8.bempleado.toUpperCase()) || nombre_completo.toUpperCase().includes(_this8.bempleado.toUpperCase()) || activo.c0763_descripcion.toUpperCase().includes(_this8.bempleado.toUpperCase());
+        } else if (_this8.selectEM == "MOSTRAR TODOS" && _this8.selectCO != 'co') {
           var _nombre_completo = activo.c0541_nombres + " " + activo.c0541_apellido1 + " " + activo.c0541_apellido2;
 
-          return activo.f285_id.includes(_this7.selectCO) && _nombre_completo.toUpperCase().includes(_this7.bempleado.toUpperCase()) || activo.f285_id.includes(_this7.selectCO) && activo.c0541_id.toUpperCase().includes(_this7.bempleado.toUpperCase()) || activo.f285_id.includes(_this7.selectCO) && activo.c0763_descripcion.toUpperCase().includes(_this7.bempleado.toUpperCase());
-        } else if (_this7.selectCO != 'co' && _this7.selectEM == 'SELECCIONADOS') {
-          if (_this7.bempleado == "") {
-            return _this7.seleccionados.filter(function (c0550_rowid_tercero) {
+          return activo.f285_id.includes(_this8.selectCO) && _nombre_completo.toUpperCase().includes(_this8.bempleado.toUpperCase()) || activo.f285_id.includes(_this8.selectCO) && activo.c0541_id.toUpperCase().includes(_this8.bempleado.toUpperCase()) || activo.f285_id.includes(_this8.selectCO) && activo.c0763_descripcion.toUpperCase().includes(_this8.bempleado.toUpperCase());
+        } else if (_this8.selectCO != 'co' && _this8.selectEM == 'SELECCIONADOS') {
+          if (_this8.bempleado == "") {
+            return _this8.seleccionados.filter(function (c0550_rowid_tercero) {
               return c0550_rowid_tercero == activo.c0550_rowid_tercero;
-            }) != '' && activo.f285_id.includes(_this7.selectCO);
+            }) != '' && activo.f285_id.includes(_this8.selectCO);
           }
 
           var _nombre_completo2 = activo.c0541_nombres + " " + activo.c0541_apellido1 + " " + activo.c0541_apellido2;
 
-          return _this7.seleccionados.filter(function (c0550_rowid_tercero) {
+          return _this8.seleccionados.filter(function (c0550_rowid_tercero) {
             return c0550_rowid_tercero == activo.c0550_rowid_tercero;
-          }) != '' && _nombre_completo2.toUpperCase().includes(_this7.bempleado.toUpperCase()) && activo.f285_id.includes(_this7.selectCO) || _this7.seleccionados.filter(function (c0550_rowid_tercero) {
+          }) != '' && _nombre_completo2.toUpperCase().includes(_this8.bempleado.toUpperCase()) && activo.f285_id.includes(_this8.selectCO) || _this8.seleccionados.filter(function (c0550_rowid_tercero) {
             return c0550_rowid_tercero == activo.c0550_rowid_tercero;
-          }) != '' && activo.c0541_id.toUpperCase().includes(_this7.bempleado.toUpperCase()) && activo.f285_id.includes(_this7.selectCO) || _this7.seleccionados.filter(function (c0550_rowid_tercero) {
+          }) != '' && activo.c0541_id.toUpperCase().includes(_this8.bempleado.toUpperCase()) && activo.f285_id.includes(_this8.selectCO) || _this8.seleccionados.filter(function (c0550_rowid_tercero) {
             return c0550_rowid_tercero == activo.c0550_rowid_tercero;
-          }) != '' && activo.c0763_descripcion.toUpperCase().includes(_this7.bempleado.toUpperCase()) && activo.f285_id.includes(_this7.selectCO);
-        } else if (_this7.selectEM == "SELECCIONADOS") {
+          }) != '' && activo.c0763_descripcion.toUpperCase().includes(_this8.bempleado.toUpperCase()) && activo.f285_id.includes(_this8.selectCO);
+        } else if (_this8.selectEM == "SELECCIONADOS") {
           var _nombre_completo3 = activo.c0541_nombres + " " + activo.c0541_apellido1 + " " + activo.c0541_apellido2;
 
-          return _this7.seleccionados.filter(function (c0550_rowid_tercero) {
+          return _this8.seleccionados.filter(function (c0550_rowid_tercero) {
             return c0550_rowid_tercero == activo.c0550_rowid_tercero;
-          }) != '' && _nombre_completo3.toUpperCase().includes(_this7.bempleado.toUpperCase()) || _this7.seleccionados.filter(function (c0550_rowid_tercero) {
+          }) != '' && _nombre_completo3.toUpperCase().includes(_this8.bempleado.toUpperCase()) || _this8.seleccionados.filter(function (c0550_rowid_tercero) {
             return c0550_rowid_tercero == activo.c0550_rowid_tercero;
-          }) != '' && activo.c0541_id.toUpperCase().includes(_this7.bempleado.toUpperCase()) || _this7.seleccionados.filter(function (c0550_rowid_tercero) {
+          }) != '' && activo.c0541_id.toUpperCase().includes(_this8.bempleado.toUpperCase()) || _this8.seleccionados.filter(function (c0550_rowid_tercero) {
             return c0550_rowid_tercero == activo.c0550_rowid_tercero;
-          }) != '' && activo.c0763_descripcion.toUpperCase().includes(_this7.bempleado.toUpperCase());
-        } else if (_this7.selectCO != 'co' && _this7.selectEM == 'NO SELECCIONADOS') {
-          if (_this7.bempleado == "") {
-            return _this7.seleccionados.filter(function (c0550_rowid_tercero) {
+          }) != '' && activo.c0763_descripcion.toUpperCase().includes(_this8.bempleado.toUpperCase());
+        } else if (_this8.selectCO != 'co' && _this8.selectEM == 'NO SELECCIONADOS') {
+          if (_this8.bempleado == "") {
+            return _this8.seleccionados.filter(function (c0550_rowid_tercero) {
               return c0550_rowid_tercero == activo.c0550_rowid_tercero;
-            }) == '' && activo.f285_id.includes(_this7.selectCO);
+            }) == '' && activo.f285_id.includes(_this8.selectCO);
           }
 
           var _nombre_completo4 = activo.c0541_nombres + " " + activo.c0541_apellido1 + " " + activo.c0541_apellido2;
 
-          return _this7.seleccionados.filter(function (c0550_rowid_tercero) {
+          return _this8.seleccionados.filter(function (c0550_rowid_tercero) {
             return c0550_rowid_tercero == activo.c0550_rowid_tercero;
-          }) == '' && _nombre_completo4.toUpperCase().includes(_this7.bempleado.toUpperCase()) && activo.f285_id.includes(_this7.selectCO) || _this7.seleccionados.filter(function (c0550_rowid_tercero) {
+          }) == '' && _nombre_completo4.toUpperCase().includes(_this8.bempleado.toUpperCase()) && activo.f285_id.includes(_this8.selectCO) || _this8.seleccionados.filter(function (c0550_rowid_tercero) {
             return c0550_rowid_tercero == activo.c0550_rowid_tercero;
-          }) == '' && activo.c0541_id.toUpperCase().includes(_this7.bempleado.toUpperCase()) && activo.f285_id.includes(_this7.selectCO) || _this7.seleccionados.filter(function (c0550_rowid_tercero) {
+          }) == '' && activo.c0541_id.toUpperCase().includes(_this8.bempleado.toUpperCase()) && activo.f285_id.includes(_this8.selectCO) || _this8.seleccionados.filter(function (c0550_rowid_tercero) {
             return c0550_rowid_tercero == activo.c0550_rowid_tercero;
-          }) == '' && activo.c0763_descripcion.toUpperCase().includes(_this7.bempleado.toUpperCase()) && activo.f285_id.includes(_this7.selectCO);
-        } else if (_this7.selectEM == "NO SELECCIONADOS") {
+          }) == '' && activo.c0763_descripcion.toUpperCase().includes(_this8.bempleado.toUpperCase()) && activo.f285_id.includes(_this8.selectCO);
+        } else if (_this8.selectEM == "NO SELECCIONADOS") {
           var _nombre_completo5 = activo.c0541_nombres + " " + activo.c0541_apellido1 + " " + activo.c0541_apellido2;
 
-          return _this7.seleccionados.filter(function (c0550_rowid_tercero) {
+          return _this8.seleccionados.filter(function (c0550_rowid_tercero) {
             return c0550_rowid_tercero == activo.c0550_rowid_tercero;
-          }) == '' && _nombre_completo5.toUpperCase().includes(_this7.bempleado.toUpperCase()) || _this7.seleccionados.filter(function (c0550_rowid_tercero) {
+          }) == '' && _nombre_completo5.toUpperCase().includes(_this8.bempleado.toUpperCase()) || _this8.seleccionados.filter(function (c0550_rowid_tercero) {
             return c0550_rowid_tercero == activo.c0550_rowid_tercero;
-          }) == '' && activo.c0541_id.toUpperCase().includes(_this7.bempleado.toUpperCase()) || _this7.seleccionados.filter(function (c0550_rowid_tercero) {
+          }) == '' && activo.c0541_id.toUpperCase().includes(_this8.bempleado.toUpperCase()) || _this8.seleccionados.filter(function (c0550_rowid_tercero) {
             return c0550_rowid_tercero == activo.c0550_rowid_tercero;
-          }) == '' && activo.c0763_descripcion.toUpperCase().includes(_this7.bempleado.toUpperCase());
+          }) == '' && activo.c0763_descripcion.toUpperCase().includes(_this8.bempleado.toUpperCase());
         }
       });
     }
@@ -3462,6 +3516,7 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     var _this = this;
 
+    console.log('bodyrespuestas');
     this.cargar();
     _bus__WEBPACK_IMPORTED_MODULE_0__["default"].$on('cargar', function (item) {
       _this.cargar();
@@ -5579,7 +5634,7 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale("es");
 
       swal({
         title: "Advertencia",
-        text: "Si te sales despues de estar en la evaluacion, o recargas la pagina, la prueba sera anulada",
+        text: "Si te sales despues de estar en la evaluacion, o recargas la pagina, la prueba sera anulada.",
         icon: "warning",
         buttons: true,
         dangerMode: true
@@ -66728,7 +66783,7 @@ var render = function() {
           staticClass: "alert alert-warning lead",
           attrs: { role: "alert" }
         },
-        [_vm._v("\n     Esta evaluacion ya ha sido iniciada\n     ")]
+        [_vm._v("\n        Esta evaluacion ya ha sido iniciada\n    ")]
       ),
       _vm._v(" "),
       _c(
@@ -66745,7 +66800,7 @@ var render = function() {
           staticClass: "alert alert-success lead",
           attrs: { role: "alert" }
         },
-        [_vm._v("\n     Esta evaluacion ya esta finalizada\n     ")]
+        [_vm._v("\n        Esta evaluacion ya esta finalizada\n    ")]
       ),
       _vm._v(" "),
       _c(
@@ -66837,7 +66892,7 @@ var render = function() {
           ],
           staticClass: "display-5 titulo my-3"
         },
-        [_vm._v("Preguntas de selección multiple con única respuestas")]
+        [_vm._v("Preguntas de selección multiple con única respuestas\n    ")]
       ),
       _vm._v(" "),
       _vm._l(_vm.resSMUR, function(item, indice) {
@@ -66845,7 +66900,38 @@ var render = function() {
           _c("div", { staticClass: "row mt-2" }, [
             _c("div", { staticClass: "col-md-6" }, [
               _c("p", { staticClass: "lead" }, [
-                _vm._v(_vm._s(item.cz5_pregunta) + "\n                ")
+                _vm._v(_vm._s(item.cz5_pregunta) + "\n                    "),
+                _c(
+                  "span",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: _vm.notas_smur[indice] > 0,
+                        expression: "notas_smur[indice] >0"
+                      }
+                    ],
+                    staticClass: "badge badge-success"
+                  },
+                  [_vm._v("\n                        Correcta")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "span",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: _vm.notas_smur[indice] == 0,
+                        expression: "notas_smur[indice] ==0"
+                      }
+                    ],
+                    staticClass: "badge badge-danger"
+                  },
+                  [_vm._v("\n                        Incorrecta")]
+                )
               ])
             ]),
             _vm._v(" "),
@@ -66881,11 +66967,7 @@ var render = function() {
                       }
                     }
                   }),
-                  _vm._v(
-                    " " +
-                      _vm._s(item2.cz7_rta) +
-                      "                 \n                "
-                  )
+                  _vm._v(" " + _vm._s(item2.cz7_rta) + "\n                ")
                 ])
               }),
               0
@@ -66907,7 +66989,11 @@ var render = function() {
           ],
           staticClass: "display-5 titulo my-3"
         },
-        [_vm._v("Preguntas de selección multiple con multiple respuestas")]
+        [
+          _vm._v(
+            "Preguntas de selección multiple con multiple\n        respuestas"
+          )
+        ]
       ),
       _vm._v(" "),
       _vm._l(_vm.resSMMR, function(item3, i) {
@@ -66949,7 +67035,10 @@ var render = function() {
                     }
                   }
                 }),
-                _vm._v(_vm._s(item4.cz8_rta) + "\n            ")
+                _vm._v(
+                  _vm._s(item4.cz8_rta) +
+                    "\n                    \n                    "
+                )
               ])
             }),
             0
@@ -68122,7 +68211,7 @@ var render = function() {
                   _vm._v("By " + _vm._s(item.cz1_nombres) + " ")
                 ]),
                 _vm._v(" "),
-                _c("p", { staticClass: "lead" }, [
+                _c("p", { staticClass: "lead noti-text" }, [
                   _vm._v(_vm._s(item.cz12_descripcion))
                 ]),
                 _vm._v(" "),

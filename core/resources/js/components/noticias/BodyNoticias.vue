@@ -45,7 +45,7 @@
                     </h4>
                     <p class="text-right">By {{item.cz1_nombres}} </p>
 
-                    <p class="lead">{{item.cz12_descripcion}}</p>
+                    <p class="lead noti-text">{{item.cz12_descripcion}}</p>
                     <ul class="list-inline list-unstyled">
                         <li class="mt-3"><span><i class="fa fa-clock-o"></i>
                                {{item.cz12_fecha_creacion}}

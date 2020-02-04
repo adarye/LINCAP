@@ -81,6 +81,7 @@
             };
         },
         mounted() {
+            console.log('bodyrespuestas')
             this.cargar();
             EventBus.$on('cargar', (item) => {
                 this.cargar()

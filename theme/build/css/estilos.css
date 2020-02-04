@@ -99,3 +99,11 @@
     text-align: center;
     color: #61534e;
 }
+
+.noti-text {
+    padding: 17px;
+    display: block;
+    margin: 22px;
+    text-align: justify;
+    color: #081158;
+}
