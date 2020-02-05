@@ -61,6 +61,12 @@
                                 </button>
                                 <button class="btn btn-success fa fa-search-plus"
                                     @click="buscarEncuesta(item.c0550_rowid_tercero)"></button>
+                                    {{ emp_calificacion.filter(emp => emp.cz4_ts_id == item.c0550_rowid_tercero && emp.cz4_calificacion != null)}}
+                                    
+                                    
+                                    
+                                    
+
 
                             </span>
                             <span v-else>
@@ -105,6 +111,8 @@
 
         data() {
             return {
+            
+                emp_calificacion:[],
 
                 seleccionados: [],
                 CO: [],
@@ -143,7 +151,9 @@
             },
             traerRelacion() {
                 axios.get(`/api/asignacion/index/${this.id_prueba}`).then(res => {
+                    this.emp_calificacion = res.data;
                     for (var i = 0; i < res.data.length; i++) {
+                        
                         this.seleccionados.push(res.data[i].cz4_ts_id)
                     }
                     console.log(this.seleccionados)

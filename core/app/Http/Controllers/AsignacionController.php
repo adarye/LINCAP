@@ -41,7 +41,7 @@ class AsignacionController extends Controller
     {
         if (Gate::allows('isAdmin') || 
         Gate::allows('isRRHH') || Gate::allows('isSST') ) {
-        $registros = z4_rel_ts_gp::select('cz4_ts_id')->where('cz4_gp_id', $id)->get();
+        $registros = z4_rel_ts_gp::select('cz4_ts_id', 'cz4_calificacion')->where('cz4_gp_id', $id)->get();
         $j = json_decode($registros, true);
         return $registros;
         }
@@ -105,7 +105,7 @@ class AsignacionController extends Controller
         return z4_rel_ts_gp::where('cz4_gp_id',$id)->count();
     }
     public function conseguirEstado($id, $empleado){
-        return  z4_rel_ts_gp::select('cz4_id', 'cz4_estado')->where('cz4_ts_id', $empleado)
+        return  z4_rel_ts_gp::select('cz4_id', 'cz4_estado', 'cz4_calificacion')->where('cz4_ts_id', $empleado)
         ->where('cz4_gp_id', $id)->first();
     }
 }

@@ -92,6 +92,7 @@ class RespuestasController extends Controller
             $resultado->cz11_categoria = $request->categoria;
             $resultado->cz11_rta = $request->id_rta;
             $resultado->cz11_rta_ra = $request->rta_ra;
+            $resultado->cz11_nota = 0;
             $resultado->save();
             return $resultado;
         } else {
@@ -135,7 +136,7 @@ class RespuestasController extends Controller
         if (Gate::allows('isAdmin') ||
             Gate::allows('isRRHH') || Gate::allows('isSST') || $empleado == Auth()->user()->cz1_id_empleado) {
             if ($prueba->cz3_id_creador == Auth()->user()->cz1_id_empleado || $empleado == Auth()->user()->cz1_id_empleado) {
-                return z11_resultados::select('cz11_rta_ra', 'cz11_pp_id')->where('cz11_id_gp', $id)
+                return z11_resultados::select('cz11_rta_ra', 'cz11_pp_id', 'cz11_nota')->where('cz11_id_gp', $id)
                     ->where('cz11_id_empleado', $empleado)->where('cz11_categoria', 'ra')->get();
             }
         }
@@ -197,7 +198,7 @@ class RespuestasController extends Controller
             ->get();
 
         //TOTAL DE PREGUNTAS ENCUESTAS
-       $total_preguntas = z3_gestion_pruebas::join(
+        $total_preguntas = z3_gestion_pruebas::join(
             'z5_prueba_preguntas',
             'z3_gestion_pruebas.cz3_id',
             '=',
@@ -211,12 +212,12 @@ class RespuestasController extends Controller
         $pp = null;
 
         foreach ($smur as &$item) {
-            
+
             if ($item->cz7_rta_correcta == $item->cz11_rta) {
-                $numero = 5 /$total_preguntas;
-                $acumulado = $acumulado + $numero;         
-            }           
-             
+                $numero = 5 / $total_preguntas;
+                $acumulado = $acumulado + $numero;
+            }
+
             $nota = z11_resultados::find($item->cz11_id);
             $nota->cz11_nota = $numero;
             $nota->save();
@@ -224,7 +225,6 @@ class RespuestasController extends Controller
             $numero = 0;
         }
 
-        
         //SACAR NOTA SMMR
         $total_preguntas_smmr = 0;
         $calificacion = 0;
@@ -232,7 +232,6 @@ class RespuestasController extends Controller
 
         //   return $smmr;
         foreach ($smmr as &$item) {
-           
 
             $total_preguntas_smmr = z5_prueba_preguntas::join(
                 'z8_rta_smmrs',
@@ -241,41 +240,87 @@ class RespuestasController extends Controller
                 'z8_rta_smmrs.cz8_pp_id'
 
             )->where('cz8_pp_id', $item->cz11_pp_id)->where('cz8_rta_correcta', '!=', null)->count();
-        
+
             if ($item->cz8_rta_correcta == $item->cz11_rta) {
 
-                
-                
-                $valor = 5 /$total_preguntas;
+                $valor = 5 / $total_preguntas;
                 $puntaje = $valor / $total_preguntas_smmr;
                 $calificacion = $calificacion + $puntaje;
-                 $acumulado = $acumulado + $calificacion;
-    
-                 $nota = z11_resultados::find($item->cz11_id);
-                 $nota->cz11_nota = $calificacion;
-                 $nota->save();
-                 $calificacion = 0;
+                $acumulado = $acumulado + $calificacion;
 
-                 $rta_id =  $item->cz11_rta;
-                  
-            }
-            else{
-                if($rta_id != $item->cz11_rta){
                 $nota = z11_resultados::find($item->cz11_id);
                 $nota->cz11_nota = $calificacion;
                 $nota->save();
-                $calificacion = 0; 
+                $calificacion = 0;
+
+                $rta_id = $item->cz11_rta;
+
+            } else {
+                if ($rta_id != $item->cz11_rta) {
+                    $nota = z11_resultados::find($item->cz11_id);
+                    $nota->cz11_nota = $calificacion;
+                    $nota->save();
+                    $calificacion = 0;
                 }
             }
-            
-          
-            
-            
-          
-            
-            
+
         }
+
+        $nota_final = z4_rel_ts_gp::where('cz4_ts_id', $emp)->where('cz4_gp_id', $id)->first();
+        $nota_final->cz4_calificacion = $acumulado;
+        $nota_final->save();
         return $acumulado;
+
+    }
+    public function validarInicio($id_prueba)
+    {
+        return z11_resultados::select('cz11_id')->where('cz11_id_gp', $id_prueba)->first();
+    }
+
+    public function calificaRA(Request $request)
+    {
+        $total_preguntas = z3_gestion_pruebas::join(
+            'z5_prueba_preguntas',
+            'z3_gestion_pruebas.cz3_id',
+            '=',
+            'z5_prueba_preguntas.cz5_gp_id'
+
+        )->where('cz5_gp_id', $request->prueba)->count();
+
+        $numero = 5 / $total_preguntas;
+
+        if ($request->cal == 2  || $request->cal == 3) {
+            if ($request->cal == 2){
+            $numero = $numero / 2;
+            }
+            else{
+                $numero = $numero / 1;
+            }
+            $nota = z11_resultados::where('cz11_pp_id', $request->pregunta)->where('cz11_id_empleado', $request->empleado)->first();
+            $nota_anterior = $nota->cz11_nota;
+            $nota->cz11_nota = $numero;
+            $nota->save();
+
+            $nota_final = z4_rel_ts_gp::where('cz4_ts_id', $request->empleado)->where('cz4_gp_id', $request->prueba)->first();
+            $nota_final->cz4_calificacion = ($nota_final->cz4_calificacion - $nota_anterior) + $numero;
+            $nota_final->save();
+
+        } else if ($request->cal == 1) {
+            $numero = $numero / 1;
+            $nota = z11_resultados::where('cz11_pp_id', $request->pregunta)->where('cz11_id_empleado', $request->empleado)->first();
+            $nota_anterior = $nota->cz11_nota;
+            $nota->cz11_nota = 0;
+            $nota->save();
+
+            $nota_final = z4_rel_ts_gp::where('cz4_ts_id', $request->empleado)->where('cz4_gp_id', $request->prueba)->first();
+            $nota_final->cz4_calificacion = ($nota_final->cz4_calificacion - $nota_anterior);
+            $nota_final->save();
+        }
+
+        
+
+       
+        return $nota_final;
 
     }
 

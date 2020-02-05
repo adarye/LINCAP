@@ -2463,11 +2463,41 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
+      id_rta: null,
       resSMUR: [],
       resRA: [],
       resSMMR: [],
@@ -2485,12 +2515,18 @@ __webpack_require__.r(__webpack_exports__);
       estado_prueba: null,
       notas_smur: [],
       notas_smmr: [],
-      id_empleado: ''
+      id_empleado: '',
+      id_log: null,
+      calificacion_final: 0,
+      nota_ra: "",
+      cantidad_preg: 0,
+      titulo: ""
     };
   },
   created: function created() {
     var _this = this;
 
+    this.id_log = user.id;
     console.log('evaluacion');
     this.id = this.$route.params.id;
     this.id_empleado = this.$route.params.empleado;
@@ -2500,13 +2536,33 @@ __webpack_require__.r(__webpack_exports__);
     });
   },
   mounted: function mounted() {
+    var _this2 = this;
+
     //  router.onReady(this.advertir)
+    axios.get("/api/preguntas/contar/".concat(this.id)).then(function (res) {
+      console.log(res.data);
+      _this2.cantidad_preg = res.data;
+    });
     window.addEventListener('beforeunload', this.cancelar);
   },
   beforeDestroy: function beforeDestroy() {
     window.onbeforeunload = this.cancelar();
   },
   methods: {
+    calificarRA: function calificarRA(event, pregunta) {
+      var _this3 = this;
+
+      var params = {
+        empleado: this.id_empleado,
+        prueba: this.id,
+        pregunta: pregunta,
+        cal: event.target.value
+      };
+      axios.put('/api/evaluacion/calificar/RA', params).then(function (res) {
+        console.log(res.data);
+        _this3.calificacion_final = Math.round(res.data.cz4_calificacion * 100) / 100;
+      });
+    },
     validar: function validar() {
       this.conseguirEstado();
 
@@ -2525,29 +2581,29 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     traerRa: function traerRa() {
-      var _this2 = this;
+      var _this4 = this;
 
       console.log(this.id);
       axios.get("/api/respuestaA/buscar/".concat(this.id)).then(function (res) {
-        _this2.resRA = res.data;
-        console.log(_this2.resRA);
+        _this4.resRA = res.data;
+        console.log(_this4.resRA);
       });
     },
     traerSMMR: function traerSMMR() {
-      var _this3 = this;
+      var _this5 = this;
 
       console.log(this.id);
       axios.get("/api/respuestaM/buscar/".concat(this.id)).then(function (res) {
-        _this3.resSMMR = res.data;
-        console.log(_this3.resSMMR);
+        _this5.resSMMR = res.data;
+        console.log(_this5.resSMMR);
       });
     },
     traerPregunta_SMUR: function traerPregunta_SMUR() {
-      var _this4 = this;
+      var _this6 = this;
 
       axios.get("/api/pregunta/index/".concat(this.id)).then(function (res) {
-        _this4.resSMUR = res.data;
-        console.log(_this4.resSMUR);
+        _this6.resSMUR = res.data;
+        console.log(_this6.resSMUR);
       });
     },
     contar: function contar() {
@@ -2594,53 +2650,56 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     buscarResmur: function buscarResmur() {
-      var _this5 = this;
+      var _this7 = this;
 
       axios.get("/api/respuesta/smur/buscar/".concat(this.id, "/").concat(this.id_empleado)).then(function (res) {
         for (var i = 0; i < res.data.length; i++) {
-          _this5.respuestas_smur.push(res.data[i].cz11_rta);
+          _this7.respuestas_smur.push(res.data[i].cz11_rta);
 
-          _this5.notas_smur.push(res.data[i].cz11_nota);
+          _this7.notas_smur.push(res.data[i].cz11_nota);
         }
       });
     },
     buscarResmmr: function buscarResmmr() {
-      var _this6 = this;
+      var _this8 = this;
 
       axios.get("/api/respuesta/smmr/buscar/".concat(this.id, "/").concat(this.$route.params.empleado)).then(function (res) {
-        _this6.notas_smmr = res.data;
-        console.log(_this6.notas_smmr);
+        _this8.notas_smmr = res.data;
+        console.log(_this8.notas_smmr);
 
         for (var i = 0; i < res.data.length; i++) {
-          _this6.respuestas_smmr.push(res.data[i].cz11_rta); // this.notas_smmr.push(res.data[i].cz11_nota)
+          _this8.respuestas_smmr.push(res.data[i].cz11_rta); // this.notas_smmr.push(res.data[i].cz11_nota)
 
         }
 
-        console.log(_this6.respuestas_smmr);
+        console.log(_this8.respuestas_smmr);
       });
     },
     buscarRa: function buscarRa() {
-      var _this7 = this;
+      var _this9 = this;
 
       axios.get("/api/respuesta/ra/buscar/".concat(this.id, "/").concat(this.$route.params.empleado)).then(function (res) {
         // this.respuestas_ra = res.data
+        _this9.nota_ra = res.data;
+
         for (var i = 0; i < res.data.length; i++) {
-          _this7.respuestas_ra.push(res.data[i].cz11_rta_ra);
+          _this9.respuestas_ra.push(res.data[i].cz11_rta_ra);
         }
 
-        console.log(_this7.respuestas_ra);
+        console.log(_this9.respuestas_ra);
       });
     },
     buscar: function buscar() {
-      var _this8 = this;
+      var _this10 = this;
 
       axios.get("/api/gp/buscar/".concat(this.$route.params.id)).then(function (res) {
-        _this8.id = res.data.cz3_id;
-        _this8.id_creador = res.data.cz3_id_creador;
-        _this8.fecha_cierre = new Date(res.data.cz3_fecha_cierre);
-        _this8.fecha_apertura = new Date(res.data.cz3_fecha_apertura); //AQUI SABEMOS SI TIENE PERMISOS PARA VER LAS PRUEBAS DE OTROS USUARIOS
+        _this10.id = res.data.cz3_id;
+        _this10.id_creador = res.data.cz3_id_creador;
+        _this10.titulo = res.data.cz3_nombre;
+        _this10.fecha_cierre = new Date(res.data.cz3_fecha_cierre);
+        _this10.fecha_apertura = new Date(res.data.cz3_fecha_apertura); //AQUI SABEMOS SI TIENE PERMISOS PARA VER LAS PRUEBAS DE OTROS USUARIOS
 
-        _this8.validar();
+        _this10.validar();
       });
     },
     finalizar: function finalizar() {
@@ -2650,33 +2709,36 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     conseguirEstado: function conseguirEstado() {
-      var _this9 = this;
+      var _this11 = this;
 
       axios.get("/api/asignacion/estado/".concat(this.$route.params.id, "/").concat(this.$route.params.empleado)).then(function (res) {
-        _this9.estado_prueba = res.data.cz4_estado;
-        console.log(_this9.estado_prueba);
+        _this11.calificacion_final = Math.round(res.data.cz4_calificacion * 100) / 100;
+        _this11.estado_prueba = res.data.cz4_estado;
+        console.log(_this11.estado_prueba);
 
-        if (_this9.estado_prueba == 2 && user.id != _this9.id_creador) {
+        if (_this11.estado_prueba == 2 && user.id != _this11.id_creador) {
           swal('Advertencia', 'Esta prueba ya finalizo', 'warning');
 
-          _this9.$router.go(-1);
+          _this11.$router.go(-1);
         }
       });
     },
     calificar: function calificar() {
-      if (!this.resRA.length) {
-        axios.get("/api/evaluacion/calificar/".concat(user.id, " / ").concat(this.id)).then(function (res) {
-          console.log(res.data);
+      var _this12 = this;
 
+      axios.get("/api/evaluacion/calificar/".concat(user.id, " / ").concat(this.id)).then(function (res) {
+        console.log(res.data);
+
+        if (!_this12.resRA.length) {
           if (res.data >= 3.5) {
             swal('Excelente', 'Tu nota final fue de ' + Number(res.data.toFixed(2)), 'success');
           } else {
             swal('Nota', 'Tu nota fue de ' + Number(res.data.toFixed(2)), 'warning');
           }
-        });
-      } else {
-        swal('Informacion', 'Esta prueba consta de preguntas abiertas, por esto sera calificada después.', 'success');
-      }
+        } else {
+          swal('Informacion', 'Esta prueba consta de preguntas abiertas, por esto sera calificada después.', 'success');
+        }
+      });
     },
     cancelar: function cancelar() {
       if (this.id_creador != user.id) {
@@ -2686,7 +2748,15 @@ __webpack_require__.r(__webpack_exports__);
       }
     }
   },
-  computed: {}
+  computed: {
+    smmr: function smmr() {
+      // this.notas_smmr.filter(function(nota){
+      // if(typeof(this.id_rta) != 'undefined'){
+      return 'hola'; // }
+      //  return nota.cz11_rta == this.id_rta;         
+      // });
+    }
+  }
 });
 
 /***/ }),
@@ -2977,12 +3047,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale('es');
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
+      emp_calificacion: [],
       seleccionados: [],
       CO: [],
       activos: [],
@@ -3023,6 +3100,8 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale('es');
       var _this2 = this;
 
       axios.get("/api/asignacion/index/".concat(this.id_prueba)).then(function (res) {
+        _this2.emp_calificacion = res.data;
+
         for (var i = 0; i < res.data.length; i++) {
           _this2.seleccionados.push(res.data[i].cz4_ts_id);
         }
@@ -3516,6 +3595,7 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     var _this = this;
 
+    this.validarInicio();
     console.log('bodyrespuestas');
     this.cargar();
     _bus__WEBPACK_IMPORTED_MODULE_0__["default"].$on('cargar', function (item) {
@@ -3602,6 +3682,17 @@ __webpack_require__.r(__webpack_exports__);
           console.log(res.data);
         });
       }
+    },
+    validarInicio: function validarInicio() {
+      var _this6 = this;
+
+      axios.get("/api/prueba/inicio/".concat(this.id)).then(function (res) {
+        console.log(res.data);
+
+        if (res.data != "") {
+          _this6.$router.go(-1);
+        }
+      });
     }
   },
   computed: {}
@@ -5167,6 +5258,24 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale("es");
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -5174,13 +5283,16 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale("es");
     return {
       pruebas: [],
       fecha_actual: '',
-      moment: moment__WEBPACK_IMPORTED_MODULE_0___default.a
+      moment: moment__WEBPACK_IMPORTED_MODULE_0___default.a,
+      categoria: null,
+      id: null
     };
   },
   mounted: function mounted() {
     var _this = this;
 
-    axios.get("/api/pruebas/completadas/".concat(this.$route.params.categoria)).then(function (res) {
+    this.categoria = this.$route.params.categoria;
+    axios.get("/api/pruebas/completadas/".concat(this.categoria)).then(function (res) {
       _this.pruebas = res.data;
       console.log(_this.pruebas);
     });
@@ -5554,7 +5666,17 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale("es");
       _js_router__WEBPACK_IMPORTED_MODULE_1__["default"].push('/gestion/pruebas/asignar/' + id); //  this.$modal.show('asignar')
     },
     preguntas: function preguntas(id) {
-      _js_router__WEBPACK_IMPORTED_MODULE_1__["default"].push('/prueba/preguntas/' + this.$route.params.categoria + '/' + id);
+      var _this6 = this;
+
+      axios.get("/api/prueba/inicio/".concat(id)).then(function (res) {
+        console.log(res.data);
+
+        if (res.data == "") {
+          _js_router__WEBPACK_IMPORTED_MODULE_1__["default"].push('/prueba/preguntas/' + _this6.$route.params.categoria + '/' + id);
+        } else {
+          swal('Advertencia', 'No se pueden editar las preguntas porque alguien ya la contesto.', 'warning');
+        }
+      });
     },
     estadisticas: function estadisticas(id) {
       console.log('entro');
@@ -5606,6 +5728,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale("es");
 
@@ -5615,13 +5738,15 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale("es");
       pruebas: [],
       fecha_actual: '',
       moment: moment__WEBPACK_IMPORTED_MODULE_0___default.a,
-      id: null
+      id: null,
+      categoria: ""
     };
   },
   beforeMount: function beforeMount() {
     var _this = this;
 
     this.id = user.id;
+    this.categoria = this.$route.params.categoria;
     console.log(this.id);
     axios.get("/api/pruebas/pendientes/".concat(this.$route.params.categoria)).then(function (res) {
       _this.pruebas = res.data;
@@ -66769,6 +66894,10 @@ var render = function() {
   return _c(
     "div",
     [
+      _c("center", [
+        _c("h1", { staticClass: "titulo" }, [_vm._v(_vm._s(_vm.titulo))])
+      ]),
+      _vm._v(" "),
       _c(
         "div",
         {
@@ -66802,6 +66931,13 @@ var render = function() {
         },
         [_vm._v("\n        Esta evaluacion ya esta finalizada\n    ")]
       ),
+      _vm._v(" "),
+      _c("h4", { staticClass: "display-5 titulo mb-3" }, [
+        _vm._v("Calificacion Final: "),
+        _c("span", { staticClass: "badge badge-primary" }, [
+          _vm._v(_vm._s(_vm.calificacion_final))
+        ])
+      ]),
       _vm._v(" "),
       _c(
         "h4",
@@ -66874,7 +67010,64 @@ var render = function() {
                   }
                 }
               })
-            ])
+            ]),
+            _vm._v(" "),
+            _vm.id_creador == _vm.id_log && _vm.nota_ra
+              ? _c("div", { staticClass: "col-md-3 p-3" }, [
+                  _c("div", { staticClass: "row" }, [
+                    _c("input", {
+                      attrs: {
+                        type: "radio",
+                        required: "",
+                        name: dato.cz5_id,
+                        value: "3"
+                      },
+                      domProps: {
+                        checked:
+                          Math.round((5 / _vm.cantidad_preg) * 100) / 100 ==
+                          Math.round(_vm.nota_ra[i].cz11_nota * 100) / 100
+                      },
+                      on: {
+                        click: function($event) {
+                          return _vm.calificarRA($event, dato.cz5_id)
+                        }
+                      }
+                    }),
+                    _vm._v(" Excelente\n                ")
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "row" }, [
+                    _c("input", {
+                      attrs: { type: "radio", name: dato.cz5_id, value: "2" },
+                      domProps: {
+                        checked:
+                          Math.round(((5 / _vm.cantidad_preg) * 100) / 2) /
+                            100 ==
+                          Math.round(_vm.nota_ra[i].cz11_nota * 100) / 100
+                      },
+                      on: {
+                        click: function($event) {
+                          return _vm.calificarRA($event, dato.cz5_id)
+                        }
+                      }
+                    }),
+                    _vm._v(" Regular\n                ")
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "row" }, [
+                    _c("input", {
+                      attrs: { type: "radio", name: dato.cz5_id, value: "1" },
+                      domProps: { checked: _vm.nota_ra[i].cz11_nota == 0 },
+                      on: {
+                        click: function($event) {
+                          return _vm.calificarRA($event, dato.cz5_id)
+                        }
+                      }
+                    }),
+                    _vm._v("Sin nota\n                ")
+                  ])
+                ])
+              : _vm._e()
           ])
         ])
       }),
@@ -66908,8 +67101,11 @@ var render = function() {
                       {
                         name: "show",
                         rawName: "v-show",
-                        value: _vm.notas_smur[indice] > 0,
-                        expression: "notas_smur[indice] >0"
+                        value:
+                          _vm.notas_smur[indice] > 0 &&
+                          _vm.id_creador == _vm.id_log,
+                        expression:
+                          "notas_smur[indice] >0 && id_creador == id_log"
                       }
                     ],
                     staticClass: "badge badge-success"
@@ -66924,8 +67120,11 @@ var render = function() {
                       {
                         name: "show",
                         rawName: "v-show",
-                        value: _vm.notas_smur[indice] == 0,
-                        expression: "notas_smur[indice] ==0"
+                        value:
+                          _vm.notas_smur[indice] == 0 &&
+                          _vm.id_creador == _vm.id_log,
+                        expression:
+                          "notas_smur[indice] ==0 && id_creador == id_log"
                       }
                     ],
                     staticClass: "badge badge-danger"
@@ -67035,10 +67234,58 @@ var render = function() {
                     }
                   }
                 }),
-                _vm._v(
-                  _vm._s(item4.cz8_rta) +
-                    "\n                    \n                    "
-                )
+                _vm._v(_vm._s(item4.cz8_rta) + "\n\n\n                "),
+                _vm.respuestas_smmr.filter(function(cz8_id) {
+                  return cz8_id == item4.cz8_id
+                }) != "" && _vm.id_creador == _vm.id_log
+                  ? _c("span", [
+                      _c(
+                        "li",
+                        {
+                          directives: [
+                            {
+                              name: "show",
+                              rawName: "v-show",
+                              value:
+                                _vm.notas_smmr.filter(function(el) {
+                                  return (
+                                    el.cz11_rta == item4.cz8_id &&
+                                    el.cz11_nota > 0
+                                  )
+                                }) != "",
+                              expression:
+                                "notas_smmr.filter(el => el.cz11_rta == item4.cz8_id && el.cz11_nota > 0) != ''"
+                            }
+                          ],
+                          staticClass: "badge badge-success"
+                        },
+                        [_c("a", { staticClass: "fa fa-check " })]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "li",
+                        {
+                          directives: [
+                            {
+                              name: "show",
+                              rawName: "v-show",
+                              value:
+                                _vm.notas_smmr.filter(function(el) {
+                                  return (
+                                    el.cz11_rta == item4.cz8_id &&
+                                    el.cz11_nota > 0
+                                  )
+                                }) == "",
+                              expression:
+                                "notas_smmr.filter(el => el.cz11_rta == item4.cz8_id && el.cz11_nota > 0) == ''"
+                            }
+                          ],
+                          staticClass: "badge badge-danger"
+                        },
+                        [_c("a", { staticClass: "fa fa-close" })]
+                      )
+                    ])
+                  : _vm._e()
               ])
             }),
             0
@@ -67812,7 +68059,19 @@ var render = function() {
                               )
                             }
                           }
-                        })
+                        }),
+                        _vm._v(
+                          "\n                                " +
+                            _vm._s(
+                              _vm.emp_calificacion.filter(function(emp) {
+                                return (
+                                  emp.cz4_ts_id == item.c0550_rowid_tercero &&
+                                  emp.cz4_calificacion != null
+                                )
+                              })
+                            ) +
+                            "\n                                \n                                \n                                \n                                \n\n\n                        "
+                        )
                       ])
                     : _c("span", [
                         _c("button", {
@@ -68142,7 +68401,7 @@ var render = function() {
             ],
             key: indice,
             staticClass:
-              "jumbotron jumbotron-fluid shadow-lg p-3 mb-5 bg-white rounded"
+              "border border-primary jumbotron jumbotron-fluid shadow p-3 mb-5 bg-white rounded"
           },
           [
             _c("div", { staticClass: "media" }, [
@@ -68157,7 +68416,7 @@ var render = function() {
                       expression: "item.cz12_imagen"
                     }
                   ],
-                  staticClass: "pull-left"
+                  staticClass: "col-md-4 pull-left"
                 },
                 [
                   _c("img", {
@@ -68170,7 +68429,7 @@ var render = function() {
               ),
               _vm._v(" "),
               _c("div", { staticClass: "media-body" }, [
-                _c("h4", { staticClass: "media-heading" }, [
+                _c("h4", { staticClass: "col-md-5 media-heading noti-title" }, [
                   _vm._v(_vm._s(item.cz12_nombre) + " "),
                   _c("button", {
                     directives: [
@@ -68207,11 +68466,18 @@ var render = function() {
                   })
                 ]),
                 _vm._v(" "),
-                _c("p", { staticClass: "text-right" }, [
+                _c("p", { staticClass: "text-right mb-2" }, [
+                  _c("img", {
+                    staticClass: "img-profile-noti",
+                    attrs: {
+                      src: "/../theme/images/profile/" + item.cz1_avatar,
+                      alt: ""
+                    }
+                  }),
                   _vm._v("By " + _vm._s(item.cz1_nombres) + " ")
                 ]),
                 _vm._v(" "),
-                _c("p", { staticClass: "lead noti-text" }, [
+                _c("p", { staticClass: "lead noti-text shadow-lg" }, [
                   _vm._v(_vm._s(item.cz12_descripcion))
                 ]),
                 _vm._v(" "),
@@ -68244,7 +68510,10 @@ var render = function() {
                       target: "_blank"
                     }
                   },
-                  [_vm._v("Archivo adjunto")]
+                  [
+                    _c("li", { staticClass: "fa fa-file-archive-o" }),
+                    _vm._v(" Archivo adjunto")
+                  ]
                 )
               ])
             ]),
@@ -72626,7 +72895,19 @@ var render = function() {
         ? _c(
             "div",
             { staticClass: "jumbotron shadow-lg p-3 mb-5 bg-white rounded" },
-            [_c("h1", [_vm._v("No tienes encuestas en este momento")])]
+            [
+              _vm.categoria == 1
+                ? _c("h1", [
+                    _vm._v("No tienes encuestas completadas en este momento")
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.categoria == 2
+                ? _c("h1", [
+                    _vm._v("No tienes evaluaciones completadas en este momento")
+                  ])
+                : _vm._e()
+            ]
           )
         : _vm._e(),
       _vm._v(" "),
@@ -72687,7 +72968,56 @@ var render = function() {
                 [_c("p", { staticClass: "lead" }, [_vm._v("Proximamente")])]
               ),
               _vm._v(" "),
-              _c("h1", [_vm._v(_vm._s(item.cz3_nombre))]),
+              _c("h1", { staticClass: "titulo" }, [
+                _vm._v(_vm._s(item.cz3_nombre))
+              ]),
+              _vm._v(" "),
+              _c(
+                "h4",
+                {
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: item.cz4_calificacion >= 3.5,
+                      expression: "item.cz4_calificacion >= 3.5"
+                    }
+                  ]
+                },
+                [
+                  _c("li", { staticClass: "fa fa-thumbs-up" }),
+                  _vm._v(" "),
+                  _c("span", { staticClass: "badge badge-success" }, [
+                    _vm._v(
+                      _vm._s(Math.round(item.cz4_calificacion * 100) / 100)
+                    )
+                  ])
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "h4",
+                {
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: item.cz4_calificacion < 3.5 && _vm.categoria == 2,
+                      expression:
+                        "item.cz4_calificacion < 3.5 && categoria == 2"
+                    }
+                  ]
+                },
+                [
+                  _c("li", { staticClass: "fa fa-thumbs-down" }),
+                  _vm._v(" "),
+                  _c("span", { staticClass: "badge badge-danger" }, [
+                    _vm._v(
+                      _vm._s(Math.round(item.cz4_calificacion * 100) / 100)
+                    )
+                  ])
+                ]
+              ),
               _vm._v(" "),
               _c("p", { staticClass: "lead" }, [
                 _vm._v(
@@ -72711,7 +73041,7 @@ var render = function() {
                     _vm._s(item.f200_nombres) +
                     " " +
                     _vm._s(item.f200_apellido1) +
-                    " " +
+                    "\n                " +
                     _vm._s(item.f200_apellido2)
                 )
               ]),
@@ -73309,11 +73639,19 @@ var render = function() {
   return _c(
     "div",
     [
-      _vm.pruebas == ""
+      _vm.pruebas == "" && _vm.categoria == 1
         ? _c(
             "div",
             { staticClass: "jumbotron shadow-lg p-3 mb-5 bg-white rounded" },
             [_c("h1", [_vm._v("No tienes encuestas en este momento")])]
+          )
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.pruebas == "" && _vm.categoria == 2
+        ? _c(
+            "div",
+            { staticClass: "jumbotron shadow-lg p-3 mb-5 bg-white rounded" },
+            [_c("h1", [_vm._v("No tienes evaluaciones en este momento")])]
           )
         : _vm._e(),
       _vm._v(" "),
@@ -73374,7 +73712,9 @@ var render = function() {
                 [_c("p", { staticClass: "lead" }, [_vm._v("Proximamente")])]
               ),
               _vm._v(" "),
-              _c("h1", [_vm._v(_vm._s(item.cz3_nombre))]),
+              _c("h1", { staticClass: "titulo" }, [
+                _vm._v(_vm._s(item.cz3_nombre))
+              ]),
               _vm._v(" "),
               _c("p", { staticClass: "lead" }, [
                 _vm._v(

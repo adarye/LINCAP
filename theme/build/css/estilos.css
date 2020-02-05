@@ -86,8 +86,8 @@
 /* ESTILOS PARA IMAGENES*/
 
 .img {
-    width: 200px;
-    height: 200px;
+    width: 350px;
+    height: 270px;
 }
 
 .swal-text {
@@ -105,5 +105,20 @@
     display: block;
     margin: 22px;
     text-align: justify;
+    color: #1c277e;
+}
+
+.noti-title {
     color: #081158;
+    font-style: italic;
+}
+
+.img-profile-noti {
+    display: inline-block;
+    width: 75px;
+    height: 64px;
+    border-radius: 50%;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
 }

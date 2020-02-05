@@ -278,7 +278,19 @@ import 'pc-bootstrap4-datetimepicker/build/css/bootstrap-datetimepicker.css';
         },
 
         preguntas(id){
-                    router.push('/prueba/preguntas/'+this.$route.params.categoria + '/' + id);
+                axios.get(`/api/prueba/inicio/${id}`)
+                .then(res=>{
+                    console.log(res.data)
+                    if(res.data == ""){
+                        router.push('/prueba/preguntas/'+this.$route.params.categoria + '/' + id);
+                    }
+                    else{
+                    swal('Advertencia', 'No se pueden editar las preguntas porque alguien ya la contesto.', 'warning')
+                    }
+                })
+                
+            
+                    
         },
         estadisticas(id){
             console.log('entro')

@@ -127,7 +127,8 @@ class GPController extends Controller
             'f200_apellido2',
             'cz3_id_creador',
             'cz3_id',
-            'cz4_estado'
+            'cz4_estado',
+            'cz4_calificacion'
         )
             ->join(
                 'dbo.z4_rel_ts_gps',
@@ -145,6 +146,16 @@ class GPController extends Controller
             ->where('cz4_estado', 2)
             ->orderBy('cz3_fecha_apertura', 'desc')
             ->get();
+
+    }
+    public function contarPreguntas($id){
+        return z3_gestion_pruebas::join(
+            'z5_prueba_preguntas',
+            'z3_gestion_pruebas.cz3_id',
+            '=',
+            'z5_prueba_preguntas.cz5_gp_id'
+
+        )->where('cz5_gp_id', $id)->count();
 
     }
 

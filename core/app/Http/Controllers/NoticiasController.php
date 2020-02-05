@@ -39,7 +39,7 @@ class NoticiasController extends Controller
     public function index()
     {
         return z12_noticias::select('cz12_id', 'cz12_nombre', 'cz12_descripcion',
-            'cz12_imagen', 'cz12_nivel_imp', 'cz12_archivo', 'cz12_id_empleado', 'z12_noticias.created_at', 'cz1_nombres', 'cz12_fecha_creacion')
+            'cz12_imagen', 'cz12_nivel_imp', 'cz12_archivo', 'cz12_id_empleado', 'z12_noticias.created_at', 'cz1_nombres', 'cz12_fecha_creacion', 'cz1_avatar')
             ->join(
                 'dbo.w0540_empleados',
                 'z12_noticias.cz12_id_empleado',

@@ -31,21 +31,21 @@
             <span v-if="mostrar == 1"><input class="select mt-2" v-model="numero" /></span>
         </nav>
 
-        <div class="jumbotron jumbotron-fluid shadow-lg p-3 mb-5 bg-white rounded" v-for="(item, indice) in mbuscar"
+        <div class="border border-primary jumbotron jumbotron-fluid shadow p-3 mb-5 bg-white rounded" v-for="(item, indice) in mbuscar"
             :key="indice" v-show="(pagina-1) * numero <= indice && pagina*numero > indice || bnoticia != ''">
             <div class="media">
-                <span class="pull-left" v-show="item.cz12_imagen">
+                <span class="col-md-4 pull-left" v-show="item.cz12_imagen">
                     <img class="media-object img p-3" :src="'/../theme/images/noticias/'+ item.cz12_imagen">
                 </span>
                 <div class="media-body">
-                    <h4 class="media-heading">{{item.cz12_nombre}} <button v-show="rol != 4 && rol != 3 "
+                    <h4 class="col-md-5 media-heading noti-title">{{item.cz12_nombre}} <button v-show="rol != 4 && rol != 3 "
                             @click="eliminar(item.cz12_id)" class="btn-sm btn-danger fa fa-trash mb-2"></button>
                         <button v-show="rol != 4 && rol != 3 " @click="$emit('editar2', item)"
                             class="btn-sm btn-warning fa fa-edit mb-2"></button>
                     </h4>
-                    <p class="text-right">By {{item.cz1_nombres}} </p>
+                    <p class="text-right mb-2"> <img :src="'/../theme/images/profile/'+ item.cz1_avatar" alt="" class="img-profile-noti">By {{item.cz1_nombres}} </p>
 
-                    <p class="lead noti-text">{{item.cz12_descripcion}}</p>
+                    <p class="lead noti-text shadow-lg">{{item.cz12_descripcion}}</p>
                     <ul class="list-inline list-unstyled">
                         <li class="mt-3"><span><i class="fa fa-clock-o"></i>
                                {{item.cz12_fecha_creacion}}
@@ -53,7 +53,7 @@
                                </span></li>
                     </ul>
                     <a v-show="item.cz12_archivo != null" :href="'/../theme/files/noticias/'+ item.cz12_archivo"
-                     target="_blank" >Archivo adjunto</a>
+                     target="_blank" ><li class="fa fa-file-archive-o"></li> Archivo adjunto</a>
                 </div>
             </div>
             <span class="pull-right">

@@ -73,6 +73,7 @@ Route::put('gp/cerrar', 'GPController@cerrar');
 Route::delete('gp/delete/{id}', 'GPController@delete');
 Route::get('gp/{categoria}', 'GPController@index');
 Route::get('gp/buscar/{id}', 'GPController@buscar');
+Route::get('preguntas/contar/{id}', 'GPController@contarPreguntas');
 
 //GESTION PRUEBAS PARA USUARIOS
 Route::get('pruebas/pendientes/{id}', 'GPController@traerPendientes');
@@ -94,6 +95,8 @@ Route::get('pregunta/index/{id}', 'PreguntasController@traerSMUR');
 Route::get('respuestaA/buscar/{id}', 'PreguntasController@traerRA');
 Route::get('respuestaM/buscar/{id}', 'PreguntasController@traerSMMR');
 Route::delete('pregunta/delete/{id}', 'PreguntasController@delete');
+
+Route::get('prueba/inicio/{id_prueba}','RespuestasController@validarInicio');
 
 
 //RESPUESTAS ABIERTAS
@@ -129,3 +132,6 @@ Route::put('smmr/update/{opcion}', 'RsController@guardarCorrectaSMMR');
 
 //CALIFICAR EVALUACION
 Route::get('evaluacion/calificar/{emp}/{id}','RespuestasController@calificar');
+
+Route::put('evaluacion/calificar/RA','RespuestasController@calificaRA');
+

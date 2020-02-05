@@ -81,6 +81,7 @@
             };
         },
         mounted() {
+            this.validarInicio()
             console.log('bodyrespuestas')
             this.cargar();
             EventBus.$on('cargar', (item) => {
@@ -168,6 +169,14 @@
                     console.log(res.data)
                 })
                   }
+            }, validarInicio(){
+                axios.get(`/api/prueba/inicio/${this.id}`)
+                .then(res=>{
+                    console.log(res.data)
+                     if(res.data != ""){
+                         this.$router.go(-1)
+                     }
+                })
             }
         },
         computed: {}
