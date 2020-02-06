@@ -2742,6 +2742,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     cancelar: function cancelar() {
       if (this.id_creador != user.id) {
+        this.calificar();
         axios.put("/api/pruebas/finalizar/".concat(this.id)).then(function (res) {
           swal('Prueba Finalizada', 'Ya no podras modificarla', 'success');
         });
@@ -5354,6 +5355,39 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -5367,51 +5401,72 @@ __webpack_require__.r(__webpack_exports__);
       resSMUR: [],
       prueba: [],
       datacollection: null,
-      chartData: [[['Pregunta', 'Trabajadores'], ['Si', 10], ['No', 8]], [['Pregunta', 'Trabajadores'], ['Si', 19], ['No', 100]]],
+      chartData: [],
+      chartData2: [],
       chartOptions: {
         chart: {
           title: 'Encuesta LINCO',
           subtitle: ''
         }
-      }
+      },
+      pregunta: 0
     };
   },
-  mounted: function mounted() {
+  created: function created() {
     this.id = this.$route.params.id;
     this.traerSMMR();
-    this.traerRa();
     this.traerPregunta_SMUR();
     this.buscar();
   },
   methods: {
-    traerRa: function traerRa() {
+    traerSMMR: function traerSMMR() {
       var _this = this;
 
-      axios.get("/api/respuestaA/buscar/".concat(this.id)).then(function (res) {
-        _this.resRA = res.data;
-      });
-    },
-    traerSMMR: function traerSMMR() {
-      var _this2 = this;
-
       axios.get("/api/respuestaM/buscar/".concat(this.id)).then(function (res) {
-        _this2.resSMMR = res.data;
+        _this.resSMMR = res.data;
+
+        for (var j = 0; j < _this.resSMMR.length; j++) {
+          _this.chartData2.push([['Respuestas', 'Trabajadores']]);
+
+          for (var i = 0; i < res.data[j]['smmr'].length; i++) {
+            _this.buscarRes2(res.data[j]['smmr'][i].cz8_id, j, res.data[j]['smmr'][i].cz8_rta);
+          }
+        }
       });
     },
     traerPregunta_SMUR: function traerPregunta_SMUR() {
-      var _this3 = this;
+      var _this2 = this;
 
       axios.get("/api/pregunta/index/".concat(this.id)).then(function (res) {
-        _this3.resSMUR = res.data;
-        console.log(res.data[0]['respuestas'].length);
+        _this2.resSMUR = res.data;
 
-        for (var i = 0; i < res.data[0]['respuestas'].length; i++) {
-          _this3.prueba.push(res.data[0]['respuestas'][0].cz7_rta);
+        for (var j = 0; j < _this2.resSMUR.length; j++) {
+          _this2.chartData.push([['Respuestas', 'Trabajadores']]);
+
+          for (var i = 0; i < res.data[j]['respuestas'].length; i++) {
+            _this2.buscarRes(res.data[j]['respuestas'][i].cz7_id, j, res.data[j]['respuestas'][i].cz7_rta);
+          }
         }
       });
     },
     buscar: function buscar() {
       axios.get("/api/gp/buscar/".concat(this.$route.params.id)).then(function (res) {});
+    },
+    buscarRes: function buscarRes(id, j, rta) {
+      var _this3 = this;
+
+      axios.get("/api/estadistica/buscar/smur/".concat(id)).then(function (res) {
+        //  this.chartData.push([rta])
+        _this3.chartData[j].push([rta, res.data]);
+      });
+    },
+    buscarRes2: function buscarRes2(id, j, rta) {
+      var _this4 = this;
+
+      axios.get("/api/estadistica/buscar/smur/".concat(id)).then(function (res) {
+        //  this.chartData.push([rta])
+        _this4.chartData2[j].push([rta, res.data]);
+      });
     }
   }
 });
@@ -66974,12 +67029,26 @@ var render = function() {
         [_vm._v("\n        Esta evaluacion ya esta finalizada\n    ")]
       ),
       _vm._v(" "),
-      _c("h4", { staticClass: "display-5 titulo mb-3" }, [
-        _vm._v("Calificacion Final: "),
-        _c("span", { staticClass: "badge badge-primary" }, [
-          _vm._v(_vm._s(_vm.calificacion_final))
-        ])
-      ]),
+      _c(
+        "h4",
+        {
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value: _vm.calificacion_final,
+              expression: "calificacion_final"
+            }
+          ],
+          staticClass: "display-5 titulo mb-3"
+        },
+        [
+          _vm._v("Calificacion Final: "),
+          _c("span", { staticClass: "badge badge-primary" }, [
+            _vm._v(_vm._s(_vm.calificacion_final))
+          ])
+        ]
+      ),
       _vm._v(" "),
       _c(
         "h4",
@@ -73167,51 +73236,140 @@ var render = function() {
           ],
           staticClass: "display-5 titulo my-3"
         },
-        [_vm._v("Preguntas de selección multiple con única respuestas")]
+        [_vm._v("Preguntas de selección multiple con única respuestas\n    ")]
       ),
       _vm._v(" "),
       _vm._l(_vm.resSMUR, function(item, indice) {
-        return _c("article", { key: indice, staticClass: "my-3" }, [
-          _c("div", { staticClass: "row mt-2" }, [
-            _c("div", { staticClass: "col-md-6" }, [
-              _c("p", { staticClass: "lead" }, [
-                _vm._v(_vm._s(item.cz5_pregunta) + "\n                ")
-              ])
-            ]),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "col-md-12" },
-              _vm._l(item.respuestas, function(item2, i) {
-                return _c("article", { key: i }, [
-                  _c("input", {
-                    staticClass: "flat",
-                    attrs: { type: "radio", name: item.cz5_id },
-                    domProps: { value: item2.cz7_id }
-                  }),
-                  _vm._v(" " + _vm._s(item2.cz7_rta) + "\n                ")
-                ])
-              }),
-              0
-            )
-          ])
+        return _c("div", { key: indice, staticClass: "my-5" }, [
+          _c(
+            "div",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.chartData != "[]",
+                  expression: "chartData != '[]'"
+                }
+              ],
+              staticClass: "my-4"
+            },
+            [
+              _c("div", { staticClass: "row mt-2" }, [
+                _c(
+                  "div",
+                  { staticClass: "col-md-12 col-center" },
+                  [
+                    _c("center", { staticClass: "alert alert-color" }, [
+                      _c("h2", { staticClass: "lead title-pregunta" }, [
+                        _vm._v(
+                          _vm._s(item.cz5_pregunta) +
+                            "\n                        "
+                        )
+                      ])
+                    ])
+                  ],
+                  1
+                )
+              ]),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "col-md-6" },
+                [
+                  _c("GChart", {
+                    attrs: {
+                      type: "ColumnChart",
+                      data: _vm.chartData[indice],
+                      options: _vm.chartOptions
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "col-md-6" },
+                [
+                  _c("GChart", {
+                    staticClass: "mb-5",
+                    attrs: {
+                      type: "PieChart",
+                      data: _vm.chartData[indice],
+                      options: _vm.chartOptions
+                    }
+                  })
+                ],
+                1
+              )
+            ]
+          )
         ])
       }),
       _vm._v(" "),
-      _c("GChart", {
-        attrs: {
-          type: "ColumnChart",
-          data: _vm.chartData[0],
-          options: _vm.chartOptions
-        }
-      }),
+      _c(
+        "h4",
+        {
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value: _vm.resSMMR.length,
+              expression: " resSMMR.length"
+            }
+          ],
+          staticClass: "display-5 titulo mt-5"
+        },
+        [
+          _vm._v(
+            "Preguntas de selección multiple con multiple\n        respuestas\n    "
+          )
+        ]
+      ),
       _vm._v(" "),
-      _c("GChart", {
-        attrs: {
-          type: "ColumnChart",
-          data: _vm.chartData[1],
-          options: _vm.chartOptions
-        }
+      _vm._l(_vm.resSMMR, function(item, i) {
+        return _c("article", { key: "o-" + i, staticClass: "my-5" }, [
+          _c("div", { staticClass: "row" }, [
+            _c(
+              "div",
+              { staticClass: "col-md-12 col-center" },
+              [
+                _c("center", { staticClass: "alert alert-color" }, [
+                  _c("h2", { staticClass: "lead title-pregunta" }, [
+                    _vm._v(
+                      _vm._s(item.cz5_pregunta) + "\n                        "
+                    )
+                  ])
+                ])
+              ],
+              1
+            )
+          ]),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "col-md-12" },
+            [
+              _c("GChart", {
+                attrs: {
+                  type: "ColumnChart",
+                  data: _vm.chartData2[i],
+                  options: _vm.chartOptions
+                }
+              }),
+              _vm._v(" "),
+              _c("GChart", {
+                attrs: {
+                  type: "PieChart",
+                  data: _vm.chartData2[i],
+                  options: _vm.chartOptions
+                }
+              })
+            ],
+            1
+          )
+        ])
       })
     ],
     2

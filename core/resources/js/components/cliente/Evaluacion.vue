@@ -7,7 +7,7 @@
         <div class="alert alert-success lead" role="alert" v-show="estado_prueba == 2">
             Esta evaluacion ya esta finalizada
         </div>
-         <h4 class="display-5 titulo mb-3">Calificacion Final: <span class="badge badge-primary">{{calificacion_final}}</span></h4>
+         <h4 class="display-5 titulo mb-3" v-show="calificacion_final">Calificacion Final: <span class="badge badge-primary">{{calificacion_final}}</span></h4>
 
         <h4 class="display-5 titulo mb-3" v-show="resRA.length">Preguntas con respuesta abierta</h4>
         <article v-for="(dato, i) in resRA" :key="`A-${i}`">
@@ -392,7 +392,9 @@
 
             },
             cancelar() {
+                
                 if (this.id_creador != user.id) {
+                    this.calificar()
                     axios.put(`/api/pruebas/finalizar/${this.id}`)
                         .then(res => {
                             swal('Prueba Finalizada', 'Ya no podras modificarla', 'success')

@@ -136,3 +136,6 @@ Route::get('evaluacion/calificar/{emp}/{id}','RespuestasController@calificar');
 
 Route::put('evaluacion/calificar/RA','RespuestasController@calificaRA');
 
+//ESTADISTICAS
+Route::get('estadistica/buscar/smur/{id}', 'EstadisticasController@buscarSMUR');
+
