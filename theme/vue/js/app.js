@@ -5346,40 +5346,72 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'App',
   components: {
     GChart: vue_google_charts__WEBPACK_IMPORTED_MODULE_0__["GChart"]
   },
   data: function data() {
     return {
-      chartsLib: null,
-      // Array will be automatically processed with visualization.arrayToDataTable function
-      chartData: [['Year', 'Sales'], ['2014', 1000], ['2015', 1170], ['2016', 660], ['2017', 1030]]
+      id: null,
+      resSMMR: [],
+      resRA: [],
+      resSMUR: [],
+      prueba: [],
+      datacollection: null,
+      chartData: [[['Pregunta', 'Trabajadores'], ['Si', 10], ['No', 8]], [['Pregunta', 'Trabajadores'], ['Si', 19], ['No', 100]]],
+      chartOptions: {
+        chart: {
+          title: 'Encuesta LINCO',
+          subtitle: ''
+        }
+      }
     };
   },
-  computed: {
-    chartOptions: function chartOptions() {
-      if (!this.chartsLib) return null;
-      return this.chartsLib.charts.Bar.convertOptions({
-        chart: {
-          title: 'Company Performance',
-          subtitle: 'Sales, Expenses, and Profit: 2014-2017'
-        },
-        bars: 'horizontal',
-        // Required for Material Bar Charts.
-        hAxis: {
-          format: 'decimal'
-        },
-        height: 400,
-        colors: ['#d95f02', '#7570b3']
-      });
-    }
+  mounted: function mounted() {
+    this.id = this.$route.params.id;
+    this.traerSMMR();
+    this.traerRa();
+    this.traerPregunta_SMUR();
+    this.buscar();
   },
   methods: {
-    onChartReady: function onChartReady(chart, google) {
-      this.chartsLib = google;
+    traerRa: function traerRa() {
+      var _this = this;
+
+      axios.get("/api/respuestaA/buscar/".concat(this.id)).then(function (res) {
+        _this.resRA = res.data;
+      });
+    },
+    traerSMMR: function traerSMMR() {
+      var _this2 = this;
+
+      axios.get("/api/respuestaM/buscar/".concat(this.id)).then(function (res) {
+        _this2.resSMMR = res.data;
+      });
+    },
+    traerPregunta_SMUR: function traerPregunta_SMUR() {
+      var _this3 = this;
+
+      axios.get("/api/pregunta/index/".concat(this.id)).then(function (res) {
+        _this3.resSMUR = res.data;
+        console.log(res.data[0]['respuestas'].length);
+
+        for (var i = 0; i < res.data[0]['respuestas'].length; i++) {
+          _this3.prueba.push(res.data[0]['respuestas'][0].cz7_rta);
+        }
+      });
+    },
+    buscar: function buscar() {
+      axios.get("/api/gp/buscar/".concat(this.$route.params.id)).then(function (res) {});
     }
   }
 });
@@ -73120,21 +73152,69 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { attrs: { id: "app" } },
+    { staticClass: "small" },
     [
+      _c(
+        "h4",
+        {
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value: _vm.resSMUR.length,
+              expression: " resSMUR.length"
+            }
+          ],
+          staticClass: "display-5 titulo my-3"
+        },
+        [_vm._v("Preguntas de selección multiple con única respuestas")]
+      ),
+      _vm._v(" "),
+      _vm._l(_vm.resSMUR, function(item, indice) {
+        return _c("article", { key: indice, staticClass: "my-3" }, [
+          _c("div", { staticClass: "row mt-2" }, [
+            _c("div", { staticClass: "col-md-6" }, [
+              _c("p", { staticClass: "lead" }, [
+                _vm._v(_vm._s(item.cz5_pregunta) + "\n                ")
+              ])
+            ]),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "col-md-12" },
+              _vm._l(item.respuestas, function(item2, i) {
+                return _c("article", { key: i }, [
+                  _c("input", {
+                    staticClass: "flat",
+                    attrs: { type: "radio", name: item.cz5_id },
+                    domProps: { value: item2.cz7_id }
+                  }),
+                  _vm._v(" " + _vm._s(item2.cz7_rta) + "\n                ")
+                ])
+              }),
+              0
+            )
+          ])
+        ])
+      }),
+      _vm._v(" "),
       _c("GChart", {
         attrs: {
-          settings: { packages: ["bar"] },
-          data: _vm.chartData,
-          options: _vm.chartOptions,
-          createChart: function(el, google) {
-            return new google.charts.Bar(el)
-          }
-        },
-        on: { ready: _vm.onChartReady }
+          type: "ColumnChart",
+          data: _vm.chartData[0],
+          options: _vm.chartOptions
+        }
+      }),
+      _vm._v(" "),
+      _c("GChart", {
+        attrs: {
+          type: "ColumnChart",
+          data: _vm.chartData[1],
+          options: _vm.chartOptions
+        }
       })
     ],
-    1
+    2
   )
 }
 var staticRenderFns = []

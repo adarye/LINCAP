@@ -4,7 +4,7 @@
 <head>
     @include('layouts.meta')
     @include('layouts.css')
-    <title>LINCO - Lincap</title>
+    <title>LINCO - lincap</title>
     <link rel="icon" type="image/png" href="{{ url('/theme/images/system/favicon.ico') }}" />
 </head>
 
