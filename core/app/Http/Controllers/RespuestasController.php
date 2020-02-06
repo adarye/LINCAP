@@ -92,7 +92,6 @@ class RespuestasController extends Controller
             $resultado->cz11_categoria = $request->categoria;
             $resultado->cz11_rta = $request->id_rta;
             $resultado->cz11_rta_ra = $request->rta_ra;
-            $resultado->cz11_nota = 0;
             $resultado->save();
             return $resultado;
         } else {
@@ -289,15 +288,17 @@ class RespuestasController extends Controller
 
         $numero = 5 / $total_preguntas;
 
-        if ($request->cal == 2  || $request->cal == 3) {
-            if ($request->cal == 2){
-            $numero = $numero / 2;
-            }
-            else{
+        if ($request->cal == 2 || $request->cal == 3) {
+            if ($request->cal == 2) {
+                $numero = $numero / 2;
+            } else {
                 $numero = $numero / 1;
             }
             $nota = z11_resultados::where('cz11_pp_id', $request->pregunta)->where('cz11_id_empleado', $request->empleado)->first();
             $nota_anterior = $nota->cz11_nota;
+            if ($nota_anterior == null || $nota_anterior == "" || $nota_anterior == '') {
+                $nota_Anterior = 0;
+            }
             $nota->cz11_nota = $numero;
             $nota->save();
 
@@ -312,16 +313,23 @@ class RespuestasController extends Controller
             $nota->cz11_nota = 0;
             $nota->save();
 
+            if ($nota_anterior == null || $nota_anterior == "" || $nota_anterior == '') {
+                $nota_Anterior = 0;
+            }
             $nota_final = z4_rel_ts_gp::where('cz4_ts_id', $request->empleado)->where('cz4_gp_id', $request->prueba)->first();
             $nota_final->cz4_calificacion = ($nota_final->cz4_calificacion - $nota_anterior);
             $nota_final->save();
         }
 
-        
-
-       
         return $nota_final;
 
+    }
+
+    public function contaRA($id){
+        return z11_resultados::where('cz11_id_empleado', Auth()->user()->cz1_id_empleado)
+        ->where('cz11_id_gp', $id)
+        ->where('cz11_categoria', 'ra')
+        ->where('cz11_nota', null)->count();
     }
 
 }

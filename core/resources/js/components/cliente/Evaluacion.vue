@@ -29,13 +29,13 @@
                 </div>
                 <div class="col-md-3 p-3"  v-if="id_creador == id_log && nota_ra">
                     <div class="row">
-                        <input type="radio" required :name="dato.cz5_id" value="3" :checked="Math.round((5 /cantidad_preg*100))/100 == Math.round((nota_ra[i].cz11_nota*100))/100" @click="calificarRA($event, dato.cz5_id)"> Excelente
+                        <input type="radio"  required :name="dato.cz5_id" value="3" :checked="Math.round((5 /cantidad_preg*100))/100 == Math.round((nota_ra[i].cz11_nota*100))/100" @click="calificarRA($event, dato.cz5_id)"> Excelente
                     </div>
                     <div class="row">
-                        <input type="radio" :name="dato.cz5_id" value="2" :checked="Math.round((5 /cantidad_preg*100)/2)/100 == Math.round((nota_ra[i].cz11_nota*100))/100" @click="calificarRA($event, dato.cz5_id)" > Regular
+                        <input type="radio"  :name="dato.cz5_id" value="2" :checked="Math.round((5 /cantidad_preg*100)/2)/100 == Math.round((nota_ra[i].cz11_nota*100))/100" @click="calificarRA($event, dato.cz5_id)" > Regular
                     </div>
                     <div class="row">
-                        <input type="radio" :name="dato.cz5_id" value="1" :checked="nota_ra[i].cz11_nota == 0" @click="calificarRA($event, dato.cz5_id)">Sin nota
+                        <input type="radio"  :name="dato.cz5_id" value="1" :checked="nota_ra[i].cz11_nota == 0" @click="calificarRA($event, dato.cz5_id)">Mal
                     </div>
                 </div>
             </div>

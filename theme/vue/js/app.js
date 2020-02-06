@@ -5276,6 +5276,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale("es");
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -5297,7 +5307,19 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale("es");
       console.log(_this.pruebas);
     });
   },
-  methods: {}
+  methods: {
+    obtenerEstado: function obtenerEstado(id) {
+      axios.get("/api/pruebas/completadas/estado/".concat(id)).then(function (res) {
+        console.log(res.data);
+
+        if (res.data >= 1) {
+          swal('En proceso', 'Solo hace falta ' + res.data + ' pregunta(s) por calificar');
+        } else if (res.data == 0) {
+          swal('Calificada', 'Ya esta totalmente calificada');
+        }
+      });
+    }
+  }
 });
 
 /***/ }),
@@ -5318,58 +5340,46 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+  name: 'App',
   components: {
     GChart: vue_google_charts__WEBPACK_IMPORTED_MODULE_0__["GChart"]
   },
   data: function data() {
     return {
-      id: null,
-      resSMMR: [],
-      resRA: [],
-      resSMUR: [],
-      datacollection: null,
-      prueba: [],
-      array: ['ene', 'feb']
+      chartsLib: null,
+      // Array will be automatically processed with visualization.arrayToDataTable function
+      chartData: [['Year', 'Sales'], ['2014', 1000], ['2015', 1170], ['2016', 660], ['2017', 1030]]
     };
   },
-  mounted: function mounted() {
-    this.id = this.$route.params.id;
-    this.traerSMMR();
-    this.traerRa();
-    this.traerPregunta_SMUR();
-    this.buscar();
+  computed: {
+    chartOptions: function chartOptions() {
+      if (!this.chartsLib) return null;
+      return this.chartsLib.charts.Bar.convertOptions({
+        chart: {
+          title: 'Company Performance',
+          subtitle: 'Sales, Expenses, and Profit: 2014-2017'
+        },
+        bars: 'horizontal',
+        // Required for Material Bar Charts.
+        hAxis: {
+          format: 'decimal'
+        },
+        height: 400,
+        colors: ['#d95f02', '#7570b3']
+      });
+    }
   },
   methods: {
-    traerRa: function traerRa() {
-      var _this = this;
-
-      axios.get("/api/respuestaA/buscar/".concat(this.id)).then(function (res) {
-        _this.resRA = res.data;
-      });
-    },
-    traerSMMR: function traerSMMR() {
-      var _this2 = this;
-
-      axios.get("/api/respuestaM/buscar/".concat(this.id)).then(function (res) {
-        _this2.resSMMR = res.data;
-      });
-    },
-    traerPregunta_SMUR: function traerPregunta_SMUR() {
-      var _this3 = this;
-
-      axios.get("/api/pregunta/index/".concat(this.id)).then(function (res) {
-        _this3.resSMUR = res.data;
-        console.log(res.data[0]['respuestas'].length);
-
-        for (var i = 0; i < res.data[0]['respuestas'].length; i++) {
-          _this3.prueba.push(res.data[0]['respuestas'][0].cz7_rta);
-        }
-      });
-    },
-    buscar: function buscar() {
-      axios.get("/api/gp/buscar/".concat(this.$route.params.id)).then(function (res) {});
+    onChartReady: function onChartReady(chart, google) {
+      this.chartsLib = google;
     }
   }
 });
@@ -67064,7 +67074,7 @@ var render = function() {
                         }
                       }
                     }),
-                    _vm._v("Sin nota\n                ")
+                    _vm._v("Mal\n                ")
                   ])
                 ])
               : _vm._e()
@@ -72971,6 +72981,33 @@ var render = function() {
               _c("h1", { staticClass: "titulo" }, [
                 _vm._v(_vm._s(item.cz3_nombre))
               ]),
+              _c(
+                "h4",
+                {
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: _vm.categoria == 2,
+                      expression: "categoria == 2"
+                    }
+                  ]
+                },
+                [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "badge badge-primary",
+                      on: {
+                        click: function($event) {
+                          return _vm.obtenerEstado(item.cz3_id)
+                        }
+                      }
+                    },
+                    [_vm._v("Ver estado")]
+                  )
+                ]
+              ),
               _vm._v(" "),
               _c(
                 "h4",
@@ -72989,7 +73026,8 @@ var render = function() {
                   _vm._v(" "),
                   _c("span", { staticClass: "badge badge-success" }, [
                     _vm._v(
-                      _vm._s(Math.round(item.cz4_calificacion * 100) / 100)
+                      _vm._s(Math.round(item.cz4_calificacion * 100) / 100) +
+                        " "
                     )
                   ])
                 ]
@@ -73013,7 +73051,8 @@ var render = function() {
                   _vm._v(" "),
                   _c("span", { staticClass: "badge badge-danger" }, [
                     _vm._v(
-                      _vm._s(Math.round(item.cz4_calificacion * 100) / 100)
+                      _vm._s(Math.round(item.cz4_calificacion * 100) / 100) +
+                        "\n                "
                     )
                   ])
                 ]
@@ -73079,7 +73118,24 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "small" }, [_vm._v("\n    Hola\n\n")])
+  return _c(
+    "div",
+    { attrs: { id: "app" } },
+    [
+      _c("GChart", {
+        attrs: {
+          settings: { packages: ["bar"] },
+          data: _vm.chartData,
+          options: _vm.chartOptions,
+          createChart: function(el, google) {
+            return new google.charts.Bar(el)
+          }
+        },
+        on: { ready: _vm.onChartReady }
+      })
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true

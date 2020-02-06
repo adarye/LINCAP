@@ -79,6 +79,7 @@ Route::get('preguntas/contar/{id}', 'GPController@contarPreguntas');
 Route::get('pruebas/pendientes/{id}', 'GPController@traerPendientes');
 Route::get('pruebas/completadas/{id}', 'GPController@traerCompletadas');
 Route::put('pruebas/finalizar/{id}', 'AsignacionController@finalizarPrueba');
+Route::get('pruebas/completadas/estado/{id}', 'RespuestasController@contaRA');
 
 //ASIGNACION PRUEBAS
 Route::post('asignacion/guardar', 'AsignacionController@guardar');

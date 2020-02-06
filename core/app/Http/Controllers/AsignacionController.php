@@ -108,4 +108,5 @@ class AsignacionController extends Controller
         return  z4_rel_ts_gp::select('cz4_id', 'cz4_estado', 'cz4_calificacion')->where('cz4_ts_id', $empleado)
         ->where('cz4_gp_id', $id)->first();
     }
+    
 }
