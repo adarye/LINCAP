@@ -2492,6 +2492,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2533,7 +2536,7 @@ __webpack_require__.r(__webpack_exports__);
     this.cargar();
     _bus__WEBPACK_IMPORTED_MODULE_0__["default"].$on('cargar', function (item) {
       _this.cargar();
-    });
+    }); //   window.addEventListener('beforeunload', this.cancelar)
   },
   mounted: function mounted() {
     var _this2 = this;
@@ -2543,7 +2546,6 @@ __webpack_require__.r(__webpack_exports__);
       console.log(res.data);
       _this2.cantidad_preg = res.data;
     });
-    window.addEventListener('beforeunload', this.cancelar);
   },
   beforeDestroy: function beforeDestroy() {
     window.onbeforeunload = this.cancelar();
@@ -2703,7 +2705,7 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     finalizar: function finalizar() {
-      this.calificar();
+      // this.calificar()
       axios.put("/api/pruebas/finalizar/".concat(this.id)).then(function (res) {
         _router__WEBPACK_IMPORTED_MODULE_1__["default"].go(-1);
       });
@@ -3137,6 +3139,8 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale('es');
       });
     },
     excluir: function excluir(item) {
+      var _this5 = this;
+
       for (var i = 0; i < this.seleccionados.length; i++) {
         if (this.seleccionados[i] === item) {
           this.seleccionados.splice(i, 1);
@@ -3145,12 +3149,14 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale('es');
             id_prueba: this.id_prueba
           }).then(function (res) {
             console.log(res.data);
+
+            _this5.traerRelacion();
           });
         }
       }
     },
     guardarTodos: function guardarTodos(filtrados) {
-      var _this5 = this;
+      var _this6 = this;
 
       var empleados = null;
 
@@ -3176,7 +3182,7 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale('es');
       }).then(function (res) {
         console.log(res.data);
 
-        _this5.traerRelacion();
+        _this6.traerRelacion();
 
         swal('Se han seleccionado todos', '', 'success');
       })["catch"](function (res) {
@@ -3184,7 +3190,7 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale('es');
       });
     },
     quitarTodos: function quitarTodos(filtrados) {
-      var _this6 = this;
+      var _this7 = this;
 
       var empleados = null;
 
@@ -3210,7 +3216,7 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale('es');
       }).then(function (res) {
         console.log(res.data);
 
-        _this6.quitarRelacion();
+        _this7.quitarRelacion();
 
         swal('Se han quitado las asignaciones', '', 'success');
       })["catch"](function (res) {
@@ -3218,86 +3224,86 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale('es');
       });
     },
     buscarEncuesta: function buscarEncuesta(id) {
-      var _this7 = this;
+      var _this8 = this;
 
       axios.get("/api/gp/buscar/".concat(this.id_prueba)).then(function (res) {
         console.log(res.data);
 
         if (res.data.cz3_categoria == 1) {
-          _router__WEBPACK_IMPORTED_MODULE_1__["default"].push('/presentar/encuesta/' + _this7.id_prueba + '/' + id);
+          _router__WEBPACK_IMPORTED_MODULE_1__["default"].push('/presentar/encuesta/' + _this8.id_prueba + '/' + id);
         } else if (res.data.cz3_categoria == 2) {
-          _router__WEBPACK_IMPORTED_MODULE_1__["default"].push('/presentar/evaluacion/' + _this7.id_prueba + '/' + id);
+          _router__WEBPACK_IMPORTED_MODULE_1__["default"].push('/presentar/evaluacion/' + _this8.id_prueba + '/' + id);
         }
       });
     }
   },
   computed: {
     mbuscar: function mbuscar() {
-      var _this8 = this;
+      var _this9 = this;
 
       // return this.activos.filter((activo) => activo.c0550_rowid_tercero == this.seleccionados ) 
       return this.activos.filter(function (activo) {
-        _this8.pagina = 1;
+        _this9.pagina = 1;
 
-        if (_this8.selectCO == null || _this8.selectCO == 'co' && _this8.selectEM == 'MOSTRAR TODOS') {
+        if (_this9.selectCO == null || _this9.selectCO == 'co' && _this9.selectEM == 'MOSTRAR TODOS') {
           var nombre_completo = activo.c0541_nombres + ' ' + activo.c0541_apellido1 + ' ' + activo.c0541_apellido2;
-          return activo.c0541_id.toUpperCase().includes(_this8.bempleado.toUpperCase()) || nombre_completo.toUpperCase().includes(_this8.bempleado.toUpperCase()) || activo.c0763_descripcion.toUpperCase().includes(_this8.bempleado.toUpperCase());
-        } else if (_this8.selectEM == "MOSTRAR TODOS" && _this8.selectCO != 'co') {
+          return activo.c0541_id.toUpperCase().includes(_this9.bempleado.toUpperCase()) || nombre_completo.toUpperCase().includes(_this9.bempleado.toUpperCase()) || activo.c0763_descripcion.toUpperCase().includes(_this9.bempleado.toUpperCase());
+        } else if (_this9.selectEM == "MOSTRAR TODOS" && _this9.selectCO != 'co') {
           var _nombre_completo = activo.c0541_nombres + " " + activo.c0541_apellido1 + " " + activo.c0541_apellido2;
 
-          return activo.f285_id.includes(_this8.selectCO) && _nombre_completo.toUpperCase().includes(_this8.bempleado.toUpperCase()) || activo.f285_id.includes(_this8.selectCO) && activo.c0541_id.toUpperCase().includes(_this8.bempleado.toUpperCase()) || activo.f285_id.includes(_this8.selectCO) && activo.c0763_descripcion.toUpperCase().includes(_this8.bempleado.toUpperCase());
-        } else if (_this8.selectCO != 'co' && _this8.selectEM == 'SELECCIONADOS') {
-          if (_this8.bempleado == "") {
-            return _this8.seleccionados.filter(function (c0550_rowid_tercero) {
+          return activo.f285_id.includes(_this9.selectCO) && _nombre_completo.toUpperCase().includes(_this9.bempleado.toUpperCase()) || activo.f285_id.includes(_this9.selectCO) && activo.c0541_id.toUpperCase().includes(_this9.bempleado.toUpperCase()) || activo.f285_id.includes(_this9.selectCO) && activo.c0763_descripcion.toUpperCase().includes(_this9.bempleado.toUpperCase());
+        } else if (_this9.selectCO != 'co' && _this9.selectEM == 'SELECCIONADOS') {
+          if (_this9.bempleado == "") {
+            return _this9.seleccionados.filter(function (c0550_rowid_tercero) {
               return c0550_rowid_tercero == activo.c0550_rowid_tercero;
-            }) != '' && activo.f285_id.includes(_this8.selectCO);
+            }) != '' && activo.f285_id.includes(_this9.selectCO);
           }
 
           var _nombre_completo2 = activo.c0541_nombres + " " + activo.c0541_apellido1 + " " + activo.c0541_apellido2;
 
-          return _this8.seleccionados.filter(function (c0550_rowid_tercero) {
+          return _this9.seleccionados.filter(function (c0550_rowid_tercero) {
             return c0550_rowid_tercero == activo.c0550_rowid_tercero;
-          }) != '' && _nombre_completo2.toUpperCase().includes(_this8.bempleado.toUpperCase()) && activo.f285_id.includes(_this8.selectCO) || _this8.seleccionados.filter(function (c0550_rowid_tercero) {
+          }) != '' && _nombre_completo2.toUpperCase().includes(_this9.bempleado.toUpperCase()) && activo.f285_id.includes(_this9.selectCO) || _this9.seleccionados.filter(function (c0550_rowid_tercero) {
             return c0550_rowid_tercero == activo.c0550_rowid_tercero;
-          }) != '' && activo.c0541_id.toUpperCase().includes(_this8.bempleado.toUpperCase()) && activo.f285_id.includes(_this8.selectCO) || _this8.seleccionados.filter(function (c0550_rowid_tercero) {
+          }) != '' && activo.c0541_id.toUpperCase().includes(_this9.bempleado.toUpperCase()) && activo.f285_id.includes(_this9.selectCO) || _this9.seleccionados.filter(function (c0550_rowid_tercero) {
             return c0550_rowid_tercero == activo.c0550_rowid_tercero;
-          }) != '' && activo.c0763_descripcion.toUpperCase().includes(_this8.bempleado.toUpperCase()) && activo.f285_id.includes(_this8.selectCO);
-        } else if (_this8.selectEM == "SELECCIONADOS") {
+          }) != '' && activo.c0763_descripcion.toUpperCase().includes(_this9.bempleado.toUpperCase()) && activo.f285_id.includes(_this9.selectCO);
+        } else if (_this9.selectEM == "SELECCIONADOS") {
           var _nombre_completo3 = activo.c0541_nombres + " " + activo.c0541_apellido1 + " " + activo.c0541_apellido2;
 
-          return _this8.seleccionados.filter(function (c0550_rowid_tercero) {
+          return _this9.seleccionados.filter(function (c0550_rowid_tercero) {
             return c0550_rowid_tercero == activo.c0550_rowid_tercero;
-          }) != '' && _nombre_completo3.toUpperCase().includes(_this8.bempleado.toUpperCase()) || _this8.seleccionados.filter(function (c0550_rowid_tercero) {
+          }) != '' && _nombre_completo3.toUpperCase().includes(_this9.bempleado.toUpperCase()) || _this9.seleccionados.filter(function (c0550_rowid_tercero) {
             return c0550_rowid_tercero == activo.c0550_rowid_tercero;
-          }) != '' && activo.c0541_id.toUpperCase().includes(_this8.bempleado.toUpperCase()) || _this8.seleccionados.filter(function (c0550_rowid_tercero) {
+          }) != '' && activo.c0541_id.toUpperCase().includes(_this9.bempleado.toUpperCase()) || _this9.seleccionados.filter(function (c0550_rowid_tercero) {
             return c0550_rowid_tercero == activo.c0550_rowid_tercero;
-          }) != '' && activo.c0763_descripcion.toUpperCase().includes(_this8.bempleado.toUpperCase());
-        } else if (_this8.selectCO != 'co' && _this8.selectEM == 'NO SELECCIONADOS') {
-          if (_this8.bempleado == "") {
-            return _this8.seleccionados.filter(function (c0550_rowid_tercero) {
+          }) != '' && activo.c0763_descripcion.toUpperCase().includes(_this9.bempleado.toUpperCase());
+        } else if (_this9.selectCO != 'co' && _this9.selectEM == 'NO SELECCIONADOS') {
+          if (_this9.bempleado == "") {
+            return _this9.seleccionados.filter(function (c0550_rowid_tercero) {
               return c0550_rowid_tercero == activo.c0550_rowid_tercero;
-            }) == '' && activo.f285_id.includes(_this8.selectCO);
+            }) == '' && activo.f285_id.includes(_this9.selectCO);
           }
 
           var _nombre_completo4 = activo.c0541_nombres + " " + activo.c0541_apellido1 + " " + activo.c0541_apellido2;
 
-          return _this8.seleccionados.filter(function (c0550_rowid_tercero) {
+          return _this9.seleccionados.filter(function (c0550_rowid_tercero) {
             return c0550_rowid_tercero == activo.c0550_rowid_tercero;
-          }) == '' && _nombre_completo4.toUpperCase().includes(_this8.bempleado.toUpperCase()) && activo.f285_id.includes(_this8.selectCO) || _this8.seleccionados.filter(function (c0550_rowid_tercero) {
+          }) == '' && _nombre_completo4.toUpperCase().includes(_this9.bempleado.toUpperCase()) && activo.f285_id.includes(_this9.selectCO) || _this9.seleccionados.filter(function (c0550_rowid_tercero) {
             return c0550_rowid_tercero == activo.c0550_rowid_tercero;
-          }) == '' && activo.c0541_id.toUpperCase().includes(_this8.bempleado.toUpperCase()) && activo.f285_id.includes(_this8.selectCO) || _this8.seleccionados.filter(function (c0550_rowid_tercero) {
+          }) == '' && activo.c0541_id.toUpperCase().includes(_this9.bempleado.toUpperCase()) && activo.f285_id.includes(_this9.selectCO) || _this9.seleccionados.filter(function (c0550_rowid_tercero) {
             return c0550_rowid_tercero == activo.c0550_rowid_tercero;
-          }) == '' && activo.c0763_descripcion.toUpperCase().includes(_this8.bempleado.toUpperCase()) && activo.f285_id.includes(_this8.selectCO);
-        } else if (_this8.selectEM == "NO SELECCIONADOS") {
+          }) == '' && activo.c0763_descripcion.toUpperCase().includes(_this9.bempleado.toUpperCase()) && activo.f285_id.includes(_this9.selectCO);
+        } else if (_this9.selectEM == "NO SELECCIONADOS") {
           var _nombre_completo5 = activo.c0541_nombres + " " + activo.c0541_apellido1 + " " + activo.c0541_apellido2;
 
-          return _this8.seleccionados.filter(function (c0550_rowid_tercero) {
+          return _this9.seleccionados.filter(function (c0550_rowid_tercero) {
             return c0550_rowid_tercero == activo.c0550_rowid_tercero;
-          }) == '' && _nombre_completo5.toUpperCase().includes(_this8.bempleado.toUpperCase()) || _this8.seleccionados.filter(function (c0550_rowid_tercero) {
+          }) == '' && _nombre_completo5.toUpperCase().includes(_this9.bempleado.toUpperCase()) || _this9.seleccionados.filter(function (c0550_rowid_tercero) {
             return c0550_rowid_tercero == activo.c0550_rowid_tercero;
-          }) == '' && activo.c0541_id.toUpperCase().includes(_this8.bempleado.toUpperCase()) || _this8.seleccionados.filter(function (c0550_rowid_tercero) {
+          }) == '' && activo.c0541_id.toUpperCase().includes(_this9.bempleado.toUpperCase()) || _this9.seleccionados.filter(function (c0550_rowid_tercero) {
             return c0550_rowid_tercero == activo.c0550_rowid_tercero;
-          }) == '' && activo.c0763_descripcion.toUpperCase().includes(_this8.bempleado.toUpperCase());
+          }) == '' && activo.c0763_descripcion.toUpperCase().includes(_this9.bempleado.toUpperCase());
         }
       });
     }
@@ -5463,8 +5469,9 @@ __webpack_require__.r(__webpack_exports__);
     buscarRes2: function buscarRes2(id, j, rta) {
       var _this4 = this;
 
-      axios.get("/api/estadistica/buscar/smur/".concat(id)).then(function (res) {
-        //  this.chartData.push([rta])
+      axios.get("/api/estadistica/buscar/smmr/".concat(id)).then(function (res) {
+        console.log(res.data);
+
         _this4.chartData2[j].push([rta, res.data]);
       });
     }
@@ -5856,7 +5863,7 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale("es");
 
       swal({
         title: "Advertencia",
-        text: "Si te sales despues de estar en la evaluacion, o recargas la pagina, la prueba sera anulada.",
+        text: "Si te sales despues de estar en la evaluacion, la prueba sera anulada.",
         icon: "warning",
         buttons: true,
         dangerMode: true
@@ -67002,6 +67009,23 @@ var render = function() {
             {
               name: "show",
               rawName: "v-show",
+              value: _vm.estado_prueba == 0,
+              expression: "estado_prueba == 0"
+            }
+          ],
+          staticClass: "alert alert-primary lead",
+          attrs: { role: "alert" }
+        },
+        [_vm._v("\n        Esta evaluacion no ha sido iniciada\n    ")]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
               value: _vm.estado_prueba == 1,
               expression: "estado_prueba == 1"
             }
@@ -67123,7 +67147,10 @@ var render = function() {
               })
             ]),
             _vm._v(" "),
-            _vm.id_creador == _vm.id_log && _vm.nota_ra
+            _vm.id_creador == _vm.id_log &&
+            _vm.nota_ra &&
+            _vm.nota_ra.length >= 1 &&
+            _vm.calificacion_final != null
               ? _c("div", { staticClass: "col-md-3 p-3" }, [
                   _c("div", { staticClass: "row" }, [
                     _c("input", {

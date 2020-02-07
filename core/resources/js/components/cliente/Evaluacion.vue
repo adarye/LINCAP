@@ -1,6 +1,9 @@
 <template>
     <div>
         <center> <h1 class="titulo">{{titulo}}</h1></center>
+         <div class="alert alert-primary lead" role="alert" v-show="estado_prueba == 0">
+            Esta evaluacion no ha sido iniciada
+        </div>
         <div class="alert alert-warning lead" role="alert" v-show="estado_prueba == 1">
             Esta evaluacion ya ha sido iniciada
         </div>
@@ -27,7 +30,7 @@
                         rows="4" cols="50" type="text" class="form-control" v-uppercase v-max-length="200">
                     </textarea>
                 </div>
-                <div class="col-md-3 p-3"  v-if="id_creador == id_log && nota_ra">
+                <div class="col-md-3 p-3"  v-if="id_creador == id_log && nota_ra && nota_ra.length >= 1 && calificacion_final != null">
                     <div class="row">
                         <input type="radio"  required :name="dato.cz5_id" value="3" :checked="Math.round((5 /cantidad_preg*100))/100 == Math.round((nota_ra[i].cz11_nota*100))/100" @click="calificarRA($event, dato.cz5_id)"> Excelente
                     </div>
@@ -166,6 +169,9 @@
             EventBus.$on('cargar', (item) => {
                 this.cargar()
             });
+            
+        //   window.addEventListener('beforeunload', this.cancelar)
+
               
 
         },
@@ -176,13 +182,12 @@
                 console.log(res.data)
                 this.cantidad_preg = res.data
 
-            })
-           
-            window.addEventListener('beforeunload', this.cancelar)
 
+            })
+   
         },
         beforeDestroy() {
-            window.onbeforeunload = this.cancelar()
+              window.onbeforeunload = this.cancelar()
 
         },
         methods: {
@@ -349,7 +354,7 @@
                 });
             },
             finalizar() {
-                this.calificar()
+                // this.calificar()
                 axios.put(`/api/pruebas/finalizar/${this.id}`)
                     .then(res => {
                         router.go(-1)
@@ -394,6 +399,7 @@
             cancelar() {
                 
                 if (this.id_creador != user.id) {
+                    
                     this.calificar()
                     axios.put(`/api/pruebas/finalizar/${this.id}`)
                         .then(res => {

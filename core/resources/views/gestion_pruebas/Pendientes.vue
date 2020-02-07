@@ -59,7 +59,7 @@ import moment from "moment";
             presentarEva(prueba){
                  swal({
                     title: "Advertencia",
-                    text: "Si te sales despues de estar en la evaluacion, o recargas la pagina, la prueba sera anulada.",
+                    text: "Si te sales despues de estar en la evaluacion, la prueba sera anulada.",
                     icon: "warning",
                     buttons: true,
                     dangerMode: true

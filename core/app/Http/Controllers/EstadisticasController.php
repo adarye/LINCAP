@@ -12,7 +12,11 @@ use Illuminate\Support\Facades\Gate;
 class EstadisticasController extends Controller
 {
     public  function buscarSMUR($id){
-        return z11_resultados::where('cz11_rta', $id)->count();
+        return z11_resultados::where('cz11_rta', $id)->where('cz11_categoria', 'smur')->count();
+
+    }
+    public  function buscarSMMR($id){
+        return z11_resultados::where('cz11_rta', $id)->where('cz11_categoria', 'smmr')->count();
 
     }
 }

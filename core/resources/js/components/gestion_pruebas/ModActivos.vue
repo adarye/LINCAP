@@ -196,6 +196,7 @@
                             })
                             .then(res => {
                                 console.log(res.data)
+                                this.traerRelacion()
                             });
                     }
                 }

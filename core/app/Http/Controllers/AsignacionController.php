@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\z4_rel_ts_gp;
+use App\z11_resultados;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 
@@ -35,6 +36,8 @@ class AsignacionController extends Controller
         Gate::allows('isRRHH') || Gate::allows('isSST') ) {
         $prueba = z4_rel_ts_gp::where('cz4_ts_id', $request->id_ts)->where('cz4_gp_id', $request->id_prueba)->first();
         $prueba->delete();
+        $respuestas = z11_resultados::where('cz11_id_empleado', $request->id_ts)->where('cz11_id_gp', $request->id_prueba)->delete();
+        
         }
     }
     public function index($id)
@@ -83,10 +86,9 @@ class AsignacionController extends Controller
             $all = z4_rel_ts_gp::where('cz4_ts_id', $a['c0550_rowid_tercero'])
                 ->where('cz4_gp_id', $request->id_prueba)
                 ->first();
-            // return $all;
             if ($all != null) {
-                // $all = z4_rel_ts_gp::find($all[0]->cz4_id);
                 $all->delete();
+                $respuestas = z11_resultados::where('cz11_id_gp', $request->id_prueba)->delete();
             }
             $i++;
 

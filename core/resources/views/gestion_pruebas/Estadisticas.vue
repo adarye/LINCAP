@@ -138,8 +138,8 @@
                     });
                 },
                 buscarRes2(id, j, rta) {
-                    axios.get(`/api/estadistica/buscar/smur/${id}`).then(res => {
-                        //  this.chartData.push([rta])
+                    axios.get(`/api/estadistica/buscar/smmr/${id}`).then(res => {
+                        console.log(res.data)
                         this.chartData2[j].push([rta, res.data])
                     });
                 }
