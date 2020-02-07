@@ -14,11 +14,11 @@
 
                 </div>
                 <div class="col-md-6">
-                    <GChart type="ColumnChart" :data="chartData[indice]" :options="chartOptions" />
+                    <GChart type="ColumnChart" :data="chartData[indice]" :options="chartOptions" style="width: 600px; height: 400px;"/>
 
                 </div>
                 <div class="col-md-6">
-                    <GChart class="mb-5" type="PieChart" :data="chartData[indice]" :options="chartOptions" />
+                    <GChart class="mb-5" type="PieChart" :data="chartData[indice]" :options="chartOptions" style="width: 600px; height: 400px;" />
 
                 </div>
             </div>
@@ -41,8 +41,11 @@
             <div class="col-md-12">
 
                 <GChart type="ColumnChart" :data="chartData2[i]" :options="chartOptions" />
-                <GChart type="PieChart" :data="chartData2[i]" :options="chartOptions" />
+                
 
+            </div>
+            <div class="col-md-12">
+                <GChart type="PieChart" :data="chartData2[i]" :options="chartOptions" style="width: 600px; height: 400px;" />
             </div>
 
 
@@ -75,7 +78,8 @@
 
                         chart: {
                             title: 'Encuesta LINCO',
-                            subtitle: ''
+                            subtitle: '',
+                             is3D: true
                         }
                     },
                     pregunta: 0

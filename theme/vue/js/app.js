@@ -5394,6 +5394,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -5412,7 +5415,8 @@ __webpack_require__.r(__webpack_exports__);
       chartOptions: {
         chart: {
           title: 'Encuesta LINCO',
-          subtitle: ''
+          subtitle: '',
+          is3D: true
         }
       },
       pregunta: 0
@@ -73305,6 +73309,7 @@ var render = function() {
                 { staticClass: "col-md-6" },
                 [
                   _c("GChart", {
+                    staticStyle: { width: "600px", height: "400px" },
                     attrs: {
                       type: "ColumnChart",
                       data: _vm.chartData[indice],
@@ -73321,6 +73326,7 @@ var render = function() {
                 [
                   _c("GChart", {
                     staticClass: "mb-5",
+                    staticStyle: { width: "600px", height: "400px" },
                     attrs: {
                       type: "PieChart",
                       data: _vm.chartData[indice],
@@ -73384,9 +73390,17 @@ var render = function() {
                   data: _vm.chartData2[i],
                   options: _vm.chartOptions
                 }
-              }),
-              _vm._v(" "),
+              })
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "col-md-12" },
+            [
               _c("GChart", {
+                staticStyle: { width: "600px", height: "400px" },
                 attrs: {
                   type: "PieChart",
                   data: _vm.chartData2[i],
