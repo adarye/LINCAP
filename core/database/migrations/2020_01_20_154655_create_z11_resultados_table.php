@@ -19,7 +19,7 @@ class CreateZ11ResultadosTable extends Migration
             $table->Integer('cz11_id_empleado');
             $table->bigInteger('cz11_pp_id');
             $table->text('cz11_categoria');
-            $table->float('cz11_nota');
+            $table->float('cz11_nota')->nullable(true);
             $table->text('cz11_rta_ra')->nullable(true);
             $table->bigInteger('cz11_rta')->nullable(true);;
             $table->timestamps();

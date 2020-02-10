@@ -83,9 +83,9 @@
         mounted() {
             this.validarInicio()
             console.log('bodyrespuestas')
-            this.cargar();
+             this.cargarPreguntas();
             EventBus.$on('cargar', (item) => {
-                this.cargar()
+                this.cargarPreguntas()
             });
 
         },
@@ -134,7 +134,7 @@
                         axios.delete(`/api/pregunta/delete/${id}`)
                             .then(res => {
                                 console.log(res.data)
-                                this.cargar();
+                                this.cargarPreguntas();
                                 swal("Eliminado", {
                                     icon: "success"
                                 });
@@ -144,7 +144,7 @@
 
 
             },
-            cargar() {
+            cargarPreguntas() {
                 this.traerSMMR()
                 this.traerRa();
                 this.traerPregunta_SMUR();

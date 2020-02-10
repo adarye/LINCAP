@@ -41,6 +41,7 @@
         </modal>
         
         <button type="button" class="btn btn-round btn-success" @click="show" title="Nuevo">Nuevo</button>
+         <div class="table-responsive-md table-responsive-sm">
         <table class="table table-bordered table-striped table-hover">
             <thead>
                 <tr>
@@ -69,6 +70,7 @@
                 </tr>
             </tbody>
         </table>
+         </div>
     </div>
 </template>
 <script>

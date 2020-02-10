@@ -74,6 +74,7 @@ Route::delete('gp/delete/{id}', 'GPController@delete');
 Route::get('gp/{categoria}', 'GPController@index');
 Route::get('gp/buscar/{id}', 'GPController@buscar');
 Route::get('preguntas/contar/{id}', 'GPController@contarPreguntas');
+Route::post('gp/copiarPrueba', 'GPController@copiarPrueba');
 
 //GESTION PRUEBAS PARA USUARIOS
 Route::get('pruebas/pendientes/{id}', 'GPController@traerPendientes');
@@ -137,6 +138,7 @@ Route::get('evaluacion/calificar/{emp}/{id}','RespuestasController@calificar');
 Route::put('evaluacion/calificar/RA','RespuestasController@calificaRA');
 
 //ESTADISTICAS
-Route::get('estadistica/buscar/smur/{id}', 'EstadisticasController@buscarSMUR');
+Route::post('estadistica/buscar/smur', 'EstadisticasController@buscarSMUR');
 Route::get('estadistica/buscar/smmr/{id}', 'EstadisticasController@buscarSMMR');
+Route::get('estadistica/cargar/cargos', 'EstadisticasController@cargarCargos');
 

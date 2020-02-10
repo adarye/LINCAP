@@ -8,6 +8,7 @@ use App\z5_prueba_preguntas;
 use App\z11_resultados;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use \Debugbar;
 
 class RespuestasController extends Controller
 {
@@ -142,6 +143,7 @@ class RespuestasController extends Controller
     }
     public function calificar($emp, $id)
     {
+    //   return  z11_resultados::all()->where('cz11_pp_id', $id)->where('cz11_id_empleado', $emp)->where('cz11_categoria', 'ra');
         $smur = z11_resultados::select(
             'cz11_id',
             'cz11_pp_id',
@@ -166,6 +168,7 @@ class RespuestasController extends Controller
             )
             ->where('cz11_id_gp', $id)
             ->where('cz11_id_empleado', $emp)
+            ->where('cz5_categoria', 'smur')
             ->distinct()
             ->get();
 //RESPUESTAS CON MULTIPLE RESPUESTA
@@ -193,6 +196,7 @@ class RespuestasController extends Controller
             )
             ->where('cz11_id_gp', $id)
             ->where('cz11_id_empleado', $emp)
+            ->where('cz5_categoria', 'smmr')
             ->orderBy('cz11_rta')
             ->get();
 
@@ -278,6 +282,7 @@ class RespuestasController extends Controller
 
     public function calificaRA(Request $request)
     {
+        
         $total_preguntas = z3_gestion_pruebas::join(
             'z5_prueba_preguntas',
             'z3_gestion_pruebas.cz3_id',

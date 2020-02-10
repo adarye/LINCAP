@@ -1,30 +1,35 @@
-<!-- top navigation -->
 <div class="top_nav">
     <div class="nav_menu">
+        <nav>
         <div class="nav toggle">
-            <a id="mmenu_toggle"><i class="fa fa-bars"></i></a>
+            <a id="menu_toggle"><i class="fa fa-bars"></i></a>
         </div>
-        <nav class="nav navbar-nav">
-            <ul class=" navbar-right">
-                <li class="nav-item dropdown open" style="padding-left: 15px;">
-                    <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown"
-                        data-toggle="dropdown" aria-expanded="false">
+        
+            <ul class=" navbar  navbar-right">
+                <li>
+                    <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                         <?php $name = Auth()->user()->cz1_nombres; 
                          $name_separado = explode(" ", $name)                         
                         ?>
                         <img src="/../theme/images/profile/{{ Auth()->user()->cz1_avatar }}"
-                            alt="">{{$name_separado [0]}}
+                            alt="">{{Auth()->user()->cz1_nombres}} 
                     </a>
-                    <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
-                        <router-link  class="dropdown-item" :to="{name: 'RestartPassword'}"><span> Cambiar
-                                contraseña</span></router-link>
+                    <ul class="dropdown-menu dropdown-usermenu pull-right">
+                        <li class="dropdown-item">
+                        <router-link   :to="{name: 'RestartPassword'}"><span>Cambiar
+                                contraseña</span></router-link></li>
+                                <li >
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
-                            <button class="dropdown-item"><i class="fa fa-sign-out pull-right"></i>Salir</button>
+                            <button class="dropdown-item" ><i class="fa fa-sign-out pull-right"></i>Salir</button>
                         </form>
-                    </div>
+                                </li>
+                    </ul>
+                    
                 </li>
+                
             </ul>
+            
         </nav>
     </div>
 </div>

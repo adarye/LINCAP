@@ -51,13 +51,48 @@
                 ></MRespuestas>
             </modal>
 
-            <div class="col-md-2">
-                <button type="button" class="btn btn-outline-success" @click="$modal.show('crear')">
+            <div class="col-md-4">
+                <button type="button" class="btn btn-success" @click="$modal.show('crear')">
                   Agregar  <li class="fa fa-plus"></li>
+                </button>
+                 <button type="button" class="btn btn-info" @click="$modal.show('pruebas')">
+                  Copiar Prueba  <li class="fa fa-copy"></li>
                 </button>
             </div>
         </nav>
         <Respuestas v-bind="{ id: $route.params.id }"></Respuestas>
+         <modal name="pruebas" :clickToClose="false" :adaptive="true" :width="450" :height="500">
+                <div class="table-responsive-md table-responsive-sm table-wrapper-scroll-y my-custom-scrollbar">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col" class="texto">Prueba</th>
+                        <th scope="col" class="texto">Descripcion</th>
+                        <th scope="col" class="texto">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                     <tr v-for="(item, indice) in pruebas" :key="indice">
+
+
+                        <th scope="row">{{ item.cz3_nombre }}</th>
+
+                        <td>{{ item.cz3_descripcion}}</td>
+                        <td>
+                            <input type="radio" name="eleccion" @click="prueba_seleccionada = item.cz3_id">
+                        </td>
+                        </tr>
+
+                </tbody>
+            </table>
+                </div>
+                 <button type="button" class="btn btn-info mt-3" @click="copiarPrueba">
+                  Copiar   <li class="fa fa-copy"></li>
+                </button>
+                 <button type="button" class="btn btn-danger mt-3" @click="$modal.hide('pruebas')">
+                  Cerrar 
+                </button>
+         </modal>
     </div>
 </template>
 <script>
@@ -70,11 +105,14 @@ export default {
             pregunta: "",
             datos: {},
             res: [],
+            pruebas: [],
+            prueba_seleccionada: ""
             
         };
     },
     mounted() {
         this.buscar();
+        this.buscarPruebas()
     },
     methods: {
         buscar() {
@@ -161,6 +199,22 @@ export default {
             this.tipo_respuesta = "Seleccione...";
             this.pregunta = "";
             (this.n_respuestas = null), (this.res = []);
+        },
+
+        copiarPrueba(){
+           
+            axios.post('/api/gp/copiarPrueba', {id: this.prueba_seleccionada, prueba: this.$route.params.id})
+            .then(res=>{
+                 EventBus.$emit("cargar", "o");
+                console.log(res.data)
+            })
+
+        },
+        buscarPruebas(){
+            axios.get(`/api/gp/${this.$route.params.cat}`)
+            .then(res=>{
+                this.pruebas = res.data
+            })
         }
     }
 };

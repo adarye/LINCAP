@@ -88,7 +88,7 @@
             </div>
             <div class="col-md-12">
                 <article v-for="(item4, i) in item3.smmr" :key="`s-${i}`">
-                    <input :disabled="editar ? false : true"
+                    <input :disabled="editar ? false : true "
                         @click="guardarSMMR(item3.cz5_id, item3.cz5_gp_id, item4.cz8_id, item3.cz5_categoria)"
                         class="flat" type="checkbox"
                         :checked="respuestas_smmr.filter(cz8_id => cz8_id == item4.cz8_id ) != ''"
@@ -115,7 +115,7 @@
             </div>
         </article>
 
-        <button v-show="editar" @click="finalizar" class="btn btn-danger mt-4" type="button">Finalizar</button>
+        <button v-show="editar && estado_prueba != 2" @click="finalizar" class="btn btn-danger mt-4" type="button">Finalizar</button>
 
 
     </div>
@@ -354,7 +354,9 @@
                 });
             },
             finalizar() {
-                // this.calificar()
+                   if (this.id_creador == user.id) {
+                 this.calificar()
+                   }
                 axios.put(`/api/pruebas/finalizar/${this.id}`)
                     .then(res => {
                         router.go(-1)

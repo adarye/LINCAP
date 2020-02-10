@@ -1,5 +1,19 @@
-<<template>
+<template>
     <div class="small">
+       <div class="row">
+        <div class="col-md-4  col-sm-2  has-feedback">
+                <select v-model="selectSede" @change="filtrar()" class="form-control">
+                    <option value="SEDES">SEDES</option>
+                    <option v-for="(item, indice) in sedes" :key="indice"  v-bind:value="item.f285_id">
+                         {{ item.f285_descripcion }}
+                    </option>
+                </select>
+            </div>
+            <div class="col-md-4">
+                <button class="btn btn-primary" @click="$modal.show('cargos')">Filtrar por cargos</button>
+            </div>
+            </div>
+            
         <h4 class="display-5 titulo my-3" v-show=" resSMUR.length">Preguntas de selección multiple con única respuestas
         </h4>
         <div v-for="(item, indice) in  resSMUR" :key="indice" class="my-5">
@@ -13,12 +27,12 @@
                     </div>
 
                 </div>
-                <div class="col-md-6">
-                    <GChart type="ColumnChart" :data="chartData[indice]" :options="chartOptions" style="width: 600px; height: 400px;"/>
+                <div class="col-md-12">
+                    <GChart type="ColumnChart" :data="chartData[indice]" :options="chartOptions" style="width: 100%; height: 100%;"/>
 
                 </div>
-                <div class="col-md-6">
-                    <GChart class="mb-5" type="PieChart" :data="chartData[indice]" :options="chartOptions" style="width: 600px; height: 400px;" />
+                <div class="col-md-12">
+                    <GChart class="mb-5" type="PieChart" :data="chartData[indice]" :options="chartOptions" style="width: 100%; height: 100%;" />
 
                 </div>
             </div>
@@ -40,16 +54,46 @@
             </div>
             <div class="col-md-12">
 
-                <GChart type="ColumnChart" :data="chartData2[i]" :options="chartOptions" />
+                <GChart type="ColumnChart" :data="chartData2[i]" :options="chartOptions" style="width: 100%; height: 100%;" />
                 
 
             </div>
             <div class="col-md-12">
-                <GChart type="PieChart" :data="chartData2[i]" :options="chartOptions" style="width: 600px; height: 400px;" />
+                <GChart type="PieChart" :data="chartData2[i]" :options="chartOptions" style="width: 900px; height: 450px;" />
             </div>
-
-
         </article>
+         <modal name="cargos" :clickToClose="false" :adaptive="true" :width="525" :height="425">
+                <div class="table-responsive-md table-responsive-sm table-wrapper-scroll-y my-custom-scrollbar">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col" class="texto">Cargo</th>
+                       
+                        <th scope="col" class="texto">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                     <tr v-for="(item, i) in cargos" :key="`o-${i}`">
+
+
+                        <th scope="row">{{ item.c0763_descripcion }}</th>
+
+            
+                        <td>
+                            <input    v-show="cargos_filtro.filter(e => e.id == item.item.c0763_id ) == ''" type="checkbox" name="eleccion" @click="cargos.push(item.c0763_id)">
+                        </td>
+                        </tr>
+
+                </tbody>
+            </table>
+                </div>
+                 <button type="button" class="btn btn-info mt-3" @click="filtrar">
+                  Filtrar   <li class="fa fa-filter"></li>
+                </button>
+                 <button type="button" class="btn btn-danger mt-3" @click="$modal.hide('cargos')">
+                  Cerrar 
+                </button>
+         </modal>
 
 
     </div>
@@ -82,7 +126,11 @@
                              is3D: true
                         }
                     },
-                    pregunta: 0
+                    pregunta: 0,
+                    sedes: "",
+                    selectSede:"SEDES",
+                    cargos:[],
+                    cargos_filtro:[]
                 }
             },
             created() {
@@ -90,6 +138,8 @@
                 this.traerSMMR()
                 this.traerPregunta_SMUR()
                 this.buscar()
+                this.buscarSedes()
+                this.buscarCargos()
             },
             methods: {
                 traerSMMR() {
@@ -136,16 +186,37 @@
                     });
                 },
                 buscarRes(id, j, rta) {
-                    axios.get(`/api/estadistica/buscar/smur/${id}`).then(res => {
+                    console.log(this.selectSede)
+                    axios.post('/api/estadistica/buscar/smur', {id: id, co: this.selectSede}).then(res => {
                         //  this.chartData.push([rta])
                         this.chartData[j].push([rta, res.data])
                     });
                 },
                 buscarRes2(id, j, rta) {
                     axios.get(`/api/estadistica/buscar/smmr/${id}`).then(res => {
-                        console.log(res.data)
+                        
                         this.chartData2[j].push([rta, res.data])
                     });
+                },
+                buscarSedes(){
+                    axios.get('/api/getCO')
+                    .then(res=>{
+                        this.sedes = res.data
+                        console.log(res.data)
+                    })
+                },
+                buscarCargos(){
+                    axios.get('/api/estadistica/cargar/cargos')
+                    .then(res=>{
+                        this.cargos = res.data
+                    })
+
+                },
+                filtrar(){
+                    this.chartData= []
+                    this.chartData2 = []
+                    this.traerPregunta_SMUR()
+                    this.traerSMMR()
                 }
             }
         }

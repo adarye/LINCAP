@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\z3_gestion_pruebas;
+use App\z5_prueba_preguntas;
+use App\z7_rta_smur;
+use App\z8_rta_smmr;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 
@@ -157,6 +160,66 @@ class GPController extends Controller
 
         )->where('cz5_gp_id', $id)->count();
 
+    }
+    public function copiarPrueba(Request $request){
+       $smur = z5_prueba_preguntas::with('respuestas')
+       ->where('cz5_gp_id', $request->id)->where('cz5_categoria', 'smur')->get();
+
+       foreach($smur as $item){
+        $pregunta = new z5_prueba_preguntas();
+        $pregunta->cz5_pregunta = $item->cz5_pregunta;
+        $pregunta->cz5_categoria = $item->cz5_categoria;
+        $pregunta->cz5_gp_id = $request->prueba;
+        $pregunta->save();
+ 
+
+        foreach($item->respuestas as $item){
+            $respuestas = new z7_rta_smur;
+            $respuestas->cz7_pp_id =  $pregunta->cz5_id;;
+            $respuestas->cz7_rta = $item->cz7_rta;
+            //  $respuestas->cz7_rta_correcta = $item->cz7_rta_correcta;
+            $respuestas->save();
+
+        }
+
+       }
+
+       $smmr = z5_prueba_preguntas::with('smmr')
+       ->where('cz5_gp_id', $request->id)
+       ->where('cz5_categoria', 'smmr')
+       ->get();
+
+       foreach($smmr as $item){
+        $pregunta = new z5_prueba_preguntas();
+        $pregunta->cz5_pregunta = $item->cz5_pregunta;
+        $pregunta->cz5_categoria = $item->cz5_categoria;
+        $pregunta->cz5_gp_id = $request->prueba;
+        $pregunta->save();
+ 
+
+        foreach($item->smmr as $item){
+            $respuestas = new z8_rta_smmr;
+            $respuestas->cz8_pp_id =  $pregunta->cz5_id;;
+            $respuestas->cz8_rta = $item->cz8_rta;
+            //  $respuestas->cz7_rta_correcta = $item->cz7_rta_correcta;
+            $respuestas->save();
+
+        }
+
+       }
+
+
+       $ra= z5_prueba_preguntas::select( 'cz5_pregunta', 'cz5_categoria', 'cz5_id', 'cz5_gp_id')->
+       where('cz5_gp_id', $request->id)->where('cz5_categoria', 'ra')->get();
+
+       foreach($ra as $item){
+        $pregunta = new z5_prueba_preguntas();
+        $pregunta->cz5_pregunta = $item->cz5_pregunta;
+        $pregunta->cz5_categoria = $item->cz5_categoria;
+        $pregunta->cz5_gp_id = $request->prueba;
+        $pregunta->save();
+       }
+   
     }
 
 }
