@@ -12,7 +12,9 @@
                          $name_separado = explode(" ", $name)                         
                         ?>
                         <img src="/../theme/images/profile/{{ Auth()->user()->cz1_avatar }}"
-                            alt="">{{Auth()->user()->cz1_nombres}} 
+                            alt="">
+                            {{-- {{Auth()->user()->cz1_nombres}}  --}}
+                            {{ $name_separado[0]}}
                     </a>
                     <ul class="dropdown-menu dropdown-usermenu pull-right">
                         <li class="dropdown-item">

@@ -31,14 +31,14 @@
                         {{ item.f285_descripcion }}</option>
                 </select>
             </div>
-            <div class="col-md-6 col-center has-feedback">
+            <div class="col-md-6 mt-2 col-center has-feedback">
                 <input type="text" v-model="bempleado" class="form-control" v-autofocus placeholder="Buscar" />
             </div>  
              <span v-if="mostrar == 1"><input class="select mt-2" v-model="numero" /></span>          
         </nav>
         
         <div class="table-responsive-md table-responsive-sm">
-            <table class="table table-striped">
+            <div class="table table-striped">
                 <thead>
                     <tr>
                         <th scope="col" class="texto">Cedula</th>
@@ -77,7 +77,7 @@
                         </td>
                     </tr>
                 </tbody>
-            </table>
+            </div>
         </div>
         <div class="row">
             <div class="col-md-4 col-float"></div>

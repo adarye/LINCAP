@@ -1,5 +1,13 @@
 <template>
     <div>
+     <nav v-show="id_creador == user" aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li  class="breadcrumb-item"><i class="fa fa-pencil"> <router-link v-bind:to="'/gestion/pruebas/' + 1"> Encuestas</router-link></i></li>
+                 <li  class="breadcrumb-item"><i class="fa fa-users"> <router-link v-bind:to="'/gestion/pruebas/asignar/1/' + $route.params.id"> Asignar</router-link></i></li>
+                <!-- <li class="breadcrumb-item"><i class="fa fa-gears"> {{datos.cz3_nombre}}</i></li> -->
+                <li class="breadcrumb-item active" aria-current="page"></li>
+            </ol>
+        </nav>
         <div class="alert alert-primary lead" role="alert" v-show="estado_prueba == 0">
          Esta encuesta no ha sido iniciada
          </div>
@@ -97,7 +105,8 @@
                 id_creador: null,
                 fecha_cierre: null,
                 fecha_apertura:null,
-                estado_prueba: null
+                estado_prueba: null,
+                user: ""
 
 
             };
@@ -105,7 +114,7 @@
        
         beforeMount() {
             this.id = this.$route.params.id
-           
+            this.user = user.id
             this.cargar();
             EventBus.$on('cargar', (item) => {
                 this.cargar()

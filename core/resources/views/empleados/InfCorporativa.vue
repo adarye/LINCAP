@@ -30,7 +30,7 @@
                         {{ item.f285_descripcion }}</option>
                 </select>
             </div>
-            <div class="col-md-6 col-center has-feedback">
+            <div class="col-md-6 mt-2 col-center has-feedback">
                 <input type="text" v-model="bempleado" class="form-control" v-autofocus placeholder="Buscar" />
             </div>  
              <span v-if="mostrar == 1"><input class="select mt-2" v-model="numero" /></span>          

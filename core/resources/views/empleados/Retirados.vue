@@ -30,26 +30,26 @@
                         {{ item.f285_descripcion }}</option>
                 </select>
             </div>
-            <div class="col-md-6 col-center has-feedback">
+            <div class="col-md-6 col-center has-feedback mt-2">
                 <input type="text" v-model="bempleado" class="form-control" v-autofocus placeholder="Buscar" />
             </div>
             <span v-if="mostrar == 1"><input class="select mt-2" v-model="numero" /></span>
         </nav>
         <div class="table-responsive-md table-responsive-sm">
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th scope="col">Cedula</th>
-                    <th scope="col">Nombre</th>
-                    <th scope="col">C. O</th>
-                    <th scope="col">Cargo</th>
-                    <th scope="col">Fecha de Ingreso</th>
-                    <th scope="col">Contrato hasta</th>
-                    <th scope="col">Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr v-for="(item, indice) in mbuscar" :key="indice" v-show="
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Cedula</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">C. O</th>
+                        <th scope="col">Cargo</th>
+                        <th scope="col">Fecha de Ingreso</th>
+                        <th scope="col">Contrato hasta</th>
+                        <th scope="col">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr  v-for="(item, indice) in mbuscar" :key="indice" v-show="
                         (pagina - 1) * numero <= indice &&
                             pagina * numero > indice || bempleado != ''
                     ">
@@ -76,10 +76,10 @@
                                 </li></router-link>
                     </td>
                 </tr>
-            </tbody>
-        </table>
+                </tbody>
+            </table>
         </div>
-       <div class="row">
+        <div class="row">
             <div class="col-md-4 col-float"></div>
             <div v-show="bempleado == ''" class="col-md-4 col-center">
                 <button type="button" @click.prevent="pagina=pagina-1" v-show="pagina!=1" class="btn btn-primary">
@@ -100,6 +100,8 @@
     import moment from "moment";
     moment.locale("es");
     import router from '../../js/router';
+
+
     export default {
         data() {
             return {
@@ -112,27 +114,27 @@
                 bempleado: "",
                 pagina: 1,
                 moment: moment
-            };
+            }
         },
+
         beforeMount() {
-            if(window.user.rol == 1 || window.user.rol == 2 || window.user.rol == 3){
+            if (window.user.rol == 1 || window.user.rol == 2 || window.user.rol == 3) {
                 axios.get("/api/registros/retirados").then(res => {
-                console.log(res.data);
-                const x = res.data[0];
-                const y = res.data[1];
+                    console.log(res.data);
+                    const x = res.data[0];
+                    const y = res.data[1];
 
-                const re = y.filter(o => !x.find(o2 => o.c0541_id === o2.c0541_id));
-                console.log(re);
+                    const re = y.filter(o => !x.find(o2 => o.c0541_id === o2.c0541_id));
+                    console.log(re);
 
-                this.retirados = re;
-                console.log(this.retirados);
-                this.getCO();
-            });              
+                    this.retirados = re;
+                    console.log(this.retirados);
+                    this.getCO();
+                });
+            } else {
+                router.push('/');
             }
-            else{
-            router.push('/');
-            }
-            
+
         },
 
         methods: {
@@ -153,7 +155,7 @@
         },
         computed: {
             mbuscar: function () {
-            
+
                 return this.retirados.filter(retirado => {
                     this.pagina = 1
                     if (this.selectCO == null || this.selectCO == 'co') {

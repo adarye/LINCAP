@@ -2,9 +2,8 @@
     <div>
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item">
-                    <i class="fa fa-edit"> Encuestas</i>
-                </li>
+                  <li v-show=" $route.params.categoria == 1" class="breadcrumb-item"><i class="fa fa-pencil"> <router-link v-bind:to="'/gestion/pruebas/' + $route.params.categoria"> Encuestas</router-link></i></li>
+                 <li v-show=" $route.params.categoria == 2" class="breadcrumb-item"><i class="fa fa-file-text"> <router-link v-bind:to="'/gestion/pruebas/' + $route.params.categoria"> Evaluaciones</router-link></i></li>
                 <li class="breadcrumb-item">
                     <i class="fa fa-gear">
                         <router-link :to="{ name: 'IndexGP' }">
@@ -163,34 +162,43 @@ import 'pc-bootstrap4-datetimepicker/build/css/bootstrap-datetimepicker.css';
                 axios.get(`/api/gp/${this.$route.params.categoria}`)
                 .then(res=>{                    
                     this.pruebas = res.data
-                    console.log('gp')
-                    console.log(res.data)
+                    
                 })
             },
             crear() {
                 console.log(this.datos.cz3_fecha_apertura + ' ' + this.datos.cz3_fecha_cierre)
-                var fechaA = moment(this.datos.cz3_fecha_apertura).format('YYYY-DD-MM LT')
-                var fechaAC = moment(fechaA).format('LLLL')
-                var fechaC = moment(this.datos.cz3_fecha_cierre).format('YYYY-DD-MM LT')
-                 var fechaCC = moment(fechaC).format('LLLL')
-                console.log(fechaAC + ' ' + fechaCC )
-                 var apertura = moment().diff(fechaA)
+               
+             
+               var fechaC =  this.datos.cz3_fecha_cierre.split('-');
+               var mes_hora = fechaC[2].split(' ')
+               var mesC =  mes_hora[0]
+               var horaC = mes_hora[1]
 
-                console.log( moment(fechaA).isAfter(fechaC))
+                var fechaCierre = fechaC[0] +'/'+ mesC + '/'+ fechaC[1] + ' ' + horaC
+                  fechaCierre = new Date(fechaCierre)
+
+                   var fechaA =  this.datos.cz3_fecha_apertura.split('-');
+               var mes_hora_a = fechaA[2].split(' ')
+               var mesA =  mes_hora_a[0]
+               var horaA = mes_hora_a[1]
+
+                var fechaApertura = fechaA[0] +'/'+ mesA + '/'+ fechaA[1] + ' ' + horaA
+                  fechaApertura = new Date(fechaApertura)
+                 console.log(fechaCierre +' ' + fechaApertura)
+              
 
                  if(this.datos.cz3_nombre == null || this.datos.cz3_descripcion == null ||
                 this.datos.cz3_fecha_apertura == null || this.datos.cz3_fecha_cierre == null){
                       swal('Advertencia', 'Todos los campos son necesarios', 'warning')
                 }
-                else if(apertura > 0 || moment(fechaA).isAfter(fechaC) ){
+                else if(fechaApertura > fechaCierre || fechaApertura <= new Date()
+                 ){
                      swal('Advertencia', 'Las fechas deben tener un rango en vigencia', 'warning')
                 }
                 else{
-                console.log(this.datos)
                 axios.post('/api/gp/crear', { datos: this.datos, categoria: this.$route.params.categoria})
                 .then(res=>{
                    
-                    console.log(res.data)
                   this.traerPruebas();
                    swal('Guardado', 'El registro se guardo correctamente', 'success')
                    this.$modal.hide('create')
@@ -208,8 +216,6 @@ import 'pc-bootstrap4-datetimepicker/build/css/bootstrap-datetimepicker.css';
              this.datos.cz3_nombre = item.cz3_nombre
              this.datos.cz3_descripcion = item.cz3_descripcion
             
-             console.log(this.datos.cz3_fecha_apertura)
-              console.log(this.datos)
              this.$modal.show('editar')
 
             },
@@ -222,9 +228,29 @@ import 'pc-bootstrap4-datetimepicker/build/css/bootstrap-datetimepicker.css';
             },
 
             actualizar(){
-               
+               var fechaC =  this.datos.cz3_fecha_cierre.split('-');
+               var mes_hora = fechaC[2].split(' ')
+               var mesC =  mes_hora[0]
+               var horaC = mes_hora[1]
+
+                var fechaCierre = fechaC[0] +'/'+ mesC + '/'+ fechaC[1] + ' ' + horaC
+                  fechaCierre = new Date(fechaCierre)
+
+                  var fechaA =  this.datos.cz3_fecha_apertura.split('-');
+               var mes_hora_a = fechaA[2].split(' ')
+               var mesA =  mes_hora_a[0]
+               var horaA = mes_hora_a[1]
+
+                var fechaApertura = fechaA[0] +'/'+ mesA + '/'+ fechaA[1] + ' ' + horaA
+                  fechaApertura = new Date(fechaApertura)
+
+                 
                  if(this.datos.cz3_nombre == '' || this.datos.cz3_descripcion == ''){
                       swal('Advertencia', 'Todos los campos son necesarios', 'warning')
+                }
+                else if(fechaCierre <= fechaApertura){
+                    swal('Advertencia', 'Las fechas deben tener un rango en vigencia', 'warning')
+
                 }
                 else{
                 axios.put('/api/gp/update', this.datos)
@@ -249,7 +275,6 @@ import 'pc-bootstrap4-datetimepicker/build/css/bootstrap-datetimepicker.css';
                 this.fecha_actual = moment().format("YYYY/DD/MM h:mm:ss");
                 axios.put('/api/gp/cerrar',{fecha_actual: this.fecha_actual, id: id})
                 .then(res=>{
-                    console.log(res.data)
                     this.traerPruebas();
                 })
                     }
@@ -273,14 +298,13 @@ import 'pc-bootstrap4-datetimepicker/build/css/bootstrap-datetimepicker.css';
         },
         asignar(id){
             this.id_prueba = id;
-             router.push('/gestion/pruebas/asignar/' + id);
+             router.push('/gestion/pruebas/asignar/'+this.$route.params.categoria + '/' + id);
             //  this.$modal.show('asignar')
         },
 
         preguntas(id){
                 axios.get(`/api/prueba/inicio/${id}`)
                 .then(res=>{
-                    console.log(res.data)
                     if(res.data == ""){
                         router.push('/prueba/preguntas/'+this.$route.params.categoria + '/' + id);
                     }
@@ -293,8 +317,7 @@ import 'pc-bootstrap4-datetimepicker/build/css/bootstrap-datetimepicker.css';
                     
         },
         estadisticas(id){
-            console.log('entro')
-             router.push('/gestion/prueba/estadistica/' + id);
+             router.push('/gestion/prueba/estadistica/'+this.$route.params.categoria + '/' + id);
         }
         }
     }

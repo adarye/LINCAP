@@ -111,7 +111,7 @@ export default new Router({
 
         },
         {
-            path: '/gestion/prueba/estadistica/:id',
+            path: '/gestion/prueba/estadistica/:cat/:id',
             name: 'EstadisticasGP',
             component: EstadisticasGP
 
@@ -130,7 +130,7 @@ export default new Router({
 
         },
         {
-            path: '/gestion/pruebas/asignar/:id',
+            path: '/gestion/pruebas/asignar/:cat/:id',
             name: 'Asignacion',
             component: Asignacion
 

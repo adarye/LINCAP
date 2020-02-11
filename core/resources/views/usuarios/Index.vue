@@ -37,7 +37,7 @@
                     </option>
                 </select>
             </div>
-            <div class="col-md-6 col-center has-feedback">
+            <div class="col-md-6 mt-2 col-center has-feedback">
                 <input type="text" v-model="bempleado" class="form-control" v-autofocus v-uppercase
                     placeholder="Buscar empleado" />
             </div>

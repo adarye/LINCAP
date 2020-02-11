@@ -139,6 +139,6 @@ Route::put('evaluacion/calificar/RA','RespuestasController@calificaRA');
 
 //ESTADISTICAS
 Route::post('estadistica/buscar/smur', 'EstadisticasController@buscarSMUR');
-Route::get('estadistica/buscar/smmr/{id}', 'EstadisticasController@buscarSMMR');
+Route::post('estadistica/buscar/smmr', 'EstadisticasController@buscarSMMR');
 Route::get('estadistica/cargar/cargos', 'EstadisticasController@cargarCargos');
 

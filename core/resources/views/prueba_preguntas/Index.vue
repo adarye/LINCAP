@@ -1,5 +1,13 @@
 <template>
     <div>
+         <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li v-show=" $route.params.cat == 1" class="breadcrumb-item"><i class="fa fa-pencil"> <router-link v-bind:to="'/gestion/pruebas/' + $route.params.cat"> Encuestas</router-link></i></li>
+                 <li v-show=" $route.params.cat == 2" class="breadcrumb-item"><i class="fa fa-file-text"> <router-link v-bind:to="'/gestion/pruebas/' + $route.params.cat"> Evaluaciones</router-link></i></li>
+                <li class="breadcrumb-item"><i class="fa fa-gears"> {{datos.cz3_nombre}}</i></li>
+                <li class="breadcrumb-item active" aria-current="page"></li>
+            </ol>
+        </nav>
         <center>
             <h1>{{ datos.cz3_nombre }}</h1>
         </center>
@@ -61,7 +69,7 @@
             </div>
         </nav>
         <Respuestas v-bind="{ id: $route.params.id }"></Respuestas>
-         <modal name="pruebas" :clickToClose="false" :adaptive="true" :width="450" :height="500">
+         <modal name="pruebas" :clickToClose="false" :adaptive="true" :width="450" :height="370">
                 <div class="table-responsive-md table-responsive-sm table-wrapper-scroll-y my-custom-scrollbar">
             <table class="table table-striped">
                 <thead>
@@ -202,11 +210,20 @@ export default {
         },
 
         copiarPrueba(){
-           
+           const wrapper = document.createElement('div');
+                wrapper.innerHTML =
+                    "<div class='spinner-border text-primary row' role='status'> <span class='sr-only'>Loading...</span> </div>  <div class=''> Copiando preguntas...</div> ";
+                swal({
+                   buttons: false,
+                    html: true,
+                    content: wrapper,
+                    closeOnClickOutside: false
+                });
             axios.post('/api/gp/copiarPrueba', {id: this.prueba_seleccionada, prueba: this.$route.params.id})
             .then(res=>{
                  EventBus.$emit("cargar", "o");
                 console.log(res.data)
+                swal('Mensaje', 'Preguntas copiadas exitosamente', 'success')
             })
 
         },

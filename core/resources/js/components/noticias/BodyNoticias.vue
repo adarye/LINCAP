@@ -25,7 +25,7 @@
 
                 </select>
             </div>
-            <div class="col-md-6 col-center has-feedback">
+            <div class="col-md-6 col-center has-feedback mt-2">
                 <input type="text" v-model="bnoticia" class="form-control" v-autofocus placeholder="Buscar" />
             </div>
             <span v-if="mostrar == 1"><input class="select mt-2" v-model="numero" /></span>

@@ -1,6 +1,7 @@
 <template>
     <div>
         <center> <h1 class="titulo">{{titulo}}</h1></center>
+        <div v-show="id_creador == id_log">
          <div class="alert alert-primary lead" role="alert" v-show="estado_prueba == 0">
             Esta evaluacion no ha sido iniciada
         </div>
@@ -11,7 +12,7 @@
             Esta evaluacion ya esta finalizada
         </div>
          <h4 class="display-5 titulo mb-3" v-show="calificacion_final">Calificacion Final: <span class="badge badge-primary">{{calificacion_final}}</span></h4>
-
+        </div>
         <h4 class="display-5 titulo mb-3" v-show="resRA.length">Preguntas con respuesta abierta</h4>
         <article v-for="(dato, i) in resRA" :key="`A-${i}`">
             <div class="row mt-2">
@@ -22,8 +23,11 @@
                 </div>
 
             </div>
-            <div class="row mb-3">
+         
+            <div class="row mb-3" >
                 <div class="col-md-9">
+
+                     
 
                     <textarea :disabled="editar ? false : true" v-model="respuestas_ra[i]"
                         @change="guardarRA(dato.cz5_id, dato.cz5_gp_id,  dato.cz5_categoria, respuestas_ra[i] )"
@@ -96,7 +100,7 @@
 
 
                     <span
-                        v-if="respuestas_smmr.filter(cz8_id => cz8_id == item4.cz8_id ) != '' && id_creador == id_log">
+                        v-show="respuestas_smmr.filter(cz8_id => cz8_id == item4.cz8_id ) != '' && id_creador == id_log">
                         <!-- {{id_rta = item4.cz8_id }} -->
 
 
@@ -170,7 +174,7 @@
                 this.cargar()
             });
             
-        //   window.addEventListener('beforeunload', this.cancelar)
+          window.addEventListener('beforeunload', this.cancelar)
 
               
 
@@ -359,7 +363,7 @@
                    }
                 axios.put(`/api/pruebas/finalizar/${this.id}`)
                     .then(res => {
-                        router.go(-1)
+                        location.reload();
 
                     })
             },

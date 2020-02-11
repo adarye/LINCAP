@@ -20,7 +20,9 @@ import VueGoogleCharts from 'vue-google-charts'
 
 Vue.use(VueGoogleCharts)
 
+import VueVirtualScroller from 'vue-virtual-scroller'
 
+Vue.use(VueVirtualScroller)
 
 
 

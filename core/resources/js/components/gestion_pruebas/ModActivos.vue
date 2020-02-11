@@ -1,5 +1,13 @@
 <template>
     <div>
+         <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li v-show=" $route.params.cat == 1" class="breadcrumb-item"><i class="fa fa-pencil"> <router-link v-bind:to="'/gestion/pruebas/' + $route.params.cat"> Encuestas</router-link></i></li>
+                 <li v-show=" $route.params.cat == 2" class="breadcrumb-item"><i class="fa fa-file-text"> <router-link v-bind:to="'/gestion/pruebas/' + $route.params.cat"> Evaluaciones</router-link></i></li>
+                <li class="breadcrumb-item"><i class="fa fa-users"> {{titulo}}</i></li>
+                <li class="breadcrumb-item active" aria-current="page"></li>
+            </ol>
+        </nav>
 
         <nav class="navbar navbar-light bg-light my-2">
             <div class="col-md-2 col-center has-feedback">
@@ -125,7 +133,8 @@
                 pagina: 1,
                 moment: moment,
                 id_prueba: null,
-                selectEM: 'MOSTRAR TODOS'
+                selectEM: 'MOSTRAR TODOS',
+                titulo: ""
             };
         },
         beforeMount() {
@@ -133,6 +142,7 @@
             this.getCO();
             this.traerRelacion()
             this.traerActivos();
+            this.buscar()
         },
         methods: {
             mostrarCaja: function () {
@@ -278,6 +288,12 @@
                 }
                 })
                
+            },
+             buscar() {
+                axios.get(`/api/gp/buscar/${this.$route.params.id}`).then(res => {
+                    this.titulo = res.data.cz3_nombre
+
+                });
             }
 
         },
