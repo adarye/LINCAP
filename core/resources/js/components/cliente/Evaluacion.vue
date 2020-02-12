@@ -1,17 +1,20 @@
 <template>
     <div>
-        <center> <h1 class="titulo">{{titulo}}</h1></center>
+        <center>
+            <h1 class="titulo">{{titulo}}</h1>
+        </center>
         <div v-show="id_creador == id_log">
-         <div class="alert alert-primary lead" role="alert" v-show="estado_prueba == 0">
-            Esta evaluacion no ha sido iniciada
-        </div>
-        <div class="alert alert-warning lead" role="alert" v-show="estado_prueba == 1">
-            Esta evaluacion ya ha sido iniciada
-        </div>
-        <div class="alert alert-success lead" role="alert" v-show="estado_prueba == 2">
-            Esta evaluacion ya esta finalizada
-        </div>
-         <h4 class="display-5 titulo mb-3" v-show="calificacion_final">Calificacion Final: <span class="badge badge-primary">{{calificacion_final}}</span></h4>
+            <div class="alert alert-primary lead" role="alert" v-show="estado_prueba == 0">
+                Esta evaluacion no ha sido iniciada
+            </div>
+            <div class="alert alert-warning lead" role="alert" v-show="estado_prueba == 1">
+                Esta evaluacion ya ha sido iniciada
+            </div>
+            <div class="alert alert-success lead" role="alert" v-show="estado_prueba == 2">
+                Esta evaluacion ya esta finalizada
+            </div>
+            <h4 class="display-5 titulo mb-3" v-show="calificacion_final">Calificacion Final: <span
+                    class="badge badge-primary">{{calificacion_final}}</span></h4>
         </div>
         <h4 class="display-5 titulo mb-3" v-show="resRA.length">Preguntas con respuesta abierta</h4>
         <article v-for="(dato, i) in resRA" :key="`A-${i}`">
@@ -23,26 +26,33 @@
                 </div>
 
             </div>
-         
-            <div class="row mb-3" >
-                <div class="col-md-9">
 
-                     
+            <div class="row mb-3">
+                <div class="col-md-9">
+                    <!-- v-if="nota_ra.filter(nota => nota.cz11_pp_id == dato.cz5_id) != []" -->
+
+                    <!-- {{  nota_ra.filter(nota => nota.cz11_pp_id == dato.cz5_id)}} -->
 
                     <textarea :disabled="editar ? false : true" v-model="respuestas_ra[i]"
                         @change="guardarRA(dato.cz5_id, dato.cz5_gp_id,  dato.cz5_categoria, respuestas_ra[i] )"
                         rows="4" cols="50" type="text" class="form-control" v-uppercase v-max-length="200">
                     </textarea>
                 </div>
-                <div class="col-md-3 p-3"  v-if="id_creador == id_log && nota_ra && nota_ra.length >= 1 && calificacion_final != null">
+                <div class="col-md-3 p-3"
+                    v-if="id_creador == id_log && nota_ra && nota_ra.length >= 1 && calificacion_final != null">
                     <div class="row">
-                        <input type="radio"  required :name="dato.cz5_id" value="3" :checked="Math.round((5 /cantidad_preg*100))/100 == Math.round((nota_ra[i].cz11_nota*100))/100" @click="calificarRA($event, dato.cz5_id)"> Excelente
+                        <input type="radio" required :name="dato.cz5_id" value="3"
+                            :checked="Math.round((5 /cantidad_preg*100))/100 == Math.round((nota_ra[i].cz11_nota*100))/100"
+                            @click="calificarRA($event, dato.cz5_id)"> Excelente
                     </div>
                     <div class="row">
-                        <input type="radio"  :name="dato.cz5_id" value="2" :checked="Math.round((5 /cantidad_preg*100)/2)/100 == Math.round((nota_ra[i].cz11_nota*100))/100" @click="calificarRA($event, dato.cz5_id)" > Regular
+                        <input type="radio" :name="dato.cz5_id" value="2"
+                            :checked="Math.round((5 /cantidad_preg*100)/2)/100 == Math.round((nota_ra[i].cz11_nota*100))/100"
+                            @click="calificarRA($event, dato.cz5_id)"> Regular
                     </div>
                     <div class="row">
-                        <input type="radio"  :name="dato.cz5_id" value="1" :checked="nota_ra[i].cz11_nota == 0" @click="calificarRA($event, dato.cz5_id)">Mal
+                        <input type="radio" :name="dato.cz5_id" value="1" :checked="nota_ra[i].cz11_nota == 0"
+                            @click="calificarRA($event, dato.cz5_id)">Mal
                     </div>
                 </div>
             </div>
@@ -119,7 +129,8 @@
             </div>
         </article>
 
-        <button v-show="editar && estado_prueba != 2" @click="finalizar" class="btn btn-danger mt-4" type="button">Finalizar</button>
+        <button v-show="editar && estado_prueba != 2" @click="calificar(1)" class="btn btn-danger mt-4"
+            type="button">Finalizar</button>
 
 
     </div>
@@ -161,55 +172,57 @@
         },
 
         created() {
-          
+
             this.id_log = user.id
             console.log('evaluacion')
             this.id = this.$route.params.id
             this.id_empleado = this.$route.params.empleado
 
             this.cargar();
-        
-             
+
+
             EventBus.$on('cargar', (item) => {
                 this.cargar()
             });
-            
-          window.addEventListener('beforeunload', this.cancelar)
 
-              
+
+
+
 
         },
         mounted() {
             //  router.onReady(this.advertir)
             axios.get(`/api/preguntas/contar/${this.id}`)
-            .then(res =>{
-                console.log(res.data)
-                this.cantidad_preg = res.data
+                .then(res => {
+                    console.log(res.data)
+                    this.cantidad_preg = res.data
 
 
-            })
-   
+                })
+                
+            //  window.onbeforeunload =  this.cancelar(3)
+
         },
         beforeDestroy() {
-              window.onbeforeunload = this.cancelar()
-
+            // window.onbeforeunload = this.cancelar(2)
         },
+
         methods: {
-            calificarRA(event, pregunta){
-                
-              let params= {
-                  empleado: this.id_empleado,
-                  prueba: this.id,
-                  pregunta: pregunta,
-                  cal: event.target.value
+            calificarRA(event, pregunta) {
+
+                let params = {
+                    empleado: this.id_empleado,
+                    prueba: this.id,
+                    pregunta: pregunta,
+                    cal: event.target.value
 
 
                 }
                 axios.put('/api/evaluacion/calificar/RA', params)
-                .then(res =>{
-                    console.log(res.data)
-                     this.calificacion_final =Math.round(res.data.cz4_calificacion*100)/100
-                })
+                    .then(res => {
+                        console.log(res.data)
+                        this.calificacion_final = Math.round(res.data.cz4_calificacion * 100) / 100
+                    })
 
             },
 
@@ -218,6 +231,7 @@
                 this.conseguirEstado()
                 if ((this.fecha_cierre < new Date() || this.fecha_apertura > new Date()) && this.id_creador != user
                     .id) {
+                    console.log('cierre')
                     this.$router.go(-1)
                 }
                 if (this.$route.params.empleado != user.id) {
@@ -236,6 +250,31 @@
                 axios.get(`/api/respuestaA/buscar/${this.id}`)
                     .then(res => {
                         this.resRA = res.data
+                        const wrapper = document.createElement('div');
+                        wrapper.innerHTML =
+                            "<div class='spinner-border text-primary row' role='status'> <span class='sr-only'>Loading...</span> </div>  <div class=''>Cargando estadisticas...</div> ";
+
+                        if (this.estado_prueba != 2 && this.id_empleado == this.id_log) {
+                            swal({
+                                buttons: false,
+                                html: true,
+                                content: wrapper,
+                                closeOnClickOutside: false
+                            });
+                            for (let i = 0; i < this.resRA.length; i++) {
+                                axios.post('/api/respuesta/ra/guardar', {
+                                        id_gp: this.resRA[i].cz5_gp_id,
+                                        id_pp: this.resRA[i].cz5_id,
+                                        categoria: 'ra',
+                                        rta_ra: null
+                                    })
+                                    .then(res => {
+                                        console.log(res.data)
+                                    })
+                            }
+                            swal('', '', '')
+                        }
+
                         console.log(this.resRA)
                     })
             },
@@ -357,25 +396,30 @@
 
                 });
             },
-            finalizar() {
-                   if (this.id_creador == user.id) {
-                 this.calificar()
-                   }
+            finalizar(estado) {
+
                 axios.put(`/api/pruebas/finalizar/${this.id}`)
                     .then(res => {
-                        location.reload();
+
 
                     })
+                if (estado == 1) {
+                    this.$router.go(-1)
+                }
+                if (estado == 3) {
+                    console.log('recargo')
+                }
             },
             conseguirEstado() {
                 axios.get(`/api/asignacion/estado/${this.$route.params.id}/${this.$route.params.empleado}`)
                     .then(res => {
-                        this.calificacion_final =Math.round(res.data.cz4_calificacion*100)/100
+                        this.calificacion_final = Math.round(res.data.cz4_calificacion * 100) / 100
 
                         this.estado_prueba = res.data.cz4_estado
                         console.log(this.estado_prueba)
                         if (this.estado_prueba == 2 && user.id != this.id_creador) {
                             swal('Advertencia', 'Esta prueba ya finalizo', 'warning')
+                            console.log('Estado')
                             this.$router.go(-1)
 
 
@@ -383,7 +427,8 @@
                     })
 
             },
-            calificar() {
+            calificar(estado) {
+
                 axios.get(`/api/evaluacion/calificar/${user.id} / ${this.id}`)
                     .then(res => {
                         console.log(res.data)
@@ -400,35 +445,36 @@
                                 'success')
                         }
                     })
+                this.finalizar(estado)
+
 
             },
-            cancelar() {
-                
-                if (this.id_creador != user.id) {
-                    
-                    this.calificar()
-                    axios.put(`/api/pruebas/finalizar/${this.id}`)
-                        .then(res => {
-                            swal('Prueba Finalizada', 'Ya no podras modificarla', 'success')
+            cancelar(estado) {
 
-                        })
+                if (this.id_creador != user.id) {
+                    this.calificar(estado)
                 }
 
             }
 
         },
-        computed: {
-            smmr() {
-                // this.notas_smmr.filter(function(nota){
-                // if(typeof(this.id_rta) != 'undefined'){
-                return 'hola'
-                // }
-                //  return nota.cz11_rta == this.id_rta;         
-                // });
-
+        beforeRouteLeave(to, from, next) {
+             if (this.id_creador != user.id) {
+                 const answer = window.confirm('¿Esta seguro que quiere salir de la evaluacion?')
+            if (answer) {
+                this.calificar(2)
+            } else {
+                next(false)
             }
+                   
+                }
+            
+        },
+        computed: {
+
 
         }
+
 
     };
 

@@ -45,7 +45,7 @@ class PreguntasController extends Controller
         if($empleado != null || Gate::allows('isAdmin') || 
         Gate::allows('isRRHH') || Gate::allows('isSST')){
         return z5_prueba_preguntas::select( 'cz5_pregunta', 'cz5_categoria', 'cz5_id', 'cz5_gp_id')->
-           where('cz5_gp_id', $id)->where('cz5_categoria', 'ra')->get();
+           where('cz5_gp_id', $id)->where('cz5_categoria', 'ra')->orderBy('cz5_id', 'ASC')->get();
         }
     }
     public function traerSMMR($id)

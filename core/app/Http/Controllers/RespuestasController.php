@@ -137,7 +137,7 @@ class RespuestasController extends Controller
             Gate::allows('isRRHH') || Gate::allows('isSST') || $empleado == Auth()->user()->cz1_id_empleado) {
             if ($prueba->cz3_id_creador == Auth()->user()->cz1_id_empleado || $empleado == Auth()->user()->cz1_id_empleado) {
                 return z11_resultados::select('cz11_rta_ra', 'cz11_pp_id', 'cz11_nota')->where('cz11_id_gp', $id)
-                    ->where('cz11_id_empleado', $empleado)->where('cz11_categoria', 'ra')->get();
+                    ->where('cz11_id_empleado', $empleado)->where('cz11_categoria', 'ra')->orderBy('cz11_pp_id','ASC')->get();
             }
         }
     }

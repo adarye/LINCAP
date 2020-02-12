@@ -2509,6 +2509,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2551,7 +2562,6 @@ __webpack_require__.r(__webpack_exports__);
     _bus__WEBPACK_IMPORTED_MODULE_0__["default"].$on('cargar', function (item) {
       _this.cargar();
     });
-    window.addEventListener('beforeunload', this.cancelar);
   },
   mounted: function mounted() {
     var _this2 = this;
@@ -2560,10 +2570,9 @@ __webpack_require__.r(__webpack_exports__);
     axios.get("/api/preguntas/contar/".concat(this.id)).then(function (res) {
       console.log(res.data);
       _this2.cantidad_preg = res.data;
-    });
+    }); //  window.onbeforeunload =  this.cancelar(3)
   },
-  beforeDestroy: function beforeDestroy() {
-    window.onbeforeunload = this.cancelar();
+  beforeDestroy: function beforeDestroy() {// window.onbeforeunload = this.cancelar(2)
   },
   methods: {
     calificarRA: function calificarRA(event, pregunta) {
@@ -2584,6 +2593,7 @@ __webpack_require__.r(__webpack_exports__);
       this.conseguirEstado();
 
       if ((this.fecha_cierre < new Date() || this.fecha_apertura > new Date()) && this.id_creador != user.id) {
+        console.log('cierre');
         this.$router.go(-1);
       }
 
@@ -2603,6 +2613,31 @@ __webpack_require__.r(__webpack_exports__);
       console.log(this.id);
       axios.get("/api/respuestaA/buscar/".concat(this.id)).then(function (res) {
         _this4.resRA = res.data;
+        var wrapper = document.createElement('div');
+        wrapper.innerHTML = "<div class='spinner-border text-primary row' role='status'> <span class='sr-only'>Loading...</span> </div>  <div class=''>Cargando estadisticas...</div> ";
+
+        if (_this4.estado_prueba != 2 && _this4.id_empleado == _this4.id_log) {
+          swal({
+            buttons: false,
+            html: true,
+            content: wrapper,
+            closeOnClickOutside: false
+          });
+
+          for (var i = 0; i < _this4.resRA.length; i++) {
+            axios.post('/api/respuesta/ra/guardar', {
+              id_gp: _this4.resRA[i].cz5_gp_id,
+              id_pp: _this4.resRA[i].cz5_id,
+              categoria: 'ra',
+              rta_ra: null
+            }).then(function (res) {
+              console.log(res.data);
+            });
+          }
+
+          swal('', '', '');
+        }
+
         console.log(_this4.resRA);
       });
     },
@@ -2719,14 +2754,16 @@ __webpack_require__.r(__webpack_exports__);
         _this10.validar();
       });
     },
-    finalizar: function finalizar() {
-      if (this.id_creador == user.id) {
-        this.calificar();
+    finalizar: function finalizar(estado) {
+      axios.put("/api/pruebas/finalizar/".concat(this.id)).then(function (res) {});
+
+      if (estado == 1) {
+        this.$router.go(-1);
       }
 
-      axios.put("/api/pruebas/finalizar/".concat(this.id)).then(function (res) {
-        location.reload();
-      });
+      if (estado == 3) {
+        console.log('recargo');
+      }
     },
     conseguirEstado: function conseguirEstado() {
       var _this11 = this;
@@ -2738,12 +2775,13 @@ __webpack_require__.r(__webpack_exports__);
 
         if (_this11.estado_prueba == 2 && user.id != _this11.id_creador) {
           swal('Advertencia', 'Esta prueba ya finalizo', 'warning');
+          console.log('Estado');
 
           _this11.$router.go(-1);
         }
       });
     },
-    calificar: function calificar() {
+    calificar: function calificar(estado) {
       var _this12 = this;
 
       axios.get("/api/evaluacion/calificar/".concat(user.id, " / ").concat(this.id)).then(function (res) {
@@ -2759,25 +2797,26 @@ __webpack_require__.r(__webpack_exports__);
           swal('Informacion', 'Esta prueba consta de preguntas abiertas, por esto sera calificada después.', 'success');
         }
       });
+      this.finalizar(estado);
     },
-    cancelar: function cancelar() {
+    cancelar: function cancelar(estado) {
       if (this.id_creador != user.id) {
-        this.calificar();
-        axios.put("/api/pruebas/finalizar/".concat(this.id)).then(function (res) {
-          swal('Prueba Finalizada', 'Ya no podras modificarla', 'success');
-        });
+        this.calificar(estado);
       }
     }
   },
-  computed: {
-    smmr: function smmr() {
-      // this.notas_smmr.filter(function(nota){
-      // if(typeof(this.id_rta) != 'undefined'){
-      return 'hola'; // }
-      //  return nota.cz11_rta == this.id_rta;         
-      // });
+  beforeRouteLeave: function beforeRouteLeave(to, from, next) {
+    if (this.id_creador != user.id) {
+      var answer = window.confirm('¿Esta seguro que quiere salir de la evaluacion?');
+
+      if (answer) {
+        this.calificar(2);
+      } else {
+        next(false);
+      }
     }
-  }
+  },
+  computed: {}
 });
 
 /***/ }),
@@ -67387,7 +67426,11 @@ var render = function() {
               staticClass: "alert alert-primary lead",
               attrs: { role: "alert" }
             },
-            [_vm._v("\n        Esta evaluacion no ha sido iniciada\n    ")]
+            [
+              _vm._v(
+                "\n            Esta evaluacion no ha sido iniciada\n        "
+              )
+            ]
           ),
           _vm._v(" "),
           _c(
@@ -67404,7 +67447,11 @@ var render = function() {
               staticClass: "alert alert-warning lead",
               attrs: { role: "alert" }
             },
-            [_vm._v("\n        Esta evaluacion ya ha sido iniciada\n    ")]
+            [
+              _vm._v(
+                "\n            Esta evaluacion ya ha sido iniciada\n        "
+              )
+            ]
           ),
           _vm._v(" "),
           _c(
@@ -67421,7 +67468,11 @@ var render = function() {
               staticClass: "alert alert-success lead",
               attrs: { role: "alert" }
             },
-            [_vm._v("\n        Esta evaluacion ya esta finalizada\n    ")]
+            [
+              _vm._v(
+                "\n            Esta evaluacion ya esta finalizada\n        "
+              )
+            ]
           ),
           _vm._v(" "),
           _c(
@@ -67830,7 +67881,11 @@ var render = function() {
           ],
           staticClass: "btn btn-danger mt-4",
           attrs: { type: "button" },
-          on: { click: _vm.finalizar }
+          on: {
+            click: function($event) {
+              return _vm.calificar(1)
+            }
+          }
         },
         [_vm._v("Finalizar")]
       )
@@ -68638,52 +68693,90 @@ var render = function() {
                 _c("td", [_vm._v(_vm._s(item.c0763_descripcion))]),
                 _vm._v(" "),
                 _c("td", [
-                  _vm.seleccionados.filter(function(c0550_rowid_tercero) {
-                    return c0550_rowid_tercero == item.c0550_rowid_tercero
-                  }) != ""
-                    ? _c("span", [
-                        _c("button", {
-                          staticClass: " btn btn-primary fa fa-check-square-o",
-                          on: {
-                            click: function($event) {
-                              return _vm.excluir(item.c0550_rowid_tercero)
-                            }
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c("button", {
-                          staticClass: "btn btn-success fa fa-search-plus",
-                          on: {
-                            click: function($event) {
-                              return _vm.buscarEncuesta(
-                                item.c0550_rowid_tercero
+                  _c(
+                    "span",
+                    {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value:
+                            _vm.seleccionados.filter(function(
+                              c0550_rowid_tercero
+                            ) {
+                              return (
+                                c0550_rowid_tercero == item.c0550_rowid_tercero
                               )
-                            }
+                            }) != "",
+                          expression:
+                            "seleccionados.filter(c0550_rowid_tercero => c0550_rowid_tercero == item.c0550_rowid_tercero ) != ''"
+                        }
+                      ]
+                    },
+                    [
+                      _c("button", {
+                        staticClass: " btn btn-primary fa fa-check-square-o",
+                        on: {
+                          click: function($event) {
+                            return _vm.excluir(item.c0550_rowid_tercero)
                           }
-                        }),
-                        _vm._v(
-                          "\n                                " +
-                            _vm._s(
-                              _vm.emp_calificacion.filter(function(emp) {
-                                return (
-                                  emp.cz4_ts_id == item.c0550_rowid_tercero &&
-                                  emp.cz4_calificacion != null
-                                )
-                              })
-                            ) +
-                            "\n                                \n                                \n                                \n                                \n\n\n                        "
-                        )
-                      ])
-                    : _c("span", [
-                        _c("button", {
-                          staticClass: "btn btn-outline-primary fa fa-square-o",
-                          on: {
-                            click: function($event) {
-                              return _vm.incluir(item.c0550_rowid_tercero)
-                            }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("button", {
+                        staticClass: "btn btn-success fa fa-search-plus",
+                        on: {
+                          click: function($event) {
+                            return _vm.buscarEncuesta(item.c0550_rowid_tercero)
                           }
-                        })
-                      ])
+                        }
+                      }),
+                      _vm._v(
+                        "\n                                " +
+                          _vm._s(
+                            _vm.emp_calificacion.filter(function(emp) {
+                              return (
+                                emp.cz4_ts_id == item.c0550_rowid_tercero &&
+                                emp.cz4_calificacion != null
+                              )
+                            })
+                          ) +
+                          "\n                                \n                                \n                                \n                                \n\n\n                        "
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "span",
+                    {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value:
+                            _vm.seleccionados.filter(function(
+                              c0550_rowid_tercero
+                            ) {
+                              return (
+                                c0550_rowid_tercero == item.c0550_rowid_tercero
+                              )
+                            }) == "",
+                          expression:
+                            "seleccionados.filter(c0550_rowid_tercero => c0550_rowid_tercero == item.c0550_rowid_tercero ) == ''"
+                        }
+                      ]
+                    },
+                    [
+                      _c("button", {
+                        staticClass: "btn btn-outline-primary fa fa-square-o",
+                        on: {
+                          click: function($event) {
+                            return _vm.incluir(item.c0550_rowid_tercero)
+                          }
+                        }
+                      })
+                    ]
+                  )
                 ])
               ]
             )

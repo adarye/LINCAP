@@ -63,7 +63,7 @@
 
 
                             <span
-                                v-if="seleccionados.filter(c0550_rowid_tercero => c0550_rowid_tercero == item.c0550_rowid_tercero ) != ''">
+                                v-show="seleccionados.filter(c0550_rowid_tercero => c0550_rowid_tercero == item.c0550_rowid_tercero ) != ''">
                                 <button class=" btn btn-primary fa fa-check-square-o"
                                     @click="excluir(item.c0550_rowid_tercero)">
                                 </button>
@@ -77,7 +77,7 @@
 
 
                             </span>
-                            <span v-else>
+                            <span v-show="seleccionados.filter(c0550_rowid_tercero => c0550_rowid_tercero == item.c0550_rowid_tercero ) == ''">
                                 <button class="btn btn-outline-primary fa fa-square-o"
                                     @click="incluir(item.c0550_rowid_tercero)">
                                 </button>

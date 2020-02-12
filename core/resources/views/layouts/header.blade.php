@@ -1,13 +1,14 @@
+
 <div class="top_nav">
     <div class="nav_menu">
-        <nav>
+       
         <div class="nav toggle">
             <a id="menu_toggle"><i class="fa fa-bars"></i></a>
         </div>
-        
-            <ul class=" navbar  navbar-right">
-                <li>
-                    <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+        <nav class="" >
+            <ul class="navbar-right navbar  ">
+                <li  class="nav-item dropdown open"  style="padding-left: 53px;">
+                    <a role="button" href="javascript:;" id="navbarDropdown" class="  user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
                         <?php $name = Auth()->user()->cz1_nombres; 
                          $name_separado = explode(" ", $name)                         
                         ?>
@@ -16,17 +17,17 @@
                             {{-- {{Auth()->user()->cz1_nombres}}  --}}
                             {{ $name_separado[0]}}
                     </a>
-                    <ul class="dropdown-menu dropdown-usermenu pull-right">
-                        <li class="dropdown-item">
+                    <div class="dropdown-menu  " aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item">
                         <router-link   :to="{name: 'RestartPassword'}"><span>Cambiar
-                                contraseña</span></router-link></li>
-                                <li >
+                                contraseña</span></router-link></a>
+                                
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
                             <button class="dropdown-item" ><i class="fa fa-sign-out pull-right"></i>Salir</button>
                         </form>
-                                </li>
-                    </ul>
+                    
+                            </div>
                     
                 </li>
                 

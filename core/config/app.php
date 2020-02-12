@@ -164,7 +164,7 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
-        Barryvdh\Debugbar\ServiceProvider::class,
+        
 
         /*
          * Package Service Providers...
@@ -194,7 +194,7 @@ return [
 
     'aliases' => [
         
-        'Debugbar' => Barryvdh\Debugbar\Facade::class,
+       
         'App' => Illuminate\Support\Facades\App::class,
         'Arr' => Illuminate\Support\Arr::class,
         'Artisan' => Illuminate\Support\Facades\Artisan::class,
