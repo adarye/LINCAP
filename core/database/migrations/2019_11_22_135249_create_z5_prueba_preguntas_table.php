@@ -18,6 +18,8 @@ class CreateZ5PruebaPreguntasTable extends Migration
             $table->text('cz5_pregunta');
             $table->string('cz5_categoria');
             $table->bigInteger('cz5_gp_id');
+            $table->bigInteger('cz5_n_rtas')->nullable(true);
+            $table->bigInteger('cz5_n_rtas_correctas')->nullable(true);
 
             $table->foreign('cz5_gp_id')->references('cz3_id')->on('z3_gestion_pruebas')->onDelete('cascade');
 

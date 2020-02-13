@@ -17,10 +17,15 @@
                            <option  value="ra"> Respuesta Abierta</option>
                             </select>
                                 </div>
-                                <div class="col-md-8 col-center col-sm-7 form-group has-feedback">
+                                <div class="col-md-5 col-center col-sm-7 form-group has-feedback">
                                     <div v-if="tipo_respuesta == 'smur' || tipo_respuesta == 'smmr' ">
                                         <input v-max-length="300" v-autofocus  class="form-control"
-                                        placeholder="Numero de Respuestas" onfocus v-numeric-only v-model="numero" disabled />
+                                        placeholder="Numero de Respuestas"  onfocus v-numeric-only v-model="numero" disabled />
+                                    </div>
+                                </div>
+                                 <div class="col-md-3 col-center col-sm-7 form-group has-feedback">
+                                    <div v-show="tipo_respuesta == 'smmr'">
+                                        <input v-max-length="300" disabled v-autofocus class="form-control" v-model="rtas_correctas" placeholder="Numero de Respuestas Correctas" onfocus v-numeric-only />
                                     </div>
                                 </div>
                                  
@@ -50,16 +55,19 @@ export default {
           tipo_respuesta: '',
           numero: null,
           res: [],
-          size: null
+          size: null,
+          rtas_correctas: null
         }
     },
     mounted(){
+        console.log(this.params)
         this.tipo_respuesta = this.params.cz5_categoria
         if( this.tipo_respuesta == 'smur'   ){
         this.numero = this.params.respuestas.length
         }
         else if(this.tipo_respuesta == 'smmr'){
             this.numero = this.params.smmr.length
+            this. rtas_correctas = this.params.cz5_n_rtas_correctas
         }
         
     },

@@ -2525,6 +2525,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
+      inputs: [],
       id_rta: null,
       resSMUR: [],
       resRA: [],
@@ -2548,10 +2549,12 @@ __webpack_require__.r(__webpack_exports__);
       calificacion_final: 0,
       nota_ra: "",
       cantidad_preg: 0,
-      titulo: ""
+      titulo: "",
+      index: 0
     };
   },
-  created: function created() {
+  created: function created() {},
+  beforeMount: function beforeMount() {
     var _this = this;
 
     this.id_log = user.id;
@@ -2561,22 +2564,21 @@ __webpack_require__.r(__webpack_exports__);
     this.cargar();
     _bus__WEBPACK_IMPORTED_MODULE_0__["default"].$on('cargar', function (item) {
       _this.cargar();
-    });
-  },
-  mounted: function mounted() {
-    var _this2 = this;
+    }); //  router.onReady(this.advertir)
 
-    //  router.onReady(this.advertir)
     axios.get("/api/preguntas/contar/".concat(this.id)).then(function (res) {
       console.log(res.data);
-      _this2.cantidad_preg = res.data;
-    }); //  window.onbeforeunload =  this.cancelar(3)
+      _this.cantidad_preg = res.data;
+    }); //  document.addEventListener('beforeunload', console.log('yeah'))
+    //   window.onbeforeunload =  this.cancelar(3)
+    // window.addEventListener('beforeunload', console.log( this.id_empleado  + 'dd') )
   },
-  beforeDestroy: function beforeDestroy() {// window.onbeforeunload = this.cancelar(2)
+  beforeDestroy: function beforeDestroy() {//   window.unload =  this.cancelar(3)
+    // window.onbeforeunload = this.cancelar(2)
   },
   methods: {
     calificarRA: function calificarRA(event, pregunta) {
-      var _this3 = this;
+      var _this2 = this;
 
       var params = {
         empleado: this.id_empleado,
@@ -2586,7 +2588,7 @@ __webpack_require__.r(__webpack_exports__);
       };
       axios.put('/api/evaluacion/calificar/RA', params).then(function (res) {
         console.log(res.data);
-        _this3.calificacion_final = Math.round(res.data.cz4_calificacion * 100) / 100;
+        _this2.calificacion_final = Math.round(res.data.cz4_calificacion * 100) / 100;
       });
     },
     validar: function validar() {
@@ -2608,15 +2610,15 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     traerRa: function traerRa() {
-      var _this4 = this;
+      var _this3 = this;
 
       console.log(this.id);
       axios.get("/api/respuestaA/buscar/".concat(this.id)).then(function (res) {
-        _this4.resRA = res.data;
+        _this3.resRA = res.data;
         var wrapper = document.createElement('div');
         wrapper.innerHTML = "<div class='spinner-border text-primary row' role='status'> <span class='sr-only'>Loading...</span> </div>  <div class=''>Cargando estadisticas...</div> ";
 
-        if (_this4.estado_prueba != 2 && _this4.id_empleado == _this4.id_log) {
+        if (_this3.estado_prueba != 2 && _this3.id_empleado == _this3.id_log) {
           swal({
             buttons: false,
             html: true,
@@ -2624,10 +2626,10 @@ __webpack_require__.r(__webpack_exports__);
             closeOnClickOutside: false
           });
 
-          for (var i = 0; i < _this4.resRA.length; i++) {
+          for (var i = 0; i < _this3.resRA.length; i++) {
             axios.post('/api/respuesta/ra/guardar', {
-              id_gp: _this4.resRA[i].cz5_gp_id,
-              id_pp: _this4.resRA[i].cz5_id,
+              id_gp: _this3.resRA[i].cz5_gp_id,
+              id_pp: _this3.resRA[i].cz5_id,
               categoria: 'ra',
               rta_ra: null
             }).then(function (res) {
@@ -2638,24 +2640,24 @@ __webpack_require__.r(__webpack_exports__);
           swal('', '', '');
         }
 
-        console.log(_this4.resRA);
+        console.log(_this3.resRA);
       });
     },
     traerSMMR: function traerSMMR() {
-      var _this5 = this;
+      var _this4 = this;
 
       console.log(this.id);
       axios.get("/api/respuestaM/buscar/".concat(this.id)).then(function (res) {
-        _this5.resSMMR = res.data;
-        console.log(_this5.resSMMR);
+        _this4.resSMMR = res.data;
+        console.log(_this4.resSMMR);
       });
     },
     traerPregunta_SMUR: function traerPregunta_SMUR() {
-      var _this6 = this;
+      var _this5 = this;
 
       axios.get("/api/pregunta/index/".concat(this.id)).then(function (res) {
-        _this6.resSMUR = res.data;
-        console.log(_this6.resSMUR);
+        _this5.resSMUR = res.data;
+        console.log(_this5.resSMUR);
       });
     },
     contar: function contar() {
@@ -2664,10 +2666,10 @@ __webpack_require__.r(__webpack_exports__);
     cargar: function cargar() {
       this.buscar();
       this.traerSMMR();
+      this.buscarResmmr();
       this.traerRa();
       this.traerPregunta_SMUR();
       this.buscarResmur();
-      this.buscarResmmr();
       this.buscarRa();
     },
     guardarRA: function guardarRA(id_pp, id_gp, categoria, ra) {
@@ -2702,92 +2704,94 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     buscarResmur: function buscarResmur() {
-      var _this7 = this;
+      var _this6 = this;
 
       axios.get("/api/respuesta/smur/buscar/".concat(this.id, "/").concat(this.id_empleado)).then(function (res) {
         for (var i = 0; i < res.data.length; i++) {
-          _this7.respuestas_smur.push(res.data[i].cz11_rta);
+          _this6.respuestas_smur.push(res.data[i].cz11_rta);
 
-          _this7.notas_smur.push(res.data[i].cz11_nota);
+          _this6.notas_smur.push(res.data[i].cz11_nota);
         }
       });
     },
     buscarResmmr: function buscarResmmr() {
-      var _this8 = this;
+      var _this7 = this;
 
       axios.get("/api/respuesta/smmr/buscar/".concat(this.id, "/").concat(this.$route.params.empleado)).then(function (res) {
-        _this8.notas_smmr = res.data;
-        console.log(_this8.notas_smmr);
+        _this7.notas_smmr = res.data;
+        console.log(_this7.notas_smmr);
 
         for (var i = 0; i < res.data.length; i++) {
-          _this8.respuestas_smmr.push(res.data[i].cz11_rta); // this.notas_smmr.push(res.data[i].cz11_nota)
+          _this7.respuestas_smmr.push(res.data[i].cz11_rta); // this.notas_smmr.push(res.data[i].cz11_nota)
 
         }
 
-        console.log(_this8.respuestas_smmr);
+        console.log(_this7.respuestas_smmr);
       });
     },
     buscarRa: function buscarRa() {
-      var _this9 = this;
+      var _this8 = this;
 
       axios.get("/api/respuesta/ra/buscar/".concat(this.id, "/").concat(this.$route.params.empleado)).then(function (res) {
         // this.respuestas_ra = res.data
-        _this9.nota_ra = res.data;
+        _this8.nota_ra = res.data;
 
         for (var i = 0; i < res.data.length; i++) {
-          _this9.respuestas_ra.push(res.data[i].cz11_rta_ra);
+          _this8.respuestas_ra.push(res.data[i].cz11_rta_ra);
         }
 
-        console.log(_this9.respuestas_ra);
+        console.log(_this8.respuestas_ra);
       });
     },
     buscar: function buscar() {
-      var _this10 = this;
+      var _this9 = this;
 
       axios.get("/api/gp/buscar/".concat(this.$route.params.id)).then(function (res) {
-        _this10.id = res.data.cz3_id;
-        _this10.id_creador = res.data.cz3_id_creador;
-        _this10.titulo = res.data.cz3_nombre;
-        _this10.fecha_cierre = new Date(res.data.cz3_fecha_cierre);
-        _this10.fecha_apertura = new Date(res.data.cz3_fecha_apertura); //AQUI SABEMOS SI TIENE PERMISOS PARA VER LAS PRUEBAS DE OTROS USUARIOS
+        _this9.id = res.data.cz3_id;
+        _this9.id_creador = res.data.cz3_id_creador;
+        _this9.titulo = res.data.cz3_nombre;
+        _this9.fecha_cierre = new Date(res.data.cz3_fecha_cierre);
+        _this9.fecha_apertura = new Date(res.data.cz3_fecha_apertura); //AQUI SABEMOS SI TIENE PERMISOS PARA VER LAS PRUEBAS DE OTROS USUARIOS
 
-        _this10.validar();
+        _this9.validar();
       });
     },
     finalizar: function finalizar(estado) {
       axios.put("/api/pruebas/finalizar/".concat(this.id)).then(function (res) {});
 
       if (estado == 1) {
-        this.$router.go(-1);
+        // this.$router.go(-1)
+        location.reload();
       }
 
       if (estado == 3) {
+        window.location.href = 'https://stackoverflow.com/questions/35664550/vue-js-redirection-to-another-page';
         console.log('recargo');
       }
     },
     conseguirEstado: function conseguirEstado() {
-      var _this11 = this;
+      var _this10 = this;
 
       axios.get("/api/asignacion/estado/".concat(this.$route.params.id, "/").concat(this.$route.params.empleado)).then(function (res) {
-        _this11.calificacion_final = Math.round(res.data.cz4_calificacion * 100) / 100;
-        _this11.estado_prueba = res.data.cz4_estado;
-        console.log(_this11.estado_prueba);
+        _this10.calificacion_final = Math.round(res.data.cz4_calificacion * 100) / 100;
+        _this10.estado_prueba = res.data.cz4_estado;
+        console.log(_this10.estado_prueba);
 
-        if (_this11.estado_prueba == 2 && user.id != _this11.id_creador) {
+        if (_this10.estado_prueba == 2 && user.id != _this10.id_creador) {
           swal('Advertencia', 'Esta prueba ya finalizo', 'warning');
           console.log('Estado');
 
-          _this11.$router.go(-1);
+          _this10.$router.go(-1);
         }
       });
     },
     calificar: function calificar(estado) {
-      var _this12 = this;
+      var _this11 = this;
 
       axios.get("/api/evaluacion/calificar/".concat(user.id, " / ").concat(this.id)).then(function (res) {
         console.log(res.data);
 
-        if (!_this12.resRA.length) {
+        if (!_this11.resRA.length) {
           if (res.data >= 3.5) {
             swal('Excelente', 'Tu nota final fue de ' + Number(res.data.toFixed(2)), 'success');
           } else {
@@ -2810,7 +2814,7 @@ __webpack_require__.r(__webpack_exports__);
       var answer = window.confirm('¿Esta seguro que quiere salir de la evaluacion?');
 
       if (answer) {
-        this.calificar(2);
+        this.calificar(1);
       } else {
         next(false);
       }
@@ -3713,6 +3717,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["id"],
@@ -3722,7 +3727,8 @@ __webpack_require__.r(__webpack_exports__);
       resRA: [],
       resSMMR: [],
       contador: 1,
-      params: null
+      params: null,
+      inputs: []
     };
   },
   mounted: function mounted() {
@@ -3748,10 +3754,23 @@ __webpack_require__.r(__webpack_exports__);
     traerSMMR: function traerSMMR() {
       var _this3 = this;
 
-      console.log(this.id);
+      var id_pp = "";
       axios.get("/api/respuestaM/buscar/".concat(this.id)).then(function (res) {
+        res.data;
         _this3.resSMMR = res.data;
         console.log(_this3.resSMMR);
+
+        for (var i = 0; i < res.data.length; i++) {
+          _this3.inputs.push([]);
+
+          for (var j = 0; j < res.data[i].smmr.length; j++) {
+            if (res.data[i].smmr[j].cz8_id == res.data[i].smmr[j].cz8_rta_correcta) {
+              _this3.inputs[i].push(res.data[i].smmr[j].cz8_id);
+            }
+          }
+        }
+
+        console.log(_this3.inputs);
       });
     },
     traerPregunta_SMUR: function traerPregunta_SMUR() {
@@ -3810,6 +3829,8 @@ __webpack_require__.r(__webpack_exports__);
     },
     guardarSMMRcorrecta: function guardarSMMRcorrecta(item, opcion) {
       if (this.$route.params.cat == 2) {
+        //   if(){}
+        console.log(this.inputs);
         console.log(opcion);
         axios.put("/api/smmr/update/".concat(opcion), item).then(function (res) {
           console.log(res.data);
@@ -3886,6 +3907,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["params"],
   data: function data() {
@@ -3893,16 +3919,19 @@ __webpack_require__.r(__webpack_exports__);
       tipo_respuesta: '',
       numero: null,
       res: [],
-      size: null
+      size: null,
+      rtas_correctas: null
     };
   },
   mounted: function mounted() {
+    console.log(this.params);
     this.tipo_respuesta = this.params.cz5_categoria;
 
     if (this.tipo_respuesta == 'smur') {
       this.numero = this.params.respuestas.length;
     } else if (this.tipo_respuesta == 'smmr') {
       this.numero = this.params.smmr.length;
+      this.rtas_correctas = this.params.cz5_n_rtas_correctas;
     }
   },
   methods: {
@@ -6540,6 +6569,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -6550,7 +6584,8 @@ __webpack_require__.r(__webpack_exports__);
       datos: {},
       res: [],
       pruebas: [],
-      prueba_seleccionada: ""
+      prueba_seleccionada: "",
+      rtas_correctas: null
     };
   },
   mounted: function mounted() {
@@ -6573,6 +6608,10 @@ __webpack_require__.r(__webpack_exports__);
       } else if (this.tipo_respuesta == "smmr" || this.tipo_respuesta == "smur") {
         if (this.res.length == 0) {
           swal("Advertencia", "Escriba las posibles respuestas", "warning");
+        } else if (this.rtas_correctas == 0 || this.rtas_correctas == null && this.tipo_respuesta == "smmr") {
+          swal("Advertencia", "Escriba el numero de respuestas correctas", "warning");
+        } else if (this.tipo_respuesta == "smmr" && this.rtas_correctas >= this.n_respuestas) {
+          swal("Advertencia", "El numero de respuestas correctas debe ser menor o igual a las respuestas totales", "warning");
         } else if (this.res.length != this.n_respuestas) {
           console.log(this.res.length + " " + this.n_respuestas);
           swal("Advertencia", "Escriba las posibles respuestas", "warning");
@@ -6589,7 +6628,9 @@ __webpack_require__.r(__webpack_exports__);
       var params = {
         cz5_categoria: this.tipo_respuesta,
         cz5_pregunta: this.pregunta,
-        cz5_gp_id: this.$route.params.id
+        cz5_gp_id: this.$route.params.id,
+        cz5_n_rtas: this.n_respuestas,
+        cz5_n_rtas_correctas: this.rtas_correctas
       };
       axios.post("/api/pregunta/guardar", params).then(function (res) {
         if (_this2.tipo_respuesta == "smur" || _this2.tipo_respuesta == "smmr") {
@@ -67883,7 +67924,7 @@ var render = function() {
           attrs: { type: "button" },
           on: {
             click: function($event) {
-              return _vm.calificar(1)
+              return _vm.$router.go(-1)
             }
           }
         },
@@ -69566,8 +69607,8 @@ var render = function() {
         [_vm._v("Preguntas de selección multiple con multiple respuestas")]
       ),
       _vm._v(" "),
-      _vm._l(_vm.resSMMR, function(item3, i) {
-        return _c("article", { key: "o-" + i }, [
+      _vm._l(_vm.resSMMR, function(item3, indice) {
+        return _c("article", { key: "o-" + indice }, [
           _c("div", { staticClass: "row mt-2" }, [
             _c("div", { staticClass: "col-md-6" }, [
               _c("p", { staticClass: "lead" }, [
@@ -69602,11 +69643,26 @@ var render = function() {
             _vm._l(item3.smmr, function(item4, i) {
               return _c("article", { key: "s-" + i }, [
                 _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.inputs[indice],
+                      expression: "inputs[indice]"
+                    }
+                  ],
                   staticClass: "flat",
-                  attrs: { type: "checkbox" },
+                  attrs: {
+                    disabled:
+                      _vm.inputs[indice].length >= item3.cz5_n_rtas_correctas &&
+                      _vm.inputs[indice].indexOf(item4.cz8_id) === -1,
+                    type: "checkbox"
+                  },
                   domProps: {
-                    checked: item4.cz8_id == item4.cz8_rta_correcta,
-                    value: item4.cz8_id
+                    value: item4.cz8_id,
+                    checked: Array.isArray(_vm.inputs[indice])
+                      ? _vm._i(_vm.inputs[indice], item4.cz8_id) > -1
+                      : _vm.inputs[indice]
                   },
                   on: {
                     click: function($event) {
@@ -69614,10 +69670,32 @@ var render = function() {
                         item4,
                         item4.cz8_id == item4.cz8_rta_correcta
                       )
+                    },
+                    change: function($event) {
+                      var $$a = _vm.inputs[indice],
+                        $$el = $event.target,
+                        $$c = $$el.checked ? true : false
+                      if (Array.isArray($$a)) {
+                        var $$v = item4.cz8_id,
+                          $$i = _vm._i($$a, $$v)
+                        if ($$el.checked) {
+                          $$i < 0 &&
+                            _vm.$set(_vm.inputs, indice, $$a.concat([$$v]))
+                        } else {
+                          $$i > -1 &&
+                            _vm.$set(
+                              _vm.inputs,
+                              indice,
+                              $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                            )
+                        }
+                      } else {
+                        _vm.$set(_vm.inputs, indice, $$c)
+                      }
                     }
                   }
                 }),
-                _vm._v(_vm._s(item4.cz8_rta) + "\n            ")
+                _vm._v(_vm._s(item4.cz8_rta) + "\n                ")
               ])
             }),
             0
@@ -69798,7 +69876,7 @@ var render = function() {
                   "div",
                   {
                     staticClass:
-                      "col-md-8 col-center col-sm-7 form-group has-feedback"
+                      "col-md-5 col-center col-sm-7 form-group has-feedback"
                   },
                   [
                     _vm.tipo_respuesta == "smur" || _vm.tipo_respuesta == "smmr"
@@ -69841,6 +69919,64 @@ var render = function() {
                           })
                         ])
                       : _vm._e()
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "col-md-3 col-center col-sm-7 form-group has-feedback"
+                  },
+                  [
+                    _c(
+                      "div",
+                      {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: _vm.tipo_respuesta == "smmr",
+                            expression: "tipo_respuesta == 'smmr'"
+                          }
+                        ]
+                      },
+                      [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "max-length",
+                              rawName: "v-max-length",
+                              value: 300,
+                              expression: "300"
+                            },
+                            { name: "autofocus", rawName: "v-autofocus" },
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.rtas_correctas,
+                              expression: "rtas_correctas"
+                            },
+                            { name: "numeric-only", rawName: "v-numeric-only" }
+                          ],
+                          staticClass: "form-control",
+                          attrs: {
+                            disabled: "",
+                            placeholder: "Numero de Respuestas Correctas",
+                            onfocus: ""
+                          },
+                          domProps: { value: _vm.rtas_correctas },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.rtas_correctas = $event.target.value
+                            }
+                          }
+                        })
+                      ]
+                    )
                   ]
                 ),
                 _vm._v(" "),
@@ -75897,7 +76033,7 @@ var render = function() {
                           "div",
                           {
                             staticClass:
-                              "col-md-8 col-center col-sm-7 form-group has-feedback"
+                              "col-md-5 col-center col-sm-7 form-group has-feedback"
                           },
                           [
                             _vm.tipo_respuesta == "smur" ||
@@ -75943,6 +76079,70 @@ var render = function() {
                                   })
                                 ])
                               : _vm._e()
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          {
+                            staticClass:
+                              "col-md-3 col-center col-sm-7 form-group has-feedback"
+                          },
+                          [
+                            _c(
+                              "div",
+                              {
+                                directives: [
+                                  {
+                                    name: "show",
+                                    rawName: "v-show",
+                                    value: _vm.tipo_respuesta == "smmr",
+                                    expression: "tipo_respuesta == 'smmr'"
+                                  }
+                                ]
+                              },
+                              [
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "max-length",
+                                      rawName: "v-max-length",
+                                      value: 300,
+                                      expression: "300"
+                                    },
+                                    {
+                                      name: "autofocus",
+                                      rawName: "v-autofocus"
+                                    },
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.rtas_correctas,
+                                      expression: "rtas_correctas"
+                                    },
+                                    {
+                                      name: "numeric-only",
+                                      rawName: "v-numeric-only"
+                                    }
+                                  ],
+                                  staticClass: "form-control",
+                                  attrs: {
+                                    placeholder:
+                                      "Numero de Respuestas Correctas",
+                                    onfocus: ""
+                                  },
+                                  domProps: { value: _vm.rtas_correctas },
+                                  on: {
+                                    input: function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.rtas_correctas = $event.target.value
+                                    }
+                                  }
+                                })
+                              ]
+                            )
                           ]
                         ),
                         _vm._v(" "),

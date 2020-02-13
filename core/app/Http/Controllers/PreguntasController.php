@@ -22,6 +22,8 @@ class PreguntasController extends Controller
         $pregunta->cz5_pregunta = $request->cz5_pregunta;
         $pregunta->cz5_categoria = $request->cz5_categoria;
         $pregunta->cz5_gp_id = $request->cz5_gp_id;
+        $pregunta->cz5_n_rtas = $request->cz5_n_rtas;
+        $pregunta->cz5_n_rtas_correctas = $request->cz5_n_rtas_correctas;
         $pregunta->save();
         return $pregunta;
         }

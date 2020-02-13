@@ -91,7 +91,7 @@
         </article>
 
 
-        <h4 class="display-5 titulo my-3" v-show="resSMMR.length">Preguntas de selección multiple con multiple
+         <h4 class="display-5 titulo my-3" v-show="resSMMR.length">Preguntas de selección multiple con multiple
             respuestas</h4>
         <article v-for="(item3, i) in resSMMR" :key="`o-${i}`">
             <div class="row mt-2">
@@ -129,7 +129,7 @@
             </div>
         </article>
 
-        <button v-show="editar && estado_prueba != 2" @click="calificar(1)" class="btn btn-danger mt-4"
+        <button v-show="editar && estado_prueba != 2" @click="$router.go(-1)" class="btn btn-danger mt-4"
             type="button">Finalizar</button>
 
 
@@ -142,6 +142,7 @@
     export default {
         data() {
             return {
+                inputs: [],
                 id_rta: null,
                 resSMUR: [],
                 resRA: [],
@@ -165,15 +166,19 @@
                 calificacion_final: 0,
                 nota_ra: "",
                 cantidad_preg: 0,
-                titulo: ""
+                titulo: "",
+                index: 0
 
 
             };
         },
 
         created() {
+             
 
-            this.id_log = user.id
+        },
+        beforeMount() {
+           this.id_log = user.id
             console.log('evaluacion')
             this.id = this.$route.params.id
             this.id_empleado = this.$route.params.empleado
@@ -184,13 +189,6 @@
             EventBus.$on('cargar', (item) => {
                 this.cargar()
             });
-
-
-
-
-
-        },
-        mounted() {
             //  router.onReady(this.advertir)
             axios.get(`/api/preguntas/contar/${this.id}`)
                 .then(res => {
@@ -199,11 +197,19 @@
 
 
                 })
+         
+   
+
+            //  document.addEventListener('beforeunload', console.log('yeah'))
+
+            
                 
-            //  window.onbeforeunload =  this.cancelar(3)
+            //   window.onbeforeunload =  this.cancelar(3)
+            // window.addEventListener('beforeunload', console.log( this.id_empleado  + 'dd') )
 
         },
         beforeDestroy() {
+                        //   window.unload =  this.cancelar(3)
             // window.onbeforeunload = this.cancelar(2)
         },
 
@@ -301,10 +307,11 @@
             cargar() {
                 this.buscar()
                 this.traerSMMR()
+                this.buscarResmmr()
                 this.traerRa();
                 this.traerPregunta_SMUR();
                 this.buscarResmur()
-                this.buscarResmmr()
+                
                 this.buscarRa();
             },
             guardarRA(id_pp, id_gp, categoria, ra) {
@@ -355,7 +362,7 @@
                     })
             },
             buscarResmmr() {
-                axios.get(`/api/respuesta/smmr/buscar/${this.id}/${this.$route.params.empleado}`)
+               axios.get(`/api/respuesta/smmr/buscar/${this.id}/${this.$route.params.empleado}`)
                     .then(res => {
                         this.notas_smmr = res.data
                         console.log(this.notas_smmr)
@@ -404,9 +411,11 @@
 
                     })
                 if (estado == 1) {
-                    this.$router.go(-1)
+                    // this.$router.go(-1)
+                    location.reload()
                 }
                 if (estado == 3) {
+                    window.location.href = 'https://stackoverflow.com/questions/35664550/vue-js-redirection-to-another-page'
                     console.log('recargo')
                 }
             },
@@ -462,7 +471,7 @@
              if (this.id_creador != user.id) {
                  const answer = window.confirm('¿Esta seguro que quiere salir de la evaluacion?')
             if (answer) {
-                this.calificar(2)
+                this.calificar(1)
             } else {
                 next(false)
             }
@@ -471,7 +480,7 @@
             
         },
         computed: {
-
+            
 
         }
 

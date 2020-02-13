@@ -124,8 +124,8 @@ class RespuestasController extends Controller
         if (Gate::allows('isAdmin') ||
             Gate::allows('isRRHH') || Gate::allows('isSST') || $empleado == Auth()->user()->cz1_id_empleado) {
             if ($prueba->cz3_id_creador == Auth()->user()->cz1_id_empleado || $empleado == Auth()->user()->cz1_id_empleado) {
-                return z11_resultados::select('cz11_rta', 'cz11_nota')->where('cz11_id_gp', $id)
-                    ->where('cz11_id_empleado', $empleado)->where('cz11_categoria', 'smmr')->get();
+                return z11_resultados::select('cz11_rta', 'cz11_nota', 'cz11_pp_id')->where('cz11_id_gp', $id)
+                    ->where('cz11_id_empleado', $empleado)->where('cz11_categoria', 'smmr')->orderBy('cz11_pp_id', 'ASC')->get();
             }
         }
     }
