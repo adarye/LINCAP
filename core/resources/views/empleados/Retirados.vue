@@ -94,6 +94,11 @@
             <div class="pull-right mt-2">Página {{ pagina }} / {{ Math.ceil(mbuscar.length / numero) }} de
                 {{ mbuscar.length }} Registros</div>
         </div>
+         <center>
+            <div v-show="retirados.length == 0" class="spinner-border text-primary " role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </center>
     </div>
 </template>
 <script>

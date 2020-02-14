@@ -33,6 +33,7 @@ import Completadas from '../views/gestion_pruebas/Completadas';
 import Encuesta from '../js/components/cliente/Encuesta';
 import Evaluacion from '../js/components/cliente/Evaluacion';
 import Asignacion from '../js/components/gestion_pruebas/ModActivos'
+import AdministrarEvaluacion from '../js/components/admin/Evaluacion';
 
 //Vista preguntas 
 import IndexPreguntas from '../views/prueba_preguntas/Index.vue';
@@ -149,6 +150,11 @@ export default new Router({
             path: '/presentar/evaluacion/:id/:empleado',
             name: 'PresentarEvaluacion',
             component: Evaluacion
+        },
+        {
+            path: '/administrar/evaluacion/:id/:empleado',
+            name: 'AdministrarEvaluacion',
+            component: AdministrarEvaluacion
         },
         {
             path: '/',

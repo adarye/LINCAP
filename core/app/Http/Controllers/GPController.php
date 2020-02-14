@@ -194,6 +194,8 @@ class GPController extends Controller
         $pregunta->cz5_pregunta = $item->cz5_pregunta;
         $pregunta->cz5_categoria = $item->cz5_categoria;
         $pregunta->cz5_gp_id = $request->prueba;
+        $pregunta->cz5_n_rtas = $item->cz5_n_rtas;
+        $pregunta->cz5_n_rtas_correctas = $item->cz5_n_rtas_correctas;
         $pregunta->save();
  
 

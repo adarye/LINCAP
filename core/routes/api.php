@@ -141,4 +141,5 @@ Route::put('evaluacion/calificar/RA','RespuestasController@calificaRA');
 Route::post('estadistica/buscar/smur', 'EstadisticasController@buscarSMUR');
 Route::post('estadistica/buscar/smmr', 'EstadisticasController@buscarSMMR');
 Route::get('estadistica/cargar/cargos', 'EstadisticasController@cargarCargos');
+Route::get('estadistica/resultados/{id}', 'EstadisticasController@Resultados');
 

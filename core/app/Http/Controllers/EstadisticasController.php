@@ -375,4 +375,129 @@ class EstadisticasController extends Controller
         $this->cargos = w0763_gh01_cargos::select('c0763_rowid','c0763_descripcion')->orderBy('c0763_descripcion', 'ASC')->get();
         return $this->cargos;
     }
-}
+    public function Resultados($id){
+        $totalEmp = Terceros::join(
+            'dbo.w0540_empleados',
+            'dbo.w0541_terceros_seleccion.c0541_rowid',
+            '=',
+            'dbo.w0540_empleados.c0540_rowid_prospecto'
+
+        )->join(
+            'dbo.z4_rel_ts_gps',
+            'dbo.w0540_empleados.c0540_rowid_tercero',
+            '=',
+            'dbo.z4_rel_ts_gps.cz4_ts_id'
+
+         )->join(
+            'dbo.w0550_contratos',
+            'dbo.w0540_empleados.c0540_rowid_tercero',
+            '=',
+            'dbo.w0550_contratos.c0550_rowid_tercero'
+
+        )
+         ->where('c0550_ind_estado', '1')
+         ->where('cz4_gp_id', $id)->count();
+    
+    
+    
+        $totalEvCont   = Terceros::join(
+            'dbo.w0540_empleados',
+            'dbo.w0541_terceros_seleccion.c0541_rowid',
+            '=',
+            'dbo.w0540_empleados.c0540_rowid_prospecto'
+
+        )->join(
+            'dbo.z4_rel_ts_gps',
+            'dbo.w0540_empleados.c0540_rowid_tercero',
+            '=',
+            'dbo.z4_rel_ts_gps.cz4_ts_id'
+
+         )->join(
+            'dbo.w0550_contratos',
+            'dbo.w0540_empleados.c0540_rowid_tercero',
+            '=',
+            'dbo.w0550_contratos.c0550_rowid_tercero'
+
+        )
+         ->where('c0550_ind_estado', '1')
+         ->whereIn('cz4_estado', ['2','1'])
+         ->where('cz4_gp_id', $id)->count();
+    
+        $totalEvPerd = Terceros::join(
+            'dbo.w0540_empleados',
+            'dbo.w0541_terceros_seleccion.c0541_rowid',
+            '=',
+            'dbo.w0540_empleados.c0540_rowid_prospecto'
+
+        )->join(
+            'dbo.z4_rel_ts_gps',
+            'dbo.w0540_empleados.c0540_rowid_tercero',
+            '=',
+            'dbo.z4_rel_ts_gps.cz4_ts_id'
+
+         )->join(
+            'dbo.w0550_contratos',
+            'dbo.w0540_empleados.c0540_rowid_tercero',
+            '=',
+            'dbo.w0550_contratos.c0550_rowid_tercero'
+
+        )
+         ->where('c0550_ind_estado', '1')
+         ->whereIn('cz4_estado', ['2','1'])
+         ->where('cz4_calificacion', '<' , 3.5)
+         ->where('cz4_gp_id', $id)->count();
+
+         $totalEvGan = Terceros::join(
+            'dbo.w0540_empleados',
+            'dbo.w0541_terceros_seleccion.c0541_rowid',
+            '=',
+            'dbo.w0540_empleados.c0540_rowid_prospecto'
+
+        )->join(
+            'dbo.z4_rel_ts_gps',
+            'dbo.w0540_empleados.c0540_rowid_tercero',
+            '=',
+            'dbo.z4_rel_ts_gps.cz4_ts_id'
+
+         )->join(
+            'dbo.w0550_contratos',
+            'dbo.w0540_empleados.c0540_rowid_tercero',
+            '=',
+            'dbo.w0550_contratos.c0550_rowid_tercero'
+
+        )
+         ->where('c0550_ind_estado', '1')
+         ->whereIn('cz4_estado', ['2','1'])
+         ->where('cz4_calificacion', '>=' , 3.5)
+         ->where('cz4_gp_id', $id)->count();
+
+         $promedio = Terceros::join(
+            'dbo.w0540_empleados',
+            'dbo.w0541_terceros_seleccion.c0541_rowid',
+            '=',
+            'dbo.w0540_empleados.c0540_rowid_prospecto'
+
+        )->join(
+            'dbo.z4_rel_ts_gps',
+            'dbo.w0540_empleados.c0540_rowid_tercero',
+            '=',
+            'dbo.z4_rel_ts_gps.cz4_ts_id'
+
+         )->join(
+            'dbo.w0550_contratos',
+            'dbo.w0540_empleados.c0540_rowid_tercero',
+            '=',
+            'dbo.w0550_contratos.c0550_rowid_tercero'
+
+        )
+         ->where('c0550_ind_estado', '1')
+         ->whereIn('cz4_estado', ['2','1'])
+         ->where('cz4_gp_id', $id)->avg('cz4_calificacion');
+
+         return [ $totalEmp,$totalEvCont, $totalEvPerd, $totalEvGan, $promedio ];
+    }
+    
+
+    }
+    
+

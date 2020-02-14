@@ -1,9 +1,13 @@
 <template>
     <div>
-         <nav aria-label="breadcrumb">
+        <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li v-show=" $route.params.cat == 1" class="breadcrumb-item"><i class="fa fa-pencil"> <router-link v-bind:to="'/gestion/pruebas/' + $route.params.cat"> Encuestas</router-link></i></li>
-                 <li v-show=" $route.params.cat == 2" class="breadcrumb-item"><i class="fa fa-file-text"> <router-link v-bind:to="'/gestion/pruebas/' + $route.params.cat"> Evaluaciones</router-link></i></li>
+                <li v-show=" $route.params.cat == 1" class="breadcrumb-item"><i class="fa fa-pencil">
+                        <router-link v-bind:to="'/gestion/pruebas/' + $route.params.cat"> Encuestas</router-link>
+                    </i></li>
+                <li v-show=" $route.params.cat == 2" class="breadcrumb-item"><i class="fa fa-file-text">
+                        <router-link v-bind:to="'/gestion/pruebas/' + $route.params.cat"> Evaluaciones</router-link>
+                    </i></li>
                 <li class="breadcrumb-item"><i class="fa fa-users"> {{titulo}}</i></li>
                 <li class="breadcrumb-item active" aria-current="page"></li>
             </ol>
@@ -69,15 +73,16 @@
                                 </button>
                                 <button class="btn btn-success fa fa-search-plus"
                                     @click="buscarEncuesta(item.c0550_rowid_tercero)"></button>
-                                    {{ emp_calificacion.filter(emp => emp.cz4_ts_id == item.c0550_rowid_tercero && emp.cz4_calificacion != null)}}
-                                    
-                                    
-                                    
-                                    
+                                <!-- {{ emp_calificacion.filter(emp => emp.cz4_ts_id == item.c0550_rowid_tercero && emp.cz4_calificacion != null)}} -->
+
+
+
+
 
 
                             </span>
-                            <span v-show="seleccionados.filter(c0550_rowid_tercero => c0550_rowid_tercero == item.c0550_rowid_tercero ) == ''">
+                            <span
+                                v-show="seleccionados.filter(c0550_rowid_tercero => c0550_rowid_tercero == item.c0550_rowid_tercero ) == ''">
                                 <button class="btn btn-outline-primary fa fa-square-o"
                                     @click="incluir(item.c0550_rowid_tercero)">
                                 </button>
@@ -90,6 +95,7 @@
         <div class="row">
             <div class="col-md-4 col-float"></div>
             <div v-show="bempleado == ''" class="col-md-4 col-center">
+
                 <button type="button" @click.prevent="pagina=pagina-1" v-show="pagina!=1" class="btn btn-primary">
                     <li class="fa fa-long-arrow-left"></li>
                 </button>
@@ -97,18 +103,25 @@
                     class="btn btn-success">
                     <li class="fa fa-long-arrow-right"></li>
                 </button>
+
             </div>
             <div class="col-md-4">
-                 <div class="pull-right mt-2">Página {{ pagina }} / {{ Math.ceil(mbuscar.length / numero) }} de
-                {{ mbuscar.length }} Registros</div>
-        </div>
-           
+
+                <div class="pull-right mt-2">Página {{ pagina }} / {{ Math.ceil(mbuscar.length / numero) }} de
+                    {{ mbuscar.length }} Registros</div>
+            </div>
 
             <!-- <div class="pull-right mt-2">Página {{ pagina }} / {{ Math.ceil(mbuscar.length / numero) }} de
                 {{ mbuscar.length }} Registros</div> -->
+
         </div>
+        <center>
+            <div v-show="activos.length == 0" class="spinner-border text-primary " role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </center>
     </div>
-    
+
 </template>
 <script>
     import moment from 'moment';
@@ -119,8 +132,8 @@
 
         data() {
             return {
-            
-                emp_calificacion:[],
+
+                emp_calificacion: [],
 
                 seleccionados: [],
                 CO: [],
@@ -163,7 +176,7 @@
                 axios.get(`/api/asignacion/index/${this.id_prueba}`).then(res => {
                     this.emp_calificacion = res.data;
                     for (var i = 0; i < res.data.length; i++) {
-                        
+
                         this.seleccionados.push(res.data[i].cz4_ts_id)
                     }
                     console.log(this.seleccionados)
@@ -278,18 +291,17 @@
             },
             buscarEncuesta(id) {
                 axios.get(`/api/gp/buscar/${this.id_prueba}`)
-                .then(res=>{
-                   console.log(res.data)
-                    if(res.data.cz3_categoria == 1){
-                router.push('/presentar/encuesta/' + this.id_prueba + '/' + id)
-                }
-                else if(res.data.cz3_categoria == 2){
-                     router.push('/presentar/evaluacion/' + this.id_prueba + '/' + id)
-                }
-                })
-               
+                    .then(res => {
+                        console.log(res.data)
+                        if (res.data.cz3_categoria == 1) {
+                            router.push('/presentar/encuesta/' + this.id_prueba + '/' + id)
+                        } else if (res.data.cz3_categoria == 2) {
+                            router.push('/administrar/evaluacion/' + this.id_prueba + '/' + id)
+                        }
+                    })
+
             },
-             buscar() {
+            buscar() {
                 axios.get(`/api/gp/buscar/${this.$route.params.id}`).then(res => {
                     this.titulo = res.data.cz3_nombre
 
@@ -340,9 +352,10 @@
                                 .includes(this.bempleado.toUpperCase()))
                         );
                     } else if (this.selectCO != 'co' && this.selectEM == 'SELECCIONADOS') {
-                        if(this.bempleado == ""){
-                          return this.seleccionados.filter(c0550_rowid_tercero => c0550_rowid_tercero ==
-                                    activo.c0550_rowid_tercero) != '' &&  activo.f285_id.includes(this.selectCO)
+                        if (this.bempleado == "") {
+                            return this.seleccionados.filter(c0550_rowid_tercero => c0550_rowid_tercero ==
+                                activo.c0550_rowid_tercero) != '' && activo.f285_id.includes(this
+                                .selectCO)
                         }
                         const nombre_completo =
                             activo.c0541_nombres +
@@ -352,34 +365,30 @@
                             activo.c0541_apellido2;
                         return (
                             (this.seleccionados.filter(c0550_rowid_tercero => c0550_rowid_tercero ==
-                                activo.c0550_rowid_tercero) != '' &&
+                                    activo.c0550_rowid_tercero) != '' &&
                                 nombre_completo
                                 .toUpperCase()
-                                .includes(this.bempleado.toUpperCase())
-                                &&
+                                .includes(this.bempleado.toUpperCase()) &&
                                 activo.f285_id.includes(this.selectCO)
-                               
+
                             ) ||
                             (this.seleccionados.filter(c0550_rowid_tercero => c0550_rowid_tercero ==
-                                activo.c0550_rowid_tercero) != '' &&
+                                    activo.c0550_rowid_tercero) != '' &&
                                 activo.c0541_id
                                 .toUpperCase()
-                                .includes(this.bempleado.toUpperCase())
-                                &&
+                                .includes(this.bempleado.toUpperCase()) &&
                                 activo.f285_id.includes(this.selectCO)
-                                ) ||
-                            ( this.seleccionados.filter(c0550_rowid_tercero => c0550_rowid_tercero ==
-                                activo.c0550_rowid_tercero) != '' &&
+                            ) ||
+                            (this.seleccionados.filter(c0550_rowid_tercero => c0550_rowid_tercero ==
+                                    activo.c0550_rowid_tercero) != '' &&
                                 activo.c0763_descripcion
                                 .toUpperCase()
-                                .includes(this.bempleado.toUpperCase())
-                                &&
+                                .includes(this.bempleado.toUpperCase()) &&
                                 activo.f285_id.includes(this.selectCO)
-                                )
+                            )
                         );
 
-                    } 
-                    else if (this.selectEM == "SELECCIONADOS") {
+                    } else if (this.selectEM == "SELECCIONADOS") {
                         const nombre_completo =
                             activo.c0541_nombres +
                             " " +
@@ -387,7 +396,7 @@
                             " " +
                             activo.c0541_apellido2;
                         return (this.seleccionados.filter(c0550_rowid_tercero => c0550_rowid_tercero ==
-                                activo.c0550_rowid_tercero) != '' &&
+                                    activo.c0550_rowid_tercero) != '' &&
                                 nombre_completo
                                 .toUpperCase()
                                 .includes(this.bempleado.toUpperCase())
@@ -404,11 +413,11 @@
                                 .toUpperCase()
                                 .includes(this.bempleado.toUpperCase())
                             )
-                    }
-                    else if (this.selectCO != 'co' && this.selectEM == 'NO SELECCIONADOS') {
-                        if(this.bempleado == ""){
-                          return this.seleccionados.filter(c0550_rowid_tercero => c0550_rowid_tercero ==
-                                    activo.c0550_rowid_tercero) == '' &&  activo.f285_id.includes(this.selectCO)
+                    } else if (this.selectCO != 'co' && this.selectEM == 'NO SELECCIONADOS') {
+                        if (this.bempleado == "") {
+                            return this.seleccionados.filter(c0550_rowid_tercero => c0550_rowid_tercero ==
+                                activo.c0550_rowid_tercero) == '' && activo.f285_id.includes(this
+                                .selectCO)
                         }
                         const nombre_completo =
                             activo.c0541_nombres +
@@ -418,34 +427,30 @@
                             activo.c0541_apellido2;
                         return (
                             (this.seleccionados.filter(c0550_rowid_tercero => c0550_rowid_tercero ==
-                                activo.c0550_rowid_tercero) == '' &&
+                                    activo.c0550_rowid_tercero) == '' &&
                                 nombre_completo
                                 .toUpperCase()
-                                .includes(this.bempleado.toUpperCase())
-                                &&
+                                .includes(this.bempleado.toUpperCase()) &&
                                 activo.f285_id.includes(this.selectCO)
-                               
+
                             ) ||
                             (this.seleccionados.filter(c0550_rowid_tercero => c0550_rowid_tercero ==
-                                activo.c0550_rowid_tercero) == '' &&
+                                    activo.c0550_rowid_tercero) == '' &&
                                 activo.c0541_id
                                 .toUpperCase()
-                                .includes(this.bempleado.toUpperCase())
-                                &&
+                                .includes(this.bempleado.toUpperCase()) &&
                                 activo.f285_id.includes(this.selectCO)
-                                ) ||
-                            ( this.seleccionados.filter(c0550_rowid_tercero => c0550_rowid_tercero ==
-                                activo.c0550_rowid_tercero) == '' &&
+                            ) ||
+                            (this.seleccionados.filter(c0550_rowid_tercero => c0550_rowid_tercero ==
+                                    activo.c0550_rowid_tercero) == '' &&
                                 activo.c0763_descripcion
                                 .toUpperCase()
-                                .includes(this.bempleado.toUpperCase())
-                                &&
+                                .includes(this.bempleado.toUpperCase()) &&
                                 activo.f285_id.includes(this.selectCO)
-                                )
+                            )
                         );
 
-                    } 
-                    else if (this.selectEM == "NO SELECCIONADOS") {
+                    } else if (this.selectEM == "NO SELECCIONADOS") {
                         const nombre_completo =
                             activo.c0541_nombres +
                             " " +
@@ -453,7 +458,7 @@
                             " " +
                             activo.c0541_apellido2;
                         return (this.seleccionados.filter(c0550_rowid_tercero => c0550_rowid_tercero ==
-                                activo.c0550_rowid_tercero) == '' &&
+                                    activo.c0550_rowid_tercero) == '' &&
                                 nombre_completo
                                 .toUpperCase()
                                 .includes(this.bempleado.toUpperCase())
@@ -471,11 +476,11 @@
                                 .includes(this.bempleado.toUpperCase())
                             )
                     }
-                    
+
                 })
             }
 
-            
+
 
         }
     };
