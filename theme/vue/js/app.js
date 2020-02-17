@@ -1960,8 +1960,7 @@ __webpack_require__.r(__webpack_exports__);
       }; //console.log(this.parametros)
 
       axios.post("api/login/ingresar", this.parametros).then(function (res) {
-        _this.user = res.data;
-        console.log(_this.user);
+        _this.user = res.data; // console.log(this.user);
 
         if (res.data == "inactivo") {
           swal("Error", "Tu contrato finalizó", "error");
@@ -1979,7 +1978,7 @@ __webpack_require__.r(__webpack_exports__);
           });
         }
       })["catch"](function (error) {
-        console.log(error.response.data.errors);
+        // console.log(error.response.data.errors);
         var er = error.response.data.errors;
         var mensaje = "Error no identificado";
 
@@ -66871,11 +66870,7 @@ var render = function() {
                   }
                 ],
                 staticClass: "form-control",
-                attrs: {
-                  type: "text",
-                  placeholder: "Número de cédula",
-                  onfocus: ""
-                },
+                attrs: { type: "text", placeholder: "Número de cédula" },
                 domProps: { value: _vm.cz1_cc },
                 on: {
                   input: function($event) {
