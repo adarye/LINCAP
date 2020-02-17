@@ -75,13 +75,15 @@ class RespuestasController extends Controller
     }
     public function guardarRA(Request $request)
     {
-        $estado = z4_rel_ts_gp::select('cz4_id')->where('cz4_ts_id', Auth()->user()->cz1_id_empleado)
+        $estado = z4_rel_ts_gp::select('cz4_id','cz4_estado')->where('cz4_ts_id', Auth()->user()->cz1_id_empleado)
             ->where('cz4_gp_id', $request->id_gp)->first();
+            if($estado->cz4_estado != 2){
         $estado->cz4_estado = '1';
         $estado->save();
 
         $register = z11_resultados::select('cz11_id')->where('cz11_id_empleado', Auth()->user()->cz1_id_empleado)
             ->where('cz11_pp_id', $request->id_pp)->first();
+            }
 
         //  return $register;
 
@@ -124,8 +126,8 @@ class RespuestasController extends Controller
         if (Gate::allows('isAdmin') ||
             Gate::allows('isRRHH') || Gate::allows('isSST') || $empleado == Auth()->user()->cz1_id_empleado) {
             if ($prueba->cz3_id_creador == Auth()->user()->cz1_id_empleado || $empleado == Auth()->user()->cz1_id_empleado) {
-                return z11_resultados::select('cz11_rta', 'cz11_nota')->where('cz11_id_gp', $id)
-                    ->where('cz11_id_empleado', $empleado)->where('cz11_categoria', 'smmr')->get();
+                return z11_resultados::select('cz11_rta', 'cz11_nota', 'cz11_pp_id')->where('cz11_id_gp', $id)
+                    ->where('cz11_id_empleado', $empleado)->where('cz11_categoria', 'smmr')->orderBy('cz11_pp_id', 'ASC')->get();
             }
         }
     }
@@ -137,7 +139,7 @@ class RespuestasController extends Controller
             Gate::allows('isRRHH') || Gate::allows('isSST') || $empleado == Auth()->user()->cz1_id_empleado) {
             if ($prueba->cz3_id_creador == Auth()->user()->cz1_id_empleado || $empleado == Auth()->user()->cz1_id_empleado) {
                 return z11_resultados::select('cz11_rta_ra', 'cz11_pp_id', 'cz11_nota')->where('cz11_id_gp', $id)
-                    ->where('cz11_id_empleado', $empleado)->where('cz11_categoria', 'ra')->get();
+                    ->where('cz11_id_empleado', $empleado)->where('cz11_categoria', 'ra')->orderBy('cz11_pp_id','ASC')->get();
             }
         }
     }

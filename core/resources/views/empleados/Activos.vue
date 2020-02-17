@@ -38,7 +38,7 @@
         </nav>
         
         <div class="table-responsive-md table-responsive-sm">
-            <div class="table table-striped">
+            <table class="table table-striped">
                 <thead>
                     <tr>
                         <th scope="col" class="texto">Cedula</th>
@@ -77,7 +77,7 @@
                         </td>
                     </tr>
                 </tbody>
-            </div>
+            </table>
         </div>
         <div class="row">
             <div class="col-md-4 col-float"></div>
@@ -94,6 +94,11 @@
             <div class="pull-right mt-2">Página {{ pagina }} / {{ Math.ceil(mbuscar.length / numero) }} de
                 {{ mbuscar.length }} Registros</div>
         </div>
+         <center>
+            <div v-show="activos.length == 0" class="spinner-border text-primary " role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </center>
 
     </div>
 </template>

@@ -85,36 +85,7 @@
           
         </div>
 </div>
-        <!-- <div class="media">
-                <span class="col-md-4 pull-left" v-show="item.cz12_imagen">
-                    <img class="media-object img p-3" :src="'/../theme/images/noticias/'+ item.cz12_imagen">
-                </span>
-                <div class="media-body">
-                    <h4 class="col-md-5 media-heading noti-title">{{item.cz12_nombre}} <button v-show="rol != 4 && rol != 3 "
-                            @click="eliminar(item.cz12_id)" class="btn-sm btn-danger fa fa-trash mb-2"></button>
-                        <button v-show="rol != 4 && rol != 3 " @click="$emit('editar2', item)"
-                            class="btn-sm btn-warning fa fa-edit mb-2"></button>
-                    </h4>
-                    <p class="text-right mb-2"> <img :src="'/../theme/images/profile/'+ item.cz1_avatar" alt="" class="img-profile-noti">By {{item.cz1_nombres}} </p>
-
-                    <p class="lead noti-text shadow-lg">{{item.cz12_descripcion}}</p>
-                    <ul class="list-inline list-unstyled">
-                        <li class="mt-3"><span><i class="fa fa-clock-o"></i>
-                               {{item.cz12_fecha_creacion}}
-                               
-                               </span></li>
-                    </ul>
-                    <a v-show="item.cz12_archivo != null" :href="'/../theme/files/noticias/'+ item.cz12_archivo"
-                     target="_blank" ><li class="fa fa-file-archive-o"></li> Archivo adjunto</a>
-                </div>
-            </div>
-            <span class="pull-right">
-                <h4><span v-show="item.cz12_nivel_imp == 1" class="badge lead badge-success">Normal</span></h4>
-                <h4><span v-show="item.cz12_nivel_imp == 2" class="badge lead badge-primary">Importante</span></h4>
-                <h4><span v-show="item.cz12_nivel_imp == 3" class="badge lead badge-warning">Muy importante</span></h4>
-                <h4><span v-show="item.cz12_nivel_imp == 4" class="badge lead badge-danger">Necesaria</span></h4>
-            </span>
-        </div> -->
+      
         <div class="row">
             <div class="col-md-5 col-float"></div>
             <div v-show="bnoticia == ''" class="col-md-4 col-center">
@@ -135,6 +106,15 @@
             <!-- <div class="pull-right mt-2">Página {{ pagina }} / {{ Math.ceil(mbuscar.length / numero) }} de
                 {{ mbuscar.length }} Registros</div> -->
         </div>
+        <center>
+            
+            <div v-show="carga  && noticias.length == []" class="spinner-border text-primary " role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+              <div v-show="carga == false  && noticias.length == []">
+               <p>No se encontraron noticias</p>
+            </div>
+        </center>
     </div>
 </template>
 <script>
@@ -152,7 +132,8 @@
                 numero: 5,
                 mostrar: 0,
                 pagina: 1,
-                bnoticia: ''
+                bnoticia: '',
+                carga: true
 
             }
         },
@@ -162,6 +143,10 @@
             EventBus.$on('cargar', (item) => {
                 this.index()
             });
+             setTimeout(
+                _ => this.carga = false, 
+                10000 
+            )
         },
         methods: {
             index() {

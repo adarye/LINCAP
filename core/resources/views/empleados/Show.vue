@@ -79,7 +79,8 @@
                  
                      <div class="col-md-4 col-center">
                     <button @click="validarCampos" class="btn btn-primary">
-                        Actualizar
+                        <span class="spinner-border spinner-border-sm mr-2"></span>
+                          Enviando datos... Actualizar
                     </button>
                     <button @click="showModal()" class="btn btn-primary">
                         Subir Imagen

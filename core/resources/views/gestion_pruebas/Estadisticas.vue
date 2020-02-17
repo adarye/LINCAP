@@ -1,14 +1,20 @@
 <template>
     <div class=" p-2">
-         <nav aria-label="breadcrumb">
+        
+        <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li v-show=" $route.params.cat == 1" class="breadcrumb-item"><i class="fa fa-pencil"> <router-link v-bind:to="'/gestion/pruebas/' + $route.params.cat"> Encuestas</router-link></i></li>
-                 <li v-show=" $route.params.cat == 2" class="breadcrumb-item"><i class="fa fa-file-text"> <router-link v-bind:to="'/gestion/pruebas/' + $route.params.cat"> Evaluaciones</router-link></i></li>
+                <li v-show=" $route.params.cat == 1" class="breadcrumb-item"><i class="fa fa-pencil">
+                        <router-link v-bind:to="'/gestion/pruebas/' + $route.params.cat"> Encuestas</router-link>
+                    </i></li>
+                <li v-show=" $route.params.cat == 2" class="breadcrumb-item"><i class="fa fa-file-text">
+                        <router-link v-bind:to="'/gestion/pruebas/' + $route.params.cat"> Evaluaciones</router-link>
+                    </i></li>
                 <li class="breadcrumb-item"><i class="fa fa-bar-chart"> {{titulo}}</i></li>
                 <li class="breadcrumb-item active" aria-current="page"></li>
             </ol>
         </nav>
-        <div class="row">
+        <CuadroEstadistico></CuadroEstadistico>
+        <div class="row mt-3">
             <div class="col-md-4  col-sm-2  has-feedback">
                 <select v-model="selectSede" @change="filtrar()" class="form-control">
                     <option value="SEDES">SEDES</option>
@@ -21,7 +27,8 @@
                 <button class="btn btn-primary" @click="$modal.show('cargos')">Filtrar por cargos</button>
             </div>
         </div>
-
+        
+     
         <h4 class="display-5 titulo my-3" v-show=" resSMUR.length">Preguntas de selección multiple con única respuestas
         </h4>
         <div v-for="(item, indice) in  resSMUR" :key="indice" class="my-5">
@@ -74,7 +81,7 @@
                     style="width: 100%; height: 130%" />
             </div>
         </article>
-        
+
         <modal name="cargos" :clickToClose="false" :adaptive="true" :width="525" :height="425">
             <div class="table-responsive-md table-responsive-sm table-wrapper-scroll-y my-custom-scrollbar">
                 <table class="table table-striped">
@@ -95,7 +102,7 @@
                             <td>
 
                                 <input type="checkbox" name="eleccion"
-                                 :checked="cargos_filtro.filter(id => id == item.c0763_rowid ) != ''"
+                                    :checked="cargos_filtro.filter(id => id == item.c0763_rowid ) != ''"
                                     @click="incluir(item.c0763_rowid, $event.target.checked)">
                             </td>
                         </tr>
@@ -106,7 +113,7 @@
             <button type="button" class="btn btn-info mt-3" @click="filtrar">
                 Filtrar <li class="fa fa-filter"></li>
             </button>
-            <button  type="button" class="btn btn-danger mt-3" @click="$modal.hide('cargos');">
+            <button type="button" class="btn btn-danger mt-3" @click="$modal.hide('cargos');">
                 Cerrar
             </button>
         </modal>
@@ -153,7 +160,7 @@
             this.id = this.$route.params.id
             this.traerPregunta_SMUR()
             this.traerSMMR()
-            
+
             this.buscar()
             this.buscarSedes()
             this.buscarCargos()
@@ -175,19 +182,19 @@
                             }
 
                         }
-                       
+
                     })
             },
             traerPregunta_SMUR() {
-               const wrapper = document.createElement('div');
+                const wrapper = document.createElement('div');
                 wrapper.innerHTML =
                     "<div class='spinner-border text-primary row' role='status'> <span class='sr-only'>Loading...</span> </div>  <div class=''>Cargando estadisticas...</div> ";
                 swal({
-                   buttons: false,
+                    buttons: false,
                     html: true,
                     content: wrapper,
                     closeOnClickOutside: false,
-                     timer: 10000
+                    timer: 10000
                 });
 
                 axios.get(`/api/pregunta/index/${this.id}`)
@@ -204,10 +211,10 @@
                                     [i].cz7_rta)
 
                             }
-                           
+
 
                         }
-                         
+
                     })
             },
             buscar() {
@@ -217,7 +224,7 @@
                 });
             },
             buscarRes(id, j, rta) {
-                
+
                 console.log(this.selectSede)
                 axios.post('/api/estadistica/buscar/smur', {
                     id: id,
@@ -230,13 +237,11 @@
                 });
             },
             buscarRes2(id, j, rta) {
-                axios.post('/api/estadistica/buscar/smmr',
-                {
+                axios.post('/api/estadistica/buscar/smmr', {
                     id: id,
                     co: this.selectSede,
                     cargos: this.cargos_filtro
-                }
-                ).then(res => {
+                }).then(res => {
 
                     this.chartData2[j].push([rta, res.data])
                 });
@@ -252,7 +257,7 @@
                 axios.get('/api/estadistica/cargar/cargos')
                     .then(res => {
                         this.cargos = res.data
-                        
+
                     })
 
             },
@@ -265,8 +270,7 @@
             incluir(id, event) {
                 if (event == true) {
                     this.cargos_filtro.push(id)
-                } 
-                else if (event == false) {
+                } else if (event == false) {
 
                     for (var i = 0; i < this.cargos_filtro.length; i++) {
                         if (this.cargos_filtro[i] === id) {
@@ -278,9 +282,9 @@
                 console.log(this.cargos_filtro)
             }
         },
-        computed:{
-            cargaFinalizada(){
-                if(this.resSMMR.length == this.chartData2.length ){
+        computed: {
+            cargaFinalizada() {
+                if (this.resSMMR.length == this.chartData2.length) {
                     console.log(this.resSMMR.length + ' ' + this.chartData2.length)
                     // swal('Estadisticas','Han sido cargadas correctamente','success')
                 }

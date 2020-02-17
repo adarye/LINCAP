@@ -43,10 +43,16 @@
                 <tbody>
                     <tr v-for="(item, indice) in mbuscar" :key="indice"
                         v-show="(pagina-1) * numero <= indice && pagina*numero > indice || bprueba != ''">
-                        <th scope="row">{{ item.cz3_nombre }}  
-                            <button class="badge badge-pill badge-success float-right p-1" v-show=" moment().diff(item.cz3_fecha_cierre) < 0 &&  moment().diff(item.cz3_fecha_apertura) > 0"  @click="select = 'Abiertas'">Abierta</button>
-                             <button class="badge badge-pill badge-warning float-right p-1" v-show=" moment().diff(item.cz3_fecha_apertura) < 0"  @click="select = 'Proximas'">Proximamente</button>
-                             <button class="badge badge-pill badge-danger float-right p-1" v-show=" moment().diff(item.cz3_fecha_cierre) > 0" @click="select = 'Cerradas'">Cerrada</button>
+                        <th scope="row">{{ item.cz3_nombre }}
+                            <button class="badge badge-pill badge-success float-right p-1"
+                                v-show=" moment().diff(item.cz3_fecha_cierre) < 0 &&  moment().diff(item.cz3_fecha_apertura) > 0"
+                                @click="select = 'Abiertas'">Abierta</button>
+                            <button class="badge badge-pill badge-warning float-right p-1"
+                                v-show=" moment().diff(item.cz3_fecha_apertura) < 0"
+                                @click="select = 'Proximas'">Proximamente</button>
+                            <button class="badge badge-pill badge-danger float-right p-1"
+                                v-show=" moment().diff(item.cz3_fecha_cierre) > 0"
+                                @click="select = 'Cerradas'">Cerrada</button>
                         </th>
                         <td>
                             {{ item.cz3_descripcion }}
@@ -75,9 +81,9 @@
                                 @click="$emit('preguntas',item.cz3_id)">
                                 <li class="fa fa-gear"></li>
                             </button>
-                             <button type="button" class="btn btn-success btn-sm" title="Estadisticas"
+                            <button type="button" class="btn btn-success btn-sm" title="Estadisticas"
                                 @click="$emit('estadisticas',item.cz3_id)">
-                               
+
                                 <li class="fa fa-bar-chart"></li>
                             </button>
                             <button type="button" class="btn btn-danger btn-sm" title="Eliminar"
@@ -91,6 +97,7 @@
                 </tbody>
 
             </table>
+
             <div class="row">
                 <div class="col-md-4 col-float"></div>
                 <div v-show="bprueba == ''" class="col-md-6 col-center">
@@ -105,10 +112,19 @@
                 </div>
             </div>
         </div>
+        <center>
+            
+            <div v-show="carga  && pruebas.length == []" class="spinner-border text-primary " role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+              <div v-show="carga == false  && pruebas.length == []">
+               <p>No se encontraron resultados</p>
+            </div>
+        </center>
     </div>
 </template>
 <script>
-import moment from "moment";
+    import moment from "moment";
     moment.locale("es");
     export default {
         props: ['pruebas'],
@@ -121,12 +137,17 @@ import moment from "moment";
                 bprueba: '',
                 select: 'Todas',
                 moment: moment,
-                id: null
+                id: null,
+                carga: true
             }
 
         },
-        mounted(){
-            console.log(this.pruebas)
+      
+        mounted() {
+            setTimeout(
+                _ => this.carga = false, 
+                10000 
+            )
         },
         methods: {
             mostrarCaja: function () {
@@ -136,49 +157,52 @@ import moment from "moment";
                     this.mostrar = 0
                     this.numero = this.selectPag
                 }
+            },
+            calcularTiempo() {
+
+
             }
-                
-        //     },
-        //      asignados(){
-        //       axios.get(`/api/asignacion/contar/${this.id}`)
-        //       .then(res=>{
-                  
-        //       })
-        //   }
+
+            //     },
+            //      asignados(){
+            //       axios.get(`/api/asignacion/contar/${this.id}`)
+            //       .then(res=>{
+
+            //       })
+            //   }
         },
         computed: {
-         
+
+
             mbuscar: function () {
                 return this.pruebas.filter((prueba) => {
-                  if (this.select == null || this.select == 'Todas') {
-                    return prueba.cz3_nombre.toUpperCase().includes(this.bprueba.toUpperCase()) ||
-                        prueba.cz3_descripcion.toUpperCase().includes(this.bprueba.toUpperCase())
-                  }
-                     else if(this.select == 'Cerradas'){ 
-                        return (   
-                            (moment().diff(prueba.cz3_fecha_cierre) > 0  &&
-                               prueba.cz3_nombre
+                    if (this.select == null || this.select == 'Todas') {
+                        return prueba.cz3_nombre.toUpperCase().includes(this.bprueba.toUpperCase()) ||
+                            prueba.cz3_descripcion.toUpperCase().includes(this.bprueba.toUpperCase())
+                    } else if (this.select == 'Cerradas') {
+                        return (
+                            (moment().diff(prueba.cz3_fecha_cierre) > 0 &&
+                                prueba.cz3_nombre
                                 .toUpperCase()
                                 .includes(this.bprueba.toUpperCase())
-                            ) 
+                            )
                         );
-                    }
-                    else if(this.select == 'Abiertas'){ 
-                        return (   
-                            (moment().diff(prueba.cz3_fecha_cierre) < 0 &&  moment().diff(prueba.cz3_fecha_apertura) > 0  &&
-                               prueba.cz3_nombre
+                    } else if (this.select == 'Abiertas') {
+                        return (
+                            (moment().diff(prueba.cz3_fecha_cierre) < 0 && moment().diff(prueba
+                                    .cz3_fecha_apertura) > 0 &&
+                                prueba.cz3_nombre
                                 .toUpperCase()
                                 .includes(this.bprueba.toUpperCase())
-                            ) 
+                            )
                         );
-                    }
-                    else if(this.select == 'Proximas'){ 
-                        return (   
-                            (moment().diff(prueba.cz3_fecha_apertura) < 0  &&
-                               prueba.cz3_nombre
+                    } else if (this.select == 'Proximas') {
+                        return (
+                            (moment().diff(prueba.cz3_fecha_apertura) < 0 &&
+                                prueba.cz3_nombre
                                 .toUpperCase()
                                 .includes(this.bprueba.toUpperCase())
-                            ) 
+                            )
                         );
                     }
                 })

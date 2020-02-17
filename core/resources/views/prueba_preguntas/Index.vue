@@ -29,14 +29,19 @@
                                         <option value="ra"> Respuesta Abierta</option>
                                     </select>
                                 </div>
-                                <div class="col-md-8 col-center col-sm-7 form-group has-feedback">
+                                <div class="col-md-5 col-center col-sm-7 form-group has-feedback">
                                     <div v-if="tipo_respuesta == 'smur' ||tipo_respuesta == 'smmr'">
                                         <input v-max-length="300" v-autofocus class="form-control" v-model="n_respuestas" placeholder="Numero de Respuestas" onfocus v-numeric-only />
                                     </div>
                                 </div>
+                                <div class="col-md-3 col-center col-sm-7 form-group has-feedback">
+                                    <div v-show="tipo_respuesta == 'smmr'">
+                                        <input v-max-length="300" v-autofocus class="form-control" v-model="rtas_correctas" placeholder="Numero de Respuestas Correctas" onfocus v-numeric-only />
+                                    </div>
+                                </div>
 
                                 <button type="button" class="fa fa-arrow-right btn btn-lg btn-dark mt-1"
-                                    @click="showRespuestas" v-if="n_respuestas != null && tipo_respuesta != 'ra'">
+                                    @click="showRespuestas" v-if="n_respuestas != null   && tipo_respuesta != 'ra'">
                                     </button>
 
                                 <div class="col-md-12 col-sm-12 form-group has-feedback">
@@ -114,7 +119,8 @@ export default {
             datos: {},
             res: [],
             pruebas: [],
-            prueba_seleccionada: ""
+            prueba_seleccionada: "",
+            rtas_correctas: null
             
         };
     },
@@ -135,8 +141,16 @@ export default {
                 swal("Advertencia", "Llene todos los campos", "warning");
             } else if ( this.tipo_respuesta == "smmr" || this.tipo_respuesta == "smur" ) {
                  
-                    if (this.res.length == 0) {
+                    if (this.res.length == 0 ) {
                         swal( "Advertencia","Escriba las posibles respuestas","warning");
+                    }
+                    else if(this.rtas_correctas == 0 || this.rtas_correctas == null && this.tipo_respuesta == "smmr"){
+                        swal( "Advertencia","Escriba el numero de respuestas correctas","warning");
+
+                    }
+                     else if( this.tipo_respuesta == "smmr" && this.rtas_correctas >= this.n_respuestas){
+                        swal( "Advertencia","El numero de respuestas correctas debe ser menor o igual a las respuestas totales","warning");
+
                     }
                       else if (this.res.length != this.n_respuestas) {
                            console.log(this.res.length + " " + this.n_respuestas);
@@ -154,7 +168,9 @@ export default {
              const params = {
                 cz5_categoria: this.tipo_respuesta,
                 cz5_pregunta: this.pregunta,
-                cz5_gp_id: this.$route.params.id
+                cz5_gp_id: this.$route.params.id,
+                cz5_n_rtas: this.n_respuestas,
+                cz5_n_rtas_correctas: this.rtas_correctas
             };
          axios.post("/api/pregunta/guardar", params).then(res => {
                         if (this.tipo_respuesta == "smur" || this.tipo_respuesta == "smmr") {

@@ -173,6 +173,15 @@
                 {{ mbuscar.length }} Registros
             </div>
         </div>
+         <center>
+            
+            <div v-show="carga  && usuarios.length == []" class="spinner-border text-primary " role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+              <div v-show="carga == false  && usuarios.length == []">
+               <p>No se encontraron resultados</p>
+            </div>
+        </center>
     </div>
 </template>
 <script>
@@ -199,7 +208,8 @@ import router from '../../js/router';
                 numero: 25,
                 mostrar: 0,
                 bempleado: "",
-                pagina: 1
+                pagina: 1,
+                carga: true
             };
         },
         beforeMount() {
@@ -211,6 +221,10 @@ import router from '../../js/router';
                   router.push('/');
 
               }
+                setTimeout(
+                _ => this.carga = false, 
+                10000 
+            )
         },
         methods: {
             created() {

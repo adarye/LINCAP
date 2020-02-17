@@ -79,6 +79,16 @@
             <div class="pull-right mt-2">Página {{ pagina }} / {{ Math.ceil(mbuscar.length / numero) }} de
                 {{ mbuscar.length }} Registros</div>
         </div>
+        <center>
+            
+            <div v-show="carga  && activos.length == []" class="spinner-border text-primary " role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+              <div v-show="carga == false  && activos.length == []">
+               <p>No se encontraron resultados</p>
+            </div>
+        </center>
+        
     </div>
 </template>
 <script>
@@ -96,7 +106,8 @@ export default {
             mostrar: 0,
             bempleado: '',
             pagina: 1,
-            moment:moment
+            moment:moment,
+            carga: true
         };
     },
     mounted() {
@@ -105,6 +116,10 @@ export default {
             console.log(this.activos);
             this.getCO();
         });
+         setTimeout(
+                _ => this.carga = false, 
+                10000 
+            )
 
     },
     methods:{

@@ -1,9 +1,6 @@
 <template>
     <div>
-        <div v-if="pruebas == ''" class="jumbotron shadow-lg p-3 mb-5 bg-white rounded">
-            <h1 v-if="categoria == 1">No tienes encuestas completadas en este momento</h1>
-            <h1 v-if="categoria == 2">No tienes evaluaciones completadas en este momento</h1>
-        </div>
+        
 
         <div v-for="(item, indice) in pruebas" :key="indice">
             <div class="jumbotron shadow-lg p-3 mb-5 bg-white rounded">
@@ -44,6 +41,16 @@
             </div>
 
         </div>
+         <center>
+
+            <div v-show="carga  && pruebas.length == []" class="spinner-border text-primary " role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+            <div v-show="carga == false  && pruebas.length == []">
+                <h1 v-show="categoria == 1">No tienes encuestas completadas en este momento</h1>
+            <h1 v-show="categoria == 2">No tienes evaluaciones completadas en este momento</h1>
+            </div>
+        </center>
 
     </div>
 </template>
@@ -57,7 +64,8 @@
                 fecha_actual: '',
                 moment: moment,
                 categoria: null,
-                id: null
+                id: null,
+                carga: true
                 
             }
         },
@@ -69,6 +77,10 @@
                     this.pruebas = res.data
                     console.log(this.pruebas)
                 })
+                setTimeout(
+                _ => this.carga = false,
+                10000
+            )
         },
         methods: {
             obtenerEstado(id){

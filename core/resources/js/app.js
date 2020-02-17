@@ -62,6 +62,8 @@ Vue.component('InfSST', InfSST)
 import BodyNoticias from './components/noticias/BodyNoticias';
 Vue.component('BodyNoticias', BodyNoticias)
 
+import CuadroEstadistico from './components/gestion_pruebas/CuadroEstadistico'
+Vue.component('CuadroEstadistico', CuadroEstadistico)
 
 
 import autofocus from "vue-autofocus-directive";
