@@ -8,7 +8,6 @@
                       
                 <li class="breadcrumb-item"  v-show="this.$route.params.ruta != null"> <i class="fa fa-user">  <router-link :to="{ name: this.$route.params.ruta }"> {{ this.$route.params.ruta  }} </router-link> </i></li>
                 
-
                 <li class="breadcrumb-item"><i class="fa fa-edit"> Actualizar</i></li>
                 <li class="breadcrumb-item active" aria-current="page"></li>
             </ol>
@@ -78,9 +77,8 @@
             <span v-else>
                  
                      <div class="col-md-4 col-center">
-                    <button @click="validarCampos" class="btn btn-primary">
-                        <span class="spinner-border spinner-border-sm mr-2"></span>
-                          Enviando datos... Actualizar
+                    <button  @click="validarCampos" class="btn btn-primary">
+                         Actualizar
                     </button>
                     <button @click="showModal()" class="btn btn-primary">
                         Subir Imagen
@@ -91,9 +89,8 @@
                      </div>
                 
             </span>
-        
-    </div>
-    
+</div>
+   
 </template>
 <script>
     import moment from "moment";
@@ -118,7 +115,8 @@
                 moment: moment,
                 imagen: "",
                 imagen_miniatura: "",
-                estado: 0
+                estado: 0,
+                actualizando: false
             };
         },
         beforeMount() {
@@ -187,6 +185,7 @@
                     });
             },
             actualizar() {
+              
                 const params = {
                     email: this.informacion.f015_email,
                     telefono: this.informacion.f015_telefono,
@@ -199,7 +198,7 @@
                     con_num: this.empleado_info.cz9_tel_contacto,
                     talla_uni: this.empleado_info.cz9_talla_uniforme,
                     talla_cal: this.empleado_info.cz9_talla_calzado,
-                    email_corp: this.empleado_info.cz9_mail_corp,
+                    email_corp: this.empleado_info.cz9_mail_corp.toUpperCase(),
                     tel_corp: this.empleado_info.cz9_tel_corp,
                     cel_corp: this.empleado_info.cz9_cel_corp,
                     fecha_tpprueba: this.empleado_info.cz9_fecha_tpprueba,
@@ -217,8 +216,7 @@
                 };
                 console.log(params);
                 console.log(this.informacion.c0540_rowid_tercero);
-                axios
-                    .put(
+                axios.put(
                         `/api/empleado/update/${this.informacion.c0540_rowid_tercero}`,
                         params
                     )
@@ -228,6 +226,7 @@
                         this.validated_admin = false;
                         swal("Registro actualizado", "Datos Correctos", "success");
                     });
+                   
             },
             validarSexo() {
                 if (this.informacion.c0540_ind_sexo == 1) {
@@ -345,6 +344,7 @@
                 });
             },
             validarCampos() {
+                
                 console.log(this.informacion.f015_email);
                 if (this.informacion.f015_email == "") {
                     swal("Alerta", "El email es obligatorio", "warning");
@@ -395,6 +395,8 @@
                         "warning"
                     );
                 }  else {
+                     this.validated = false;
+                        this.validated_admin = false
                     this.actualizar();
                 }
             },

@@ -39,6 +39,7 @@ Route::put('usuario/password', 'UsuariosController@cambiarPassword');
 Route::post('usuario/email', 'UsuariosController@enviarEmail');
 Route::post('usuario/token', 'UsuariosController@validarToken');
 Route::post('usuario/recuperar/password', 'UsuariosController@resetPassword');
+Route::post('usuario/agregar-todos', 'UsuariosController@registrarTodos');
 
 
 //LOGIN

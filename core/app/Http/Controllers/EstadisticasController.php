@@ -13,11 +13,16 @@ use Illuminate\Support\Facades\Gate;
 
 class EstadisticasController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     protected $cargos;
     public  function buscarSMUR(Request $request){
 
        
-          if($request->co != "SEDES" && $request->cargos ==[] ) {
+          if($request->co != "SEDES" && $request->cargos ==[] && Gate::allows('isAdmin') || 
+          Gate::allows('isRRHH') || Gate::allows('isSST') ) {
             return Terceros::join(
                 'dbo.w0540_empleados',
                 'dbo.w0541_terceros_seleccion.c0541_rowid',
@@ -60,7 +65,8 @@ class EstadisticasController extends Controller
              ->where('t285_co_centro_op.f285_id', $request->co)
              ->where('cz11_categoria', 'smur')->count();
         }
-        else if($request->co != "SEDES" && $request->cargos !=[]) {
+        else if($request->co != "SEDES" && $request->cargos !=[] && Gate::allows('isAdmin') || 
+        Gate::allows('isRRHH') || Gate::allows('isSST')) {
             return Terceros::join(
                 'dbo.w0540_empleados',
                 'dbo.w0541_terceros_seleccion.c0541_rowid',
@@ -104,7 +110,8 @@ class EstadisticasController extends Controller
              ->whereIn('c0763_rowid', $request->cargos)
              ->where('cz11_categoria', 'smur')->count();
         }
-        else if($request->co == "SEDES" && $request->cargos ==[] ){
+        else if($request->co == "SEDES" && $request->cargos ==[] && Gate::allows('isAdmin') || 
+        Gate::allows('isRRHH') || Gate::allows('isSST') ){
             return Terceros::join(
                 'dbo.w0540_empleados',
                 'dbo.w0541_terceros_seleccion.c0541_rowid',
@@ -147,7 +154,8 @@ class EstadisticasController extends Controller
              
              ->where('cz11_categoria', 'smur')->count();
         }
-        else if($request->co == "SEDES" && $request->cargos !=[]){
+        else if($request->co == "SEDES" && $request->cargos !=[] && Gate::allows('isAdmin') || 
+        Gate::allows('isRRHH') || Gate::allows('isSST') ){
             return Terceros::join(
                 'dbo.w0540_empleados',
                 'dbo.w0541_terceros_seleccion.c0541_rowid',
@@ -196,7 +204,8 @@ class EstadisticasController extends Controller
     
     public  function buscarSMMR(Request $request){
         // return z11_resultados::where('cz11_rta', $request->id)->where('cz11_categoria', 'smmr')->count();
-        if($request->co != "SEDES" && $request->cargos ==[] ) {
+        if($request->co != "SEDES" && $request->cargos ==[] && Gate::allows('isAdmin') || 
+        Gate::allows('isRRHH') || Gate::allows('isSST')) {
             return Terceros::join(
                 'dbo.w0540_empleados',
                 'dbo.w0541_terceros_seleccion.c0541_rowid',
@@ -239,7 +248,8 @@ class EstadisticasController extends Controller
              ->where('t285_co_centro_op.f285_id', $request->co)
              ->where('cz11_categoria', 'smmr')->count();
         }
-        else if($request->co != "SEDES" && $request->cargos !=[]) {
+        else if($request->co != "SEDES" && $request->cargos !=[] && Gate::allows('isAdmin') || 
+        Gate::allows('isRRHH') || Gate::allows('isSST')) {
             return Terceros::join(
                 'dbo.w0540_empleados',
                 'dbo.w0541_terceros_seleccion.c0541_rowid',
@@ -283,7 +293,8 @@ class EstadisticasController extends Controller
              ->whereIn('c0763_rowid', $request->cargos)
              ->where('cz11_categoria', 'smmr')->count();
         }
-        else if($request->co == "SEDES" && $request->cargos ==[] ){
+        else if($request->co == "SEDES" && $request->cargos ==[] && Gate::allows('isAdmin') || 
+        Gate::allows('isRRHH') || Gate::allows('isSST') ){
             return Terceros::join(
                 'dbo.w0540_empleados',
                 'dbo.w0541_terceros_seleccion.c0541_rowid',
@@ -326,7 +337,8 @@ class EstadisticasController extends Controller
              
              ->where('cz11_categoria', 'smmr')->count();
         }
-        else if($request->co == "SEDES" && $request->cargos !=[]){
+        else if($request->co == "SEDES" && $request->cargos !=[] && Gate::allows('isAdmin') || 
+        Gate::allows('isRRHH') || Gate::allows('isSST')){
             return Terceros::join(
                 'dbo.w0540_empleados',
                 'dbo.w0541_terceros_seleccion.c0541_rowid',
@@ -372,10 +384,15 @@ class EstadisticasController extends Controller
 
     }
     public function cargarCargos(){
+        if(Gate::allows('isAdmin') || 
+        Gate::allows('isRRHH') || Gate::allows('isSST') ) {
         $this->cargos = w0763_gh01_cargos::select('c0763_rowid','c0763_descripcion')->orderBy('c0763_descripcion', 'ASC')->get();
         return $this->cargos;
+        }
     }
     public function Resultados($id){
+        if(Gate::allows('isAdmin') || 
+        Gate::allows('isRRHH') || Gate::allows('isSST') ) {
         $totalEmp = Terceros::join(
             'dbo.w0540_empleados',
             'dbo.w0541_terceros_seleccion.c0541_rowid',
@@ -495,6 +512,7 @@ class EstadisticasController extends Controller
          ->where('cz4_gp_id', $id)->avg('cz4_calificacion');
 
          return [ $totalEmp,$totalEvCont, $totalEvPerd, $totalEvGan, $promedio ];
+        }
     }
     
 

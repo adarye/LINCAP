@@ -1,11 +1,12 @@
 <template>
-    <div>
+    <div v-show="id_creador == id_log">
          <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li v-show=" $route.params.cat == 1" class="breadcrumb-item"><i class="fa fa-pencil"> <router-link v-bind:to="'/gestion/pruebas/' + $route.params.cat"> Encuestas</router-link></i></li>
-                 <li v-show=" $route.params.cat == 2" class="breadcrumb-item"><i class="fa fa-file-text"> <router-link v-bind:to="'/gestion/pruebas/' + $route.params.cat"> Evaluaciones</router-link></i></li>
-                <li class="breadcrumb-item"><i class="fa fa-gears"> {{datos.cz3_nombre}}</i></li>
-                <li class="breadcrumb-item active" aria-current="page"></li>
+                <li v-show=" $route.params.cat == 1" class="breadcrumb-item"><i class="fa fa-pencil"> <router-link v-bind:to="'/gestion/pruebas/' + $route.params.cat + '/' + id_log"> Encuestas</router-link></i></li>
+                 <li v-show=" $route.params.cat == 2" class="breadcrumb-item"><i class="fa fa-file-text"> <router-link v-bind:to="'/gestion/pruebas/' + $route.params.cat + '/' + id_log" > Evaluaciones</router-link></i></li>
+                <li class="breadcrumb-item">{{datos.cz3_nombre}}</li>
+                <li class="breadcrumb-item"><i class="fa fa-gears"> Administrar</i></li>
+                
             </ol>
         </nav>
         <center>
@@ -29,14 +30,14 @@
                                         <option value="ra"> Respuesta Abierta</option>
                                     </select>
                                 </div>
-                                <div class="col-md-5 col-center col-sm-7 form-group has-feedback">
+                                <div class="col-md-12 col-center col-sm-12 form-group has-feedback">
                                     <div v-if="tipo_respuesta == 'smur' ||tipo_respuesta == 'smmr'">
                                         <input v-max-length="300" v-autofocus class="form-control" v-model="n_respuestas" placeholder="Numero de Respuestas" onfocus v-numeric-only />
                                     </div>
                                 </div>
-                                <div class="col-md-3 col-center col-sm-7 form-group has-feedback">
+                                <div class="col-md-10 col-center col-sm-7 form-group has-feedback">
                                     <div v-show="tipo_respuesta == 'smmr'">
-                                        <input v-max-length="300" v-autofocus class="form-control" v-model="rtas_correctas" placeholder="Numero de Respuestas Correctas" onfocus v-numeric-only />
+                                        <input v-max-length="300" v-autofocus class="form-control" v-model="rtas_correctas" placeholder="Limite de seleccion" onfocus v-numeric-only />
                                     </div>
                                 </div>
 
@@ -120,11 +121,15 @@ export default {
             res: [],
             pruebas: [],
             prueba_seleccionada: "",
-            rtas_correctas: null
+            rtas_correctas: null,
+            id_log: null,
+            id_creador: null
             
         };
     },
+   
     mounted() {
+        this.id_log = user.id
         this.buscar();
         this.buscarPruebas()
     },
@@ -132,6 +137,10 @@ export default {
         buscar() {
             axios.get(`/api/gp/buscar/${this.$route.params.id}`).then(res => {
                 this.datos = res.data;
+                this.id_creador = res.data.cz3_id_creador
+                if(this.id_creador != user.id){
+                      window.location.href = '/'
+                }
             });
         },
         crear() {
@@ -148,7 +157,7 @@ export default {
                         swal( "Advertencia","Escriba el numero de respuestas correctas","warning");
 
                     }
-                     else if( this.tipo_respuesta == "smmr" && this.rtas_correctas >= this.n_respuestas){
+                     else if( this.tipo_respuesta == "smmr" && this.rtas_correctas > this.n_respuestas){
                         swal( "Advertencia","El numero de respuestas correctas debe ser menor o igual a las respuestas totales","warning");
 
                     }
@@ -222,6 +231,7 @@ export default {
         limpiar() {
             this.tipo_respuesta = "Seleccione...";
             this.pregunta = "";
+            this.rtas_correctas= null;
             (this.n_respuestas = null), (this.res = []);
         },
 

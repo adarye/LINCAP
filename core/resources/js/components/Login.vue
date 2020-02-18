@@ -3,7 +3,7 @@
         <form class="my-4" method="POST" id="formulario-login" @submit.prevent="iniciarSesion">
             <div class="col-md-12 col-sm-12 form-group has-feedback">
                 <input v-numeric-only v-max-length="16" v-autofocus type="text" class="form-control" v-model="cz1_cc"
-                    placeholder="Número de cédula" />
+                    placeholder="Número de cédula" onfocus />
                 <span title="Número de cédula" class="fa fa-user form-control-feedback right" aria-hidden="true"></span>
             </div>
             <div class="col-md-12 col-sm-12 form-group has-feedback">
@@ -122,7 +122,7 @@
                     .post("api/login/ingresar", this.parametros)
                     .then(res => {
                         this.user = res.data;
-                        // console.log(this.user);
+                        console.log(this.user);
 
                         if (res.data == "inactivo") {
                             swal("Error", "Tu contrato finalizó", "error");
@@ -141,7 +141,7 @@
                         }
                     })
                     .catch(error => {
-                        // console.log(error.response.data.errors);
+                        console.log(error.response.data.errors);
                         let er = error.response.data.errors;
                         let mensaje = "Error no identificado";
                         if (er.hasOwnProperty("cz1_cc")) {

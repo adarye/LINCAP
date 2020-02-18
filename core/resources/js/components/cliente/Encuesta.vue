@@ -8,6 +8,9 @@
                 <li class="breadcrumb-item active" aria-current="page"></li>
             </ol>
         </nav>
+        <center>
+        <h1>{{titulo}}</h1>
+        </center>
         <div class="alert alert-primary lead" role="alert" v-show="estado_prueba == 0">
          Esta encuesta no ha sido iniciada
          </div>
@@ -106,7 +109,8 @@
                 fecha_cierre: null,
                 fecha_apertura:null,
                 estado_prueba: null,
-                user: ""
+                user: "",
+                titulo: ""
 
 
             };
@@ -132,15 +136,27 @@
                  if( (this.fecha_cierre < new Date() || this.fecha_apertura > new Date()) && this.id_creador != user.id){
                     this.$router.go(-1)
                  }
-                if(this.$route.params.empleado != user.id){
+               else if(this.$route.params.empleado != user.id){
                  this.editar = false
                 swal('Modo observador', 'No podra editar la prueba', 'warning')
+                 this.traerSMMR()
+                this.traerRa();
+                this.traerPregunta_SMUR();
+                this.buscarResmur()
+                this.buscarResmmr()
+                this.buscarRa();
                 if(this.id_creador != user.id){
                     swal('Acceso denegado', '', 'warning')
                    this.$router.go(-1)
                  }
-                  
-                
+            }
+            else{
+                this.traerSMMR()
+                this.traerRa();
+                this.traerPregunta_SMUR();
+                this.buscarResmur()
+                this.buscarResmmr()
+                this.buscarRa();
             }
               
 
@@ -175,12 +191,7 @@
            
             cargar() {
                   this.buscar()
-                this.traerSMMR()
-                this.traerRa();
-                this.traerPregunta_SMUR();
-                this.buscarResmur()
-                this.buscarResmmr()
-                this.buscarRa();
+                
             },
             guardarRA(id_pp, id_gp, categoria, ra){
                 console.log(ra)
@@ -239,6 +250,7 @@
             axios.get(`/api/gp/buscar/${this.$route.params.id}`).then(res => {
                 this.id = res.data.cz3_id
                 this.id_creador = res.data.cz3_id_creador
+                this.titulo = res.data.cz3_nombre
 
                 this.fecha_cierre = new Date(res.data.cz3_fecha_cierre);
                 this.fecha_apertura = new Date(res.data.cz3_fecha_apertura);
@@ -252,7 +264,7 @@
         finalizar(){
             axios.put(`/api/pruebas/finalizar/${this.$route.params.id}`)
             .then(res=>{
-                swal('Prueba Finalizada', 'Ya no podras modificarla', 'success')
+                swal('Encuesta Finalizada', 'Ya no podras modificarla', 'success')
                   this.$router.go(-1)
             })
         },

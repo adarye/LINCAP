@@ -101,7 +101,8 @@
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
-                    <label> Numero de telefono  de {{ empleado_info.cz9_nombre_contacto }}</label>
+                       <label  v-if="!empleado_info.cz9_nombre_contacto"> Numero de telefono  de</label>
+                    <label  v-if="empleado_info.cz9_nombre_contacto"> Numero de telefono  de {{ empleado_info.cz9_nombre_contacto.toUpperCase() }}</label>
                     <input type="text" class="form-control" :disabled="validated ? false : true" v-model="empleado_info.cz9_tel_contacto" v-max-length="25" v-numeric-only/>
                 </div>
                 <div class="form-group col-md-6">

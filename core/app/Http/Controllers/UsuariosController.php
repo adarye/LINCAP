@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Terceros;
 use App\Mail\ResetPassword;
 use App\PasswordReset;
 use App\z1_usuarios;
@@ -185,6 +186,93 @@ class UsuariosController extends Controller
         $usuario->save();
 
     }
+    public function registrarTodos(Request $request){
+        // return $request;
+        
+        if(Gate::allows('isAdmin')) {
+            $empleados= Terceros::select(
+                "c0541_rowid",
+                "c0541_nombres",
+                "c0541_id",
+                "c0541_apellido1",
+                "c0541_apellido2",
+                "c0540_fecha_nacimiento",
+                "c0550_fecha_ingreso",
+                "c0763_descripcion",
+                "c0550_rowid_tercero",
+                "c0550_fecha_contrato_hasta",
+                "f285_descripcion",
+                "f285_id",
+                "c0540_rowid_tercero"
 
 
-}
+            )->join(
+                'dbo.w0540_empleados',
+                'dbo.w0541_terceros_seleccion.c0541_rowid',
+                '=',
+                'dbo.w0540_empleados.c0540_rowid_prospecto'
+
+            )->join(
+                'dbo.w0550_contratos',
+                'dbo.w0540_empleados.c0540_rowid_tercero',
+                '=',
+                'dbo.w0550_contratos.c0550_rowid_tercero'
+
+            )->join(
+                'dbo.w0763_gh01_cargos',
+                'dbo.w0763_gh01_cargos.c0763_rowid',
+                '=',
+                'dbo.w0550_contratos.c0550_rowid_cargo'
+
+            )->join(
+                'dbo.t284_co_ccosto',
+                'dbo.w0550_contratos.c0550_rowid_ccosto',
+                '=',
+                'dbo.t284_co_ccosto.f284_rowid'
+    
+            )->join(
+                'dbo.t285_co_centro_op',
+                'dbo.w0550_contratos.c0550_id_co',
+                '=',
+                'dbo.t285_co_centro_op.f285_id'
+
+             )
+                ->where('c0550_ind_estado', '1')
+                ->get();
+        $i = 0;
+       
+        
+
+        foreach ($empleados as $emp) {
+         $user =   z1_usuarios::all()->where('cz1_id_empleado',$emp->c0540_rowid_tercero)->first();
+         
+         
+         if(empty($user)){
+             $i ++;
+             $user = new z1_usuarios();
+             $user->cz1_cc = $emp->c0541_id;
+             $user->cz1_nombres = $emp->c0541_nombres.' '.$emp->c0541_apellido1.' '.$emp->c0541_apellido2;
+             $user->cz1_id_rol = 1;
+             $user->cz1_id_empleado = $emp->c0540_rowid_tercero;
+             $user->cz1_avatar = 'user.png';
+             $random = Str::random(40);
+             $user->password = bcrypt($random);
+             $user->save();
+
+
+         };
+
+        };
+        
+        return $i;
+
+        }
+        else{
+            return 'no tienes permisos';
+        }
+        
+    }
+    }
+
+
+

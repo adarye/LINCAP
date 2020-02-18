@@ -46,6 +46,9 @@
         <button type="button" class="btn btn-round btn-success" @click="show" title="Nuevo">
             Nuevo
         </button>
+          <button type="button" class="btn btn-round btn-primary" @click="agregarTodos" title="Nuevo">
+            Agregar a todos
+        </button>
         <modal name="create" :clickToClose="false" :adaptive="true" :width="430" :height="430">
             <div class="login_wrapper">
                 <div class="animate form login_form">
@@ -280,8 +283,10 @@ import router from '../../js/router';
 
                         if (this.usuario.cz1_id_empleado == null) {
                             swal("Advertencia", "El empleado no existe", "warning");
+                            this.created()
                         } else {
                             this.validarCCExistente();
+                            this.created();
                         }
                     }
                 );
@@ -377,6 +382,23 @@ import router from '../../js/router';
             closeCreate() {
                 this.$modal.hide("create");
                 this.limpiar();
+            },
+            agregarTodos(){
+                 const wrapper = document.createElement('div');
+                wrapper.innerHTML =
+                    "<div class='spinner-border text-primary row' role='status'> <span class='sr-only'>Loading...</span> </div>  <div class=''>Esto puede tomar varios minutos</div> ";
+                swal({
+                    buttons: false,
+                    html: true,
+                    content: wrapper,
+                    closeOnClickOutside: false
+                });
+                axios.post('/api/usuario/agregar-todos', this.usuarios )
+                .then(res=>{
+                    swal('Se han agregado '+ res.data +' empleado(s) nuevos', '', 'success')
+                }).catch(res => {
+                    swal('Ha sucedido un error inesperado', '', 'error')
+                })
             }
         },
 

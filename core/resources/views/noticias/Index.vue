@@ -6,7 +6,9 @@
         <button class="btn btn-primary" type="button" v-show="mostrar" @click="mostrar = false, limpiar()">Cerrar</button>
         </div>
         <form v-show="mostrar == true && editar == false" class="my-3" method="POST" @submit.prevent="validar">
-             <div class="card" style="width:500px">
+             <div class="row">
+             <div class="col-md-6">
+             <div class="card" style="width:100%">
             <div class="card-header">Agregar noticia</div>
         <div class="card-body">
             <div class="row">
@@ -59,6 +61,8 @@
             </div>
                 
             </div>
+             </div>
+             </div>
              </div>
         </form>
 

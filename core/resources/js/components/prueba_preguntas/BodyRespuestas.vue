@@ -55,7 +55,7 @@
             </div>
             <div class="col-md-12">
                 <article v-for="(item4, i) in item3.smmr" :key="`s-${i}`">
-                    <input v-model="inputs[indice]"  :disabled="inputs[indice].length >= item3.cz5_n_rtas_correctas && inputs[indice].indexOf(item4.cz8_id) === -1"   @click="guardarSMMRcorrecta(item4,item4.cz8_id == item4.cz8_rta_correcta)"  class="flat" type="checkbox" :value="item4.cz8_id" >{{ item4.cz8_rta }}
+                    <input v-model="inputs[indice]"  :disabled="inputs[indice].length >= item3.cz5_n_rtas_correctas && inputs[indice].indexOf(Number(item4.cz8_id)) === -1"   @click="guardarSMMRcorrecta(item4,item4.cz8_id == item4.cz8_rta_correcta)"  class="flat" type="checkbox" :value="item4.cz8_id" >{{ item4.cz8_rta }}
                     <!-- :checked="item4.cz8_id == item4.cz8_rta_correcta" -->
                 </article>
             </div>
@@ -117,7 +117,7 @@
                               for(var j = 0; j < res.data[i].smmr.length; j++ ){
                                    
                                    if(res.data[i].smmr[j].cz8_id == res.data[i].smmr[j].cz8_rta_correcta){
-                                       this.inputs[i].push(res.data[i].smmr[j].cz8_id)
+                                       this.inputs[i].push(Number(res.data[i].smmr[j].cz8_id))
                                    }
 
                               }

@@ -106,7 +106,7 @@ export default new Router({
 
         },
         {
-            path: '/gestion/pruebas/:categoria',
+            path: '/gestion/pruebas/:categoria/' + user.id,
             name: 'IndexGP',
             component: IndexGP
 
@@ -147,12 +147,12 @@ export default new Router({
             component: Encuesta
         },
         {
-            path: '/presentar/evaluacion/:id/:empleado',
+            path: '/presentar/evaluacion/:id/' + user.id,
             name: 'PresentarEvaluacion',
             component: Evaluacion
         },
         {
-            path: '/administrar/evaluacion/:id/:empleado',
+            path: '/administrar/evaluacion/:id/:empleado/' + user.id,
             name: 'AdministrarEvaluacion',
             component: AdministrarEvaluacion
         },

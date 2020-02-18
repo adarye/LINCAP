@@ -1,15 +1,17 @@
 <template>
-    <div>
+    <div v-show="id_creador == id_log">
+
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li v-show=" $route.params.cat == 1" class="breadcrumb-item"><i class="fa fa-pencil">
-                        <router-link v-bind:to="'/gestion/pruebas/' + $route.params.cat"> Encuestas</router-link>
+                <li v-if=" $route.params.cat == 1" class="breadcrumb-item"><i class="fa fa-pencil">
+                        <router-link v-bind:to="'/gestion/pruebas/' + $route.params.cat + '/' + id_log"> Encuestas</router-link>
                     </i></li>
-                <li v-show=" $route.params.cat == 2" class="breadcrumb-item"><i class="fa fa-file-text">
-                        <router-link v-bind:to="'/gestion/pruebas/' + $route.params.cat"> Evaluaciones</router-link>
+                <li v-if=" $route.params.cat == 2" class="breadcrumb-item"><i class="fa fa-file-text">
+                        <router-link v-bind:to="'/gestion/pruebas/' + $route.params.cat + '/' + id_log"> Evaluaciones</router-link>
                     </i></li>
-                <li class="breadcrumb-item"><i class="fa fa-users"> {{titulo}}</i></li>
-                <li class="breadcrumb-item active" aria-current="page"></li>
+                <li class="breadcrumb-item" >{{titulo}}</li>
+                 <li class="breadcrumb-item active"><i class="fa fa-users">Asignar</i></li>
+               
             </ol>
         </nav>
 
@@ -147,14 +149,15 @@
                 moment: moment,
                 id_prueba: null,
                 selectEM: 'MOSTRAR TODOS',
-                titulo: ""
+                titulo: "",
+                id_creador: null,
+                id_log : null
             };
         },
         beforeMount() {
+            this.id_log = user.id
             this.id_prueba = this.$route.params.id
-            this.getCO();
-            this.traerRelacion()
-            this.traerActivos();
+            
             this.buscar()
         },
         methods: {
@@ -296,7 +299,7 @@
                         if (res.data.cz3_categoria == 1) {
                             router.push('/presentar/encuesta/' + this.id_prueba + '/' + id)
                         } else if (res.data.cz3_categoria == 2) {
-                            router.push('/administrar/evaluacion/' + this.id_prueba + '/' + id)
+                            router.push('/administrar/evaluacion/' + this.id_prueba + '/' + id + '/' + user.id)
                         }
                     })
 
@@ -304,6 +307,16 @@
             buscar() {
                 axios.get(`/api/gp/buscar/${this.$route.params.id}`).then(res => {
                     this.titulo = res.data.cz3_nombre
+                    this.id_creador = res.data.cz3_id_creador
+                    if(this.id_creador != user.id){
+                        window.location.href = '/'
+                    }
+                    else{
+                        this.getCO();
+            this.traerRelacion()
+            this.traerActivos();
+
+                    }
 
                 });
             }

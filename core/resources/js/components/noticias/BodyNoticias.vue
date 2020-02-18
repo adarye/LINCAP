@@ -51,8 +51,8 @@
                                         alt="" class="img-profile-noti"> </p></div>
                         <div class="clearfix"> </div>
                     </div>
-                    <div class="x_content">
-                        <div class="dashboard-widget-content">
+                    <div class="">
+                        <div class="">
                             <div class="col-md-12 hidden-small">
                                 <h2 class="line_30"> <i class="fa fa-clock-o"></i> {{item.cz12_fecha_creacion}} </h2>
                                 <h2> <a v-show="item.cz12_archivo != null"

@@ -94,7 +94,7 @@
             presentarEva(prueba) {
                 swal({
                         title: "Advertencia",
-                        text: "Si te sales despues de estar en la evaluacion, la prueba sera anulada.",
+                        text: "Si te sales o recargas la pagina despues de estar en la evaluacion, la prueba sera anulada.",
                         icon: "warning",
                         buttons: true,
                         dangerMode: true

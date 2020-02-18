@@ -2,8 +2,9 @@
     <div>
         <center>
             <h1 class="titulo">{{titulo}}</h1>
+            {{estado_prueba}}
         </center>
-       
+
         <h4 class="display-5 titulo mb-3" v-show="resRA.length">Preguntas con respuesta abierta</h4>
         <article v-for="(dato, i) in resRA" :key="`A-${i}`">
             <div class="row mt-2">
@@ -58,7 +59,7 @@
         </article>
 
 
-         <h4 class="display-5 titulo my-3" v-show="resSMMR.length">Preguntas de selección multiple con multiple
+        <h4 class="display-5 titulo my-3" v-show="resSMMR.length">Preguntas de selección multiple con multiple
             respuestas</h4>
         <article v-for="(item3, indice) in resSMMR" :key="`o-${indice}`">
             <div class="row mt-2">
@@ -67,22 +68,21 @@
                 </div>
 
             </div>
-            <div class="col-md-12" v-if="inputs[indice]" >
+            <div class="col-md-12" v-if="inputs[indice]">
                 <article v-for="(item4, i) in item3.smmr" :key="`s-${i}`">
-                   
-                    
-                    <input 
-                        @click="guardarSMMR(item3.cz5_id, item3.cz5_gp_id, item4.cz8_id, item3.cz5_categoria)"
-                       v-model="inputs[indice]"  :disabled="inputs[indice].length >= item3.cz5_n_rtas_correctas && inputs[indice].indexOf(item4.cz8_id) === -1"  
-                         class="flat" type="checkbox" :value="item4.cz8_id"
-                        >{{ item4.cz8_rta }}
-                         
+
+
+                    <input @click="guardarSMMR(item3.cz5_id, item3.cz5_gp_id, item4.cz8_id, item3.cz5_categoria)"
+                        v-model="inputs[indice]"
+                        :disabled="inputs[indice].length >= item3.cz5_n_rtas_correctas && inputs[indice].indexOf(Number(item4.cz8_id)) === -1"
+                        class="flat" type="checkbox" :value="item4.cz8_id">{{ item4.cz8_rta }}
+
 
                 </article>
             </div>
         </article>
 
-        <button v-show="estado_prueba != 2" @click="$router.go(-1)" class="btn btn-danger mt-4"
+        <button v-show="estado_prueba != 2" @click="calificar" class="btn btn-danger mt-4"
             type="button">Finalizar</button>
 
 
@@ -125,65 +125,56 @@
 
             };
         },
-
         created() {
-
-
+            window.addEventListener('beforeunload', this.calificar)
         },
         beforeMount() {
-           this.id_log = user.id
-            console.log('evaluacion')
+            this.id_log = user.id
             this.id = this.$route.params.id
-            this.id_empleado = this.$route.params.empleado
+            this.id_empleado = user.id
 
             this.cargar();
+            this.contar();
 
 
-            EventBus.$on('cargar', (item) => {
-                this.cargar()
-            });
-            //  router.onReady(this.advertir)
-            axios.get(`/api/preguntas/contar/${this.id}`)
-                .then(res => {
-                    console.log(res.data)
-                    this.cantidad_preg = res.data
-
-
-                })
-
-
-
-            //  document.addEventListener('beforeunload', console.log('yeah'))
-
-
-
-            //   window.onbeforeunload =  this.cancelar(3)
-            // window.addEventListener('beforeunload', console.log( this.id_empleado  + 'dd') )
-
-        },
-        beforeDestroy() {
-                        //   window.unload =  this.cancelar(3)
-            // window.onbeforeunload = this.cancelar(2)
         },
 
         methods: {
+            contar() {
+                axios.get(`/api/preguntas/contar/${this.id}`)
+                    .then(res => {
+                        console.log(res.data)
+                        this.cantidad_preg = res.data
+                    })
+            },
 
             validar() {
 
                 this.conseguirEstado()
                 if ((this.fecha_cierre < new Date() || this.fecha_apertura > new Date())) {
                     console.log('cierre')
-                    this.$router.go(-1)
-                }
-                if (this.$route.params.empleado != user.id) {
-                    this.editar = false
-                    swal('Modo observador', 'No podra editar la prueba', 'warning')
-                    if (this.id_creador != user.id) {
-                        swal('Acceso denegado', '', 'warning')
-                        this.$router.go(-1)
-                    }
+                    window.location.href = '/pruebas/pendientes/2'
                 }
 
+            },
+            conseguirEstado() {
+                axios.get(`/api/asignacion/estado/${this.$route.params.id}/${user.id}`)
+                    .then(res => {
+
+                        this.estado_prueba = res.data.cz4_estado
+
+                        if (this.estado_prueba == 2 || this.estado_prueba == 1) {
+                            swal('Advertencia', 'Esta prueba ya finalizo', 'warning')
+                            console.log('Estado')
+                             window.location.href = '/pruebas/pendientes/2'
+                        } else {
+                            this.traerSMMR()
+                            this.traerRa();
+                            this.traerPregunta_SMUR();
+                            this.buscarResmur()
+                            this.buscarRa();
+                        }
+                    })
 
             },
             traerRa() {
@@ -191,17 +182,7 @@
                 axios.get(`/api/respuestaA/buscar/${this.id}`)
                     .then(res => {
                         this.resRA = res.data
-                        const wrapper = document.createElement('div');
-                        wrapper.innerHTML =
-                            "<div class='spinner-border text-primary row' role='status'> <span class='sr-only'>Loading...</span> </div>  <div class=''>Cargando estadisticas...</div> ";
-
-                        if (this.estado_prueba != 2  && this.id_empleado == this.id_log) {
-                            swal({
-                                buttons: false,
-                                html: true,
-                                content: wrapper,
-                                closeOnClickOutside: false
-                            });
+                        if (this.estado_prueba != 2 && this.id_empleado == this.id_log) {
                             for (let i = 0; i < this.resRA.length; i++) {
                                 axios.post('/api/respuesta/ra/guardar', {
                                         id_gp: this.resRA[i].cz5_gp_id,
@@ -210,13 +191,10 @@
                                         rta_ra: null
                                     })
                                     .then(res => {
-                                        console.log(res.data)
+
                                     })
                             }
-                            swal('', '', '')
                         }
-
-                        console.log(this.resRA)
                     })
             },
             traerSMMR() {
@@ -238,13 +216,11 @@
             },
             cargar() {
                 this.buscar()
-                
-                this.traerSMMR()
-                this.traerRa();
-                this.traerPregunta_SMUR();
-                this.buscarResmur()
-
-                this.buscarRa();
+                // this.traerSMMR()
+                // this.traerRa();
+                // this.traerPregunta_SMUR();
+                // this.buscarResmur()
+                // this.buscarRa();
             },
             guardarRA(id_pp, id_gp, categoria, ra) {
                 console.log(ra)
@@ -294,27 +270,27 @@
                     })
             },
             buscarResmmr() {
-               axios.get(`/api/respuesta/smmr/buscar/${this.id}/${this.$route.params.empleado}`)
+                axios.get(`/api/respuesta/smmr/buscar/${this.id}/${user.id}`)
                     .then(res => {
                         this.notas_smmr = res.data
-                        
-                        for(var i = 0; i < this.resSMMR.length; i++ ){
-                            this.inputs.push([])
-                               for(var j = 0; j < this.notas_smmr.length; j++ ){
-                                   
-                                   if(this.notas_smmr[j].cz11_pp_id == this.resSMMR[i].cz5_id){
-                                       this.inputs[i].push(this.notas_smmr[j].cz11_rta)
-                                   }
 
-                              }
-                           
+                        for (var i = 0; i < this.resSMMR.length; i++) {
+                            this.inputs.push([])
+                            for (var j = 0; j < this.notas_smmr.length; j++) {
+
+                                if (this.notas_smmr[j].cz11_pp_id == this.resSMMR[i].cz5_id) {
+                                    this.inputs[i].push(Number(this.notas_smmr[j].cz11_rta))
+                                }
+
+                            }
+
                         }
                         console.log(this.inputs)
 
-                })
+                    })
             },
             buscarRa() {
-                axios.get(`/api/respuesta/ra/buscar/${this.id}/${this.$route.params.empleado}`)
+                axios.get(`/api/respuesta/ra/buscar/${this.id}/${user.id}`)
                     .then(res => {
                         // this.respuestas_ra = res.data
                         this.nota_ra = res.data
@@ -340,39 +316,17 @@
 
                 });
             },
-            finalizar(estado) {
+            finalizar() {
 
                 axios.put(`/api/pruebas/finalizar/${this.id}`)
                     .then(res => {
-
+                        window.location.href = '/pruebas/pendientes/2'
 
                     })
-                if (estado == 1) {
-                    // this.$router.go(-1)
-                    location.reload()
-                }
-                if (estado == 3) {
-                    window.location.href = 'https://stackoverflow.com/questions/35664550/vue-js-redirection-to-another-page'
-                    console.log('recargo')
-                }
             },
-            conseguirEstado() {
-                axios.get(`/api/asignacion/estado/${this.$route.params.id}/${this.$route.params.empleado}`)
-                    .then(res => {
 
-                        this.estado_prueba = res.data.cz4_estado
-                        console.log(this.estado_prueba)
-                        if (this.estado_prueba == 2 || this.estado_prueba == 1 ) {
-                            swal('Advertencia', 'Esta prueba ya finalizo', 'warning')
-                            console.log('Estado')
-                            this.$router.go(-1)
-
-
-                        }
-                    })
-
-            },
-            calificar(estado) {
+            calificar() {
+                console.log('ENTRE')
 
                 axios.get(`/api/evaluacion/calificar/${user.id} / ${this.id}`)
                     .then(res => {
@@ -385,26 +339,24 @@
                             }
 
                         } else {
-                            swal('Informacion',
-                                'Esta prueba consta de preguntas abiertas, por esto sera calificada después.',
-                                'success')
+                            // swal('Informacion',
+                            //     'Esta prueba consta de preguntas abiertas, por esto sera calificada después.',
+                            //     'success')
                         }
                     })
-                this.finalizar(estado)
+                this.finalizar()
             }
-           
+
 
         },
         beforeRouteLeave(to, from, next) {
-             if (this.id_creador != user.id) {
-                 const answer = window.confirm('¿Esta seguro que quiere salir de la evaluacion?')
+
+            const answer = window.confirm('¿Esta seguro que quiere salir de la evaluacion?')
             if (answer) {
-                this.calificar(1)
+                this.calificar()
             } else {
                 next(false)
             }
-
-                }
 
         },
         computed: {

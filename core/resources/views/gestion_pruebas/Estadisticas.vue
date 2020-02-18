@@ -4,16 +4,19 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li v-show=" $route.params.cat == 1" class="breadcrumb-item"><i class="fa fa-pencil">
-                        <router-link v-bind:to="'/gestion/pruebas/' + $route.params.cat"> Encuestas</router-link>
+                        <router-link v-bind:to="'/gestion/pruebas/' + $route.params.cat + '/' + id_log"> Encuestas</router-link>
                     </i></li>
                 <li v-show=" $route.params.cat == 2" class="breadcrumb-item"><i class="fa fa-file-text">
-                        <router-link v-bind:to="'/gestion/pruebas/' + $route.params.cat"> Evaluaciones</router-link>
+                        <router-link v-bind:to="'/gestion/pruebas/' + $route.params.cat + '/' + id_log"> Evaluaciones</router-link>
                     </i></li>
-                <li class="breadcrumb-item"><i class="fa fa-bar-chart"> {{titulo}}</i></li>
-                <li class="breadcrumb-item active" aria-current="page"></li>
+                <li class="breadcrumb-item">{{titulo}}</li>
+                 <li class="breadcrumb-item"><i class="fa fa-bar-chart"> Estadisticas</i></li>
+
             </ol>
         </nav>
+        <div class="col-md-12">
         <CuadroEstadistico></CuadroEstadistico>
+        </div>
         <div class="row mt-3">
             <div class="col-md-4  col-sm-2  has-feedback">
                 <select v-model="selectSede" @change="filtrar()" class="form-control">
@@ -153,10 +156,12 @@
                 selectSede: "SEDES",
                 cargos: [],
                 cargos_filtro: [],
-                titulo: ""
+                titulo: "",
+                id_log: null
             }
         },
         created() {
+            this.id_log = user.id
             this.id = this.$route.params.id
             this.traerPregunta_SMUR()
             this.traerSMMR()

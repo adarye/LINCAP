@@ -9,6 +9,11 @@ use Illuminate\Http\Request;
 
 class RsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function guardar(Request $request)
     {
         $i = 0;
