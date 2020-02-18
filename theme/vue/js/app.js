@@ -5541,6 +5541,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
 
 moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale("es");
 
@@ -6429,6 +6432,12 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale("es");
           _this2.limpiar();
         });
       }
+
+      if (this.$route.params.categoria == 1) {
+        this.title = 'Lincap | Admin encuestas';
+      } else {
+        this.title = 'Lincap | Admin evaluaciones';
+      }
     },
     editar: function editar(item) {
       if (this.$route.params.categoria == 1) {
@@ -6482,6 +6491,12 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale("es");
 
           _this3.limpiar();
         });
+      }
+
+      if (this.$route.params.categoria == 1) {
+        this.title = 'Lincap | Admin encuestas';
+      } else {
+        this.title = 'Lincap | Admin evaluaciones';
       }
     },
     cerrar: function cerrar(id) {
@@ -69875,8 +69890,8 @@ var render = function() {
         attrs: {
           title:
             _vm.$route.params.cat == 1
-              ? "Asignar encuesta"
-              : "Asignar evaluación"
+              ? "Lincap | Asignar encuesta"
+              : "Lincap | Asignar evaluación"
         }
       }),
       _vm._v(" "),
@@ -74923,6 +74938,8 @@ var render = function() {
   return _c(
     "div",
     [
+      _c("vue-headful", { attrs: { title: "Lincap | Actualizar datos" } }),
+      _vm._v(" "),
       _c("nav", { attrs: { "aria-label": "breadcrumb" } }, [
         _c("ol", { staticClass: "breadcrumb" }, [
           _c(

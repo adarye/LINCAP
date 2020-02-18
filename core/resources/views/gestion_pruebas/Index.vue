@@ -213,7 +213,12 @@ import 'pc-bootstrap4-datetimepicker/build/css/bootstrap-datetimepicker.css';
                    this.limpiar();
                 })   
                 
-                }    
+                }   
+                 if( this.$route.params.categoria == 1){
+                 this.title = 'Lincap | Admin encuestas'}
+                 else {
+                this.title= 'Lincap | Admin evaluaciones'
+                 } 
             },
             editar(item){
                 if( this.$route.params.categoria == 1){
@@ -276,6 +281,11 @@ import 'pc-bootstrap4-datetimepicker/build/css/bootstrap-datetimepicker.css';
                     this.limpiar();
                 })
                 }
+                if( this.$route.params.categoria == 1){
+                 this.title = 'Lincap | Admin encuestas'}
+                 else {
+                this.title= 'Lincap | Admin evaluaciones'
+                 } 
             },
              cerrar(id){
                 swal({
