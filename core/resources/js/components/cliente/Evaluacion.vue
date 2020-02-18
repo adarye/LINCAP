@@ -1,8 +1,6 @@
 <template>
     <div>
-         <vue-headful
-            :title=" 'Presentar evaluación | ' + titulo"
-        />
+        <vue-headful :title=" 'Presentar evaluación | ' + titulo" />
         <center>
             <h1 class="titulo">{{titulo}}</h1>
             {{estado_prueba}}
@@ -50,12 +48,16 @@
                 <div class="col-md-12">
                     <article v-for="(item2, i) in item.respuestas" :key="i">
                         <!-- {{respuestas.filter(cz7_id => cz7_id == item.cz7_id )}} -->
-
-                        <input :disabled="editar ? false : true"
-                            @click="guardarSMUR(item.cz5_id, item.cz5_gp_id, item2.cz7_id, item.cz5_categoria)"
-                            :checked="respuestas_smur.filter(cz7_id => cz7_id == item2.cz7_id ) != ''" class="flat"
-                            type="radio" :name="item.cz5_id" :value="item2.cz7_id"> {{ item2.cz7_rta }}
+                        <div class="custom-control custom-radio">
+                            <input :disabled="editar ? false : true"
+                                @click="guardarSMUR(item.cz5_id, item.cz5_gp_id, item2.cz7_id, item.cz5_categoria)"
+                                :id="item2.cz7_id"
+                                :checked="respuestas_smur.filter(cz7_id => cz7_id == item2.cz7_id ) != ''"
+                                class="custom-control-input" type="radio" :name="item.cz5_id" :value="item2.cz7_id">
+                            <label class="custom-control-label" :for="item2.cz7_id">{{ item2.cz7_rta }}</label>
+                        </div>
                     </article>
+
 
                 </div>
             </div>
@@ -74,13 +76,15 @@
             <div class="col-md-12" v-if="inputs[indice]">
                 <article v-for="(item4, i) in item3.smmr" :key="`s-${i}`">
 
+                    <div class="custom-control custom-checkbox">
 
-                    <input @click="guardarSMMR(item3.cz5_id, item3.cz5_gp_id, item4.cz8_id, item3.cz5_categoria)"
-                        v-model="inputs[indice]"
-                        :disabled="inputs[indice].length >= item3.cz5_n_rtas_correctas && inputs[indice].indexOf(Number(item4.cz8_id)) === -1"
-                        class="flat" type="checkbox" :value="item4.cz8_id">{{ item4.cz8_rta }}
+                        <input @click="guardarSMMR(item3.cz5_id, item3.cz5_gp_id, item4.cz8_id, item3.cz5_categoria)"
+                            v-model="inputs[indice]" :id="item4.cz8_id"
+                            :disabled="inputs[indice].length >= item3.cz5_n_rtas_correctas && inputs[indice].indexOf(Number(item4.cz8_id)) === -1"
+                            class="custom-control-input" type="checkbox" :value="item4.cz8_id">
+                        <label class="custom-control-label" :for="item4.cz8_id">{{ item4.cz8_rta }}</label>
 
-
+                    </div>
                 </article>
             </div>
         </article>
@@ -169,7 +173,7 @@
                         if (this.estado_prueba == 2 || this.estado_prueba == 1) {
                             swal('Advertencia', 'Esta prueba ya finalizo', 'warning')
                             console.log('Estado')
-                             window.location.href = '/pruebas/pendientes/2'
+                            window.location.href = '/pruebas/pendientes/2'
                         } else {
                             this.traerSMMR()
                             this.traerRa();

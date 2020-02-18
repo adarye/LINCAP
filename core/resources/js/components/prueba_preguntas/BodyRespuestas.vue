@@ -21,7 +21,8 @@
         </article>
 
 
-        <h4 class="display-5 titulo my-3" v-show=" resSMUR.length">Preguntas de selección multiple con única respuestas</h4>
+        <h4 class="display-5 titulo my-3" v-show=" resSMUR.length">Preguntas de selección multiple con única respuestas
+        </h4>
         <article v-for="(item, indice) in  resSMUR" :key="indice" class="my-3">
             <div class="row mt-2">
                 <div class="col-md-6">
@@ -33,16 +34,22 @@
                     <button @click="eliminar(item.cz5_id)" class="fa fa-trash float-right btn-sm btn-danger" />
                 </div>
 
-                <div class="col-md-12">
+                <div class="col-md-12 ">
                     <article v-for="(item2, i) in item.respuestas" :key="i">
-                        <input :checked="item2.cz7_id == item2.cz7_rta_correcta" class="flat" type="radio" @click="guardarSMURcorrecta(item2)" :name="item.cz5_id" :value="item2.cz7_id"> {{ item2.cz7_rta }}
+                        <div class="custom-control custom-radio">
+                            <input :checked="item2.cz7_id == item2.cz7_rta_correcta" :id="item2.cz7_id"
+                                class="custom-control-input" type="radio" @click="guardarSMURcorrecta(item2)"
+                                :name="item.cz5_id" :value="item2.cz7_id">
+                            <label class="custom-control-label" :for="item2.cz7_id">{{ item2.cz7_rta }}</label>
+                        </div>
                     </article>
                 </div>
             </div>
         </article>
 
 
-        <h4  class="display-5 titulo my-3" v-show="resSMMR.length">Preguntas de selección multiple con multiple respuestas</h4>
+        <h4 class="display-5 titulo my-3" v-show="resSMMR.length">Preguntas de selección multiple con multiple
+            respuestas</h4>
         <article v-for="(item3, indice) in resSMMR" :key="`o-${indice}`">
             <div class="row mt-2">
                 <div class="col-md-6">
@@ -55,8 +62,13 @@
             </div>
             <div class="col-md-12">
                 <article v-for="(item4, i) in item3.smmr" :key="`s-${i}`">
-                    <input v-model="inputs[indice]"  :disabled="inputs[indice].length >= item3.cz5_n_rtas_correctas && inputs[indice].indexOf(Number(item4.cz8_id)) === -1"   @click="guardarSMMRcorrecta(item4,item4.cz8_id == item4.cz8_rta_correcta)"  class="flat" type="checkbox" :value="item4.cz8_id" >{{ item4.cz8_rta }}
-                    <!-- :checked="item4.cz8_id == item4.cz8_rta_correcta" -->
+                    <div class="custom-control custom-checkbox">
+                        <input v-model="inputs[indice]" :id="item4.cz8_id"
+                            :disabled="inputs[indice].length >= item3.cz5_n_rtas_correctas && inputs[indice].indexOf(Number(item4.cz8_id)) === -1"
+                            @click="guardarSMMRcorrecta(item4, inputs[indice].filter(id => id == item4.cz8_id).length >=1)"
+                            class="custom-control-input" type="checkbox" :value="item4.cz8_id">
+                        <label class="custom-control-label" :for="item4.cz8_id">{{ item4.cz8_rta }}</label>
+                    </div>
                 </article>
             </div>
         </article>
@@ -85,43 +97,42 @@
         mounted() {
             this.validarInicio()
             console.log('bodyrespuestas')
-             this.cargarPreguntas();
+            this.cargarPreguntas();
             EventBus.$on('cargar', (item) => {
                 this.cargarPreguntas()
             });
-         
+
 
         },
         methods: {
             traerRa() {
-                console.log(this.id)
+
                 axios.get(`/api/respuestaA/buscar/${this.id}`)
                     .then(res => {
                         this.resRA = res.data
-                        console.log(this.resRA)
                     })
             },
-            
+
             traerSMMR() {
-                  var id_pp = ""
-                
+                var id_pp = ""
+
                 axios.get(`/api/respuestaM/buscar/${this.id}`)
                     .then(res => {
-                        
+
                         res.data
                         this.resSMMR = res.data
                         console.log(this.resSMMR)
 
-                        for(var i = 0; i < res.data.length; i++ ){
-                           this.inputs.push([])
-                              for(var j = 0; j < res.data[i].smmr.length; j++ ){
-                                   
-                                   if(res.data[i].smmr[j].cz8_id == res.data[i].smmr[j].cz8_rta_correcta){
-                                       this.inputs[i].push(Number(res.data[i].smmr[j].cz8_id))
-                                   }
+                        for (var i = 0; i < res.data.length; i++) {
+                            this.inputs.push([])
+                            for (var j = 0; j < res.data[i].smmr.length; j++) {
 
-                              }
-                           
+                                if (res.data[i].smmr[j].cz8_id == res.data[i].smmr[j].cz8_rta_correcta) {
+                                    this.inputs[i].push(Number(res.data[i].smmr[j].cz8_id))
+                                }
+
+                            }
+
                         }
                         console.log(this.inputs)
 
@@ -131,7 +142,7 @@
                 axios.get(`/api/pregunta/index/${this.id}`)
                     .then(res => {
                         this.resSMUR = res.data
-                        console.log(this.resSMUR)
+
                     })
 
             },
@@ -141,7 +152,7 @@
             editar(dato) {
                 this.$modal.show('editar')
                 this.params = dato
-                console.log(dato)
+
             },
             eliminar(id) {
                 swal({
@@ -154,7 +165,7 @@
                     if (willDelete) {
                         axios.delete(`/api/pregunta/delete/${id}`)
                             .then(res => {
-                                console.log(res.data)
+
                                 this.cargarPreguntas();
                                 swal("Eliminado", {
                                     icon: "success"
@@ -174,32 +185,32 @@
 
                 this.$modal.hide('editar')
             },
-            guardarSMURcorrecta(item){
-                if(this.$route.params.cat == 2){
-                axios.put('/api/smur/update', item)
-                .then(res=>{
-                    console.log(res.data)
-                })
+            guardarSMURcorrecta(item) {
+                if (this.$route.params.cat == 2) {
+                    axios.put('/api/smur/update', item)
+                        .then(res => {
+
+                        })
                 }
             },
-             guardarSMMRcorrecta(item, opcion){
-                  if(this.$route.params.cat == 2){
+            guardarSMMRcorrecta(item, opcion) {
+                console.log(this.inputs)
+                console.log(opcion)
+                if (this.$route.params.cat == 2) {
                     //   if(){}
-                    console.log(this.inputs)
-                 console.log(opcion)
-                axios.put(`/api/smmr/update/${opcion}`, item)
-                .then(res=>{
-                    console.log(res.data)
-                })
-                  }
-            }, validarInicio(){
+                    axios.put(`/api/smmr/update/${opcion}`, item)
+                        .then(res => {
+
+                        })
+                }
+            },
+            validarInicio() {
                 axios.get(`/api/prueba/inicio/${this.id}`)
-                .then(res=>{
-                    console.log(res.data)
-                     if(res.data != ""){
-                         this.$router.go(-1)
-                     }
-                })
+                    .then(res => {
+                        if (res.data != "") {
+                            this.$router.go(-1)
+                        }
+                    })
             }
         },
         computed: {}

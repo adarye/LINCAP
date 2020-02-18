@@ -1,8 +1,6 @@
 <template>
     <div>
-         <vue-headful
-            :title=" 'Lincap | Ver evaluación ' "
-        />
+        <vue-headful :title=" 'Lincap | Ver evaluación ' " />
         <center>
             <h1 class="titulo">{{titulo}}</h1>
             {{estado_prueba}}
@@ -82,10 +80,12 @@
                 <div class="col-md-12">
                     <article v-for="(item2, i) in item.respuestas" :key="i">
                         <!-- {{respuestas.filter(cz7_id => cz7_id == item.cz7_id )}} -->
-
-                        <input :disabled="editar ? false : true"
-                            :checked="respuestas_smur.filter(cz7_id => cz7_id == item2.cz7_id ) != ''" class="flat"
-                            type="radio" :name="item.cz5_id" :value="item2.cz7_id"> {{ item2.cz7_rta }}
+                        <div class="custom-control custom-radio">
+                            <input :disabled="editar ? false : true" :id="item2.cz7_id"
+                                :checked="respuestas_smur.filter(cz7_id => cz7_id == item2.cz7_id ) != ''"
+                                class="custom-control-input" type="radio" :name="item.cz5_id" :value="item2.cz7_id">
+                            <label class="custom-control-label" :for="item2.cz7_id">{{ item2.cz7_rta }}</label>
+                        </div>
                     </article>
 
                 </div>
@@ -105,29 +105,29 @@
             <div class="col-md-12" v-if="inputs[indice]">
                 <article v-for="(item4, i) in item3.smmr" :key="`s-${i}`">
 
+                    <div class="custom-control custom-checkbox">
 
-                    <input @click="guardarSMMR(item3.cz5_id, item3.cz5_gp_id, item4.cz8_id, item3.cz5_categoria)"
-                        v-model="inputs[indice]"
-                        :disabled="inputs[indice].length >= item3.cz5_n_rtas_correctas && inputs[indice].indexOf(item4.cz8_id) === -1 && editar ? false : true"
-                        class="flat" type="checkbox" :value="item4.cz8_id">{{ item4.cz8_rta }}
+                        <input @click="guardarSMMR(item3.cz5_id, item3.cz5_gp_id, item4.cz8_id, item3.cz5_categoria)"
+                            v-model="inputs[indice]" :id="item4.cz8_id"
+                            :disabled="inputs[indice].length >= item3.cz5_n_rtas_correctas && inputs[indice].indexOf(item4.cz8_id) === -1 && editar ? false : true"
+                            class="custom-control-input" type="checkbox" :value="item4.cz8_id">
+                        <label class="custom-control-label" :for="item4.cz8_id">{{ item4.cz8_rta }}</label>
+
+                        <span
+                            v-show="inputs[indice].filter(cz8_id => cz8_id == item4.cz8_id ) != '' && estado_prueba == 2">
 
 
-
-                    <span v-show="inputs[indice].filter(cz8_id => cz8_id == item4.cz8_id ) != '' && estado_prueba == 2">
-
-
-
-                        <li class="badge badge-success"
-                            v-show="notas_smmr.filter(el => el.cz11_rta == item4.cz8_id && el.cz11_nota > 0) != ''"><a
-                                class="fa fa-check "></a></li>
-                        <li class="badge badge-danger"
-                            v-show="notas_smmr.filter(el => el.cz11_rta == item4.cz8_id && el.cz11_nota > 0) == ''"> <a
-                                class="fa fa-close"></a> </li>
-                    </span>
-                    <!-- <span v-if="respuestas_smmr.filter(cz8_id => cz8_id == item4.cz8_id ) != ''" class="badge badge-danger">
+                            <li class="badge badge-success"
+                                v-show="notas_smmr.filter(el => el.cz11_rta == item4.cz8_id && el.cz11_nota > 0) != ''">
+                                <a class="fa fa-check "></a></li>
+                            <li class="badge badge-danger"
+                                v-show="notas_smmr.filter(el => el.cz11_rta == item4.cz8_id && el.cz11_nota > 0) == ''">
+                                <a class="fa fa-close"></a> </li>
+                        </span>
+                        <!-- <span v-if="respuestas_smmr.filter(cz8_id => cz8_id == item4.cz8_id ) != ''" class="badge badge-danger">
                            <li class="fa fa-close " v-show="notas_smmr.filter(el => el.cz11_rta == item4.cz8_id && el.cz11_nota > 0) == ''"></li>
                             </span>  -->
-
+                    </div>
                 </article>
             </div>
         </article>

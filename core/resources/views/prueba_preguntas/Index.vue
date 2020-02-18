@@ -3,7 +3,7 @@
          
     <div v-show="id_creador == id_log">
         <vue-headful
-            :title="$route.params.cat == 1 ?  'Administrar encuesta':  'Administrar evaluación'"
+            :title="$route.params.cat == 1 ?  'Lincap | Administrar encuesta':  'Lincap | Administrar evaluación'"
         />
          <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
@@ -98,7 +98,7 @@
 
                         <td>{{ item.cz3_descripcion}}</td>
                         <td>
-                            <input type="radio" name="eleccion" @click="prueba_seleccionada = item.cz3_id">
+                            <input v-show="item.cz3_id != $route.params.id" type="radio" name="eleccion" @click="prueba_seleccionada = item.cz3_id">
                         </td>
                         </tr>
 
