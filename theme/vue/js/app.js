@@ -2013,8 +2013,8 @@ __webpack_require__.r(__webpack_exports__);
 
           _this2.clear();
         } else if (res.data.mensaje != "") {
-          var mensaje = 'Se envio el token a tu correo ' + res.data.correo;
-          swal("Mensaje", mensaje, "success");
+          var mensaje = 'Se envió el token a su correo electrónico ' + res.data.correo;
+          swal("Correcto", mensaje, "success");
 
           _this2.$modal.hide('password');
 
@@ -2046,7 +2046,7 @@ __webpack_require__.r(__webpack_exports__);
       if (this.password1 == '' || this.password2 == '') {
         swal("Advertencia", 'La contraseña es obligatoria', "warning");
       } else if (this.password1.length < 8 || this.password2.length < 8) {
-        swal("Advertencia", 'La contraseña tiene que tener mas de 8 caracteres', "warning");
+        swal("Advertencia", 'La contraseña debe tener más de 8 caracteres', "warning");
       } else if (this.password1 != this.password2) {
         swal("Advertencia", 'Las contraseñas no coinciden', "warning");
       } else if (this.password1 == this.password2) {
@@ -2055,7 +2055,7 @@ __webpack_require__.r(__webpack_exports__);
           cedula: this.cedula
         }).then(function (res) {
           console.log(res.data);
-          swal("Mensaje", 'La contraseña fue actualizada', "success");
+          swal("Correcto", 'La contraseña fue actualizada', "success");
 
           _this4.$modal.hide('resetPassword');
 
@@ -67276,7 +67276,7 @@ var render = function() {
           _vm._v(" "),
           _c("div", { staticClass: "form-group has-feedback" }, [
             _c("label", { on: { click: _vm.modalShow } }, [
-              _vm._v("¿Olvidaste la contraseña?")
+              _vm._v("¿Olvido la contraseña?")
             ])
           ])
         ]
@@ -67362,7 +67362,10 @@ var render = function() {
                           _c("span", {
                             staticClass:
                               "fa fa-user form-control-feedback right",
-                            attrs: { "aria-hidden": "true" }
+                            attrs: {
+                              "aria-hidden": "true",
+                              title: "Número de cédula"
+                            }
                           })
                         ]
                       ),
@@ -67563,7 +67566,7 @@ var render = function() {
                                 ],
                                 staticClass: "form-control",
                                 attrs: {
-                                  placeholder: "Nueva Contraseña",
+                                  placeholder: "Nueva contraseña",
                                   onfocus: "",
                                   type: "checkbox"
                                 },
@@ -67614,7 +67617,7 @@ var render = function() {
                                 ],
                                 staticClass: "form-control",
                                 attrs: {
-                                  placeholder: "Nueva Contraseña",
+                                  placeholder: "Nueva contraseña",
                                   onfocus: "",
                                   type: "radio"
                                 },
@@ -67645,7 +67648,7 @@ var render = function() {
                                 ],
                                 staticClass: "form-control",
                                 attrs: {
-                                  placeholder: "Nueva Contraseña",
+                                  placeholder: "Nueva contraseña",
                                   onfocus: "",
                                   type: _vm.passwordFieldType
                                 },
@@ -67693,7 +67696,7 @@ var render = function() {
                                 ],
                                 staticClass: "form-control",
                                 attrs: {
-                                  placeholder: "Repite la nueva contraseña",
+                                  placeholder: "Confirmar contraseña",
                                   type: "checkbox"
                                 },
                                 domProps: {
@@ -67742,7 +67745,7 @@ var render = function() {
                                 ],
                                 staticClass: "form-control",
                                 attrs: {
-                                  placeholder: "Repite la nueva contraseña",
+                                  placeholder: "Confirmar contraseña",
                                   type: "radio"
                                 },
                                 domProps: {
@@ -67771,7 +67774,7 @@ var render = function() {
                                 ],
                                 staticClass: "form-control",
                                 attrs: {
-                                  placeholder: "Repite la nueva contraseña",
+                                  placeholder: "Confirmar contraseña",
                                   type: _vm.passwordFieldType
                                 },
                                 domProps: { value: _vm.password2 },

@@ -17,7 +17,7 @@
                 </button>
             </div>
             <div class="form-group has-feedback">
-                <label @click="modalShow">¿Olvidaste la contraseña?</label>
+                <label @click="modalShow">¿Olvido la contraseña?</label>
             </div>
         </form>
 
@@ -30,7 +30,7 @@
                             <div class="col-md-12 col-center col-sm-8 form-group has-feedback">
                                 <input required v-numeric-only v-max-length="16" v-autofocus type="text" class="form-control"
                                     v-model="cedula" placeholder="Número de cédula" />
-                                <span class="fa fa-user form-control-feedback right" aria-hidden="true"></span>
+                                <span class="fa fa-user form-control-feedback right" aria-hidden="true" title="Número de cédula"></span>
                             </div>
                             <div class="col-md-12 col-sm-12 form-group has-feedback">
                                 <button type="submit" class="btn btn-primary">Enviar Token</button>
@@ -72,12 +72,12 @@
                             <h1>Cambiar Contraseña</h1>
                                 <div class="col-md-12 col-center col-sm-8 form-group has-feedback">
                                     <input v-max-length="50" v-autofocus :type="passwordFieldType" class="form-control"
-                                        v-model="password1" placeholder="Nueva Contraseña" onfocus />
+                                        v-model="password1" placeholder="Nueva contraseña" onfocus />
                                     <label title="Mostrar / Ocultar" @click="mostrarContrasena" :class="eyeFieltType"></label>
                                 </div>
                                 <div class="col-md-12 col-center col-sm-8 form-group has-feedback">
                                     <input v-max-length="50" :type="passwordFieldType" class="form-control"
-                                        v-model="password2" placeholder="Repite la nueva contraseña"/>
+                                        v-model="password2" placeholder="Confirmar contraseña"/>
                                 </div>
                                 <div class="col-md-12 col-sm-12 form-group has-feedback">
                                     <button type="submit" class="btn btn-primary">Restablecer</button>
@@ -170,8 +170,8 @@
                             this.$modal.hide('password');
                             this.clear()
                         } else if (res.data.mensaje != "") {
-                            const mensaje = 'Se envio el token a tu correo ' + res.data.correo
-                            swal("Mensaje", mensaje, "success");
+                            const mensaje = 'Se envió el token a su correo electrónico ' + res.data.correo
+                            swal("Correcto", mensaje, "success");
                             this.$modal.hide('password');
                             this.$modal.show('token');
                         }
@@ -199,7 +199,7 @@
                 if (this.password1 == '' || this.password2 == '') {
                     swal("Advertencia", 'La contraseña es obligatoria', "warning");
                 } else if (this.password1.length < 8 || this.password2.length < 8) {
-                    swal("Advertencia", 'La contraseña tiene que tener mas de 8 caracteres', "warning");
+                    swal("Advertencia", 'La contraseña debe tener más de 8 caracteres', "warning");
                 } else if (this.password1 != this.password2) {
                     swal("Advertencia", 'Las contraseñas no coinciden', "warning");
                 } else if (this.password1 == this.password2) {
@@ -209,7 +209,7 @@
                         })
                         .then(res => {
                             console.log(res.data)
-                            swal("Mensaje", 'La contraseña fue actualizada', "success");
+                            swal("Correcto", 'La contraseña fue actualizada', "success");
                             this.$modal.hide('resetPassword');
                             this.clear()
                         })
