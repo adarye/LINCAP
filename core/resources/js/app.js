@@ -24,6 +24,9 @@ import VueVirtualScroller from 'vue-virtual-scroller'
 
 Vue.use(VueVirtualScroller)
 
+import vueHeadful from 'vue-headful';
+
+Vue.component('vue-headful', vueHeadful);
 
 
 

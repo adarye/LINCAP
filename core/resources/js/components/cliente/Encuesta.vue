@@ -1,8 +1,11 @@
 <template>
     <div>
+          <vue-headful
+            :title="id_creador == user ?  'Lincap | Ver encuesta ' :  'Presentar encuesta | ' + titulo "
+        />
      <nav v-show="id_creador == user" aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li  class="breadcrumb-item"><i class="fa fa-pencil"> <router-link v-bind:to="'/gestion/pruebas/' + 1"> Encuestas</router-link></i></li>
+                <li  class="breadcrumb-item"><i class="fa fa-pencil"> <router-link v-bind:to="'/gestion/pruebas/1' + user"> Encuestas</router-link></i></li>
                  <li  class="breadcrumb-item"><i class="fa fa-users"> <router-link v-bind:to="'/gestion/pruebas/asignar/1/' + $route.params.id"> Asignar</router-link></i></li>
                 <!-- <li class="breadcrumb-item"><i class="fa fa-gears"> {{datos.cz3_nombre}}</i></li> -->
                 <li class="breadcrumb-item active" aria-current="page"></li>

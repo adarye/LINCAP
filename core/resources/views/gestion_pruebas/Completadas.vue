@@ -1,5 +1,8 @@
 <template>
     <div>
+        <vue-headful
+            :title="$route.params.categoria == 1 ?  'Lincap | Encuestas completadas':  'Lincap | Evaluaciones completadas ' "
+        />
         
 
         <div v-for="(item, indice) in pruebas" :key="indice">

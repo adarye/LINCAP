@@ -1,5 +1,10 @@
 <template>
+ 
+         
     <div v-show="id_creador == id_log">
+        <vue-headful
+            :title="$route.params.cat == 1 ?  'Administrar encuesta':  'Administrar evaluación'"
+        />
          <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li v-show=" $route.params.cat == 1" class="breadcrumb-item"><i class="fa fa-pencil"> <router-link v-bind:to="'/gestion/pruebas/' + $route.params.cat + '/' + id_log"> Encuestas</router-link></i></li>

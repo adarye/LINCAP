@@ -1,5 +1,8 @@
 <template>
     <div>
+         <vue-headful
+            :title="title"
+        />
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                   <li v-show=" $route.params.categoria == 1" class="breadcrumb-item"><i class="fa fa-pencil"> <router-link v-bind:to="'/gestion/pruebas/' + $route.params.categoria"> Encuestas</router-link></i></li>
@@ -42,7 +45,7 @@
                             </div>
                             <div class="col-md-12 col-sm-12 form-group has-feedback">
                                 <button type="submit" class="btn btn-primary">Guardar</button>
-                                <button type="button" @click="$modal.hide('create');"
+                                <button type="button" @click="$modal.hide('create');  $route.params.categoria == 1 ? title= 'Lincap | Admin encuestas': title= 'Lincap | Admin evaluaciones' "
                                     class="btn btn-danger">Cancelar</button>
                             </div>
 
@@ -81,7 +84,7 @@
                             </div>
                             <div class="col-md-12 col-sm-12 form-group has-feedback">
                                 <button type="submit" class="btn btn-primary">Actualizar</button>
-                                <button type="button" @click="$modal.hide('editar'); limpiar();"
+                                <button type="button" @click="$modal.hide('editar');  limpiar();  $route.params.categoria == 1 ? title= 'Lincap | Admin encuestas': title= 'Lincap | Admin evaluaciones'"
                                     class="btn btn-danger">Cancelar</button>
                             </div>
                              
@@ -97,7 +100,7 @@
           }"></Activos>
         </modal>
 
-        <button type="button" class="btn btn-round btn-success" @click="$modal.show('create');"
+        <button type="button" class="btn btn-round btn-success" @click="$modal.show('create'); $route.params.categoria == 1 ? title= 'Lincap | Crear encuesta': title= 'Lincap | Crear evaluación'"
             title="Nuevo">Nuevo</button>
              
       <Pruebas v-bind="{pruebas: pruebas}" v-on:asignar="asignar" v-on:eliminar="eliminar"
@@ -146,6 +149,7 @@ import 'pc-bootstrap4-datetimepicker/build/css/bootstrap-datetimepicker.css';
                 fecha_actual:  '',
                 id_prueba: '',
                 moment: moment,
+                title: ""
 
                 
             }       
@@ -153,7 +157,11 @@ import 'pc-bootstrap4-datetimepicker/build/css/bootstrap-datetimepicker.css';
         beforeMount(){    
               
                 this.traerPruebas();
-                 
+                if( this.$route.params.categoria == 1){
+                 this.title = 'Lincap | Admin encuestas'}
+                 else {
+                this.title= 'Lincap | Admin evaluaciones'
+                 }
              
             },
         methods: {
@@ -208,6 +216,11 @@ import 'pc-bootstrap4-datetimepicker/build/css/bootstrap-datetimepicker.css';
                 }    
             },
             editar(item){
+                if( this.$route.params.categoria == 1){
+                 this.title = 'Lincap | Editar encuesta'}
+                 else {
+                this.title= 'Lincap | Editar evaluación'
+                 }
                 
              this.titulo = 'Editar Encuesta'
              this.datos.cz3_fecha_apertura = moment(item.cz3_fecha_apertura).format('YYYY-DD-MM LT');
@@ -217,6 +230,7 @@ import 'pc-bootstrap4-datetimepicker/build/css/bootstrap-datetimepicker.css';
              this.datos.cz3_descripcion = item.cz3_descripcion
             
              this.$modal.show('editar')
+
 
             },
 

@@ -2222,6 +2222,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2427,6 +2430,9 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _bus__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../bus */ "./resources/js/bus.js");
 /* harmony import */ var _router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../router */ "./resources/js/router.js");
+//
+//
+//
 //
 //
 //
@@ -2733,6 +2739,9 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _bus__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../bus */ "./resources/js/bus.js");
 /* harmony import */ var _router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../router */ "./resources/js/router.js");
+//
+//
+//
 //
 //
 //
@@ -3370,6 +3379,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../router */ "./resources/js/router.js");
+//
+//
+//
+//
 //
 //
 //
@@ -4861,6 +4874,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale('es');
 
@@ -5146,6 +5162,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale('es');
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -5228,6 +5247,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _js_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../js/router */ "./resources/js/router.js");
+//
+//
+//
 //
 //
 //
@@ -5848,6 +5870,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale("es");
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -5900,6 +5925,8 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale("es");
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_google_charts__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-google-charts */ "./node_modules/vue-google-charts/index.js");
+//
+//
 //
 //
 //
@@ -6310,6 +6337,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale("es");
 
@@ -6342,11 +6372,18 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale("es");
       titulo: 'Crear Encuesta',
       fecha_actual: '',
       id_prueba: '',
-      moment: moment__WEBPACK_IMPORTED_MODULE_0___default.a
+      moment: moment__WEBPACK_IMPORTED_MODULE_0___default.a,
+      title: ""
     };
   },
   beforeMount: function beforeMount() {
     this.traerPruebas();
+
+    if (this.$route.params.categoria == 1) {
+      this.title = 'Lincap | Admin encuestas';
+    } else {
+      this.title = 'Lincap | Admin evaluaciones';
+    }
   },
   methods: {
     traerPruebas: function traerPruebas() {
@@ -6394,6 +6431,12 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale("es");
       }
     },
     editar: function editar(item) {
+      if (this.$route.params.categoria == 1) {
+        this.title = 'Lincap | Editar encuesta';
+      } else {
+        this.title = 'Lincap | Editar evaluación';
+      }
+
       this.titulo = 'Editar Encuesta';
       this.datos.cz3_fecha_apertura = moment__WEBPACK_IMPORTED_MODULE_0___default()(item.cz3_fecha_apertura).format('YYYY-DD-MM LT');
       this.datos.cz3_fecha_cierre = moment__WEBPACK_IMPORTED_MODULE_0___default()(item.cz3_fecha_cierre).format('YYYY-DD-MM LT');
@@ -6514,6 +6557,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _js_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../js/router */ "./resources/js/router.js");
+//
+//
+//
 //
 //
 //
@@ -6762,6 +6808,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -6777,7 +6826,8 @@ __webpack_require__.r(__webpack_exports__);
       file: null,
       estado2: null,
       id: null,
-      rol: null
+      rol: null,
+      title: 'Lincap | Noticias'
     };
   },
   mounted: function mounted() {
@@ -6813,6 +6863,7 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     editar2: function editar2(item) {
+      this.title = 'Lincap | Editar noticia';
       this.mostrar = true;
       this.editar = true;
       this.nombre = item.cz12_nombre;
@@ -6887,6 +6938,7 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     limpiar: function limpiar() {
+      this.title = 'Lincap | Noticias';
       this.mostrar = false;
       this.editar = false;
       this.nombre = null;
@@ -6918,6 +6970,11 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _js_bus__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../js/bus */ "./resources/js/bus.js");
+//
+//
+//
+//
+//
 //
 //
 //
@@ -7254,6 +7311,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -7261,7 +7322,8 @@ __webpack_require__.r(__webpack_exports__);
       roles: [],
       descripcion: "",
       nombre: "",
-      rol: {}
+      rol: {},
+      title: ""
     };
   },
   beforeMount: function beforeMount() {
@@ -7270,6 +7332,7 @@ __webpack_require__.r(__webpack_exports__);
     if (window.user.rol == 1) {
       axios.get("/api/roles").then(function (res) {
         _this.roles = res.data;
+        _this.title = "Lincap | Admin roles";
       });
     } else {
       _js_router__WEBPACK_IMPORTED_MODULE_0__["default"].push('/');
@@ -7318,8 +7381,10 @@ __webpack_require__.r(__webpack_exports__);
     },
     show: function show() {
       this.$modal.show('create');
+      this.title = "Lincap | Crear rol";
     },
     hide: function hide() {
+      this.title = "Lincap | Admin roles";
       this.$modal.hide('create');
     }
   }
@@ -7337,6 +7402,11 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _js_router__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../js/router */ "./resources/js/router.js");
+//
+//
+//
+//
+//
 //
 //
 //
@@ -7550,7 +7620,8 @@ __webpack_require__.r(__webpack_exports__);
       mostrar: 0,
       bempleado: "",
       pagina: 1,
-      carga: true
+      carga: true,
+      title: ""
     };
   },
   beforeMount: function beforeMount() {
@@ -7559,6 +7630,7 @@ __webpack_require__.r(__webpack_exports__);
     if (window.user.rol == 1) {
       this.cargarRoles();
       this.created();
+      this.title = "Lincap | Admin usuarios";
     } else {
       _js_router__WEBPACK_IMPORTED_MODULE_0__["default"].push('/');
     }
@@ -7710,20 +7782,26 @@ __webpack_require__.r(__webpack_exports__);
       console.log(this.estado);
     },
     show: function show() {
+      this.title = "Lincap | Crear usuarios";
       this.$modal.show("create");
     },
     showEditar: function showEditar() {
+      this.title = "Lincap | Editar usuario";
       this.$modal.show("editar");
     },
     closeEditar: function closeEditar() {
+      this.title = "Lincap | Admin usuarios";
       this.$modal.hide("editar");
       this.limpiar();
     },
     closeCreate: function closeCreate() {
+      this.title = "Lincap | Admin usuarios";
       this.$modal.hide("create");
       this.limpiar();
     },
     agregarTodos: function agregarTodos() {
+      var _this8 = this;
+
       var wrapper = document.createElement('div');
       wrapper.innerHTML = "<div class='spinner-border text-primary row' role='status'> <span class='sr-only'>Loading...</span> </div>  <div class=''>Esto puede tomar varios minutos</div> ";
       swal({
@@ -7734,20 +7812,24 @@ __webpack_require__.r(__webpack_exports__);
       });
       axios.post('/api/usuario/agregar-todos', this.usuarios).then(function (res) {
         swal('Se han agregado ' + res.data + ' empleado(s) nuevos', '', 'success');
+
+        _this8.created();
       })["catch"](function (res) {
         swal('Ha sucedido un error inesperado', '', 'error');
+
+        _this8.created();
       });
     }
   },
   computed: {
     mbuscar: function mbuscar() {
-      var _this8 = this;
+      var _this9 = this;
 
       return this.usuarios.filter(function (usuario) {
-        if (_this8.selectRol == null || _this8.selectRol == "Roles") {
-          return usuario.cz1_cc.toUpperCase().includes(_this8.bempleado.toUpperCase()) || usuario.cz1_nombres.toUpperCase().includes(_this8.bempleado.toUpperCase());
+        if (_this9.selectRol == null || _this9.selectRol == "Roles") {
+          return usuario.cz1_cc.toUpperCase().includes(_this9.bempleado.toUpperCase()) || usuario.cz1_nombres.toUpperCase().includes(_this9.bempleado.toUpperCase());
         } else {
-          return usuario.cz1_id_rol.includes(_this8.selectRol) && usuario.cz1_nombres.toUpperCase().includes(_this8.bempleado.toUpperCase()) || usuario.cz1_id_rol.includes(_this8.selectRol) && usuario.cz1_cc.toUpperCase().includes(_this8.bempleado.toUpperCase());
+          return usuario.cz1_id_rol.includes(_this9.selectRol) && usuario.cz1_nombres.toUpperCase().includes(_this9.bempleado.toUpperCase()) || usuario.cz1_id_rol.includes(_this9.selectRol) && usuario.cz1_cc.toUpperCase().includes(_this9.bempleado.toUpperCase());
         }
       });
     }
@@ -7982,6 +8064,149 @@ function toComment(sourceMap) {
 	return '/*# ' + data + ' */';
 }
 
+
+/***/ }),
+
+/***/ "./node_modules/headful/dist/headful.js":
+/*!**********************************************!*\
+  !*** ./node_modules/headful/dist/headful.js ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
+exports.default = headful;
+
+
+var conf = {
+    debug: false
+};
+
+var propertySetters = {
+    html: function html(obj) {
+        obj && Object.keys(obj).forEach(function (selector) {
+            return setRootElementAttributes(selector, obj[selector]);
+        });
+    },
+    head: function head(obj) {
+        obj && Object.keys(obj).forEach(function (selector) {
+            return setHeadElementAttributes(selector, obj[selector]);
+        });
+    },
+    title: function title(val) {
+        document.title = isRemoveValue(val) ? '' : val;
+        setMetaContent('itemprop="name"', val);
+        setMetaContent('property="og:title"', val);
+        setMetaContent('name="twitter:title"', val);
+    },
+    description: function description(val) {
+        setMetaContent('name="description"', val);
+        setMetaContent('itemprop="description"', val);
+        setMetaContent('property="og:description"', val);
+        setMetaContent('name="twitter:description"', val);
+    },
+    keywords: function keywords(val) {
+        setMetaContent('name="keywords"', Array.isArray(val) ? val.join(', ') : val);
+    },
+    image: function image(val) {
+        setMetaContent('itemprop="image"', val);
+        setMetaContent('property="og:image"', val);
+        setMetaContent('name="twitter:image"', val);
+    },
+    lang: function lang(val, props) {
+        setRootElementAttributes('html', { lang: val });
+        noProp(props, this.ogLocale) && setOgLocaleIfValid(val);
+    },
+    ogLocale: function ogLocale(val) {
+        setMetaContent('property="og:locale"', val);
+    },
+    url: function url(val) {
+        setHeadElementAttributes('link[rel="canonical"]', { href: val });
+        setMetaContent('property="og:url"', val);
+        setMetaContent('name="twitter:url"', val);
+    }
+};
+
+function headful(props, userConf) {
+    Object.assign(conf, userConf);
+    Object.keys(props).forEach(function (prop) {
+        if (!propertySetters.hasOwnProperty(prop)) {
+            throw new Error('Headful: Property \'' + prop + '\' is unknown.');
+        }
+        propertySetters[prop](props[prop], props);
+    });
+}
+
+headful.props = propertySetters;
+
+/**
+ * Tests whether the given `props` object contains a property with the name of `propNameOrFunction`.
+ */
+function noProp(props, propNameOrFunction) {
+    if (!props) {
+        throw new Error('Headful: You must pass all declared props when you use headful.props.x() calls.');
+    }
+    var propName = typeof propNameOrFunction === 'function' ? propNameOrFunction.name : propNameOrFunction;
+    return !props.hasOwnProperty(propName);
+}
+
+function setMetaContent(attr, val) {
+    setHeadElementAttributes('meta[' + attr + ']', { content: val });
+}
+
+function setRootElementAttributes(selector, attributes) {
+    setElementAttributes(getElement(document, selector), attributes);
+}
+
+function setHeadElementAttributes(selector, attributes) {
+    setElementAttributes(getElement(document.head, selector), attributes);
+}
+
+function setElementAttributes(element, attributes) {
+    if (element) {
+        Object.keys(attributes).forEach(function (attrName) {
+            if (isRemoveValue(attributes[attrName])) {
+                element.removeAttribute(attrName);
+            } else {
+                element.setAttribute(attrName, attributes[attrName]);
+            }
+        });
+    }
+}
+
+function getElement(parent, selector) {
+    var element = parent.querySelector(selector);
+    if (!element && conf.debug) {
+        console.error('Headful: Element \'' + selector + '\' was not found.');
+    }
+    return element;
+}
+
+function setOgLocaleIfValid(locale) {
+    if (isRemoveValue(locale)) {
+        propertySetters.ogLocale(locale);
+    } else if (locale.match(/^[a-z]{2}-[a-z]{2}$/i)) {
+        var _locale$split = locale.split('-'),
+            _locale$split2 = _slicedToArray(_locale$split, 2),
+            language = _locale$split2[0],
+            region = _locale$split2[1];
+
+        var ogLocale = language + '_' + region.toUpperCase();
+        propertySetters.ogLocale(ogLocale);
+    }
+}
+
+function isRemoveValue(val) {
+    return val === undefined || val === null;
+}
 
 /***/ }),
 
@@ -66699,6 +66924,59 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/vue-headful/dist/vue-headful.js":
+/*!******************************************************!*\
+  !*** ./node_modules/vue-headful/dist/vue-headful.js ***!
+  \******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _headful = __webpack_require__(/*! headful */ "./node_modules/headful/dist/headful.js");
+
+var _headful2 = _interopRequireDefault(_headful);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var handler = function handler(props) {
+    return (0, _headful2.default)(getPassedProps(props));
+};
+
+exports.default = {
+    name: 'vue-headful',
+    props: Object.keys(_headful2.default.props),
+    watch: {
+        '$props': {
+            handler: handler,
+            deep: true,
+            immediate: true
+        }
+    },
+    activated: function activated() {
+        // required for keep-alive components https://vuejs.org/v2/api/#keep-alive
+        handler(this.$props);
+    },
+    render: function render() {}
+};
+
+
+function getPassedProps(props) {
+    return Object.keys(props).reduce(function (passedProps, propKey) {
+        if (props[propKey] !== undefined) {
+            passedProps[propKey] = props[propKey];
+        }
+        return passedProps;
+    }, {});
+}
+
+/***/ }),
+
 /***/ "./node_modules/vue-input-restriction-directives/src/index.js":
 /*!********************************************************************!*\
   !*** ./node_modules/vue-input-restriction-directives/src/index.js ***!
@@ -67575,6 +67853,8 @@ var render = function() {
   return _c(
     "div",
     [
+      _c("vue-headful", { attrs: { title: "Lincap | Ver evaluación " } }),
+      _vm._v(" "),
       _c("center", [
         _c("h1", { staticClass: "titulo" }, [_vm._v(_vm._s(_vm.titulo))]),
         _vm._v("\n        " + _vm._s(_vm.estado_prueba) + "\n    ")
@@ -68070,6 +68350,15 @@ var render = function() {
   return _c(
     "div",
     [
+      _c("vue-headful", {
+        attrs: {
+          title:
+            _vm.id_creador == _vm.user
+              ? "Lincap | Ver encuesta "
+              : "Presentar encuesta | " + _vm.titulo
+        }
+      }),
+      _vm._v(" "),
       _c(
         "nav",
         {
@@ -68092,7 +68381,7 @@ var render = function() {
                 [
                   _c(
                     "router-link",
-                    { attrs: { to: "/gestion/pruebas/" + 1 } },
+                    { attrs: { to: "/gestion/pruebas/1" + _vm.user } },
                     [_vm._v(" Encuestas")]
                   )
                 ],
@@ -68435,6 +68724,10 @@ var render = function() {
   return _c(
     "div",
     [
+      _c("vue-headful", {
+        attrs: { title: "Presentar evaluación | " + _vm.titulo }
+      }),
+      _vm._v(" "),
       _c("center", [
         _c("h1", { staticClass: "titulo" }, [_vm._v(_vm._s(_vm.titulo))]),
         _vm._v("\n        " + _vm._s(_vm.estado_prueba) + "\n    ")
@@ -69578,6 +69871,15 @@ var render = function() {
       ]
     },
     [
+      _c("vue-headful", {
+        attrs: {
+          title:
+            _vm.$route.params.cat == 1
+              ? "Asignar encuesta"
+              : "Asignar evaluación"
+        }
+      }),
+      _vm._v(" "),
       _c("nav", { attrs: { "aria-label": "breadcrumb" } }, [
         _c("ol", { staticClass: "breadcrumb" }, [
           _vm.$route.params.cat == 1
@@ -73055,6 +73357,8 @@ var render = function() {
   return _c(
     "div",
     [
+      _c("vue-headful", { attrs: { title: " Lincap | Empleados activos " } }),
+      _vm._v(" "),
       _vm._m(0),
       _vm._v(" "),
       _c("nav", { staticClass: "navbar navbar-light bg-light my-2" }, [
@@ -73780,6 +74084,10 @@ var render = function() {
   return _c(
     "div",
     [
+      _c("vue-headful", {
+        attrs: { title: " Lincap | Información corporativa " }
+      }),
+      _vm._v(" "),
       _vm._m(0),
       _vm._v(" "),
       _c("nav", { staticClass: "navbar navbar-light bg-light my-2" }, [
@@ -74189,6 +74497,8 @@ var render = function() {
   return _c(
     "div",
     [
+      _c("vue-headful", { attrs: { title: " Lincap | Empleados retirados " } }),
+      _vm._v(" "),
       _vm._m(0),
       _vm._v(" "),
       _c("nav", { staticClass: "navbar navbar-light bg-light my-2" }, [
@@ -75054,6 +75364,15 @@ var render = function() {
   return _c(
     "div",
     [
+      _c("vue-headful", {
+        attrs: {
+          title:
+            _vm.$route.params.categoria == 1
+              ? "Lincap | Encuestas completadas"
+              : "Lincap | Evaluaciones completadas "
+        }
+      }),
+      _vm._v(" "),
       _vm._l(_vm.pruebas, function(item, indice) {
         return _c("div", { key: indice }, [
           _c(
@@ -75319,6 +75638,15 @@ var render = function() {
     "div",
     { staticClass: " p-2" },
     [
+      _c("vue-headful", {
+        attrs: {
+          title:
+            _vm.$route.params.cat == 1
+              ? "Estadísticas encuesta | " + _vm.titulo
+              : "Estadísticas evaluación | " + _vm.titulo
+        }
+      }),
+      _vm._v(" "),
       _c("nav", { attrs: { "aria-label": "breadcrumb" } }, [
         _c("ol", { staticClass: "breadcrumb" }, [
           _c(
@@ -75772,6 +76100,8 @@ var render = function() {
   return _c(
     "div",
     [
+      _c("vue-headful", { attrs: { title: _vm.title } }),
+      _vm._v(" "),
       _c("nav", { attrs: { "aria-label": "breadcrumb" } }, [
         _c("ol", { staticClass: "breadcrumb" }, [
           _c(
@@ -76052,7 +76382,11 @@ var render = function() {
                               attrs: { type: "button" },
                               on: {
                                 click: function($event) {
-                                  return _vm.$modal.hide("create")
+                                  _vm.$modal.hide("create")
+                                  _vm.$route.params.categoria == 1
+                                    ? (_vm.title = "Lincap | Admin encuestas")
+                                    : (_vm.title =
+                                        "Lincap | Admin evaluaciones")
                                 }
                               }
                             },
@@ -76264,6 +76598,10 @@ var render = function() {
                                 click: function($event) {
                                   _vm.$modal.hide("editar")
                                   _vm.limpiar()
+                                  _vm.$route.params.categoria == 1
+                                    ? (_vm.title = "Lincap | Admin encuestas")
+                                    : (_vm.title =
+                                        "Lincap | Admin evaluaciones")
                                 }
                               }
                             },
@@ -76306,7 +76644,10 @@ var render = function() {
           attrs: { type: "button", title: "Nuevo" },
           on: {
             click: function($event) {
-              return _vm.$modal.show("create")
+              _vm.$modal.show("create")
+              _vm.$route.params.categoria == 1
+                ? (_vm.title = "Lincap | Crear encuesta")
+                : (_vm.title = "Lincap | Crear evaluación")
             }
           }
         },
@@ -76360,6 +76701,15 @@ var render = function() {
   return _c(
     "div",
     [
+      _c("vue-headful", {
+        attrs: {
+          title:
+            _vm.$route.params.categoria == 1
+              ? "Lincap | Encuestas pendientes"
+              : "Lincap | Evaluaciones pendientes "
+        }
+      }),
+      _vm._v(" "),
       _vm._l(_vm.pruebas, function(item, indice) {
         return _c("div", { key: indice }, [
           _c(
@@ -76645,6 +76995,8 @@ var render = function() {
   return _c(
     "div",
     [
+      _c("vue-headful", { attrs: { title: _vm.title } }),
+      _vm._v(" "),
       _c(
         "div",
         {
@@ -76673,7 +77025,7 @@ var render = function() {
               attrs: { type: "button" },
               on: {
                 click: function($event) {
-                  _vm.mostrar = true
+                  ;(_vm.mostrar = true), (_vm.title = "Lincap | Crear noticia")
                 }
               }
             },
@@ -76695,7 +77047,9 @@ var render = function() {
               attrs: { type: "button" },
               on: {
                 click: function($event) {
-                  ;(_vm.mostrar = false), _vm.limpiar()
+                  ;(_vm.mostrar = false),
+                    _vm.limpiar(),
+                    (_vm.title = "Lincap | Noticias")
                 }
               }
             },
@@ -77280,6 +77634,15 @@ var render = function() {
       ]
     },
     [
+      _c("vue-headful", {
+        attrs: {
+          title:
+            _vm.$route.params.cat == 1
+              ? "Administrar encuesta"
+              : "Administrar evaluación"
+        }
+      }),
+      _vm._v(" "),
       _c("nav", { attrs: { "aria-label": "breadcrumb" } }, [
         _c("ol", { staticClass: "breadcrumb" }, [
           _c(
@@ -77875,6 +78238,8 @@ var render = function() {
   return _c(
     "div",
     [
+      _c("vue-headful", { attrs: { title: _vm.title } }),
+      _vm._v(" "),
       _c("nav", { attrs: { "aria-label": "breadcrumb" } }, [
         _c("ol", { staticClass: "breadcrumb" }, [
           _vm._m(0),
@@ -78036,11 +78401,7 @@ var render = function() {
                             {
                               staticClass: "btn btn-danger",
                               attrs: { type: "button" },
-                              on: {
-                                click: function($event) {
-                                  return _vm.$modal.hide("create")
-                                }
-                              }
+                              on: { click: _vm.hide }
                             },
                             [_vm._v("Cancelar")]
                           )
@@ -78176,6 +78537,8 @@ var render = function() {
   return _c(
     "div",
     [
+      _c("vue-headful", { attrs: { title: _vm.title } }),
+      _vm._v(" "),
       _c("nav", { attrs: { "aria-label": "breadcrumb" } }, [
         _c("ol", { staticClass: "breadcrumb" }, [
           _vm._m(0),
@@ -96531,19 +96894,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var v_click_outside__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(v_click_outside__WEBPACK_IMPORTED_MODULE_5__);
 /* harmony import */ var vue_google_charts__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vue-google-charts */ "./node_modules/vue-google-charts/index.js");
 /* harmony import */ var vue_virtual_scroller__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vue-virtual-scroller */ "./node_modules/vue-virtual-scroller/dist/vue-virtual-scroller.esm.js");
-/* harmony import */ var _components_Login__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/Login */ "./resources/js/components/Login.vue");
-/* harmony import */ var _components_tabs_InfPersonal__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/tabs/InfPersonal */ "./resources/js/components/tabs/InfPersonal.vue");
-/* harmony import */ var _components_tabs_InfCorporativa__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/tabs/InfCorporativa */ "./resources/js/components/tabs/InfCorporativa.vue");
-/* harmony import */ var _components_gestion_pruebas_ModActivos__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/gestion_pruebas/ModActivos */ "./resources/js/components/gestion_pruebas/ModActivos.vue");
-/* harmony import */ var _components_gestion_pruebas_BodyPruebas__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/gestion_pruebas/BodyPruebas */ "./resources/js/components/gestion_pruebas/BodyPruebas.vue");
-/* harmony import */ var _components_prueba_preguntas_ModRespuestas__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/prueba_preguntas/ModRespuestas */ "./resources/js/components/prueba_preguntas/ModRespuestas.vue");
-/* harmony import */ var _components_prueba_preguntas_BodyRespuestas__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./components/prueba_preguntas/BodyRespuestas */ "./resources/js/components/prueba_preguntas/BodyRespuestas.vue");
-/* harmony import */ var _components_prueba_preguntas_EditPregunta__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components/prueba_preguntas/EditPregunta */ "./resources/js/components/prueba_preguntas/EditPregunta.vue");
-/* harmony import */ var _components_tabs_InfSST__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./components/tabs/InfSST */ "./resources/js/components/tabs/InfSST.vue");
-/* harmony import */ var _components_noticias_BodyNoticias__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./components/noticias/BodyNoticias */ "./resources/js/components/noticias/BodyNoticias.vue");
-/* harmony import */ var _components_gestion_pruebas_CuadroEstadistico__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./components/gestion_pruebas/CuadroEstadistico */ "./resources/js/components/gestion_pruebas/CuadroEstadistico.vue");
-/* harmony import */ var vue_autofocus_directive__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! vue-autofocus-directive */ "./node_modules/vue-autofocus-directive/dist/vue-autofocus-directive.js");
-/* harmony import */ var vue_autofocus_directive__WEBPACK_IMPORTED_MODULE_19___default = /*#__PURE__*/__webpack_require__.n(vue_autofocus_directive__WEBPACK_IMPORTED_MODULE_19__);
+/* harmony import */ var vue_headful__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vue-headful */ "./node_modules/vue-headful/dist/vue-headful.js");
+/* harmony import */ var vue_headful__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(vue_headful__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var _components_Login__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/Login */ "./resources/js/components/Login.vue");
+/* harmony import */ var _components_tabs_InfPersonal__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/tabs/InfPersonal */ "./resources/js/components/tabs/InfPersonal.vue");
+/* harmony import */ var _components_tabs_InfCorporativa__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/tabs/InfCorporativa */ "./resources/js/components/tabs/InfCorporativa.vue");
+/* harmony import */ var _components_gestion_pruebas_ModActivos__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/gestion_pruebas/ModActivos */ "./resources/js/components/gestion_pruebas/ModActivos.vue");
+/* harmony import */ var _components_gestion_pruebas_BodyPruebas__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/gestion_pruebas/BodyPruebas */ "./resources/js/components/gestion_pruebas/BodyPruebas.vue");
+/* harmony import */ var _components_prueba_preguntas_ModRespuestas__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./components/prueba_preguntas/ModRespuestas */ "./resources/js/components/prueba_preguntas/ModRespuestas.vue");
+/* harmony import */ var _components_prueba_preguntas_BodyRespuestas__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components/prueba_preguntas/BodyRespuestas */ "./resources/js/components/prueba_preguntas/BodyRespuestas.vue");
+/* harmony import */ var _components_prueba_preguntas_EditPregunta__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./components/prueba_preguntas/EditPregunta */ "./resources/js/components/prueba_preguntas/EditPregunta.vue");
+/* harmony import */ var _components_tabs_InfSST__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./components/tabs/InfSST */ "./resources/js/components/tabs/InfSST.vue");
+/* harmony import */ var _components_noticias_BodyNoticias__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./components/noticias/BodyNoticias */ "./resources/js/components/noticias/BodyNoticias.vue");
+/* harmony import */ var _components_gestion_pruebas_CuadroEstadistico__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./components/gestion_pruebas/CuadroEstadistico */ "./resources/js/components/gestion_pruebas/CuadroEstadistico.vue");
+/* harmony import */ var vue_autofocus_directive__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! vue-autofocus-directive */ "./node_modules/vue-autofocus-directive/dist/vue-autofocus-directive.js");
+/* harmony import */ var vue_autofocus_directive__WEBPACK_IMPORTED_MODULE_20___default = /*#__PURE__*/__webpack_require__.n(vue_autofocus_directive__WEBPACK_IMPORTED_MODULE_20__);
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 
@@ -96566,34 +96931,36 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(v_click_outside__WEBPACK_IMPORTED
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_google_charts__WEBPACK_IMPORTED_MODULE_6__["default"]);
 
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_virtual_scroller__WEBPACK_IMPORTED_MODULE_7__["default"]); //AUTORIZACION
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_virtual_scroller__WEBPACK_IMPORTED_MODULE_7__["default"]);
+
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('vue-headful', vue_headful__WEBPACK_IMPORTED_MODULE_8___default.a); //AUTORIZACION
 
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js"); //importacion de componentes
 
 
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('Login', _components_Login__WEBPACK_IMPORTED_MODULE_8__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('Login', _components_Login__WEBPACK_IMPORTED_MODULE_9__["default"]);
 
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('InfPersonal', _components_tabs_InfPersonal__WEBPACK_IMPORTED_MODULE_9__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('InfPersonal', _components_tabs_InfPersonal__WEBPACK_IMPORTED_MODULE_10__["default"]);
 
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('InfCorporativa', _components_tabs_InfCorporativa__WEBPACK_IMPORTED_MODULE_10__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('InfCorporativa', _components_tabs_InfCorporativa__WEBPACK_IMPORTED_MODULE_11__["default"]);
 
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('Activos', _components_gestion_pruebas_ModActivos__WEBPACK_IMPORTED_MODULE_11__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('Activos', _components_gestion_pruebas_ModActivos__WEBPACK_IMPORTED_MODULE_12__["default"]);
 
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('Pruebas', _components_gestion_pruebas_BodyPruebas__WEBPACK_IMPORTED_MODULE_12__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('Pruebas', _components_gestion_pruebas_BodyPruebas__WEBPACK_IMPORTED_MODULE_13__["default"]);
 
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('MRespuestas', _components_prueba_preguntas_ModRespuestas__WEBPACK_IMPORTED_MODULE_13__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('MRespuestas', _components_prueba_preguntas_ModRespuestas__WEBPACK_IMPORTED_MODULE_14__["default"]);
 
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('Respuestas', _components_prueba_preguntas_BodyRespuestas__WEBPACK_IMPORTED_MODULE_14__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('Respuestas', _components_prueba_preguntas_BodyRespuestas__WEBPACK_IMPORTED_MODULE_15__["default"]);
 
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('Editar', _components_prueba_preguntas_EditPregunta__WEBPACK_IMPORTED_MODULE_15__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('Editar', _components_prueba_preguntas_EditPregunta__WEBPACK_IMPORTED_MODULE_16__["default"]);
 
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('InfSST', _components_tabs_InfSST__WEBPACK_IMPORTED_MODULE_16__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('InfSST', _components_tabs_InfSST__WEBPACK_IMPORTED_MODULE_17__["default"]);
 
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('BodyNoticias', _components_noticias_BodyNoticias__WEBPACK_IMPORTED_MODULE_17__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('BodyNoticias', _components_noticias_BodyNoticias__WEBPACK_IMPORTED_MODULE_18__["default"]);
 
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('CuadroEstadistico', _components_gestion_pruebas_CuadroEstadistico__WEBPACK_IMPORTED_MODULE_18__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('CuadroEstadistico', _components_gestion_pruebas_CuadroEstadistico__WEBPACK_IMPORTED_MODULE_19__["default"]);
 
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.directive("autofocus", vue_autofocus_directive__WEBPACK_IMPORTED_MODULE_19___default.a); // Vue.directive('uppercase', {
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.directive("autofocus", vue_autofocus_directive__WEBPACK_IMPORTED_MODULE_20___default.a); // Vue.directive('uppercase', {
 // 	update (el) {
 // 		el.value = el.value.toUpperCase()
 // 	},

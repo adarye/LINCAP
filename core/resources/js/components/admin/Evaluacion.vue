@@ -1,5 +1,8 @@
 <template>
     <div>
+         <vue-headful
+            :title=" 'Lincap | Ver evaluación ' "
+        />
         <center>
             <h1 class="titulo">{{titulo}}</h1>
             {{estado_prueba}}
