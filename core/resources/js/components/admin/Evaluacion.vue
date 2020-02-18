@@ -184,7 +184,7 @@
                 axios.get(`/api/preguntas/contar/${this.id}`)
                     .then(res => {
                         console.log(res.data)
-                        this.cantidad_preg = res.data
+                        this.cantidad_preg = res.data;
 
                     })
 
