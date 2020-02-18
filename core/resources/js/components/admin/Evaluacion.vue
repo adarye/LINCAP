@@ -1,5 +1,8 @@
 <template>
     <div>
+         <vue-headful
+            :title=" 'Lincap | Ver evaluación ' "
+        />
         <center>
             <h1 class="titulo">{{titulo}}</h1>
             {{estado_prueba}}
@@ -184,7 +187,7 @@
                 axios.get(`/api/preguntas/contar/${this.id}`)
                     .then(res => {
                         console.log(res.data)
-                        this.cantidad_preg = res.data
+                        this.cantidad_preg = res.data;
 
                     })
 

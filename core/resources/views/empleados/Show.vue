@@ -1,5 +1,8 @@
 <template>
     <div>
+         <vue-headful
+            title="Lincap | Actualizar datos"
+        />
 
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">

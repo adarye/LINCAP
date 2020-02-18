@@ -1,5 +1,8 @@
 <template>
     <div>
+         <vue-headful
+            :title=" 'Presentar evaluación | ' + titulo"
+        />
         <center>
             <h1 class="titulo">{{titulo}}</h1>
             {{estado_prueba}}

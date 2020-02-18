@@ -1,5 +1,8 @@
 <template>
     <div>
+          <vue-headful
+            :title="title"
+        />
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
@@ -50,6 +53,7 @@
             Agregar a todos
         </button>
         <modal name="create" :clickToClose="false" :adaptive="true" :width="430" :height="430">
+            
             <div class="login_wrapper">
                 <div class="animate form login_form">
                     <section class="login_content shadow-lg p-3 mb-5 bg-white rounded">
@@ -85,6 +89,7 @@
             </div>
         </modal>
         <modal name="editar" :clickToClose="false" :adaptive="true" :width="430" :height="430">
+             
             <div class="login_wrapper">
                 <div class="animate form login_form">
                     <section class="login_content shadow-lg p-3 mb-5 bg-white rounded">
@@ -212,13 +217,15 @@ import router from '../../js/router';
                 mostrar: 0,
                 bempleado: "",
                 pagina: 1,
-                carga: true
+                carga: true,
+                title: ""
             };
         },
         beforeMount() {
               if(window.user.rol == 1){
             this.cargarRoles();
             this.created();
+             this.title = "Lincap | Admin usuarios"
               }
               else{
                   router.push('/');
@@ -370,16 +377,20 @@ import router from '../../js/router';
                 console.log(this.estado);
             },
             show() {
+                this.title = "Lincap | Crear usuarios"
                 this.$modal.show("create");
             },
             showEditar() {
+                this.title = "Lincap | Editar usuario"
                 this.$modal.show("editar");
             },
             closeEditar() {
+                this.title = "Lincap | Admin usuarios"
                 this.$modal.hide("editar");
                 this.limpiar();
             },
             closeCreate() {
+                this.title = "Lincap | Admin usuarios"
                 this.$modal.hide("create");
                 this.limpiar();
             },
@@ -396,8 +407,10 @@ import router from '../../js/router';
                 axios.post('/api/usuario/agregar-todos', this.usuarios )
                 .then(res=>{
                     swal('Se han agregado '+ res.data +' empleado(s) nuevos', '', 'success')
+                    this.created()
                 }).catch(res => {
                     swal('Ha sucedido un error inesperado', '', 'error')
+                    this.created()
                 })
             }
         },

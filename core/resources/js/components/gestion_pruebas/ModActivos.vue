@@ -1,5 +1,9 @@
 <template>
+
     <div v-show="id_creador == id_log">
+         <vue-headful
+            :title="$route.params.cat == 1 ?  'Lincap | Asignar encuesta':  'Lincap | Asignar evaluación'"
+        />
 
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">

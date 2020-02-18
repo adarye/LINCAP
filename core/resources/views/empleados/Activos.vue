@@ -1,5 +1,8 @@
 <template>
     <div>
+        <vue-headful
+            title=" Lincap | Empleados activos "
+        />
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><i class="fa fa-folder-open"> Empleados</i></li>

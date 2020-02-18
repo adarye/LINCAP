@@ -1,9 +1,12 @@
 <template>
     <div>
+         <vue-headful
+            :title="title"
+        />
         <div v-show="rol != 4 && rol != 3 ">
         <button class="btn btn-outline-primary" type="button" v-show="mostrar == false"
-            @click="mostrar = true">Publicar</button>
-        <button class="btn btn-primary" type="button" v-show="mostrar" @click="mostrar = false, limpiar()">Cerrar</button>
+            @click="mostrar = true, title = 'Lincap | Crear noticia'">Publicar</button>
+        <button class="btn btn-primary" type="button" v-show="mostrar" @click="mostrar = false, limpiar(), title='Lincap | Noticias'">Cerrar</button>
         </div>
         <form v-show="mostrar == true && editar == false" class="my-3" method="POST" @submit.prevent="validar">
              <div class="row">
@@ -143,7 +146,8 @@ export default {
             file: null,
             estado2: null,
             id: null,
-            rol: null
+            rol: null,
+            title: 'Lincap | Noticias'
           
             
         }
@@ -186,6 +190,7 @@ export default {
                 }
         },
         editar2(item){
+            this.title='Lincap | Editar noticia'
             this.mostrar = true
             this.editar = true
             this.nombre = item.cz12_nombre
@@ -277,6 +282,7 @@ export default {
                 }
             },
             limpiar(){
+               this.title='Lincap | Noticias'
                  this.mostrar = false
             this.editar = false
             this.nombre = null

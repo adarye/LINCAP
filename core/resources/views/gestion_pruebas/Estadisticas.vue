@@ -1,6 +1,8 @@
 <template>
     <div class=" p-2">
-        
+        <vue-headful
+            :title="$route.params.cat == 1 ?  'Estadísticas encuesta | ' + titulo:  'Estadísticas evaluación | ' + titulo "
+        />
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li v-show=" $route.params.cat == 1" class="breadcrumb-item"><i class="fa fa-pencil">

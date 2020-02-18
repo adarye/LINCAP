@@ -1,5 +1,9 @@
 <template>
     <div>
+          <vue-headful
+            :title="title"
+           
+        />
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
@@ -30,7 +34,7 @@
                             </div>
                             <div class="col-md-12 col-sm-12 form-group has-feedback">
                                 <button type="submit" class="btn btn-primary">Guardar</button>
-                                <button type="button" @click="$modal.hide('create');"
+                                <button type="button" @click="hide"
                                     class="btn btn-danger">Cancelar</button>
                             </div>
 
@@ -82,12 +86,14 @@ import router from '../../js/router';
                 descripcion: "",
                 nombre: "",
                 rol: {},
+                title: ""
             };
         },
         beforeMount() {
              if(window.user.rol == 1){
             axios.get("/api/roles").then(res => {
                 this.roles = res.data;
+                 this.title = "Lincap | Admin roles"
             });
              }else{
                    router.push('/');
@@ -133,9 +139,11 @@ import router from '../../js/router';
             },
             show() {
                 this.$modal.show('create');
+                 this.title = "Lincap | Crear rol"
 
             },
             hide() {
+                this.title = "Lincap | Admin roles"
                 this.$modal.hide('create');
             }
         }
