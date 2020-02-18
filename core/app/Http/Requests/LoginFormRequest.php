@@ -33,7 +33,7 @@ class LoginFormRequest extends FormRequest
     return [
         'cz1_cc.required' => 'La cédula es obligatoria',
         'cz1_cc.integer' => 'La cédula no es valida',
-        'cz1_contrasena.required' => 'La contraseña es obligatoria'    
+        'cz1_contrasena.required' => 'La contraseña es obligatoria',    
     ];
 }
 }
