@@ -22,7 +22,7 @@ class ResetPassword extends Mailable
     {
         $this->token = $token;
         $this->datos = $datos;
-        Mailable::subject('Recuperacion de cuenta LINCAP');
+        Mailable::subject('Restablecer contraseña');
     }
 
     /**

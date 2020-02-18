@@ -27,8 +27,8 @@ class UsuariosController extends Controller
             'cz2_nombre',
             'cz1_cc',
             'cz1_id',          
-             'cz1_nombres',
-             'cz1_id_rol'
+            'cz1_nombres',
+            'cz1_id_rol'
 
         )->join(
             'z2_roles',
@@ -116,7 +116,6 @@ class UsuariosController extends Controller
     }
     public function enviarEmail(Request $request)
     {
-        //return $request->cedula;
         $validacion = z1_usuarios::where('cz1_cc', $request->cedula)->first();
         if ($validacion != null) {
             $this->global = z1_usuarios::select('cz1_nombres', 'f015_email', 'cz1_cc')
@@ -130,16 +129,15 @@ class UsuariosController extends Controller
                 'dbo.t200_mm_terceros.f200_rowid_contacto',
                 '=',
                 'dbo.t015_mm_contactos.f015_rowid'
-
             )
                 ->where('dbo.z1_usuarios.cz1_cc', $request->cedula)
                 ->get();
         }
 
         if ($this->global == null) {
-            return response()->json(['error' => 'No estas registrado en el sistema', 'mensaje' => '']);
+            return response()->json(['Error' => 'No está registrado en el sistema', 'mensaje' => '']);
         } else if ($this->global[0]->f015_email == null) {
-            return response()->json(['error' => 'No tiene un correo registrado', 'mensaje' => '']);
+            return response()->json(['Error' => 'No tiene un correo electrónico registrado', 'mensaje' => '']);
         } else {
             //ElIMINAMOS TODOS LOS TOKEN QUE TENGA ESE CORREO
 
@@ -149,7 +147,7 @@ class UsuariosController extends Controller
 
             $token = Str::random(40);
             // $this->global[0]->f015_email
-             Mail::to('adavidparra0412@gmail.com')->send(new ResetPassword($token, $this->global[0]));
+            Mail::to($this->global[0]->f015_email)->send(new ResetPassword($token, $this->global[0]));
            
 
             //GUARDAMOS EL TOKEN EN SU TABLA
@@ -159,7 +157,7 @@ class UsuariosController extends Controller
             $PaswordReset->token = $token;
             $PaswordReset->save();
 
-            return response()->json(['mensaje' => 'Se envio un token a tu correo', 'correo' => $this->global[0]->f015_email, 'error' => ''], 200);
+            return response()->json(['Correcto' => 'Se envió el token a su correo electrónico', 'correo' => $this->global[0]->f015_email, 'error' => ''], 200);
         }
 
     }
