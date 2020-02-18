@@ -28,8 +28,8 @@
                         <form @submit.prevent="enviarEmail">
                             <h1>Restablecer</h1>
                             <div class="col-md-12 col-center col-sm-8 form-group has-feedback">
-                                <input v-numeric-only v-max-length="16" v-autofocus type="text" class="form-control"
-                                    v-model="cedula" placeholder="Número de cédula" onfocus />
+                                <input required v-numeric-only v-max-length="16" v-autofocus type="text" class="form-control"
+                                    v-model="cedula" placeholder="Número de cédula" />
                                 <span class="fa fa-user form-control-feedback right" aria-hidden="true"></span>
                             </div>
                             <div class="col-md-12 col-sm-12 form-group has-feedback">
@@ -141,7 +141,7 @@
                         }
                     })
                     .catch(error => {
-                        console.log(error.response.data.errors);
+                        // console.log(error.response.data.errors);
                         let er = error.response.data.errors;
                         let mensaje = "Error no identificado";
                         if (er.hasOwnProperty("cz1_cc")) {

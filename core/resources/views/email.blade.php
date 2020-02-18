@@ -1,25 +1,30 @@
 <html>
-    <head>
-    </head>
-    <body>
-       
-                   
-                   <a class="titulo" id="e">Usa este token para restablecer la contraseña de la cuenta Lincap {{ $datos->cz1_nombres }} </a>
-                  <p>Este es tu token: <b>{{ $token }}</b></p>
 
-                  <p>Gracias,</p>
-                   <p> LINCO S.A.S. - Lincap</p>
+<head>
+</head>
 
-                   <style type="text/css">
-                   #e{
-                       color: red;
-                       font-size: 12px;
-                       font-style: italic;
-                       
-                       
+<body>
 
-                   }
-                   </style>
-                    
-    </body>
+    <p class="titulo" id="e">
+    Estimado/a, {{ $datos->cz1_nombres }}:<br><br>
+    
+    Hemos recibido una solicitud para cambiar la contraseña de su cuenta de LINCAP. <br>
+    Copia el token para completar esta solicitud. <br><br>
+    
+    Token: <b>{{ $token }}</b><br><br>
+
+    Cordial saludo, <br>
+    Equipo de desarrollo <br>
+    LINCO S.A.S.</p>
+
+    <style type="text/css">
+        #e {
+            color: #2A3F54;
+            font-size: 13px;
+            font-style: italic;
+        }
+    </style>
+
+</body>
+
 </html>
