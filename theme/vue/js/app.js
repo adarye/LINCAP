@@ -5954,8 +5954,8 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale("es");
         swal("Advertencia", "El archivo a adjuntar no es una imagen", "warning");
         this.estado = 0;
       } else {
-        if (file.size > 3000000) {
-          swal("Advertencia", "El peso de la imagen no puede exceder los 200kb", "warning");
+        if (file.size > 4000000) {
+          swal("Advertencia", "El peso de la imagen no puede exceder los 4mb", "warning");
           this.estado = 0;
         } else {
           this.estado = 1;

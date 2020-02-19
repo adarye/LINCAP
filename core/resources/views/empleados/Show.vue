@@ -272,10 +272,10 @@
                     this.estado = 0
                 } else {
 
-                    if (file.size > 3000000) {
+                    if (file.size > 4000000) {
                         swal(
                             "Advertencia",
-                            "El peso de la imagen no puede exceder los 200kb",
+                            "El peso de la imagen no puede exceder los 4mb",
                             "warning"
                         );
                         this.estado = 0

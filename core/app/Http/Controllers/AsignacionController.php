@@ -174,7 +174,7 @@ class AsignacionController extends Controller
 
          )
             ->where('c0550_ind_estado', '1')
-            ->with('nota')
+            ->with('notas')
             ->orderBy('c0541_nombres','ASC')
             ->get();
 

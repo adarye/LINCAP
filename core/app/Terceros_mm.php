@@ -15,7 +15,7 @@ class Terceros_mm extends Model
         return $this->hasMany('App\z4_rel_ts_gp', 'cz4_ts_id');
    }
 
-   public function nota($id){
-    return $this->notas()->where('cz4_gp_id', $id);
+   public function nota(){
+    return $this->notas()->where('cz4_gp_id', '7');
 }
 }
