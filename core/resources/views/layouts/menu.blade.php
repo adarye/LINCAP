@@ -38,7 +38,7 @@
                     <li><router-link v-bind:to="'/gestion/pruebas/2/' +  {{ Auth() -> user() -> cz1_id_empleado}} " >Administrar</router-link></li>
                     @endcannot
                     <li><router-link v-bind:to="'/pruebas/pendientes/' + 2">Pendientes</router-link></li>
-                    <li> <router-link v-bind:to="'/pruebas/completadas/' + 2">completadas</router-link></li>
+                    <li> <router-link v-bind:to="'/pruebas/completadas/' + 2">Completadas</router-link></li>
                 </ul>
             </li>
             <li><a><i class="fa fa-pencil"></i>Encuestas<span class="fa fa-chevron-down"></span></a>

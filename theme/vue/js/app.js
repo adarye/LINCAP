@@ -7605,12 +7605,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -78750,17 +78744,17 @@ var render = function() {
           attrs: { type: "button", title: "Nuevo" },
           on: { click: _vm.show }
         },
-        [_vm._v("\n           Nuevo\n       ")]
+        [_c("i", { staticClass: "fa fa-plus" })]
       ),
       _vm._v(" "),
       _c(
         "button",
         {
           staticClass: "btn btn-round btn-primary",
-          attrs: { type: "button", title: "Nuevo" },
+          attrs: { type: "button", title: "Sincronizar usuarios" },
           on: { click: _vm.agregarTodos }
         },
-        [_vm._v("\n           Agregar a todos\n       ")]
+        [_c("i", { staticClass: "fa fa-rotate-left" })]
       ),
       _vm._v(" "),
       _c(
@@ -78825,7 +78819,7 @@ var render = function() {
                               { name: "autofocus", rawName: "v-autofocus" }
                             ],
                             staticClass: "form-control",
-                            attrs: { placeholder: "Numero de cedula" },
+                            attrs: { placeholder: "Número de cédula" },
                             domProps: { value: _vm.usuario.cz1_cc },
                             on: {
                               input: function($event) {
@@ -79213,6 +79207,9 @@ var render = function() {
         ]
       ),
       _vm._v(" "),
+      _c("br"),
+      _c("br"),
+      _vm._v(" "),
       _c("div", { staticClass: "table-responsive-md table-responsive-sm" }, [
         _c("table", { staticClass: "table table-striped" }, [
           _vm._m(1),
@@ -79251,6 +79248,7 @@ var render = function() {
                       "button",
                       {
                         staticClass: "btn btn-warning btn-sm",
+                        attrs: { title: "Editar" },
                         on: {
                           click: function($event) {
                             _vm.editar(item)
@@ -79258,19 +79256,14 @@ var render = function() {
                           }
                         }
                       },
-                      [
-                        _c("li", { staticClass: "fa fa-edit" }, [
-                          _vm._v(
-                            "\n                           Editar\n                           "
-                          )
-                        ])
-                      ]
+                      [_c("i", { staticClass: "fa fa-edit" })]
                     ),
                     _vm._v(" "),
                     _c(
                       "button",
                       {
                         staticClass: "btn btn-danger btn-sm",
+                        attrs: { title: "Eliminar" },
                         on: {
                           click: function($event) {
                             return _vm.eliminar(
@@ -79281,13 +79274,7 @@ var render = function() {
                           }
                         }
                       },
-                      [
-                        _c("li", { staticClass: "fa fa-trash-o" }, [
-                          _vm._v(
-                            "\n                           Eliminar\n                           "
-                          )
-                        ])
-                      ]
+                      [_c("li", { staticClass: "fa fa-trash-o" })]
                     )
                   ])
                 ]
