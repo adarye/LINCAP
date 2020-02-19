@@ -52,7 +52,7 @@
                         <th scope="col" class="texto">Nombre</th>
                         <th scope="col" class="texto">C. O</th>
                         <th scope="col" class="texto">Cargo</th>
-                         <th scope="col" class="texto">Nota</th>
+                         <!-- <th scope="col" class="texto">Nota</th> -->
                         <th scope="col" class="texto">Acciones</th>
                     </tr>
                 </thead>
@@ -69,7 +69,7 @@
                         </td>
                         <td>{{ item.f285_descripcion }}</td>
                         <td>{{ item.c0763_descripcion }}</td>
-                        <td><span v-if="item.nota[0]">{{item.nota[0].cz4_calificacion}}</span></td>
+                        <!-- <td><span v-if="item.nota[0]">{{item.nota[0].cz4_calificacion}}</span></td> -->
                        
                         <td>
                             

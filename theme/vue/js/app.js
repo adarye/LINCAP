@@ -70882,14 +70882,6 @@ var render = function() {
                   _c("td", [_vm._v(_vm._s(item.c0763_descripcion))]),
                   _vm._v(" "),
                   _c("td", [
-                    item.nota[0]
-                      ? _c("span", [
-                          _vm._v(_vm._s(item.nota[0].cz4_calificacion))
-                        ])
-                      : _vm._e()
-                  ]),
-                  _vm._v(" "),
-                  _c("td", [
                     _c(
                       "span",
                       {
@@ -71106,10 +71098,6 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", { staticClass: "texto", attrs: { scope: "col" } }, [
           _vm._v("Cargo")
-        ]),
-        _vm._v(" "),
-        _c("th", { staticClass: "texto", attrs: { scope: "col" } }, [
-          _vm._v("Nota")
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "texto", attrs: { scope: "col" } }, [
