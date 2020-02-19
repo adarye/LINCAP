@@ -360,7 +360,7 @@
 
             const answer = window.confirm('¿Esta seguro de finalizar la evaluacion?')
             if (answer) {
-                window.location.href = '/pruebas/completadas/2'
+                window.location.href = '/pruebas/pendientes/2'
             } else {
                 next(false)
             }
