@@ -89,7 +89,7 @@
             </div>
         </article>
 
-        <button v-show="estado_prueba != 2" @click="calificar" class="btn btn-danger mt-4"
+        <button v-show="estado_prueba != 2" @click="$router.go(-1)" class="btn btn-danger mt-4"
             type="button">Finalizar</button>
 
 
@@ -223,11 +223,7 @@
             },
             cargar() {
                 this.buscar()
-                // this.traerSMMR()
-                // this.traerRa();
-                // this.traerPregunta_SMUR();
-                // this.buscarResmur()
-                // this.buscarRa();
+              
             },
             guardarRA(id_pp, id_gp, categoria, ra) {
                 console.log(ra)
@@ -266,12 +262,14 @@
             buscarResmur() {
                 axios.get(`/api/respuesta/smur/buscar/${this.id}/${this.id_empleado}`)
                     .then(res => {
-
+                    
+                    
 
                         for (var i = 0; i < res.data.length; i++) {
                             this.respuestas_smur.push(res.data[i].cz11_rta)
                             this.notas_smur.push(res.data[i].cz11_nota)
                         }
+                    
 
 
                     })
@@ -327,7 +325,9 @@
 
                 axios.put(`/api/pruebas/finalizar/${this.id}`)
                     .then(res => {
-                        window.location.href = '/pruebas/pendientes/2'
+                        
+                        // window.location.href = '/pruebas/pendientes/2'
+                        
 
                     })
             },
@@ -346,9 +346,9 @@
                             }
 
                         } else {
-                            // swal('Informacion',
-                            //     'Esta prueba consta de preguntas abiertas, por esto sera calificada después.',
-                            //     'success')
+                             swal('Informacion',
+                                 'Esta prueba consta de preguntas abiertas, por esto sera calificada después.',
+                                 'success')
                         }
                     })
                 this.finalizar()
@@ -358,9 +358,9 @@
         },
         beforeRouteLeave(to, from, next) {
 
-            const answer = window.confirm('¿Esta seguro que quiere salir de la evaluacion?')
+            const answer = window.confirm('¿Esta seguro de finalizar la evaluacion?')
             if (answer) {
-                this.calificar()
+                window.location.href = '/pruebas/completadas/2'
             } else {
                 next(false)
             }

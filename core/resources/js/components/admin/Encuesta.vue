@@ -1,8 +1,16 @@
 <template>
     <div>
           <vue-headful
-            :title="id_creador == user ?  'Lincap | Ver encuesta ' :  'Presentar encuesta | ' + titulo "
+            title="Lincap | Ver encuesta"
         />
+     <nav  aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li  class="breadcrumb-item"><i class="fa fa-pencil"> <router-link v-bind:to="'/gestion/pruebas/1' + user"> Encuestas</router-link></i></li>
+                 <li  class="breadcrumb-item"><i class="fa fa-users"> <router-link v-bind:to="'/gestion/pruebas/asignar/1/' + $route.params.id"> Asignar</router-link></i></li>
+                <!-- <li class="breadcrumb-item"><i class="fa fa-gears"> {{datos.cz3_nombre}}</i></li> -->
+                <li class="breadcrumb-item active" aria-current="page"></li>
+            </ol>
+        </nav>
         <center>
         <h1>{{titulo}}</h1>
         </center>
@@ -28,7 +36,7 @@
             <div class="row mb-3">
                 <div class="col-md-9">
                   
-                    <textarea :disabled="editar ? false : true" v-model="respuestas_ra[i]"  @change="guardarRA(dato.cz5_id, dato.cz5_gp_id,  dato.cz5_categoria, respuestas_ra[i] )" rows="4" cols="50" type="text" class="form-control" v-uppercase v-max-length="200">
+                    <textarea disabled v-model="respuestas_ra[i]" >
                     </textarea>
                 </div>
             </div>
@@ -48,11 +56,16 @@
 
                 <div class="col-md-12">
                     <article v-for="(item2, i) in item.respuestas" :key="i">
-                        <!-- {{respuestas.filter(cz7_id => cz7_id == item.cz7_id )}} -->
-                        
-                        <input :disabled="editar ? false : true"
-                         @click="guardarSMUR(item.cz5_id, item.cz5_gp_id, item2.cz7_id, item.cz5_categoria)" 
-                         :checked="respuestas_smur.filter(cz7_id => cz7_id == item2.cz7_id ) != ''"  class="flat" type="radio" :name="item.cz5_id" :value="item2.cz7_id"> {{ item2.cz7_rta }}                 
+                       <div class="custom-control custom-radio">    
+                        <input
+                         disabled
+                        :id="item2.cz7_id"
+                        class="custom-control-input"
+                         :checked="respuestas_smur.filter(cz7_id => cz7_id == item2.cz7_id ) != ''"  
+                          type="radio" :name="item.cz5_id" 
+                         :value="item2.cz7_id">
+                          <label class="custom-control-label" :for="item2.cz7_id">{{ item2.cz7_rta }}</label>
+                       </div>
                     </article>
                     
                 </div>
@@ -61,7 +74,7 @@
 
 
         <h4  class="display-5 titulo my-3" v-show="resSMMR.length">Preguntas de selección multiple con multiple respuestas</h4>
-      <article v-for="(item3, indice) in resSMMR" :key="`o-${indice}`">
+         <article v-for="(item3, indice) in resSMMR" :key="`o-${indice}`">
             <div class="row mt-2">
                 <div class="col-md-6">
                     <p class="lead">{{  item3.cz5_pregunta }}</p>
@@ -73,9 +86,9 @@
 
                     <div class="custom-control custom-checkbox">
 
-                        <input @click="guardarSMMR(item3.cz5_id, item3.cz5_gp_id, item4.cz8_id, item3.cz5_categoria)"
+                        <input
                             v-model="inputs[indice]" :id="item4.cz8_id"
-                            :disabled="inputs[indice].length >= item3.cz5_n_rtas_correctas && inputs[indice].indexOf(Number(item4.cz8_id)) === -1"
+                            disabled
                             class="custom-control-input" type="checkbox" :value="item4.cz8_id">
                         <label class="custom-control-label" :for="item4.cz8_id">{{ item4.cz8_rta }}</label>
 
@@ -84,8 +97,6 @@
             </div>
         </article>
 
-
-        <button v-show="editar" @click="finalizar" class="btn btn-danger mt-4" type="button">Finalizar</button>
 
 
     </div>
@@ -108,8 +119,6 @@
                 respuestas_ra: [],
                 editar:true,
                 id_creador: null,
-                fecha_cierre: null,
-                fecha_apertura:null,
                 estado_prueba: null,
                 user: "",
                 titulo: "",
@@ -123,41 +132,15 @@
             this.id = this.$route.params.id
             this.user = user.id
             this.cargar();
- 
+
         },
         methods: {
-            validar(){
-             this.conseguirEstado()
-                if ((this.fecha_cierre < new Date() || this.fecha_apertura > new Date())) {
-                    console.log('cierre')
-                    window.location.href = '/pruebas/pendientes/2'
-                }
-            },
-            conseguirEstado(){
-            axios.get(`/api/asignacion/estado/${this.$route.params.id}/${user.id}`)
-            .then(res=>{
-               this.estado_prueba = res.data.cz4_estado
-              
-               if (this.estado_prueba == 2) {
-                            swal('Advertencia', 'Esta encuesta ya finalizo', 'warning')
-                            console.log('Estado')
-                            window.location.href = '/pruebas/pendientes/1'
-                        } else {
-                            this.traerSMMR()
-                            this.traerRa();
-                            this.traerPregunta_SMUR();
-                            this.buscarResmur()
-                            this.buscarRa();
-                        }
-            })
-            },
             traerRa() {
                 console.log(this.id)
                 axios.get(`/api/respuestaA/buscar/${this.id}`)
                     .then(res => {
                         this.resRA = res.data
                         console.log(this.resRA)
-                        
                     })
             },
             traerSMMR() {
@@ -185,27 +168,9 @@
                   this.buscar()
                 
             },
-            guardarRA(id_pp, id_gp, categoria, ra){
-                console.log(ra)
-                 axios.post('/api/respuesta/ra/guardar', {id_gp: id_gp, id_pp: id_pp,  categoria: categoria, rta_ra: ra })
-                .then(res =>{
-                    console.log(res.data)
-                })
-            },
-            guardarSMUR(id_pp, id_gp, id_rta, categoria){
-                axios.post('/api/respuesta/smur/guardar', {id_gp: id_gp, id_pp: id_pp, id_rta:id_rta, categoria: categoria })
-                .then(res =>{
-                    console.log(res.data)
-                })
-            },
-               guardarSMMR(id_pp, id_gp, id_rta, categoria){
-                axios.post('/api/respuesta/smmr/guardar', {id_gp: id_gp, id_pp: id_pp, id_rta:id_rta, categoria: categoria })
-                .then(res =>{
-                    console.log(res.data)
-                })
-            },
+            
             buscarResmur(){
-                axios.get(`/api/respuesta/smur/buscar/${this.id}/${user.id}`)
+                axios.get(`/api/respuesta/smur/buscar/${this.id}/${this.$route.params.empleado}`)
                 .then(res=>{
                    console.log(res.data)
                      for (var i = 0; i < res.data.length; i++) {
@@ -216,7 +181,7 @@
                 })
             },
             buscarResmmr(){
-                axios.get(`/api/respuesta/smmr/buscar/${this.id}/${user.id}`)
+                axios.get(`/api/respuesta/smmr/buscar/${this.id}/${this.$route.params.empleado}`)
                 .then(res=>{
                    console.log(res.data)
                    for(var i = 0; i < this.resSMMR.length; i++){
@@ -230,7 +195,7 @@
                 })
             },
             buscarRa(){
-             axios.get(`/api/respuesta/ra/buscar/${this.id}/${user.id}`)
+             axios.get(`/api/respuesta/ra/buscar/${this.id}/${this.$route.params.empleado}`)
                 .then(res=>{
                     // this.respuestas_ra = res.data
                    
@@ -247,25 +212,29 @@
                 this.id_creador = res.data.cz3_id_creador
                 this.titulo = res.data.cz3_nombre
 
-                this.fecha_cierre = new Date(res.data.cz3_fecha_cierre);
-                this.fecha_apertura = new Date(res.data.cz3_fecha_apertura);
-                
-                //AQUI SABEMOS SI TIENE PERMISOS PARA VER LAS PRUEBAS DE OTROS USUARIOS
                this.validar()
                
               
             });
         },
-        finalizar(){
-            axios.put(`/api/pruebas/finalizar/${this.$route.params.id}`)
+        validar(){
+            axios.get(`/api/asignacion/estado/${this.$route.params.id}/${this.$route.params.empleado}`)
             .then(res=>{
-                swal('Encuesta Finalizada', 'Ya no podras modificarla', 'success')
-                  this.$router.go(-1)
-            })
-        }
-        
+               this.estado_prueba = res.data.cz4_estado
+                if (user.id != this.id_creador) {
+                            swal('Advertencia', 'Acceso denegado', 'warning')
+                            this.$router.go(-1)
+                        } else {
+                            this.traerSMMR()
+                            this.traerRa();
+                            this.traerPregunta_SMUR();
+                            this.buscarResmur()
+                            this.buscarRa();
 
-        
+                        }
+            })
+
+        }
            
         },
         computed: {

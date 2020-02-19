@@ -80,7 +80,7 @@
             </div>
         </nav>
         <Respuestas v-bind="{ id: $route.params.id }"></Respuestas>
-         <modal name="pruebas" :clickToClose="false" :adaptive="true" :width="450" :height="370">
+         <modal name="pruebas" :clickToClose="false" :adaptive="true" :width="450" :height="355">
                 <div class="table-responsive-md table-responsive-sm table-wrapper-scroll-y my-custom-scrollbar">
             <table class="table table-striped">
                 <thead>

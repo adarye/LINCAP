@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Terceros_mm;
 use App\z9_empleados_info;
 use App\Contrato;
+use App\Paises;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 
@@ -249,7 +250,7 @@ class TercerosmmController extends Controller
              $estado = 2;
          };
          
-         
+        //  return Paises::with('departamentos')->get();
         $user = Terceros_mm::select(
             "dbo.t015_mm_contactos.f015_contacto",
             "dbo.t015_mm_contactos.f015_direccion1",
@@ -283,7 +284,8 @@ class TercerosmmController extends Controller
             'f200_id',
             'c0550_rowid',
             'c0550_salario',
-            "c0540_id_ciudad_nacimiento"
+            "c0540_id_ciudad_nacimiento",
+            "c0540_id_ciudad_exp_identif"
 
         )->join(
             'dbo.t200_mm_terceros',
@@ -354,7 +356,9 @@ class TercerosmmController extends Controller
             'dbo.w0540_empleados.c0540_id_ciudad_exp_identif',
             '=',
             'dbo.t013_mm_ciudades.f013_id'
+            
         )
+        
             ->where('c0550_ind_estado', $estado)
             ->where('f200_rowid', $id)
             ->get()->last();

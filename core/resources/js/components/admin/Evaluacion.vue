@@ -66,10 +66,13 @@
             <div class="row mt-2">
                 <div class="col-md-6">
                     <p class="lead">{{ item.cz5_pregunta }}
-                        <span v-show="notas_smur[indice] >0 && id_creador == id_log" class="badge badge-success">
+                        <span  v-show="notas_smur.filter(pp => pp.pregunta == item.cz5_id).length >0">
+                        <span v-show="notas_smur.filter(pp => pp.pregunta == item.cz5_id && pp.nota > 0).length > 0" class="badge badge-success">
                             Correcta</span>
-                        <span v-show="notas_smur[indice] ==0 && id_creador == id_log" class="badge badge-danger">
+                           
+                        <span v-show="notas_smur.filter(pp => pp.pregunta == item.cz5_id && pp.nota > 0).length == 0 " class="badge badge-danger">
                             Incorrecta</span>
+                        </span>
                     </p>
 
                 </div>
@@ -266,7 +269,7 @@
 
                         for (var i = 0; i < res.data.length; i++) {
                             this.respuestas_smur.push(res.data[i].cz11_rta)
-                            this.notas_smur.push(res.data[i].cz11_nota)
+                            this.notas_smur.push({pregunta: res.data[i].cz11_pp_id ,nota: res.data[i].cz11_nota})
                         }
 
 
