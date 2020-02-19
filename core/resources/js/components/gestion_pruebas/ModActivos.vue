@@ -52,7 +52,7 @@
                         <th scope="col" class="texto">Nombre</th>
                         <th scope="col" class="texto">C. O</th>
                         <th scope="col" class="texto">Cargo</th>
-                         <!-- <th scope="col" class="texto">Nota</th> -->
+                         <th scope="col" class="texto">Nota</th>
                         <th scope="col" class="texto">Acciones</th>
                     </tr>
                 </thead>
@@ -69,7 +69,7 @@
                         </td>
                         <td>{{ item.f285_descripcion }}</td>
                         <td>{{ item.c0763_descripcion }}</td>
-                        <!-- <td><span v-if="item.nota[0]">{{item.nota[0].cz4_calificacion}}</span></td> -->
+                         <td><h4><span v-if="item.nota.length >= 1 && item.nota[0].cz4_calificacion != null " :class="item.nota[0].cz4_calificacion < 3.5 ? 'badge badge-danger':'badge badge-success'">{{Math.round(item.nota[0].cz4_calificacion * 100) / 100}}</span></h4></td> 
                        
                         <td>
                             
@@ -193,6 +193,7 @@
                 axios.get(`/api/asignacion/index/${this.id_prueba}`).then(res => {
                     for (var i = 0; i < res.data.length; i++) {
                         this.seleccionados.push(res.data[i].cz4_ts_id)
+                        this.traerActivos()
                     }
 
                 });

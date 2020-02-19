@@ -174,8 +174,10 @@ class AsignacionController extends Controller
 
          )
             ->where('c0550_ind_estado', '1')
-            // ->with('notas')
             ->orderBy('c0541_nombres','ASC')
+            ->with(array('nota'=>function($query) use ($id){
+                $query->select()->where('cz4_gp_id',$id);
+               }))
             ->get();
 
         

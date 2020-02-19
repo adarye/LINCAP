@@ -2550,27 +2550,19 @@ __webpack_require__.r(__webpack_exports__);
 
       console.log(this.id);
       axios.get("/api/respuestaA/buscar/".concat(this.id)).then(function (res) {
-        _this3.resRA = res.data;
-
-        if (_this3.estado_prueba != 2 && _this3.id_empleado == _this3.id_log) {
-          swal({
-            buttons: false,
-            html: true,
-            content: wrapper,
-            closeOnClickOutside: false
-          });
-
-          for (var i = 0; i < _this3.resRA.length; i++) {
-            axios.post('/api/respuesta/ra/guardar', {
-              id_gp: _this3.resRA[i].cz5_gp_id,
-              id_pp: _this3.resRA[i].cz5_id,
-              categoria: 'ra',
-              rta_ra: null
-            }).then(function (res) {
-              console.log(res.data);
-            });
-          }
-        }
+        _this3.resRA = res.data; // if (this.estado_prueba != 2 && this.id_empleado == this.id_log) {
+        //     for (let i = 0; i < this.resRA.length; i++) {
+        //         axios.post('/api/respuesta/ra/guardar', {
+        //                 id_gp: this.resRA[i].cz5_gp_id,
+        //                 id_pp: this.resRA[i].cz5_id,
+        //                 categoria: 'ra',
+        //                 rta_ra: null
+        //             })
+        //             .then(res => {
+        //                 console.log(res.data)
+        //             })
+        //     }
+        // }
       });
     },
     traerSMMR: function traerSMMR() {
@@ -3827,6 +3819,8 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale('es');
       axios.get("/api/asignacion/index/".concat(this.id_prueba)).then(function (res) {
         for (var i = 0; i < res.data.length; i++) {
           _this3.seleccionados.push(res.data[i].cz4_ts_id);
+
+          _this3.traerActivos();
         }
       });
     },
@@ -68476,8 +68470,7 @@ var render = function() {
       _c("vue-headful", { attrs: { title: "Lincap | Ver evaluación " } }),
       _vm._v(" "),
       _c("center", [
-        _c("h1", { staticClass: "titulo" }, [_vm._v(_vm._s(_vm.titulo))]),
-        _vm._v("\n        " + _vm._s(_vm.estado_prueba) + "\n    ")
+        _c("h1", { staticClass: "titulo" }, [_vm._v(_vm._s(_vm.titulo))])
       ]),
       _vm._v(" "),
       _c(
@@ -69403,8 +69396,7 @@ var render = function() {
       }),
       _vm._v(" "),
       _c("center", [
-        _c("h1", { staticClass: "titulo" }, [_vm._v(_vm._s(_vm.titulo))]),
-        _vm._v("\n        " + _vm._s(_vm.estado_prueba) + "\n    ")
+        _c("h1", { staticClass: "titulo" }, [_vm._v(_vm._s(_vm.titulo))])
       ]),
       _vm._v(" "),
       _c(
@@ -70882,6 +70874,32 @@ var render = function() {
                   _c("td", [_vm._v(_vm._s(item.c0763_descripcion))]),
                   _vm._v(" "),
                   _c("td", [
+                    _c("h4", [
+                      item.nota.length >= 1 &&
+                      item.nota[0].cz4_calificacion != null
+                        ? _c(
+                            "span",
+                            {
+                              class:
+                                item.nota[0].cz4_calificacion < 3.5
+                                  ? "badge badge-danger"
+                                  : "badge badge-success"
+                            },
+                            [
+                              _vm._v(
+                                _vm._s(
+                                  Math.round(
+                                    item.nota[0].cz4_calificacion * 100
+                                  ) / 100
+                                )
+                              )
+                            ]
+                          )
+                        : _vm._e()
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("td", [
                     _c(
                       "span",
                       {
@@ -71098,6 +71116,10 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", { staticClass: "texto", attrs: { scope: "col" } }, [
           _vm._v("Cargo")
+        ]),
+        _vm._v(" "),
+        _c("th", { staticClass: "texto", attrs: { scope: "col" } }, [
+          _vm._v("Nota")
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "texto", attrs: { scope: "col" } }, [

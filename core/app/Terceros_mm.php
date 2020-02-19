@@ -16,6 +16,6 @@ class Terceros_mm extends Model
    }
 
    public function nota(){
-    return $this->notas()->where('cz4_gp_id', '7');
+    return $this->notas();
 }
 }

@@ -250,7 +250,7 @@ class UsuariosController extends Controller
              $user = new z1_usuarios();
              $user->cz1_cc = $emp->c0541_id;
              $user->cz1_nombres = $emp->c0541_nombres.' '.$emp->c0541_apellido1.' '.$emp->c0541_apellido2;
-             $user->cz1_id_rol = 1;
+             $user->cz1_id_rol = 4;
              $user->cz1_id_empleado = $emp->c0540_rowid_tercero;
              $user->cz1_avatar = 'user.png';
              $random = Str::random(40);
