@@ -21,6 +21,7 @@ class ApiController extends Controller
     {
         if (Gate::denies('isDefault')) {
         if ($request->ajax()) {
+            // return Terceros::with('notas')->get();
             return Terceros::select(
                 "c0541_rowid",
                 "c0541_nombres",

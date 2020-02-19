@@ -147,7 +147,7 @@ class GPController extends Controller
             )->where('cz4_ts_id', Auth()->user()->cz1_id_empleado)
             ->where('cz3_categoria', $id)
             ->where('cz4_estado', 2)
-            ->orderBy('cz3_fecha_apertura', 'desc')
+            ->orderBy('updated_at', 'desc')
             ->get();
 
     }

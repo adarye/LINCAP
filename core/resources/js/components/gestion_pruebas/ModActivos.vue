@@ -52,6 +52,7 @@
                         <th scope="col" class="texto">Nombre</th>
                         <th scope="col" class="texto">C. O</th>
                         <th scope="col" class="texto">Cargo</th>
+                         <th scope="col" class="texto">Nota</th>
                         <th scope="col" class="texto">Acciones</th>
                     </tr>
                 </thead>
@@ -60,7 +61,7 @@
                         v-show="(pagina-1) * numero <= indice && pagina*numero > indice || bempleado != ''">
 
 
-                        <th scope="row">{{ item.c0541_id }}</th>
+                        <th scope="row">{{ item.c0541_id }} </th>
 
                         <td>
                             {{ item.c0541_nombres }} {{ item.c0541_apellido1 }}
@@ -68,8 +69,10 @@
                         </td>
                         <td>{{ item.f285_descripcion }}</td>
                         <td>{{ item.c0763_descripcion }}</td>
-
+                        <td><span v-if="item.nota[0]">{{item.nota[0].cz4_calificacion}}</span></td>
+                       
                         <td>
+                            
 
 
                             <span
@@ -80,12 +83,6 @@
                                 <button class="btn btn-success fa fa-search-plus"
                                     @click="buscarEncuesta(item.c0550_rowid_tercero)"></button>
                                 <!-- {{ emp_calificacion.filter(emp => emp.cz4_ts_id == item.c0550_rowid_tercero && emp.cz4_calificacion != null)}} -->
-
-
-
-
-
-
                             </span>
                             <span
                                 v-show="seleccionados.filter(c0550_rowid_tercero => c0550_rowid_tercero == item.c0550_rowid_tercero ) == ''">
@@ -158,7 +155,7 @@
                 id_log : null
             };
         },
-        beforeMount() {
+        mounted() {
             this.id_log = user.id
             this.id_prueba = this.$route.params.id
             
@@ -174,7 +171,8 @@
                 }
             },
             traerActivos() {
-                axios.get("/api/registros").then(res => {
+                axios.get(`/api/asignacion/traerNotas/${this.id_prueba}`).then(res => {
+                    console.log(res.data)
                     this.activos = res.data;
 
                 });
@@ -301,7 +299,7 @@
                     .then(res => {
                         console.log(res.data)
                         if (res.data.cz3_categoria == 1) {
-                            router.push('/presentar/encuesta/' + this.id_prueba + '/' + id)
+                            router.push('/administrar/encuesta/' + this.id_prueba + '/' + id +'/' + user.id)
                         } else if (res.data.cz3_categoria == 2) {
                             router.push('/administrar/evaluacion/' + this.id_prueba + '/' + id + '/' + user.id)
                         }

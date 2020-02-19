@@ -2076,6 +2076,265 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/Encuesta.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/admin/Encuesta.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _bus__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../bus */ "./resources/js/bus.js");
+/* harmony import */ var _router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../router */ "./resources/js/router.js");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      resSMUR: [],
+      resRA: [],
+      resSMMR: [],
+      contador: 1,
+      params: null,
+      id: null,
+      rta_ra: '',
+      respuestas_smur: [],
+      respuestas_smmr: [],
+      respuestas_ra: [],
+      editar: true,
+      id_creador: null,
+      estado_prueba: null,
+      user: "",
+      titulo: "",
+      inputs: []
+    };
+  },
+  beforeMount: function beforeMount() {
+    this.id = this.$route.params.id;
+    this.user = user.id;
+    this.cargar();
+  },
+  methods: {
+    traerRa: function traerRa() {
+      var _this = this;
+
+      console.log(this.id);
+      axios.get("/api/respuestaA/buscar/".concat(this.id)).then(function (res) {
+        _this.resRA = res.data;
+        console.log(_this.resRA);
+      });
+    },
+    traerSMMR: function traerSMMR() {
+      var _this2 = this;
+
+      console.log(this.id);
+      axios.get("/api/respuestaM/buscar/".concat(this.id)).then(function (res) {
+        _this2.resSMMR = res.data;
+        console.log(_this2.resSMMR);
+
+        _this2.buscarResmmr();
+      });
+    },
+    traerPregunta_SMUR: function traerPregunta_SMUR() {
+      var _this3 = this;
+
+      axios.get("/api/pregunta/index/".concat(this.id)).then(function (res) {
+        _this3.resSMUR = res.data;
+        console.log(_this3.resSMUR);
+      });
+    },
+    contar: function contar() {
+      this.contador = this.contador + 1;
+    },
+    cargar: function cargar() {
+      this.buscar();
+    },
+    buscarResmur: function buscarResmur() {
+      var _this4 = this;
+
+      axios.get("/api/respuesta/smur/buscar/".concat(this.id, "/").concat(this.$route.params.empleado)).then(function (res) {
+        console.log(res.data);
+
+        for (var i = 0; i < res.data.length; i++) {
+          _this4.respuestas_smur.push(res.data[i].cz11_rta);
+        }
+
+        console.log(_this4.respuestas_smur);
+      });
+    },
+    buscarResmmr: function buscarResmmr() {
+      var _this5 = this;
+
+      axios.get("/api/respuesta/smmr/buscar/".concat(this.id, "/").concat(this.$route.params.empleado)).then(function (res) {
+        console.log(res.data);
+
+        for (var i = 0; i < _this5.resSMMR.length; i++) {
+          _this5.inputs.push([]);
+
+          for (var j = 0; j < res.data.length; j++) {
+            if (res.data[j].cz11_pp_id == _this5.resSMMR[i].cz5_id) {
+              _this5.inputs[i].push(Number(res.data[j].cz11_rta));
+            }
+          }
+        }
+      });
+    },
+    buscarRa: function buscarRa() {
+      var _this6 = this;
+
+      axios.get("/api/respuesta/ra/buscar/".concat(this.id, "/").concat(this.$route.params.empleado)).then(function (res) {
+        // this.respuestas_ra = res.data
+        for (var i = 0; i < res.data.length; i++) {
+          _this6.respuestas_ra.push(res.data[i].cz11_rta_ra);
+        }
+
+        console.log(_this6.respuestas_ra);
+      });
+    },
+    buscar: function buscar() {
+      var _this7 = this;
+
+      axios.get("/api/gp/buscar/".concat(this.$route.params.id)).then(function (res) {
+        _this7.id = res.data.cz3_id;
+        _this7.id_creador = res.data.cz3_id_creador;
+        _this7.titulo = res.data.cz3_nombre;
+
+        _this7.validar();
+      });
+    },
+    validar: function validar() {
+      var _this8 = this;
+
+      axios.get("/api/asignacion/estado/".concat(this.$route.params.id, "/").concat(this.$route.params.empleado)).then(function (res) {
+        _this8.estado_prueba = res.data.cz4_estado;
+
+        if (user.id != _this8.id_creador) {
+          swal('Advertencia', 'Acceso denegado', 'warning');
+
+          _this8.$router.go(-1);
+        } else {
+          _this8.traerSMMR();
+
+          _this8.traerRa();
+
+          _this8.traerPregunta_SMUR();
+
+          _this8.buscarResmur();
+
+          _this8.buscarRa();
+        }
+      });
+    }
+  },
+  computed: {}
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/Evaluacion.vue?vue&type=script&lang=js&":
 /*!***************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/admin/Evaluacion.vue?vue&type=script&lang=js& ***!
@@ -2087,6 +2346,9 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _bus__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../bus */ "./resources/js/bus.js");
 /* harmony import */ var _router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../router */ "./resources/js/router.js");
+//
+//
+//
 //
 //
 //
@@ -2340,7 +2602,10 @@ __webpack_require__.r(__webpack_exports__);
         for (var i = 0; i < res.data.length; i++) {
           _this6.respuestas_smur.push(res.data[i].cz11_rta);
 
-          _this6.notas_smur.push(res.data[i].cz11_nota);
+          _this6.notas_smur.push({
+            pregunta: res.data[i].cz11_pp_id,
+            nota: res.data[i].cz11_nota
+          });
         }
       });
     },
@@ -2522,7 +2787,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2544,48 +2808,46 @@ __webpack_require__.r(__webpack_exports__);
       fecha_apertura: null,
       estado_prueba: null,
       user: "",
-      titulo: ""
+      titulo: "",
+      inputs: []
     };
   },
   beforeMount: function beforeMount() {
-    var _this = this;
-
     this.id = this.$route.params.id;
     this.user = user.id;
     this.cargar();
-    _bus__WEBPACK_IMPORTED_MODULE_0__["default"].$on('cargar', function (item) {
-      _this.cargar();
-    });
   },
   methods: {
     validar: function validar() {
       this.conseguirEstado();
-      console.log('ddd' + this.id_creador);
 
-      if ((this.fecha_cierre < new Date() || this.fecha_apertura > new Date()) && this.id_creador != user.id) {
-        this.$router.go(-1);
-      } else if (this.$route.params.empleado != user.id) {
-        this.editar = false;
-        swal('Modo observador', 'No podra editar la prueba', 'warning');
-        this.traerSMMR();
-        this.traerRa();
-        this.traerPregunta_SMUR();
-        this.buscarResmur();
-        this.buscarResmmr();
-        this.buscarRa();
-
-        if (this.id_creador != user.id) {
-          swal('Acceso denegado', '', 'warning');
-          this.$router.go(-1);
-        }
-      } else {
-        this.traerSMMR();
-        this.traerRa();
-        this.traerPregunta_SMUR();
-        this.buscarResmur();
-        this.buscarResmmr();
-        this.buscarRa();
+      if (this.fecha_cierre < new Date() || this.fecha_apertura > new Date()) {
+        console.log('cierre');
+        window.location.href = '/pruebas/pendientes/2';
       }
+    },
+    conseguirEstado: function conseguirEstado() {
+      var _this = this;
+
+      axios.get("/api/asignacion/estado/".concat(this.$route.params.id, "/").concat(user.id)).then(function (res) {
+        _this.estado_prueba = res.data.cz4_estado;
+
+        if (_this.estado_prueba == 2) {
+          swal('Advertencia', 'Esta encuesta ya finalizo', 'warning');
+          console.log('Estado');
+          window.location.href = '/pruebas/pendientes/1';
+        } else {
+          _this.traerSMMR();
+
+          _this.traerRa();
+
+          _this.traerPregunta_SMUR();
+
+          _this.buscarResmur();
+
+          _this.buscarRa();
+        }
+      });
     },
     traerRa: function traerRa() {
       var _this2 = this;
@@ -2603,6 +2865,8 @@ __webpack_require__.r(__webpack_exports__);
       axios.get("/api/respuestaM/buscar/".concat(this.id)).then(function (res) {
         _this3.resSMMR = res.data;
         console.log(_this3.resSMMR);
+
+        _this3.buscarResmmr();
       });
     },
     traerPregunta_SMUR: function traerPregunta_SMUR() {
@@ -2653,7 +2917,7 @@ __webpack_require__.r(__webpack_exports__);
     buscarResmur: function buscarResmur() {
       var _this5 = this;
 
-      axios.get("/api/respuesta/smur/buscar/".concat(this.id, "/").concat(this.$route.params.empleado)).then(function (res) {
+      axios.get("/api/respuesta/smur/buscar/".concat(this.id, "/").concat(user.id)).then(function (res) {
         console.log(res.data);
 
         for (var i = 0; i < res.data.length; i++) {
@@ -2666,18 +2930,24 @@ __webpack_require__.r(__webpack_exports__);
     buscarResmmr: function buscarResmmr() {
       var _this6 = this;
 
-      axios.get("/api/respuesta/smmr/buscar/".concat(this.id, "/").concat(this.$route.params.empleado)).then(function (res) {
-        for (var i = 0; i < res.data.length; i++) {
-          _this6.respuestas_smmr.push(res.data[i].cz11_rta);
-        }
+      axios.get("/api/respuesta/smmr/buscar/".concat(this.id, "/").concat(user.id)).then(function (res) {
+        console.log(res.data);
 
-        console.log(_this6.respuestas_smmr);
+        for (var i = 0; i < _this6.resSMMR.length; i++) {
+          _this6.inputs.push([]);
+
+          for (var j = 0; j < res.data.length; j++) {
+            if (res.data[j].cz11_pp_id == _this6.resSMMR[i].cz5_id) {
+              _this6.inputs[i].push(Number(res.data[j].cz11_rta));
+            }
+          }
+        }
       });
     },
     buscarRa: function buscarRa() {
       var _this7 = this;
 
-      axios.get("/api/respuesta/ra/buscar/".concat(this.id, "/").concat(this.$route.params.empleado)).then(function (res) {
+      axios.get("/api/respuesta/ra/buscar/".concat(this.id, "/").concat(user.id)).then(function (res) {
         // this.respuestas_ra = res.data
         for (var i = 0; i < res.data.length; i++) {
           _this7.respuestas_ra.push(res.data[i].cz11_rta_ra);
@@ -2707,20 +2977,6 @@ __webpack_require__.r(__webpack_exports__);
 
         _this9.$router.go(-1);
       });
-    },
-    conseguirEstado: function conseguirEstado() {
-      var _this10 = this;
-
-      axios.get("/api/asignacion/estado/".concat(this.$route.params.id, "/").concat(this.$route.params.empleado)).then(function (res) {
-        _this10.estado_prueba = res.data.cz4_estado;
-        console.log(_this10.estado_prueba);
-
-        if (_this10.estado_prueba == 2 && user.id != _this10.id_creador) {
-          swal('Advertencia', 'Esta prueba ya finalizo', 'warning');
-
-          _this10.$router.go(-1);
-        }
-      });
     }
   },
   computed: {}
@@ -2739,6 +2995,10 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _bus__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../bus */ "./resources/js/bus.js");
 /* harmony import */ var _router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../router */ "./resources/js/router.js");
+//
+//
+//
+//
 //
 //
 //
@@ -2954,11 +3214,7 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     cargar: function cargar() {
-      this.buscar(); // this.traerSMMR()
-      // this.traerRa();
-      // this.traerPregunta_SMUR();
-      // this.buscarResmur()
-      // this.buscarRa();
+      this.buscar();
     },
     guardarRA: function guardarRA(id_pp, id_gp, categoria, ra) {
       console.log(ra);
@@ -3049,8 +3305,7 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     finalizar: function finalizar() {
-      axios.put("/api/pruebas/finalizar/".concat(this.id)).then(function (res) {
-        window.location.href = '/pruebas/pendientes/2';
+      axios.put("/api/pruebas/finalizar/".concat(this.id)).then(function (res) {// window.location.href = '/pruebas/pendientes/2'
       });
     },
     calificar: function calificar() {
@@ -3066,19 +3321,18 @@ __webpack_require__.r(__webpack_exports__);
           } else {
             swal('Nota', 'Tu nota fue de ' + Number(res.data.toFixed(2)), 'warning');
           }
-        } else {// swal('Informacion',
-          //     'Esta prueba consta de preguntas abiertas, por esto sera calificada después.',
-          //     'success')
+        } else {
+          swal('Informacion', 'Esta prueba consta de preguntas abiertas, por esto sera calificada después.', 'success');
         }
       });
       this.finalizar();
     }
   },
   beforeRouteLeave: function beforeRouteLeave(to, from, next) {
-    var answer = window.confirm('¿Esta seguro que quiere salir de la evaluacion?');
+    var answer = window.confirm('¿Esta seguro de finalizar la evaluacion?');
 
     if (answer) {
-      this.calificar();
+      window.location.href = '/pruebas/completadas/2';
     } else {
       next(false);
     }
@@ -3507,9 +3761,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 
 moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale('es');
 
@@ -3534,7 +3785,7 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale('es');
       id_log: null
     };
   },
-  beforeMount: function beforeMount() {
+  mounted: function mounted() {
     this.id_log = user.id;
     this.id_prueba = this.$route.params.id;
     this.buscar();
@@ -3551,7 +3802,8 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale('es');
     traerActivos: function traerActivos() {
       var _this = this;
 
-      axios.get("/api/registros").then(function (res) {
+      axios.get("/api/asignacion/traerNotas/".concat(this.id_prueba)).then(function (res) {
+        console.log(res.data);
         _this.activos = res.data;
       });
     },
@@ -3686,7 +3938,7 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale('es');
         console.log(res.data);
 
         if (res.data.cz3_categoria == 1) {
-          _router__WEBPACK_IMPORTED_MODULE_1__["default"].push('/presentar/encuesta/' + _this8.id_prueba + '/' + id);
+          _router__WEBPACK_IMPORTED_MODULE_1__["default"].push('/administrar/encuesta/' + _this8.id_prueba + '/' + id + '/' + user.id);
         } else if (res.data.cz3_categoria == 2) {
           _router__WEBPACK_IMPORTED_MODULE_1__["default"].push('/administrar/evaluacion/' + _this8.id_prueba + '/' + id + '/' + user.id);
         }
@@ -4098,6 +4350,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["id"],
@@ -4125,10 +4389,8 @@ __webpack_require__.r(__webpack_exports__);
     traerRa: function traerRa() {
       var _this2 = this;
 
-      console.log(this.id);
       axios.get("/api/respuestaA/buscar/".concat(this.id)).then(function (res) {
         _this2.resRA = res.data;
-        console.log(_this2.resRA);
       });
     },
     traerSMMR: function traerSMMR() {
@@ -4158,7 +4420,6 @@ __webpack_require__.r(__webpack_exports__);
 
       axios.get("/api/pregunta/index/".concat(this.id)).then(function (res) {
         _this4.resSMUR = res.data;
-        console.log(_this4.resSMUR);
       });
     },
     contar: function contar() {
@@ -4167,7 +4428,6 @@ __webpack_require__.r(__webpack_exports__);
     editar: function editar(dato) {
       this.$modal.show('editar');
       this.params = dato;
-      console.log(dato);
     },
     eliminar: function eliminar(id) {
       var _this5 = this;
@@ -4181,8 +4441,6 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (willDelete) {
         if (willDelete) {
           axios["delete"]("/api/pregunta/delete/".concat(id)).then(function (res) {
-            console.log(res.data);
-
             _this5.cargarPreguntas();
 
             swal("Eliminado", {
@@ -4202,27 +4460,22 @@ __webpack_require__.r(__webpack_exports__);
     },
     guardarSMURcorrecta: function guardarSMURcorrecta(item) {
       if (this.$route.params.cat == 2) {
-        axios.put('/api/smur/update', item).then(function (res) {
-          console.log(res.data);
-        });
+        axios.put('/api/smur/update', item).then(function (res) {});
       }
     },
     guardarSMMRcorrecta: function guardarSMMRcorrecta(item, opcion) {
+      console.log(this.inputs);
+      console.log(opcion);
+
       if (this.$route.params.cat == 2) {
         //   if(){}
-        console.log(this.inputs);
-        console.log(opcion);
-        axios.put("/api/smmr/update/".concat(opcion), item).then(function (res) {
-          console.log(res.data);
-        });
+        axios.put("/api/smmr/update/".concat(opcion), item).then(function (res) {});
       }
     },
     validarInicio: function validarInicio() {
       var _this6 = this;
 
       axios.get("/api/prueba/inicio/".concat(this.id)).then(function (res) {
-        console.log(res.data);
-
         if (res.data != "") {
           _this6.$router.go(-1);
         }
@@ -67847,6 +68100,361 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/Encuesta.vue?vue&type=template&id=477b33e1&":
+/*!*****************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/admin/Encuesta.vue?vue&type=template&id=477b33e1& ***!
+  \*****************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _c("vue-headful", { attrs: { title: "Lincap | Ver encuesta" } }),
+      _vm._v(" "),
+      _c("nav", { attrs: { "aria-label": "breadcrumb" } }, [
+        _c("ol", { staticClass: "breadcrumb" }, [
+          _c("li", { staticClass: "breadcrumb-item" }, [
+            _c(
+              "i",
+              { staticClass: "fa fa-pencil" },
+              [
+                _c(
+                  "router-link",
+                  { attrs: { to: "/gestion/pruebas/1" + _vm.user } },
+                  [_vm._v(" Encuestas")]
+                )
+              ],
+              1
+            )
+          ]),
+          _vm._v(" "),
+          _c("li", { staticClass: "breadcrumb-item" }, [
+            _c(
+              "i",
+              { staticClass: "fa fa-users" },
+              [
+                _c(
+                  "router-link",
+                  {
+                    attrs: {
+                      to: "/gestion/pruebas/asignar/1/" + _vm.$route.params.id
+                    }
+                  },
+                  [_vm._v(" Asignar")]
+                )
+              ],
+              1
+            )
+          ]),
+          _vm._v(" "),
+          _c("li", {
+            staticClass: "breadcrumb-item active",
+            attrs: { "aria-current": "page" }
+          })
+        ])
+      ]),
+      _vm._v(" "),
+      _c("center", [_c("h1", [_vm._v(_vm._s(_vm.titulo))])]),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value: _vm.estado_prueba == 0,
+              expression: "estado_prueba == 0"
+            }
+          ],
+          staticClass: "alert alert-primary lead",
+          attrs: { role: "alert" }
+        },
+        [_vm._v("\n     Esta encuesta no ha sido iniciada\n     ")]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value: _vm.estado_prueba == 1,
+              expression: "estado_prueba == 1"
+            }
+          ],
+          staticClass: "alert alert-warning lead",
+          attrs: { role: "alert" }
+        },
+        [_vm._v("\n     Esta encuesta ya ha sido iniciada\n     ")]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value: _vm.estado_prueba == 2,
+              expression: "estado_prueba == 2"
+            }
+          ],
+          staticClass: "alert alert-success lead",
+          attrs: { role: "alert" }
+        },
+        [_vm._v("\n     Esta encuesta ya esta finalizada\n     ")]
+      ),
+      _vm._v(" "),
+      _c(
+        "h4",
+        {
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value: _vm.resRA.length,
+              expression: "resRA.length"
+            }
+          ],
+          staticClass: "display-5 titulo mb-3"
+        },
+        [_vm._v("Preguntas con respuesta abierta")]
+      ),
+      _vm._v(" "),
+      _vm._l(_vm.resRA, function(dato, i) {
+        return _c("article", { key: "A-" + i }, [
+          _c("div", { staticClass: "row mt-2" }, [
+            _c("div", { staticClass: "col-md-6" }, [
+              _c("p", { staticClass: "lead" }, [
+                _vm._v(_vm._s(dato.cz5_pregunta))
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-md-2" })
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "row mb-3" }, [
+            _c("div", { staticClass: "col-md-9" }, [
+              _c("textarea", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.respuestas_ra[i],
+                    expression: "respuestas_ra[i]"
+                  }
+                ],
+                attrs: { disabled: "" },
+                domProps: { value: _vm.respuestas_ra[i] },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.respuestas_ra, i, $event.target.value)
+                  }
+                }
+              })
+            ])
+          ])
+        ])
+      }),
+      _vm._v(" "),
+      _c(
+        "h4",
+        {
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value: _vm.resSMUR.length,
+              expression: " resSMUR.length"
+            }
+          ],
+          staticClass: "display-5 titulo my-3"
+        },
+        [_vm._v("Preguntas de selección multiple con única respuestas")]
+      ),
+      _vm._v(" "),
+      _vm._l(_vm.resSMUR, function(item, indice) {
+        return _c("article", { key: indice, staticClass: "my-3" }, [
+          _c("div", { staticClass: "row mt-2" }, [
+            _c("div", { staticClass: "col-md-6" }, [
+              _c("p", { staticClass: "lead" }, [
+                _vm._v(_vm._s(item.cz5_pregunta) + "\n                ")
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-md-2" }),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "col-md-12" },
+              _vm._l(item.respuestas, function(item2, i) {
+                return _c("article", { key: i }, [
+                  _c("div", { staticClass: "custom-control custom-radio" }, [
+                    _c("input", {
+                      staticClass: "custom-control-input",
+                      attrs: {
+                        disabled: "",
+                        id: item2.cz7_id,
+                        type: "radio",
+                        name: item.cz5_id
+                      },
+                      domProps: {
+                        checked:
+                          _vm.respuestas_smur.filter(function(cz7_id) {
+                            return cz7_id == item2.cz7_id
+                          }) != "",
+                        value: item2.cz7_id
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "label",
+                      {
+                        staticClass: "custom-control-label",
+                        attrs: { for: item2.cz7_id }
+                      },
+                      [_vm._v(_vm._s(item2.cz7_rta))]
+                    )
+                  ])
+                ])
+              }),
+              0
+            )
+          ])
+        ])
+      }),
+      _vm._v(" "),
+      _c(
+        "h4",
+        {
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value: _vm.resSMMR.length,
+              expression: "resSMMR.length"
+            }
+          ],
+          staticClass: "display-5 titulo my-3"
+        },
+        [_vm._v("Preguntas de selección multiple con multiple respuestas")]
+      ),
+      _vm._v(" "),
+      _vm._l(_vm.resSMMR, function(item3, indice) {
+        return _c("article", { key: "o-" + indice }, [
+          _c("div", { staticClass: "row mt-2" }, [
+            _c("div", { staticClass: "col-md-6" }, [
+              _c("p", { staticClass: "lead" }, [
+                _vm._v(_vm._s(item3.cz5_pregunta))
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _vm.inputs[indice]
+            ? _c(
+                "div",
+                { staticClass: "col-md-12" },
+                _vm._l(item3.smmr, function(item4, i) {
+                  return _c("article", { key: "s-" + i }, [
+                    _c(
+                      "div",
+                      { staticClass: "custom-control custom-checkbox" },
+                      [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.inputs[indice],
+                              expression: "inputs[indice]"
+                            }
+                          ],
+                          staticClass: "custom-control-input",
+                          attrs: {
+                            id: item4.cz8_id,
+                            disabled: "",
+                            type: "checkbox"
+                          },
+                          domProps: {
+                            value: item4.cz8_id,
+                            checked: Array.isArray(_vm.inputs[indice])
+                              ? _vm._i(_vm.inputs[indice], item4.cz8_id) > -1
+                              : _vm.inputs[indice]
+                          },
+                          on: {
+                            change: function($event) {
+                              var $$a = _vm.inputs[indice],
+                                $$el = $event.target,
+                                $$c = $$el.checked ? true : false
+                              if (Array.isArray($$a)) {
+                                var $$v = item4.cz8_id,
+                                  $$i = _vm._i($$a, $$v)
+                                if ($$el.checked) {
+                                  $$i < 0 &&
+                                    _vm.$set(
+                                      _vm.inputs,
+                                      indice,
+                                      $$a.concat([$$v])
+                                    )
+                                } else {
+                                  $$i > -1 &&
+                                    _vm.$set(
+                                      _vm.inputs,
+                                      indice,
+                                      $$a
+                                        .slice(0, $$i)
+                                        .concat($$a.slice($$i + 1))
+                                    )
+                                }
+                              } else {
+                                _vm.$set(_vm.inputs, indice, $$c)
+                              }
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c(
+                          "label",
+                          {
+                            staticClass: "custom-control-label",
+                            attrs: { for: item4.cz8_id }
+                          },
+                          [_vm._v(_vm._s(item4.cz8_rta))]
+                        )
+                      ]
+                    )
+                  ])
+                }),
+                0
+              )
+            : _vm._e()
+        ])
+      })
+    ],
+    2
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/Evaluacion.vue?vue&type=template&id=f4f060d0&":
 /*!*******************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/admin/Evaluacion.vue?vue&type=template&id=f4f060d0& ***!
@@ -68103,34 +68711,55 @@ var render = function() {
                         name: "show",
                         rawName: "v-show",
                         value:
-                          _vm.notas_smur[indice] > 0 &&
-                          _vm.id_creador == _vm.id_log,
+                          _vm.notas_smur.filter(function(pp) {
+                            return pp.pregunta == item.cz5_id
+                          }).length > 0,
                         expression:
-                          "notas_smur[indice] >0 && id_creador == id_log"
+                          "notas_smur.filter(pp => pp.pregunta == item.cz5_id).length >0"
                       }
-                    ],
-                    staticClass: "badge badge-success"
+                    ]
                   },
-                  [_vm._v("\n                        Correcta")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "span",
-                  {
-                    directives: [
+                  [
+                    _c(
+                      "span",
                       {
-                        name: "show",
-                        rawName: "v-show",
-                        value:
-                          _vm.notas_smur[indice] == 0 &&
-                          _vm.id_creador == _vm.id_log,
-                        expression:
-                          "notas_smur[indice] ==0 && id_creador == id_log"
-                      }
-                    ],
-                    staticClass: "badge badge-danger"
-                  },
-                  [_vm._v("\n                        Incorrecta")]
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value:
+                              _vm.notas_smur.filter(function(pp) {
+                                return pp.pregunta == item.cz5_id && pp.nota > 0
+                              }).length > 0,
+                            expression:
+                              "notas_smur.filter(pp => pp.pregunta == item.cz5_id && pp.nota > 0).length > 0"
+                          }
+                        ],
+                        staticClass: "badge badge-success"
+                      },
+                      [_vm._v("\n                        Correcta")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "span",
+                      {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value:
+                              _vm.notas_smur.filter(function(pp) {
+                                return pp.pregunta == item.cz5_id && pp.nota > 0
+                              }).length == 0,
+                            expression:
+                              "notas_smur.filter(pp => pp.pregunta == item.cz5_id && pp.nota > 0).length == 0 "
+                          }
+                        ],
+                        staticClass: "badge badge-danger"
+                      },
+                      [_vm._v("\n                        Incorrecta")]
+                    )
+                  ]
                 )
               ])
             ]),
@@ -68142,22 +68771,33 @@ var render = function() {
               { staticClass: "col-md-12" },
               _vm._l(item.respuestas, function(item2, i) {
                 return _c("article", { key: i }, [
-                  _c("input", {
-                    staticClass: "flat",
-                    attrs: {
-                      disabled: _vm.editar ? false : true,
-                      type: "radio",
-                      name: item.cz5_id
-                    },
-                    domProps: {
-                      checked:
-                        _vm.respuestas_smur.filter(function(cz7_id) {
-                          return cz7_id == item2.cz7_id
-                        }) != "",
-                      value: item2.cz7_id
-                    }
-                  }),
-                  _vm._v(" " + _vm._s(item2.cz7_rta) + "\n                ")
+                  _c("div", { staticClass: "custom-control custom-radio" }, [
+                    _c("input", {
+                      staticClass: "custom-control-input",
+                      attrs: {
+                        disabled: _vm.editar ? false : true,
+                        id: item2.cz7_id,
+                        type: "radio",
+                        name: item.cz5_id
+                      },
+                      domProps: {
+                        checked:
+                          _vm.respuestas_smur.filter(function(cz7_id) {
+                            return cz7_id == item2.cz7_id
+                          }) != "",
+                        value: item2.cz7_id
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "label",
+                      {
+                        staticClass: "custom-control-label",
+                        attrs: { for: item2.cz7_id }
+                      },
+                      [_vm._v(_vm._s(item2.cz7_rta))]
+                    )
+                  ])
                 ])
               }),
               0
@@ -68202,127 +68842,149 @@ var render = function() {
                 { staticClass: "col-md-12" },
                 _vm._l(item3.smmr, function(item4, i) {
                   return _c("article", { key: "s-" + i }, [
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.inputs[indice],
-                          expression: "inputs[indice]"
-                        }
-                      ],
-                      staticClass: "flat",
-                      attrs: {
-                        disabled:
-                          _vm.inputs[indice].length >=
-                            item3.cz5_n_rtas_correctas &&
-                          _vm.inputs[indice].indexOf(item4.cz8_id) === -1 &&
-                          _vm.editar
-                            ? false
-                            : true,
-                        type: "checkbox"
-                      },
-                      domProps: {
-                        value: item4.cz8_id,
-                        checked: Array.isArray(_vm.inputs[indice])
-                          ? _vm._i(_vm.inputs[indice], item4.cz8_id) > -1
-                          : _vm.inputs[indice]
-                      },
-                      on: {
-                        click: function($event) {
-                          return _vm.guardarSMMR(
-                            item3.cz5_id,
-                            item3.cz5_gp_id,
-                            item4.cz8_id,
-                            item3.cz5_categoria
-                          )
-                        },
-                        change: function($event) {
-                          var $$a = _vm.inputs[indice],
-                            $$el = $event.target,
-                            $$c = $$el.checked ? true : false
-                          if (Array.isArray($$a)) {
-                            var $$v = item4.cz8_id,
-                              $$i = _vm._i($$a, $$v)
-                            if ($$el.checked) {
-                              $$i < 0 &&
-                                _vm.$set(_vm.inputs, indice, $$a.concat([$$v]))
-                            } else {
-                              $$i > -1 &&
-                                _vm.$set(
-                                  _vm.inputs,
-                                  indice,
-                                  $$a.slice(0, $$i).concat($$a.slice($$i + 1))
-                                )
-                            }
-                          } else {
-                            _vm.$set(_vm.inputs, indice, $$c)
-                          }
-                        }
-                      }
-                    }),
-                    _vm._v(_vm._s(item4.cz8_rta) + "\n\n\n\n                "),
                     _c(
-                      "span",
-                      {
-                        directives: [
-                          {
-                            name: "show",
-                            rawName: "v-show",
-                            value:
-                              _vm.inputs[indice].filter(function(cz8_id) {
-                                return cz8_id == item4.cz8_id
-                              }) != "" && _vm.estado_prueba == 2,
-                            expression:
-                              "inputs[indice].filter(cz8_id => cz8_id == item4.cz8_id ) != '' && estado_prueba == 2"
-                          }
-                        ]
-                      },
+                      "div",
+                      { staticClass: "custom-control custom-checkbox" },
                       [
-                        _c(
-                          "li",
-                          {
-                            directives: [
-                              {
-                                name: "show",
-                                rawName: "v-show",
-                                value:
-                                  _vm.notas_smmr.filter(function(el) {
-                                    return (
-                                      el.cz11_rta == item4.cz8_id &&
-                                      el.cz11_nota > 0
-                                    )
-                                  }) != "",
-                                expression:
-                                  "notas_smmr.filter(el => el.cz11_rta == item4.cz8_id && el.cz11_nota > 0) != ''"
-                              }
-                            ],
-                            staticClass: "badge badge-success"
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.inputs[indice],
+                              expression: "inputs[indice]"
+                            }
+                          ],
+                          staticClass: "custom-control-input",
+                          attrs: {
+                            id: item4.cz8_id,
+                            disabled:
+                              _vm.inputs[indice].length >=
+                                item3.cz5_n_rtas_correctas &&
+                              _vm.inputs[indice].indexOf(item4.cz8_id) === -1 &&
+                              _vm.editar
+                                ? false
+                                : true,
+                            type: "checkbox"
                           },
-                          [_c("a", { staticClass: "fa fa-check " })]
+                          domProps: {
+                            value: item4.cz8_id,
+                            checked: Array.isArray(_vm.inputs[indice])
+                              ? _vm._i(_vm.inputs[indice], item4.cz8_id) > -1
+                              : _vm.inputs[indice]
+                          },
+                          on: {
+                            click: function($event) {
+                              return _vm.guardarSMMR(
+                                item3.cz5_id,
+                                item3.cz5_gp_id,
+                                item4.cz8_id,
+                                item3.cz5_categoria
+                              )
+                            },
+                            change: function($event) {
+                              var $$a = _vm.inputs[indice],
+                                $$el = $event.target,
+                                $$c = $$el.checked ? true : false
+                              if (Array.isArray($$a)) {
+                                var $$v = item4.cz8_id,
+                                  $$i = _vm._i($$a, $$v)
+                                if ($$el.checked) {
+                                  $$i < 0 &&
+                                    _vm.$set(
+                                      _vm.inputs,
+                                      indice,
+                                      $$a.concat([$$v])
+                                    )
+                                } else {
+                                  $$i > -1 &&
+                                    _vm.$set(
+                                      _vm.inputs,
+                                      indice,
+                                      $$a
+                                        .slice(0, $$i)
+                                        .concat($$a.slice($$i + 1))
+                                    )
+                                }
+                              } else {
+                                _vm.$set(_vm.inputs, indice, $$c)
+                              }
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c(
+                          "label",
+                          {
+                            staticClass: "custom-control-label",
+                            attrs: { for: item4.cz8_id }
+                          },
+                          [_vm._v(_vm._s(item4.cz8_rta))]
                         ),
                         _vm._v(" "),
                         _c(
-                          "li",
+                          "span",
                           {
                             directives: [
                               {
                                 name: "show",
                                 rawName: "v-show",
                                 value:
-                                  _vm.notas_smmr.filter(function(el) {
-                                    return (
-                                      el.cz11_rta == item4.cz8_id &&
-                                      el.cz11_nota > 0
-                                    )
-                                  }) == "",
+                                  _vm.inputs[indice].filter(function(cz8_id) {
+                                    return cz8_id == item4.cz8_id
+                                  }) != "" && _vm.estado_prueba == 2,
                                 expression:
-                                  "notas_smmr.filter(el => el.cz11_rta == item4.cz8_id && el.cz11_nota > 0) == ''"
+                                  "inputs[indice].filter(cz8_id => cz8_id == item4.cz8_id ) != '' && estado_prueba == 2"
                               }
-                            ],
-                            staticClass: "badge badge-danger"
+                            ]
                           },
-                          [_c("a", { staticClass: "fa fa-close" })]
+                          [
+                            _c(
+                              "li",
+                              {
+                                directives: [
+                                  {
+                                    name: "show",
+                                    rawName: "v-show",
+                                    value:
+                                      _vm.notas_smmr.filter(function(el) {
+                                        return (
+                                          el.cz11_rta == item4.cz8_id &&
+                                          el.cz11_nota > 0
+                                        )
+                                      }) != "",
+                                    expression:
+                                      "notas_smmr.filter(el => el.cz11_rta == item4.cz8_id && el.cz11_nota > 0) != ''"
+                                  }
+                                ],
+                                staticClass: "badge badge-success"
+                              },
+                              [_c("a", { staticClass: "fa fa-check " })]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "li",
+                              {
+                                directives: [
+                                  {
+                                    name: "show",
+                                    rawName: "v-show",
+                                    value:
+                                      _vm.notas_smmr.filter(function(el) {
+                                        return (
+                                          el.cz11_rta == item4.cz8_id &&
+                                          el.cz11_nota > 0
+                                        )
+                                      }) == "",
+                                    expression:
+                                      "notas_smmr.filter(el => el.cz11_rta == item4.cz8_id && el.cz11_nota > 0) == ''"
+                                  }
+                                ],
+                                staticClass: "badge badge-danger"
+                              },
+                              [_c("a", { staticClass: "fa fa-close" })]
+                            )
+                          ]
                         )
                       ]
                     )
@@ -68370,63 +69032,6 @@ var render = function() {
               : "Presentar encuesta | " + _vm.titulo
         }
       }),
-      _vm._v(" "),
-      _c(
-        "nav",
-        {
-          directives: [
-            {
-              name: "show",
-              rawName: "v-show",
-              value: _vm.id_creador == _vm.user,
-              expression: "id_creador == user"
-            }
-          ],
-          attrs: { "aria-label": "breadcrumb" }
-        },
-        [
-          _c("ol", { staticClass: "breadcrumb" }, [
-            _c("li", { staticClass: "breadcrumb-item" }, [
-              _c(
-                "i",
-                { staticClass: "fa fa-pencil" },
-                [
-                  _c(
-                    "router-link",
-                    { attrs: { to: "/gestion/pruebas/1" + _vm.user } },
-                    [_vm._v(" Encuestas")]
-                  )
-                ],
-                1
-              )
-            ]),
-            _vm._v(" "),
-            _c("li", { staticClass: "breadcrumb-item" }, [
-              _c(
-                "i",
-                { staticClass: "fa fa-users" },
-                [
-                  _c(
-                    "router-link",
-                    {
-                      attrs: {
-                        to: "/gestion/pruebas/asignar/1/" + _vm.$route.params.id
-                      }
-                    },
-                    [_vm._v(" Asignar")]
-                  )
-                ],
-                1
-              )
-            ]),
-            _vm._v(" "),
-            _c("li", {
-              staticClass: "breadcrumb-item active",
-              attrs: { "aria-current": "page" }
-            })
-          ])
-        ]
-      ),
       _vm._v(" "),
       _c("center", [_c("h1", [_vm._v(_vm._s(_vm.titulo))])]),
       _vm._v(" "),
@@ -68643,8 +69248,8 @@ var render = function() {
         [_vm._v("Preguntas de selección multiple con multiple respuestas")]
       ),
       _vm._v(" "),
-      _vm._l(_vm.resSMMR, function(item3, i) {
-        return _c("article", { key: "o-" + i }, [
+      _vm._l(_vm.resSMMR, function(item3, indice) {
+        return _c("article", { key: "o-" + indice }, [
           _c("div", { staticClass: "row mt-2" }, [
             _c("div", { staticClass: "col-md-6" }, [
               _c("p", { staticClass: "lead" }, [
@@ -68653,40 +69258,97 @@ var render = function() {
             ])
           ]),
           _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "col-md-12" },
-            _vm._l(item3.smmr, function(item4, i) {
-              return _c("article", { key: "s-" + i }, [
-                _c("input", {
-                  staticClass: "flat",
-                  attrs: {
-                    disabled: _vm.editar ? false : true,
-                    type: "checkbox"
-                  },
-                  domProps: {
-                    checked:
-                      _vm.respuestas_smmr.filter(function(cz8_id) {
-                        return cz8_id == item4.cz8_id
-                      }) != "",
-                    value: item4.cz8_id
-                  },
-                  on: {
-                    click: function($event) {
-                      return _vm.guardarSMMR(
-                        item3.cz5_id,
-                        item3.cz5_gp_id,
-                        item4.cz8_id,
-                        item3.cz5_categoria
-                      )
-                    }
-                  }
+          _vm.inputs[indice]
+            ? _c(
+                "div",
+                { staticClass: "col-md-12" },
+                _vm._l(item3.smmr, function(item4, i) {
+                  return _c("article", { key: "s-" + i }, [
+                    _c(
+                      "div",
+                      { staticClass: "custom-control custom-checkbox" },
+                      [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.inputs[indice],
+                              expression: "inputs[indice]"
+                            }
+                          ],
+                          staticClass: "custom-control-input",
+                          attrs: {
+                            id: item4.cz8_id,
+                            disabled:
+                              _vm.inputs[indice].length >=
+                                item3.cz5_n_rtas_correctas &&
+                              _vm.inputs[indice].indexOf(
+                                Number(item4.cz8_id)
+                              ) === -1,
+                            type: "checkbox"
+                          },
+                          domProps: {
+                            value: item4.cz8_id,
+                            checked: Array.isArray(_vm.inputs[indice])
+                              ? _vm._i(_vm.inputs[indice], item4.cz8_id) > -1
+                              : _vm.inputs[indice]
+                          },
+                          on: {
+                            click: function($event) {
+                              return _vm.guardarSMMR(
+                                item3.cz5_id,
+                                item3.cz5_gp_id,
+                                item4.cz8_id,
+                                item3.cz5_categoria
+                              )
+                            },
+                            change: function($event) {
+                              var $$a = _vm.inputs[indice],
+                                $$el = $event.target,
+                                $$c = $$el.checked ? true : false
+                              if (Array.isArray($$a)) {
+                                var $$v = item4.cz8_id,
+                                  $$i = _vm._i($$a, $$v)
+                                if ($$el.checked) {
+                                  $$i < 0 &&
+                                    _vm.$set(
+                                      _vm.inputs,
+                                      indice,
+                                      $$a.concat([$$v])
+                                    )
+                                } else {
+                                  $$i > -1 &&
+                                    _vm.$set(
+                                      _vm.inputs,
+                                      indice,
+                                      $$a
+                                        .slice(0, $$i)
+                                        .concat($$a.slice($$i + 1))
+                                    )
+                                }
+                              } else {
+                                _vm.$set(_vm.inputs, indice, $$c)
+                              }
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c(
+                          "label",
+                          {
+                            staticClass: "custom-control-label",
+                            attrs: { for: item4.cz8_id }
+                          },
+                          [_vm._v(_vm._s(item4.cz8_rta))]
+                        )
+                      ]
+                    )
+                  ])
                 }),
-                _vm._v(_vm._s(item4.cz8_rta) + "\n            ")
-              ])
-            }),
-            0
-          )
+                0
+              )
+            : _vm._e()
         ])
       }),
       _vm._v(" "),
@@ -68853,32 +69515,43 @@ var render = function() {
               { staticClass: "col-md-12" },
               _vm._l(item.respuestas, function(item2, i) {
                 return _c("article", { key: i }, [
-                  _c("input", {
-                    staticClass: "flat",
-                    attrs: {
-                      disabled: _vm.editar ? false : true,
-                      type: "radio",
-                      name: item.cz5_id
-                    },
-                    domProps: {
-                      checked:
-                        _vm.respuestas_smur.filter(function(cz7_id) {
-                          return cz7_id == item2.cz7_id
-                        }) != "",
-                      value: item2.cz7_id
-                    },
-                    on: {
-                      click: function($event) {
-                        return _vm.guardarSMUR(
-                          item.cz5_id,
-                          item.cz5_gp_id,
-                          item2.cz7_id,
-                          item.cz5_categoria
-                        )
+                  _c("div", { staticClass: "custom-control custom-radio" }, [
+                    _c("input", {
+                      staticClass: "custom-control-input",
+                      attrs: {
+                        disabled: _vm.editar ? false : true,
+                        id: item2.cz7_id,
+                        type: "radio",
+                        name: item.cz5_id
+                      },
+                      domProps: {
+                        checked:
+                          _vm.respuestas_smur.filter(function(cz7_id) {
+                            return cz7_id == item2.cz7_id
+                          }) != "",
+                        value: item2.cz7_id
+                      },
+                      on: {
+                        click: function($event) {
+                          return _vm.guardarSMUR(
+                            item.cz5_id,
+                            item.cz5_gp_id,
+                            item2.cz7_id,
+                            item.cz5_categoria
+                          )
+                        }
                       }
-                    }
-                  }),
-                  _vm._v(" " + _vm._s(item2.cz7_rta) + "\n                ")
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "label",
+                      {
+                        staticClass: "custom-control-label",
+                        attrs: { for: item2.cz7_id }
+                      },
+                      [_vm._v(_vm._s(item2.cz7_rta))]
+                    )
+                  ])
                 ])
               }),
               0
@@ -68923,64 +69596,86 @@ var render = function() {
                 { staticClass: "col-md-12" },
                 _vm._l(item3.smmr, function(item4, i) {
                   return _c("article", { key: "s-" + i }, [
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.inputs[indice],
-                          expression: "inputs[indice]"
-                        }
-                      ],
-                      staticClass: "flat",
-                      attrs: {
-                        disabled:
-                          _vm.inputs[indice].length >=
-                            item3.cz5_n_rtas_correctas &&
-                          _vm.inputs[indice].indexOf(Number(item4.cz8_id)) ===
-                            -1,
-                        type: "checkbox"
-                      },
-                      domProps: {
-                        value: item4.cz8_id,
-                        checked: Array.isArray(_vm.inputs[indice])
-                          ? _vm._i(_vm.inputs[indice], item4.cz8_id) > -1
-                          : _vm.inputs[indice]
-                      },
-                      on: {
-                        click: function($event) {
-                          return _vm.guardarSMMR(
-                            item3.cz5_id,
-                            item3.cz5_gp_id,
-                            item4.cz8_id,
-                            item3.cz5_categoria
-                          )
-                        },
-                        change: function($event) {
-                          var $$a = _vm.inputs[indice],
-                            $$el = $event.target,
-                            $$c = $$el.checked ? true : false
-                          if (Array.isArray($$a)) {
-                            var $$v = item4.cz8_id,
-                              $$i = _vm._i($$a, $$v)
-                            if ($$el.checked) {
-                              $$i < 0 &&
-                                _vm.$set(_vm.inputs, indice, $$a.concat([$$v]))
-                            } else {
-                              $$i > -1 &&
-                                _vm.$set(
-                                  _vm.inputs,
-                                  indice,
-                                  $$a.slice(0, $$i).concat($$a.slice($$i + 1))
-                                )
+                    _c(
+                      "div",
+                      { staticClass: "custom-control custom-checkbox" },
+                      [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.inputs[indice],
+                              expression: "inputs[indice]"
                             }
-                          } else {
-                            _vm.$set(_vm.inputs, indice, $$c)
+                          ],
+                          staticClass: "custom-control-input",
+                          attrs: {
+                            id: item4.cz8_id,
+                            disabled:
+                              _vm.inputs[indice].length >=
+                                item3.cz5_n_rtas_correctas &&
+                              _vm.inputs[indice].indexOf(
+                                Number(item4.cz8_id)
+                              ) === -1,
+                            type: "checkbox"
+                          },
+                          domProps: {
+                            value: item4.cz8_id,
+                            checked: Array.isArray(_vm.inputs[indice])
+                              ? _vm._i(_vm.inputs[indice], item4.cz8_id) > -1
+                              : _vm.inputs[indice]
+                          },
+                          on: {
+                            click: function($event) {
+                              return _vm.guardarSMMR(
+                                item3.cz5_id,
+                                item3.cz5_gp_id,
+                                item4.cz8_id,
+                                item3.cz5_categoria
+                              )
+                            },
+                            change: function($event) {
+                              var $$a = _vm.inputs[indice],
+                                $$el = $event.target,
+                                $$c = $$el.checked ? true : false
+                              if (Array.isArray($$a)) {
+                                var $$v = item4.cz8_id,
+                                  $$i = _vm._i($$a, $$v)
+                                if ($$el.checked) {
+                                  $$i < 0 &&
+                                    _vm.$set(
+                                      _vm.inputs,
+                                      indice,
+                                      $$a.concat([$$v])
+                                    )
+                                } else {
+                                  $$i > -1 &&
+                                    _vm.$set(
+                                      _vm.inputs,
+                                      indice,
+                                      $$a
+                                        .slice(0, $$i)
+                                        .concat($$a.slice($$i + 1))
+                                    )
+                                }
+                              } else {
+                                _vm.$set(_vm.inputs, indice, $$c)
+                              }
+                            }
                           }
-                        }
-                      }
-                    }),
-                    _vm._v(_vm._s(item4.cz8_rta) + "\n\n\n            ")
+                        }),
+                        _vm._v(" "),
+                        _c(
+                          "label",
+                          {
+                            staticClass: "custom-control-label",
+                            attrs: { for: item4.cz8_id }
+                          },
+                          [_vm._v(_vm._s(item4.cz8_rta))]
+                        )
+                      ]
+                    )
                   ])
                 }),
                 0
@@ -69002,7 +69697,11 @@ var render = function() {
           ],
           staticClass: "btn btn-danger mt-4",
           attrs: { type: "button" },
-          on: { click: _vm.calificar }
+          on: {
+            click: function($event) {
+              return _vm.$router.go(-1)
+            }
+          }
         },
         [_vm._v("Finalizar")]
       )
@@ -70163,7 +70862,7 @@ var render = function() {
                 },
                 [
                   _c("th", { attrs: { scope: "row" } }, [
-                    _vm._v(_vm._s(item.c0541_id))
+                    _vm._v(_vm._s(item.c0541_id) + " ")
                   ]),
                   _vm._v(" "),
                   _c("td", [
@@ -70181,6 +70880,14 @@ var render = function() {
                   _c("td", [_vm._v(_vm._s(item.f285_descripcion))]),
                   _vm._v(" "),
                   _c("td", [_vm._v(_vm._s(item.c0763_descripcion))]),
+                  _vm._v(" "),
+                  _c("td", [
+                    item.nota[0]
+                      ? _c("span", [
+                          _vm._v(_vm._s(item.nota[0].cz4_calificacion))
+                        ])
+                      : _vm._e()
+                  ]),
                   _vm._v(" "),
                   _c("td", [
                     _c(
@@ -70399,6 +71106,10 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", { staticClass: "texto", attrs: { scope: "col" } }, [
           _vm._v("Cargo")
+        ]),
+        _vm._v(" "),
+        _c("th", { staticClass: "texto", attrs: { scope: "col" } }, [
+          _vm._v("Nota")
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "texto", attrs: { scope: "col" } }, [
@@ -71054,7 +71765,7 @@ var render = function() {
           ],
           staticClass: "display-5 titulo my-3"
         },
-        [_vm._v("Preguntas de selección multiple con única respuestas")]
+        [_vm._v("Preguntas de selección multiple con única respuestas\n    ")]
       ),
       _vm._v(" "),
       _vm._l(_vm.resSMUR, function(item, indice) {
@@ -71088,23 +71799,37 @@ var render = function() {
             _vm._v(" "),
             _c(
               "div",
-              { staticClass: "col-md-12" },
+              { staticClass: "col-md-12 " },
               _vm._l(item.respuestas, function(item2, i) {
                 return _c("article", { key: i }, [
-                  _c("input", {
-                    staticClass: "flat",
-                    attrs: { type: "radio", name: item.cz5_id },
-                    domProps: {
-                      checked: item2.cz7_id == item2.cz7_rta_correcta,
-                      value: item2.cz7_id
-                    },
-                    on: {
-                      click: function($event) {
-                        return _vm.guardarSMURcorrecta(item2)
+                  _c("div", { staticClass: "custom-control custom-radio" }, [
+                    _c("input", {
+                      staticClass: "custom-control-input",
+                      attrs: {
+                        id: item2.cz7_id,
+                        type: "radio",
+                        name: item.cz5_id
+                      },
+                      domProps: {
+                        checked: item2.cz7_id == item2.cz7_rta_correcta,
+                        value: item2.cz7_id
+                      },
+                      on: {
+                        click: function($event) {
+                          return _vm.guardarSMURcorrecta(item2)
+                        }
                       }
-                    }
-                  }),
-                  _vm._v(" " + _vm._s(item2.cz7_rta) + "\n                ")
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "label",
+                      {
+                        staticClass: "custom-control-label",
+                        attrs: { for: item2.cz7_id }
+                      },
+                      [_vm._v(_vm._s(item2.cz7_rta))]
+                    )
+                  ])
                 ])
               }),
               0
@@ -71126,7 +71851,11 @@ var render = function() {
           ],
           staticClass: "display-5 titulo my-3"
         },
-        [_vm._v("Preguntas de selección multiple con multiple respuestas")]
+        [
+          _vm._v(
+            "Preguntas de selección multiple con multiple\n        respuestas"
+          )
+        ]
       ),
       _vm._v(" "),
       _vm._l(_vm.resSMMR, function(item3, indice) {
@@ -71164,60 +71893,74 @@ var render = function() {
             { staticClass: "col-md-12" },
             _vm._l(item3.smmr, function(item4, i) {
               return _c("article", { key: "s-" + i }, [
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.inputs[indice],
-                      expression: "inputs[indice]"
-                    }
-                  ],
-                  staticClass: "flat",
-                  attrs: {
-                    disabled:
-                      _vm.inputs[indice].length >= item3.cz5_n_rtas_correctas &&
-                      _vm.inputs[indice].indexOf(Number(item4.cz8_id)) === -1,
-                    type: "checkbox"
-                  },
-                  domProps: {
-                    value: item4.cz8_id,
-                    checked: Array.isArray(_vm.inputs[indice])
-                      ? _vm._i(_vm.inputs[indice], item4.cz8_id) > -1
-                      : _vm.inputs[indice]
-                  },
-                  on: {
-                    click: function($event) {
-                      return _vm.guardarSMMRcorrecta(
-                        item4,
-                        item4.cz8_id == item4.cz8_rta_correcta
-                      )
+                _c("div", { staticClass: "custom-control custom-checkbox" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.inputs[indice],
+                        expression: "inputs[indice]"
+                      }
+                    ],
+                    staticClass: "custom-control-input",
+                    attrs: {
+                      id: item4.cz8_id,
+                      disabled:
+                        _vm.inputs[indice].length >=
+                          item3.cz5_n_rtas_correctas &&
+                        _vm.inputs[indice].indexOf(Number(item4.cz8_id)) === -1,
+                      type: "checkbox"
                     },
-                    change: function($event) {
-                      var $$a = _vm.inputs[indice],
-                        $$el = $event.target,
-                        $$c = $$el.checked ? true : false
-                      if (Array.isArray($$a)) {
-                        var $$v = item4.cz8_id,
-                          $$i = _vm._i($$a, $$v)
-                        if ($$el.checked) {
-                          $$i < 0 &&
-                            _vm.$set(_vm.inputs, indice, $$a.concat([$$v]))
+                    domProps: {
+                      value: item4.cz8_id,
+                      checked: Array.isArray(_vm.inputs[indice])
+                        ? _vm._i(_vm.inputs[indice], item4.cz8_id) > -1
+                        : _vm.inputs[indice]
+                    },
+                    on: {
+                      click: function($event) {
+                        _vm.guardarSMMRcorrecta(
+                          item4,
+                          _vm.inputs[indice].filter(function(id) {
+                            return id == item4.cz8_id
+                          }).length >= 1
+                        )
+                      },
+                      change: function($event) {
+                        var $$a = _vm.inputs[indice],
+                          $$el = $event.target,
+                          $$c = $$el.checked ? true : false
+                        if (Array.isArray($$a)) {
+                          var $$v = item4.cz8_id,
+                            $$i = _vm._i($$a, $$v)
+                          if ($$el.checked) {
+                            $$i < 0 &&
+                              _vm.$set(_vm.inputs, indice, $$a.concat([$$v]))
+                          } else {
+                            $$i > -1 &&
+                              _vm.$set(
+                                _vm.inputs,
+                                indice,
+                                $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                              )
+                          }
                         } else {
-                          $$i > -1 &&
-                            _vm.$set(
-                              _vm.inputs,
-                              indice,
-                              $$a.slice(0, $$i).concat($$a.slice($$i + 1))
-                            )
+                          _vm.$set(_vm.inputs, indice, $$c)
                         }
-                      } else {
-                        _vm.$set(_vm.inputs, indice, $$c)
                       }
                     }
-                  }
-                }),
-                _vm._v(_vm._s(item4.cz8_rta) + "\n                ")
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "label",
+                    {
+                      staticClass: "custom-control-label",
+                      attrs: { for: item4.cz8_id }
+                    },
+                    [_vm._v(_vm._s(item4.cz8_rta))]
+                  )
+                ])
               ])
             }),
             0
@@ -77652,8 +78395,8 @@ var render = function() {
         attrs: {
           title:
             _vm.$route.params.cat == 1
-              ? "Administrar encuesta"
-              : "Administrar evaluación"
+              ? "Lincap | Administrar encuesta"
+              : "Lincap | Administrar evaluación"
         }
       }),
       _vm._v(" "),
@@ -78124,7 +78867,7 @@ var render = function() {
             clickToClose: false,
             adaptive: true,
             width: 450,
-            height: 370
+            height: 355
           }
         },
         [
@@ -78170,6 +78913,14 @@ var render = function() {
                       _vm._v(" "),
                       _c("td", [
                         _c("input", {
+                          directives: [
+                            {
+                              name: "show",
+                              rawName: "v-show",
+                              value: item.cz3_id != _vm.$route.params.id,
+                              expression: "item.cz3_id != $route.params.id"
+                            }
+                          ],
                           attrs: { type: "radio", name: "eleccion" },
                           on: {
                             click: function($event) {
@@ -97103,6 +97854,75 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/admin/Encuesta.vue":
+/*!****************************************************!*\
+  !*** ./resources/js/components/admin/Encuesta.vue ***!
+  \****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Encuesta_vue_vue_type_template_id_477b33e1___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Encuesta.vue?vue&type=template&id=477b33e1& */ "./resources/js/components/admin/Encuesta.vue?vue&type=template&id=477b33e1&");
+/* harmony import */ var _Encuesta_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Encuesta.vue?vue&type=script&lang=js& */ "./resources/js/components/admin/Encuesta.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _Encuesta_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Encuesta_vue_vue_type_template_id_477b33e1___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _Encuesta_vue_vue_type_template_id_477b33e1___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/admin/Encuesta.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/admin/Encuesta.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************!*\
+  !*** ./resources/js/components/admin/Encuesta.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Encuesta_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./Encuesta.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/Encuesta.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Encuesta_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/admin/Encuesta.vue?vue&type=template&id=477b33e1&":
+/*!***********************************************************************************!*\
+  !*** ./resources/js/components/admin/Encuesta.vue?vue&type=template&id=477b33e1& ***!
+  \***********************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Encuesta_vue_vue_type_template_id_477b33e1___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./Encuesta.vue?vue&type=template&id=477b33e1& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/Encuesta.vue?vue&type=template&id=477b33e1&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Encuesta_vue_vue_type_template_id_477b33e1___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Encuesta_vue_vue_type_template_id_477b33e1___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/components/admin/Evaluacion.vue":
 /*!******************************************************!*\
   !*** ./resources/js/components/admin/Evaluacion.vue ***!
@@ -98029,9 +98849,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _js_components_cliente_Evaluacion__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ../js/components/cliente/Evaluacion */ "./resources/js/components/cliente/Evaluacion.vue");
 /* harmony import */ var _js_components_gestion_pruebas_ModActivos__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ../js/components/gestion_pruebas/ModActivos */ "./resources/js/components/gestion_pruebas/ModActivos.vue");
 /* harmony import */ var _js_components_admin_Evaluacion__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ../js/components/admin/Evaluacion */ "./resources/js/components/admin/Evaluacion.vue");
-/* harmony import */ var _views_prueba_preguntas_Index_vue__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ../views/prueba_preguntas/Index.vue */ "./resources/views/prueba_preguntas/Index.vue");
-/* harmony import */ var _views_noticias_Index_vue__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ../views/noticias/Index.vue */ "./resources/views/noticias/Index.vue");
-/* harmony import */ var _views_404__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ../views/404 */ "./resources/views/404.vue");
+/* harmony import */ var _js_components_admin_Encuesta__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ../js/components/admin/Encuesta */ "./resources/js/components/admin/Encuesta.vue");
+/* harmony import */ var _views_prueba_preguntas_Index_vue__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ../views/prueba_preguntas/Index.vue */ "./resources/views/prueba_preguntas/Index.vue");
+/* harmony import */ var _views_noticias_Index_vue__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ../views/noticias/Index.vue */ "./resources/views/noticias/Index.vue");
+/* harmony import */ var _views_404__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ../views/404 */ "./resources/views/404.vue");
 
 
 
@@ -98050,6 +98871,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
 
 
  //Vista Gestion Pruebas
+
 
 
 
@@ -98134,9 +98956,9 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
   }, {
     path: '/prueba/preguntas/:cat/:id',
     name: 'IndexPreguntas',
-    component: _views_prueba_preguntas_Index_vue__WEBPACK_IMPORTED_MODULE_19__["default"]
+    component: _views_prueba_preguntas_Index_vue__WEBPACK_IMPORTED_MODULE_20__["default"]
   }, {
-    path: '/presentar/encuesta/:id/:empleado',
+    path: '/presentar/encuesta/:id/' + user.id,
     name: 'Presentar',
     component: _js_components_cliente_Encuesta__WEBPACK_IMPORTED_MODULE_15__["default"]
   }, {
@@ -98148,13 +98970,17 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
     name: 'AdministrarEvaluacion',
     component: _js_components_admin_Evaluacion__WEBPACK_IMPORTED_MODULE_18__["default"]
   }, {
+    path: '/administrar/encuesta/:id/:empleado/' + user.id,
+    name: 'AdministrarEncuesta',
+    component: _js_components_admin_Encuesta__WEBPACK_IMPORTED_MODULE_19__["default"]
+  }, {
     path: '/',
     name: 'IndexNoticias',
-    component: _views_noticias_Index_vue__WEBPACK_IMPORTED_MODULE_20__["default"]
+    component: _views_noticias_Index_vue__WEBPACK_IMPORTED_MODULE_21__["default"]
   }, {
     path: '*',
     name: '404',
-    component: _views_404__WEBPACK_IMPORTED_MODULE_21__["default"]
+    component: _views_404__WEBPACK_IMPORTED_MODULE_22__["default"]
   }]
 }));
 

@@ -90,6 +90,7 @@ Route::post('asignacion/quitarTodos', 'AsignacionController@quitarTodos');
 Route::post('asignacion/delete', 'AsignacionController@delete');
 Route::get('asignacion/index/{id}', 'AsignacionController@index');
 Route::get('asignacion/contar/{id}','AsignacionController@contar');
+Route::get('asignacion/traerNotas/{id}','AsignacionController@conseguirNota');
 Route::get('asignacion/estado/{id}/{empleado}','AsignacionController@conseguirEstado');
 
 //PREGUNTA 
