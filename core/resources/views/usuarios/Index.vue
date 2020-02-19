@@ -1,6 +1,6 @@
 <template>
     <div>
-          <vue-headful
+        <vue-headful
             :title="title"
         />
         <nav aria-label="breadcrumb">
@@ -46,14 +46,11 @@
             </div>
             <span v-if="mostrar == 1"><input class="select mt-2" v-model="numero" /></span>
         </nav>
-        <button type="button" class="btn btn-round btn-success" @click="show" title="Nuevo">
-            Nuevo
+        <button type="button" class="btn btn-round btn-success" @click="show" title="Nuevo"><i class="fa fa-plus"></i>
         </button>
-          <button type="button" class="btn btn-round btn-primary" @click="agregarTodos" title="Nuevo">
-            Agregar a todos
+        <button type="button" class="btn btn-round btn-primary" @click="agregarTodos" title="Sincronizar usuarios"><i class="fa fa-rotate-left"></i>
         </button>
-        <modal name="create" :clickToClose="false" :adaptive="true" :width="430" :height="430">
-            
+        <modal name="create" :clickToClose="false" :adaptive="true" :width="430" :height="430">            
             <div class="login_wrapper">
                 <div class="animate form login_form">
                     <section class="login_content shadow-lg p-3 mb-5 bg-white rounded">
@@ -61,7 +58,7 @@
                             <h1>Nuevo Usuario</h1>
 
                             <div class="col-md-12 col-center col-sm-8 form-group has-feedback">
-                                <input class="form-control" placeholder="Numero de cedula" v-model="usuario.cz1_cc"
+                                <input class="form-control" placeholder="Número de cédula" v-model="usuario.cz1_cc"
                                     v-numeric-only v-max-length="16" v-autofocus />
                             </div>
                             <div class="col-md-12 col-center col-sm-8 form-group has-feedback">
@@ -88,8 +85,7 @@
                 </div>
             </div>
         </modal>
-        <modal name="editar" :clickToClose="false" :adaptive="true" :width="430" :height="430">
-             
+        <modal name="editar" :clickToClose="false" :adaptive="true" :width="430" :height="430">             
             <div class="login_wrapper">
                 <div class="animate form login_form">
                     <section class="login_content shadow-lg p-3 mb-5 bg-white rounded">
@@ -124,6 +120,7 @@
                 </div>
             </div>
         </modal>
+        <br><br>
  <div class="table-responsive-md table-responsive-sm">
         <table class="table table-striped">
             <thead>
@@ -144,18 +141,15 @@
                     <td>{{ item.cz1_nombres }}</td>
                     <td>{{ item.cz2_nombre }}</td>
                     <td>
-                        <button class="btn btn-warning btn-sm" v-on:click="
+                        <button title="Editar" class="btn btn-warning btn-sm" v-on:click="
                                 editar(item);
                                 showEditar();
                             ">
-                            <li class="fa fa-edit">
-                            Editar
-                            </li>
+                            <i class="fa fa-edit"></i>
                         </button>
-                        <button class="btn btn-danger btn-sm"
+                        <button title="Eliminar" class="btn btn-danger btn-sm"
                             v-on:click="eliminar(item.cz1_id, indice, item.cz1_nombres)">
                             <li class="fa fa-trash-o">
-                            Eliminar
                             </li>
                         </button>
                     </td>

@@ -135,9 +135,9 @@ class UsuariosController extends Controller
         }
 
         if ($this->global == null) {
-            return response()->json(['Error' => 'No está registrado en el sistema', 'mensaje' => '']);
+            return response()->json(['error' => 'No está registrado en el sistema', 'mensaje' => '']);
         } else if ($this->global[0]->f015_email == null) {
-            return response()->json(['Error' => 'No tiene un correo electrónico registrado', 'mensaje' => '']);
+            return response()->json(['error' => 'No tiene un correo electrónico registrado', 'mensaje' => '']);
         } else {
             //ElIMINAMOS TODOS LOS TOKEN QUE TENGA ESE CORREO
 
@@ -166,7 +166,7 @@ class UsuariosController extends Controller
     {
         $PasswordReset = PasswordReset::where('token', $request->token)->first();
         if ($PasswordReset == null) {
-            return response()->json(['error' => 'Token Invalido']);
+            return response()->json(['error' => 'Token invalido']);
         }
         $usuario = z1_usuarios::where('cz1_cc', $PasswordReset->cedula)->first();
         return response()->json(['error' => '', 'usuario' => $usuario]);
@@ -266,7 +266,7 @@ class UsuariosController extends Controller
 
         }
         else{
-            return 'no tienes permisos';
+            return 'No tiene permisos';
         }
         
     }

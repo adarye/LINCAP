@@ -26,7 +26,8 @@
 
                             <div>
                                 <h1><i class=""></i> by Linco</h1>
-                                <p>©2019 Todos los derechos reservados.</p>
+                                <p>Copyright © 2020 <br>
+                                Todos los derechos reservados.</p>
                             </div>
                         </div>
                     </form>
