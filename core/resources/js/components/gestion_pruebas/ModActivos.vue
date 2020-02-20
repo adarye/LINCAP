@@ -205,6 +205,15 @@
                 });
             },
             incluir(c0550_rowid_tercero) {
+                 const wrapper = document.createElement('div');
+                wrapper.innerHTML =
+                    "<div class='spinner-border text-primary row' role='status'> <span class='sr-only'>Loading...</span> </div>  <div class=''>Enviando...</div> ";
+                swal({
+                    buttons: false,
+                    html: true,
+                    content: wrapper,
+                    closeOnClickOutside: false
+                });
                 this.seleccionados.push(c0550_rowid_tercero)
                 axios.post("/api/asignacion/guardar", {
                         id: c0550_rowid_tercero,
@@ -212,6 +221,7 @@
                     })
                     .then(res => {
                         console.log(res.data)
+                         swal('Correcto', 'Se ha enviado un email al trabajador', 'success')
                     });
 
             },

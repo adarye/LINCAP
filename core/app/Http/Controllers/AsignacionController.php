@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\AsignacionPrueba;
+use App\Terceros_mm;
+use App\z1_usuarios;
+use App\z3_gestion_pruebas;
 use App\z4_rel_ts_gp;
 use App\z11_resultados;
-use App\Terceros_mm;
-use App\Terceros;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Mail;
 
 class AsignacionController extends Controller
 {
@@ -19,102 +22,147 @@ class AsignacionController extends Controller
 
     public function guardar(Request $request)
     {
-        if(Gate::allows('isAdmin') || 
-        Gate::allows('isRRHH') || Gate::allows('isSST') ) {
-        //return $request->seleccionados;
-        $relacion = new z4_rel_ts_gp;
-        $relacion->cz4_gp_id = $request->id_prueba;
-        $relacion->cz4_ts_id = $request->id;
-        $relacion->cz4_estado = 0;
-        $relacion->save();
+        if (Gate::allows('isAdmin') ||
+            Gate::allows('isRRHH') || Gate::allows('isSST')) {
+            //ELIMINAMOS CUALQUIER PRUEBA DUPLICADA
+            // $prueba = z4_rel_ts_gp::where('cz4_ts_id', $request->id)->where('cz4_gp_id', $request->id_prueba)->first();
+            // $prueba->delete();
 
-        return $relacion;
+            $relacion = new z4_rel_ts_gp;
+            $relacion->cz4_gp_id = $request->id_prueba;
+            $relacion->cz4_ts_id = $request->id;
+            $relacion->cz4_estado = 0;
+            $relacion->save();
+
+            $user_email = z1_usuarios::select('cz1_nombres', 'f015_email', 'cz1_cc')
+                ->join(
+                    'dbo.t200_mm_terceros',
+                    'dbo.z1_usuarios.cz1_id_empleado',
+                    '=',
+                    'dbo.t200_mm_terceros.f200_rowid'
+                )->join(
+                'dbo.t015_mm_contactos',
+                'dbo.t200_mm_terceros.f200_rowid_contacto',
+                '=',
+                'dbo.t015_mm_contactos.f015_rowid'
+            )
+                ->where('dbo.z1_usuarios.cz1_id_empleado', $request->id)
+                ->first();
+
+            if ($user_email == null) {
+                return response()->json(['error' => 'No tiene un correo electrónico registrado', 'mensaje' => '']);
+            } else {
+                $prueba = z3_gestion_pruebas::select(
+                    'cz3_nombre',
+                    'cz3_descripcion',
+                    'cz3_fecha_apertura',
+                    'cz3_fecha_cierre',
+                    'f200_nombres',
+                    'f200_apellido1',
+                    'f200_apellido2',
+                    'cz3_categoria'
+                    )
+                    ->join(
+                    'dbo.t200_mm_terceros',
+                    'dbo.z3_gestion_pruebas.cz3_id_creador',
+                    '=',
+                    'dbo.t200_mm_terceros.f200_rowid')
+                    ->where('cz3_id', $request->id_prueba)
+                    ->first();
+                Mail::to($user_email->f015_email)->send(new AsignacionPrueba($user_email, $prueba));
+            }
         }
     }
     public function delete(Request $request)
     {
         //return $request->seleccionados;
-        if(Gate::allows('isAdmin') || 
-        Gate::allows('isRRHH') || Gate::allows('isSST') ) {
-        $prueba = z4_rel_ts_gp::where('cz4_ts_id', $request->id_ts)->where('cz4_gp_id', $request->id_prueba)->first();
-        $prueba->delete();
-        $respuestas = z11_resultados::where('cz11_id_empleado', $request->id_ts)->where('cz11_id_gp', $request->id_prueba)->delete();
-        
+        if (Gate::allows('isAdmin') ||
+            Gate::allows('isRRHH') || Gate::allows('isSST')) {
+            $prueba = z4_rel_ts_gp::where('cz4_ts_id', $request->id_ts)->where('cz4_gp_id', $request->id_prueba)->first();
+            $prueba->delete();
+            $respuestas = z11_resultados::where('cz11_id_empleado', $request->id_ts)->where('cz11_id_gp', $request->id_prueba)->delete();
+
         }
     }
     public function index($id)
     {
-        if (Gate::allows('isAdmin') || 
-        Gate::allows('isRRHH') || Gate::allows('isSST') ) {
-        $registros = z4_rel_ts_gp::select('cz4_ts_id', 'cz4_calificacion')->where('cz4_gp_id', $id)->get();
-        $j = json_decode($registros, true);
-        return $registros;
+        if (Gate::allows('isAdmin') ||
+            Gate::allows('isRRHH') || Gate::allows('isSST')) {
+            $registros = z4_rel_ts_gp::select('cz4_ts_id', 'cz4_calificacion')->where('cz4_gp_id', $id)->get();
+            $j = json_decode($registros, true);
+            return $registros;
         }
     }
     public function guardarTodos(Request $request)
     {
-        if(Gate::allows('isAdmin') || 
-        Gate::allows('isRRHH') || Gate::allows('isSST') ) {
-        $todos = (array) $request->activos;
-        $i = 0;
+        if (Gate::allows('isAdmin') ||
+            Gate::allows('isRRHH') || Gate::allows('isSST')) {
+            $todos = (array) $request->activos;
+            $i = 0;
 
-        foreach ($todos as $req) {
-            $a = $todos[$i];
-            $all = z4_rel_ts_gp::where('cz4_ts_id', $a['c0550_rowid_tercero'])
-                ->where('cz4_gp_id', $request->id_prueba)
-                ->get();
-            if (count($all) <= 0) {
-                $relacion = new z4_rel_ts_gp;
-                $relacion->cz4_gp_id = $request->id_prueba;
-                $relacion->cz4_ts_id = $a['c0550_rowid_tercero'];
-                $relacion->cz4_estado = 0;
-                $relacion->save();
+            foreach ($todos as $req) {
+                $a = $todos[$i];
+                $all = z4_rel_ts_gp::where('cz4_ts_id', $a['c0550_rowid_tercero'])
+                    ->where('cz4_gp_id', $request->id_prueba)
+                    ->get();
+                if (count($all) <= 0) {
+                    $relacion = new z4_rel_ts_gp;
+                    $relacion->cz4_gp_id = $request->id_prueba;
+                    $relacion->cz4_ts_id = $a['c0550_rowid_tercero'];
+                    $relacion->cz4_estado = 0;
+                    $relacion->save();
+                }
+                $i++;
+
             }
-            $i++;
-
         }
-    }
 
     }
     public function quitarTodos(Request $request)
     {
-        if(Gate::allows('isAdmin') || 
-        Gate::allows('isRRHH') || Gate::allows('isSST') ) {
-        $todos = (array) $request->activos;
-        $i = 0;
+        if (Gate::allows('isAdmin') ||
+            Gate::allows('isRRHH') || Gate::allows('isSST')) {
+            $todos = (array) $request->activos;
+            $i = 0;
 
-        foreach ($todos as $req) {
-            $a = $todos[$i];
-            $all = z4_rel_ts_gp::where('cz4_ts_id', $a['c0550_rowid_tercero'])
-                ->where('cz4_gp_id', $request->id_prueba)
-                ->first();
-            if ($all != null) {
-                $all->delete();
-                $respuestas = z11_resultados::where('cz11_id_gp', $request->id_prueba)->delete();
+            foreach ($todos as $req) {
+                $a = $todos[$i];
+                $all = z4_rel_ts_gp::where('cz4_ts_id', $a['c0550_rowid_tercero'])
+                    ->where('cz4_gp_id', $request->id_prueba)
+                    ->first();
+                if ($all != null) {
+                    $all->delete();
+                    $respuestas = z11_resultados::where('cz11_id_gp', $request->id_prueba)->delete();
+                }
+                $i++;
+
             }
-            $i++;
-
         }
+
     }
-    
-    }
-    public function finalizarPrueba($id){
-        
-        $prueba = z4_rel_ts_gp::where('cz4_ts_id', Auth()->user()->cz1_id_empleado)->where('cz4_gp_id',$id)->first();
+    public function finalizarPrueba($id)
+    {
+
+        $prueba = z4_rel_ts_gp::where('cz4_ts_id', Auth()->user()->cz1_id_empleado)->where('cz4_gp_id', $id)->first();
         $prueba->cz4_estado = 2;
         $prueba->save();
     }
 
-    public function contar($id){
-        return z4_rel_ts_gp::where('cz4_gp_id',$id)->count();
+    public function contar($id)
+    {
+        return z4_rel_ts_gp::where('cz4_gp_id', $id)->count();
     }
-    public function conseguirEstado($id, $empleado){
-        return  z4_rel_ts_gp::select('cz4_id', 'cz4_estado', 'cz4_calificacion')->where('cz4_ts_id', $empleado)
-        ->where('cz4_gp_id', $id)->first();
-    }
-    public function conseguirNota($id){
 
-       return Terceros_mm::select(
+    public function conseguirEstado($id, $empleado)
+    {
+        return z4_rel_ts_gp::select('cz4_id', 'cz4_estado', 'cz4_calificacion')->where('cz4_ts_id', $empleado)
+            ->where('cz4_gp_id', $id)->first();
+    }
+
+    public function conseguirNota($id)
+    {
+
+        return Terceros_mm::select(
             "c0541_rowid",
             "c0541_nombres",
             "c0541_id",
@@ -172,15 +220,14 @@ class AsignacionController extends Controller
             '=',
             'dbo.t285_co_centro_op.f285_id'
 
-         )
+        )
             ->where('c0550_ind_estado', '1')
-            ->orderBy('c0541_nombres','ASC')
-            ->with(array('nota'=>function($query) use ($id){
-                $query->select()->where('cz4_gp_id',$id);
-               }))
+            ->orderBy('c0541_nombres', 'ASC')
+            ->with(array('nota' => function ($query) use ($id) {
+                $query->select()->where('cz4_gp_id', $id);
+            }))
             ->get();
 
-        
     }
-    
+
 }

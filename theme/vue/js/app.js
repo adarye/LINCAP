@@ -3832,12 +3832,21 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale('es');
       });
     },
     incluir: function incluir(c0550_rowid_tercero) {
+      var wrapper = document.createElement('div');
+      wrapper.innerHTML = "<div class='spinner-border text-primary row' role='status'> <span class='sr-only'>Loading...</span> </div>  <div class=''>Enviando...</div> ";
+      swal({
+        buttons: false,
+        html: true,
+        content: wrapper,
+        closeOnClickOutside: false
+      });
       this.seleccionados.push(c0550_rowid_tercero);
       axios.post("/api/asignacion/guardar", {
         id: c0550_rowid_tercero,
         id_prueba: this.id_prueba
       }).then(function (res) {
         console.log(res.data);
+        swal('Correcto', 'Se ha enviado un email al trabajador', 'success');
       });
     },
     excluir: function excluir(item) {
