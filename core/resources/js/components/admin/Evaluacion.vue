@@ -3,7 +3,7 @@
         <vue-headful :title=" 'Lincap | Ver evaluación ' " />
         <center>
             <h1 class="titulo">{{titulo}}</h1>
-            {{estado_prueba}}
+            
         </center>
 
         <div class="alert alert-primary lead" role="alert" v-show="estado_prueba == 0">
@@ -219,25 +219,20 @@
                     .then(res => {
                         this.resRA = res.data
 
-                        if (this.estado_prueba != 2 && this.id_empleado == this.id_log) {
-                            swal({
-                                buttons: false,
-                                html: true,
-                                content: wrapper,
-                                closeOnClickOutside: false
-                            });
-                            for (let i = 0; i < this.resRA.length; i++) {
-                                axios.post('/api/respuesta/ra/guardar', {
-                                        id_gp: this.resRA[i].cz5_gp_id,
-                                        id_pp: this.resRA[i].cz5_id,
-                                        categoria: 'ra',
-                                        rta_ra: null
-                                    })
-                                    .then(res => {
-                                        console.log(res.data)
-                                    })
-                            }
-                        }
+                        // if (this.estado_prueba != 2 && this.id_empleado == this.id_log) {
+                            
+                        //     for (let i = 0; i < this.resRA.length; i++) {
+                        //         axios.post('/api/respuesta/ra/guardar', {
+                        //                 id_gp: this.resRA[i].cz5_gp_id,
+                        //                 id_pp: this.resRA[i].cz5_id,
+                        //                 categoria: 'ra',
+                        //                 rta_ra: null
+                        //             })
+                        //             .then(res => {
+                        //                 console.log(res.data)
+                        //             })
+                        //     }
+                        // }
                     })
             },
             traerSMMR() {

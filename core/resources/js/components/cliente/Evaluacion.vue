@@ -3,7 +3,7 @@
         <vue-headful :title=" 'Presentar evaluación | ' + titulo" />
         <center>
             <h1 class="titulo">{{titulo}}</h1>
-            {{estado_prueba}}
+        
         </center>
 
         <h4 class="display-5 titulo mb-3" v-show="resRA.length">Preguntas con respuesta abierta</h4>
