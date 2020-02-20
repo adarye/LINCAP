@@ -22,7 +22,14 @@ class AsignacionPrueba extends Mailable
     {
         $this->user = $datos;
         $this->prueba = $prueba;
-        Mailable::subject('Asignacion prueba');
+        $mensaje= "";
+        if($prueba->cz3_categoria == 1){
+         $mensaje = "Nueva Encuesta";
+        }
+        else{
+            $mensaje = "Nueva Evaluación";
+        }
+        Mailable::subject($mensaje);
     }
 
     /**

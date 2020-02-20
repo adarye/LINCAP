@@ -221,7 +221,7 @@
                     })
                     .then(res => {
                         console.log(res.data)
-                         swal('Correcto', 'Se ha enviado un email al trabajador', 'success')
+                         swal('Correcto', res.data.mensaje, 'success')
                     });
 
             },

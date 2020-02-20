@@ -3846,7 +3846,7 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale('es');
         id_prueba: this.id_prueba
       }).then(function (res) {
         console.log(res.data);
-        swal('Correcto', 'Se ha enviado un email al trabajador', 'success');
+        swal('Correcto', res.data.mensaje, 'success');
       });
     },
     excluir: function excluir(item) {

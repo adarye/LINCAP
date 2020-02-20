@@ -14,10 +14,10 @@
     Se le ha asignado una  @if($prueba->cz3_categoria == 1) encuesta @else evaluación.@endif
     <br>
     <br>
-    Tema:<b>{{ $prueba->cz3_nombre}}</b>
+    Tema:<b> {{ $prueba->cz3_nombre}}</b>
     <br>
     <br>
-    Descripción :<b>{{ $prueba->cz3_descripcion}}</b>
+    Descripción :<b> {{ $prueba->cz3_descripcion}}</b>
     <br>
     <br>
     Fecha de apertura: <b>{{ \Carbon\Carbon::parse($prueba->cz3_fecha_apertura)->format('d/m/Y  h:i:s A')}}</b>

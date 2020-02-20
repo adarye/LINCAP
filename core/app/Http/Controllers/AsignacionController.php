@@ -49,8 +49,8 @@ class AsignacionController extends Controller
                 ->where('dbo.z1_usuarios.cz1_id_empleado', $request->id)
                 ->first();
 
-            if ($user_email == null) {
-                return response()->json(['error' => 'No tiene un correo electrónico registrado', 'mensaje' => '']);
+            if ($user_email->f015_email == null) {
+                return response()->json(['error' => '', 'mensaje' => 'No tiene un correo electrónico registrado']);
             } else {
                 $prueba = z3_gestion_pruebas::select(
                     'cz3_nombre',
@@ -70,6 +70,7 @@ class AsignacionController extends Controller
                     ->where('cz3_id', $request->id_prueba)
                     ->first();
                 Mail::to($user_email->f015_email)->send(new AsignacionPrueba($user_email, $prueba));
+                return response()->json(['error' => '', 'mensaje' => 'Se le ha enviado un email a ' . ' '. $user_email->f015_email] );
             }
         }
     }
