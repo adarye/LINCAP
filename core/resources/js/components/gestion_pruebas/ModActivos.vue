@@ -52,7 +52,8 @@
                         <th scope="col" class="texto">Nombre</th>
                         <th scope="col" class="texto">C. O</th>
                         <th scope="col" class="texto">Cargo</th>
-                         <th scope="col" class="texto">Nota</th>
+                         <th scope="col" class="texto">Fecha de realizacion</th>
+                         <th scope="col" class="texto" v-show="$route.params.cat == 2">Nota</th>
                         <th scope="col" class="texto">Acciones</th>
                     </tr>
                 </thead>
@@ -69,7 +70,8 @@
                         </td>
                         <td>{{ item.f285_descripcion }}</td>
                         <td>{{ item.c0763_descripcion }}</td>
-                         <td><h4><span v-if="item.nota.length >= 1 && item.nota[0].cz4_calificacion != null " :class="item.nota[0].cz4_calificacion < 3.5 ? 'badge badge-danger':'badge badge-success'">{{Math.round(item.nota[0].cz4_calificacion * 100) / 100}}</span></h4></td> 
+                        <td></td>
+                         <td v-show="$route.params.cat == 2"><h4><span v-if="item.nota.length >= 1 && item.nota[0].cz4_calificacion != null " :class="item.nota[0].cz4_calificacion < 3.5 ? 'badge badge-danger':'badge badge-success'">{{Math.round(item.nota[0].cz4_calificacion * 100) / 100}}</span></h4></td> 
                        
                         <td>
                             
@@ -226,6 +228,15 @@
 
             },
             excluir(item) {
+                const wrapper = document.createElement('div');
+                wrapper.innerHTML =
+                    "<div class='spinner-border text-danger row' role='status'> <span class='sr-only'>Loading...</span> </div>  <div class=''>Eliminando...</div> ";
+                swal({
+                    buttons: false,
+                    html: true,
+                    content: wrapper,
+                    closeOnClickOutside: false
+                });
                 for (var i = 0; i < this.seleccionados.length; i++) {
                     if (this.seleccionados[i] === item) {
                         this.seleccionados.splice(i, 1);
@@ -235,7 +246,9 @@
                             })
                             .then(res => {
                                 console.log(res.data)
+                                 this.traerActivos()
                                 this.traerRelacion()
+                                swal('Correcto','Se ha eliminado la asignación ', 'success')
                             });
                     }
                 }

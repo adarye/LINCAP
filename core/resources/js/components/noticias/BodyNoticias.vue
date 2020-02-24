@@ -15,7 +15,7 @@
             <div class=" pull-left">
                 Noticias
             </div>
-            <div class="col-md-4 col-center col-sm-2  has-feedback">
+            <div class="col-md-4 col-center col-sm-2">
                 <select v-model="select" class="form-control">
                     <option value="SELECCIONAR CATEGORIA">SELECCIONAR CATEGORIA</option>
                     <option value="1">NORMAL</option>
@@ -25,67 +25,84 @@
 
                 </select>
             </div>
-            <div class="col-md-6 col-center has-feedback mt-2">
-                <input type="text" v-model="bnoticia" class="form-control" v-autofocus placeholder="Buscar" />
+            
+            <div class="col-md-5  has-feedback mt-2">
+                <input type="text" v-model="bnoticia" class="form-control" v-autofocus placeholder="Buscar noticia" />
             </div>
+            
             <span v-if="mostrar == 1"><input class="select mt-2" v-model="numero" /></span>
         </nav>
 
-<div class="row">
-        <div class="col-md-12 col-sm-12 col-center mt-4" v-for="(item, indice) in mbuscar" :key="indice"
-            v-show="(pagina-1) * numero <= indice && pagina*numero > indice || bnoticia != ''">
-            <div class="col-md-12 col-sm-12  ">
-                <div class="x_panel shadow-lg">
+
+        <div class="row mt-4">
+            
+            <div class="col-md-8 " v-for="(item, indice) in mbuscar" :key="indice"
+                v-show="(pagina-1) * numero <= indice && pagina*numero > indice || bnoticia != ''">
+                <div class="x_panel">
                     <div class="x_title">
-                        <h2 class="noti-title">{{item.cz12_nombre}} 
-                            </h2>                          
+                        <h2>{{item.cz12_nombre}} <small>
+                                <span v-show="item.cz12_nivel_imp == 1">Normal</span>
+                                <span v-show="item.cz12_nivel_imp == 2">Importante</span>
+                                <span v-show="item.cz12_nivel_imp == 3">Muy importante</span>
+                                <span v-show="item.cz12_nivel_imp == 4">Necesaria</span>
+                            </small>
+                        </h2>
+
                         <ul class="nav navbar-right panel_toolbox">
-                            <li><button v-show="rol != 4 && rol != 3 " @click="$emit('editar2', item)"
-                                    class="btn-sm btn-primary fa fa-edit mb-2"></button>
+                            <li v-show="rol != 4 && rol != 3 ">
+                                <a @click="$emit('editar2', item)">
+                                    <i class="fa fa-edit"> </i>
+                                </a>
+
                             </li>
-                            <li><button v-show="rol != 4 && rol != 3 " @click="eliminar(item.cz12_id)"
-                                    class="btn-sm btn-danger fa fa-trash mb-2"></button>
+                            
+                            <li v-show="rol != 4 && rol != 3 ">
+                                <a @click="eliminar(item.cz12_id)">
+                                    <i class="fa fa-close"> </i>
+                                </a>
+
+                            </li>
+                            <li><a class="collapse-link" data-toggle="collapse"
+                                    :data-target="'#collapse'+item.cz12_id"><i class="fa fa-chevron-up"></i></a>
                             </li>
                         </ul>
-                         <div class="col-md-11"><p class=""> By {{item.cz1_nombres}}  <img :src="'/../theme/images/profile/'+ item.cz1_avatar"
-                                        alt="" class="img-profile-noti"> </p></div>
-                        <div class="clearfix"> </div>
+                        <div class="clearfix"></div>
                     </div>
-                    <div class="">
-                        <div class="">
-                            <div class="col-md-12 hidden-small">
-                                <h2 class="line_30"> <i class="fa fa-clock-o"></i> {{item.cz12_fecha_creacion}} </h2>
-                                <h2> <a v-show="item.cz12_archivo != null"
-                                    :href="'/../theme/files/noticias/'+ item.cz12_archivo" target="_blank">
-                                    <li class="fa fa-file-archive-o"></li> Archivo adjunto
-                                </a></h2>
-                                <p class="lead noti-text ">{{item.cz12_descripcion}}</p>
-                                
-                            </div>
-                            <div  class="col-md-5 col-sm-12"
-                                v-show="item.cz12_imagen">
-                                <img class="media-object img p-3" :src="'/../theme/images/noticias/'+ item.cz12_imagen">
-                            </div>
+                    <div class="collapse" :id="'collapse'+item.cz12_id">
+                        <article class="media event">
                             
-                        </div>
+                            <div class="media-body">
+                                <div class="col-md-12">
+                                   
+                                    <p style="text-align: justify" class="">{{item.cz12_descripcion}}</p>
+
+                                </div>
+                                <div class="col-md-5 col-sm-6" v-show="item.cz12_imagen">
+                                    <img class="media-object img p-3"
+                                        :src="'/../theme/images/noticias/'+ item.cz12_imagen">
+                                </div>
+                                <div class="col-md-7 col-sm-6">
+                                     <p class="mb-1 mt-4"> <i class="fa fa-clock-o"></i> {{item.cz12_fecha_creacion}}
+                                    </p>
+                                    <p class="mb-2"> <a v-show="item.cz12_archivo != null"
+                                            :href="'/../theme/files/noticias/'+ item.cz12_archivo" target="_blank">
+                                            <li class="fa fa-file-archive-o"></li> Archivo adjunto
+                                        </a></p>
+                                       <p><b> By {{item.cz1_nombres}}</b> <img
+                                        :src="'/../theme/images/profile/'+ item.cz1_avatar" alt=""
+                                        class="img-profile-noti"></p>
+                                </div>
+                            </div>
+                        </article>
                     </div>
-                    <span class="pull-right">
-                                <h4><span v-show="item.cz12_nivel_imp == 1"
-                                        class="badge lead badge-success">Normal</span></h4>
-                                <h4><span v-show="item.cz12_nivel_imp == 2"
-                                        class="badge lead badge-primary">Importante</span></h4>
-                                <h4><span v-show="item.cz12_nivel_imp == 3" class="badge lead badge-warning">Muy
-                                        importante</span></h4>
-                                <h4><span v-show="item.cz12_nivel_imp == 4"
-                                        class="badge lead badge-danger">Necesaria</span></h4>
-                            </span>
                 </div>
-                  
             </div>
-          
+           
+
         </div>
-</div>
-      
+         
+
+
         <div class="row">
             <div class="col-md-5 col-float"></div>
             <div v-show="bnoticia == ''" class="col-md-4 col-center">
@@ -107,12 +124,12 @@
                 {{ mbuscar.length }} Registros</div> -->
         </div>
         <center>
-            
+
             <div v-show="carga  && noticias.length == []" class="spinner-border text-primary " role="status">
                 <span class="sr-only">Loading...</span>
             </div>
-              <div v-show="carga == false  && noticias.length == []">
-               <p>No se encontraron noticias</p>
+            <div v-show="carga == false  && noticias.length == []">
+                <p>No se encontraron noticias</p>
             </div>
         </center>
     </div>
@@ -143,9 +160,9 @@
             EventBus.$on('cargar', (item) => {
                 this.index()
             });
-             setTimeout(
-                _ => this.carga = false, 
-                10000 
+            setTimeout(
+                _ => this.carga = false,
+                10000
             )
         },
         methods: {

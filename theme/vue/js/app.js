@@ -2848,6 +2848,17 @@ __webpack_require__.r(__webpack_exports__);
       axios.get("/api/respuestaA/buscar/".concat(this.id)).then(function (res) {
         _this2.resRA = res.data;
         console.log(_this2.resRA);
+
+        if (_this2.estado_prueba != 2 || _this2.estado_prueba != 1 && _this2.id_empleado == _this2.id_log) {
+          for (var i = 0; i < _this2.resRA.length; i++) {
+            axios.post('/api/respuesta/ra/guardar', {
+              id_gp: _this2.resRA[i].cz5_gp_id,
+              id_pp: _this2.resRA[i].cz5_id,
+              categoria: 'ra',
+              rta_ra: null
+            }).then(function (res) {});
+          }
+        }
       });
     },
     traerSMMR: function traerSMMR() {
@@ -3470,14 +3481,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale("es");
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['pruebas'],
   data: function data() {
     return {
-      selectPag: 5,
-      numero: 5,
+      selectPag: 10,
+      numero: 10,
       mostrar: 0,
       pagina: 1,
       bprueba: '',
@@ -3519,11 +3532,11 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale("es");
         if (_this2.select == null || _this2.select == 'Todas') {
           return prueba.cz3_nombre.toUpperCase().includes(_this2.bprueba.toUpperCase()) || prueba.cz3_descripcion.toUpperCase().includes(_this2.bprueba.toUpperCase());
         } else if (_this2.select == 'Cerradas') {
-          return moment__WEBPACK_IMPORTED_MODULE_0___default()().diff(prueba.cz3_fecha_cierre) > 0 && prueba.cz3_nombre.toUpperCase().includes(_this2.bprueba.toUpperCase());
+          return moment__WEBPACK_IMPORTED_MODULE_0___default()().diff(prueba.cz3_fecha_cierre) > 0 && prueba.cz3_nombre.toUpperCase().includes(_this2.bprueba.toUpperCase()) || moment__WEBPACK_IMPORTED_MODULE_0___default()().diff(prueba.cz3_fecha_cierre) > 0 && prueba.cz3_descripcion.toUpperCase().includes(_this2.bprueba.toUpperCase());
         } else if (_this2.select == 'Abiertas') {
-          return moment__WEBPACK_IMPORTED_MODULE_0___default()().diff(prueba.cz3_fecha_cierre) < 0 && moment__WEBPACK_IMPORTED_MODULE_0___default()().diff(prueba.cz3_fecha_apertura) > 0 && prueba.cz3_nombre.toUpperCase().includes(_this2.bprueba.toUpperCase());
+          return moment__WEBPACK_IMPORTED_MODULE_0___default()().diff(prueba.cz3_fecha_cierre) < 0 && moment__WEBPACK_IMPORTED_MODULE_0___default()().diff(prueba.cz3_fecha_apertura) > 0 && prueba.cz3_nombre.toUpperCase().includes(_this2.bprueba.toUpperCase()) || moment__WEBPACK_IMPORTED_MODULE_0___default()().diff(prueba.cz3_fecha_cierre) < 0 && moment__WEBPACK_IMPORTED_MODULE_0___default()().diff(prueba.cz3_fecha_apertura) > 0 && prueba.cz3_descripcion.toUpperCase().includes(_this2.bprueba.toUpperCase());
         } else if (_this2.select == 'Proximas') {
-          return moment__WEBPACK_IMPORTED_MODULE_0___default()().diff(prueba.cz3_fecha_apertura) < 0 && prueba.cz3_nombre.toUpperCase().includes(_this2.bprueba.toUpperCase());
+          return moment__WEBPACK_IMPORTED_MODULE_0___default()().diff(prueba.cz3_fecha_apertura) < 0 && prueba.cz3_nombre.toUpperCase().includes(_this2.bprueba.toUpperCase()) || moment__WEBPACK_IMPORTED_MODULE_0___default()().diff(prueba.cz3_fecha_apertura) < 0 && prueba.cz3_descripcion.toUpperCase().includes(_this2.bprueba.toUpperCase());
         }
       });
     }
@@ -3753,6 +3766,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale('es');
 
@@ -3852,6 +3867,15 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale('es');
     excluir: function excluir(item) {
       var _this5 = this;
 
+      var wrapper = document.createElement('div');
+      wrapper.innerHTML = "<div class='spinner-border text-danger row' role='status'> <span class='sr-only'>Loading...</span> </div>  <div class=''>Eliminando...</div> ";
+      swal({
+        buttons: false,
+        html: true,
+        content: wrapper,
+        closeOnClickOutside: false
+      });
+
       for (var i = 0; i < this.seleccionados.length; i++) {
         if (this.seleccionados[i] === item) {
           this.seleccionados.splice(i, 1);
@@ -3861,7 +3885,11 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale('es');
           }).then(function (res) {
             console.log(res.data);
 
+            _this5.traerActivos();
+
             _this5.traerRelacion();
+
+            swal('Correcto', 'Se ha eliminado la asignación ', 'success');
           });
         }
       }
@@ -4053,6 +4081,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _bus__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../bus */ "./resources/js/bus.js");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -6669,10 +6714,12 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale("es");
       var fechaApertura = fechaA[0] + '/' + mesA + '/' + fechaA[1] + ' ' + horaA;
       fechaApertura = new Date(fechaApertura);
       console.log(fechaCierre + ' ' + fechaApertura);
+      var diffDays = fechaApertura.getDate() - new Date().getDate();
+      console.log(diffDays);
 
       if (this.datos.cz3_nombre == null || this.datos.cz3_descripcion == null || this.datos.cz3_fecha_apertura == null || this.datos.cz3_fecha_cierre == null) {
         swal('Advertencia', 'Todos los campos son necesarios', 'warning');
-      } else if (fechaApertura > fechaCierre || fechaApertura <= new Date()) {
+      } else if (fechaApertura > fechaCierre || diffDays < 0) {
         swal('Advertencia', 'Las fechas deben tener un rango en vigencia', 'warning');
       } else {
         axios.post('/api/gp/crear', {
@@ -6917,7 +6964,7 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale("es");
     });
     setTimeout(function (_) {
       return _this.carga = false;
-    }, 10000);
+    }, 3000);
   },
   methods: {
     presentarEva: function presentarEva(prueba) {
@@ -68256,9 +68303,17 @@ var render = function() {
                     rawName: "v-model",
                     value: _vm.respuestas_ra[i],
                     expression: "respuestas_ra[i]"
+                  },
+                  { name: "uppercase", rawName: "v-uppercase" },
+                  {
+                    name: "max-length",
+                    rawName: "v-max-length",
+                    value: 200,
+                    expression: "200"
                   }
                 ],
-                attrs: { disabled: "" },
+                staticClass: "form-control",
+                attrs: { disabled: "", rows: "4", cols: "50", type: "text" },
                 domProps: { value: _vm.respuestas_ra[i] },
                 on: {
                   input: function($event) {
@@ -69740,7 +69795,7 @@ var render = function() {
           _vm._v("\n            Ver\n        ")
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "col-md-1" }, [
+        _c("div", { staticClass: "col-md-2" }, [
           _c(
             "select",
             {
@@ -69840,7 +69895,7 @@ var render = function() {
           ]
         ),
         _vm._v(" "),
-        _c("div", { staticClass: "col-md-6 col-center has-feedback mt-2" }, [
+        _c("div", { staticClass: "col-md-5 col-center has-feedback mt-2" }, [
           _c("input", {
             directives: [
               {
@@ -69916,6 +69971,8 @@ var render = function() {
                   key: indice
                 },
                 [
+                  _c("th", [_vm._v(_vm._s(item.cz3_id))]),
+                  _vm._v(" "),
                   _c("th", { attrs: { scope: "row" } }, [
                     _vm._v(
                       _vm._s(item.cz3_nombre) + "\n                        "
@@ -70224,6 +70281,8 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Id")]),
+        _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Nombre")]),
         _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Descripcion")]),
@@ -70839,7 +70898,50 @@ var render = function() {
       _vm._v(" "),
       _c("div", { staticClass: "table-responsive-md table-responsive-sm" }, [
         _c("table", { staticClass: "table table-striped" }, [
-          _vm._m(1),
+          _c("thead", [
+            _c("tr", [
+              _c("th", { staticClass: "texto", attrs: { scope: "col" } }, [
+                _vm._v("Cedula")
+              ]),
+              _vm._v(" "),
+              _c("th", { staticClass: "texto", attrs: { scope: "col" } }, [
+                _vm._v("Nombre")
+              ]),
+              _vm._v(" "),
+              _c("th", { staticClass: "texto", attrs: { scope: "col" } }, [
+                _vm._v("C. O")
+              ]),
+              _vm._v(" "),
+              _c("th", { staticClass: "texto", attrs: { scope: "col" } }, [
+                _vm._v("Cargo")
+              ]),
+              _vm._v(" "),
+              _c("th", { staticClass: "texto", attrs: { scope: "col" } }, [
+                _vm._v("Fecha de realizacion")
+              ]),
+              _vm._v(" "),
+              _c(
+                "th",
+                {
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: _vm.$route.params.cat == 2,
+                      expression: "$route.params.cat == 2"
+                    }
+                  ],
+                  staticClass: "texto",
+                  attrs: { scope: "col" }
+                },
+                [_vm._v("Nota")]
+              ),
+              _vm._v(" "),
+              _c("th", { staticClass: "texto", attrs: { scope: "col" } }, [
+                _vm._v("Acciones")
+              ])
+            ])
+          ]),
           _vm._v(" "),
           _c(
             "tbody",
@@ -70882,31 +70984,46 @@ var render = function() {
                   _vm._v(" "),
                   _c("td", [_vm._v(_vm._s(item.c0763_descripcion))]),
                   _vm._v(" "),
-                  _c("td", [
-                    _c("h4", [
-                      item.nota.length >= 1 &&
-                      item.nota[0].cz4_calificacion != null
-                        ? _c(
-                            "span",
-                            {
-                              class:
-                                item.nota[0].cz4_calificacion < 3.5
-                                  ? "badge badge-danger"
-                                  : "badge badge-success"
-                            },
-                            [
-                              _vm._v(
-                                _vm._s(
-                                  Math.round(
-                                    item.nota[0].cz4_calificacion * 100
-                                  ) / 100
+                  _c("td"),
+                  _vm._v(" "),
+                  _c(
+                    "td",
+                    {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: _vm.$route.params.cat == 2,
+                          expression: "$route.params.cat == 2"
+                        }
+                      ]
+                    },
+                    [
+                      _c("h4", [
+                        item.nota.length >= 1 &&
+                        item.nota[0].cz4_calificacion != null
+                          ? _c(
+                              "span",
+                              {
+                                class:
+                                  item.nota[0].cz4_calificacion < 3.5
+                                    ? "badge badge-danger"
+                                    : "badge badge-success"
+                              },
+                              [
+                                _vm._v(
+                                  _vm._s(
+                                    Math.round(
+                                      item.nota[0].cz4_calificacion * 100
+                                    ) / 100
+                                  )
                                 )
-                              )
-                            ]
-                          )
-                        : _vm._e()
-                    ])
-                  ]),
+                              ]
+                            )
+                          : _vm._e()
+                      ])
+                    ]
+                  ),
                   _vm._v(" "),
                   _c("td", [
                     _c(
@@ -71104,38 +71221,6 @@ var staticRenderFns = [
     return _c("li", { staticClass: "breadcrumb-item active" }, [
       _c("i", { staticClass: "fa fa-users" }, [_vm._v("Asignar")])
     ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("thead", [
-      _c("tr", [
-        _c("th", { staticClass: "texto", attrs: { scope: "col" } }, [
-          _vm._v("Cedula")
-        ]),
-        _vm._v(" "),
-        _c("th", { staticClass: "texto", attrs: { scope: "col" } }, [
-          _vm._v("Nombre")
-        ]),
-        _vm._v(" "),
-        _c("th", { staticClass: "texto", attrs: { scope: "col" } }, [
-          _vm._v("C. O")
-        ]),
-        _vm._v(" "),
-        _c("th", { staticClass: "texto", attrs: { scope: "col" } }, [
-          _vm._v("Cargo")
-        ]),
-        _vm._v(" "),
-        _c("th", { staticClass: "texto", attrs: { scope: "col" } }, [
-          _vm._v("Nota")
-        ]),
-        _vm._v(" "),
-        _c("th", { staticClass: "texto", attrs: { scope: "col" } }, [
-          _vm._v("Acciones")
-        ])
-      ])
-    ])
   }
 ]
 render._withStripped = true
@@ -71164,7 +71249,7 @@ var render = function() {
     [
       _c("nav", { staticClass: "navbar navbar-light bg-light my-2" }, [
         _c("div", { staticClass: " pull-right" }, [
-          _vm._v("\n                Ver\n            ")
+          _vm._v("\n            Ver\n        ")
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "col-md-1" }, [
@@ -71213,61 +71298,57 @@ var render = function() {
         ]),
         _vm._v(" "),
         _c("div", { staticClass: " pull-left" }, [
-          _vm._v("\n                Noticias\n            ")
+          _vm._v("\n            Noticias\n        ")
         ]),
         _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "col-md-4 col-center col-sm-2  has-feedback" },
-          [
-            _c(
-              "select",
-              {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.select,
-                    expression: "select"
-                  }
-                ],
-                staticClass: "form-control",
-                on: {
-                  change: function($event) {
-                    var $$selectedVal = Array.prototype.filter
-                      .call($event.target.options, function(o) {
-                        return o.selected
-                      })
-                      .map(function(o) {
-                        var val = "_value" in o ? o._value : o.value
-                        return val
-                      })
-                    _vm.select = $event.target.multiple
-                      ? $$selectedVal
-                      : $$selectedVal[0]
-                  }
+        _c("div", { staticClass: "col-md-4 col-center col-sm-2" }, [
+          _c(
+            "select",
+            {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.select,
+                  expression: "select"
                 }
-              },
-              [
-                _c("option", { attrs: { value: "SELECCIONAR CATEGORIA" } }, [
-                  _vm._v("SELECCIONAR CATEGORIA")
-                ]),
-                _vm._v(" "),
-                _c("option", { attrs: { value: "1" } }, [_vm._v("NORMAL")]),
-                _vm._v(" "),
-                _c("option", { attrs: { value: "2" } }, [_vm._v("IMPORTANTE")]),
-                _vm._v(" "),
-                _c("option", { attrs: { value: "3" } }, [
-                  _vm._v("MUY IMPORTANTE")
-                ]),
-                _vm._v(" "),
-                _c("option", { attrs: { value: "4" } }, [_vm._v("NECESARIA")])
-              ]
-            )
-          ]
-        ),
+              ],
+              staticClass: "form-control",
+              on: {
+                change: function($event) {
+                  var $$selectedVal = Array.prototype.filter
+                    .call($event.target.options, function(o) {
+                      return o.selected
+                    })
+                    .map(function(o) {
+                      var val = "_value" in o ? o._value : o.value
+                      return val
+                    })
+                  _vm.select = $event.target.multiple
+                    ? $$selectedVal
+                    : $$selectedVal[0]
+                }
+              }
+            },
+            [
+              _c("option", { attrs: { value: "SELECCIONAR CATEGORIA" } }, [
+                _vm._v("SELECCIONAR CATEGORIA")
+              ]),
+              _vm._v(" "),
+              _c("option", { attrs: { value: "1" } }, [_vm._v("NORMAL")]),
+              _vm._v(" "),
+              _c("option", { attrs: { value: "2" } }, [_vm._v("IMPORTANTE")]),
+              _vm._v(" "),
+              _c("option", { attrs: { value: "3" } }, [
+                _vm._v("MUY IMPORTANTE")
+              ]),
+              _vm._v(" "),
+              _c("option", { attrs: { value: "4" } }, [_vm._v("NECESARIA")])
+            ]
+          )
+        ]),
         _vm._v(" "),
-        _c("div", { staticClass: "col-md-6 col-center has-feedback mt-2" }, [
+        _c("div", { staticClass: "col-md-5  has-feedback mt-2" }, [
           _c("input", {
             directives: [
               {
@@ -71279,7 +71360,7 @@ var render = function() {
               { name: "autofocus", rawName: "v-autofocus" }
             ],
             staticClass: "form-control",
-            attrs: { type: "text", placeholder: "Buscar" },
+            attrs: { type: "text", placeholder: "Buscar noticia" },
             domProps: { value: _vm.bnoticia },
             on: {
               input: function($event) {
@@ -71320,7 +71401,7 @@ var render = function() {
       _vm._v(" "),
       _c(
         "div",
-        { staticClass: "row" },
+        { staticClass: "row mt-4" },
         _vm._l(_vm.mbuscar, function(item, indice) {
           return _c(
             "div",
@@ -71338,148 +71419,14 @@ var render = function() {
                 }
               ],
               key: indice,
-              staticClass: "col-md-12 col-sm-12 col-center mt-4"
+              staticClass: "col-md-8 "
             },
             [
-              _c("div", { staticClass: "col-md-12 col-sm-12  " }, [
-                _c("div", { staticClass: "x_panel shadow-lg" }, [
-                  _c("div", { staticClass: "x_title" }, [
-                    _c("h2", { staticClass: "noti-title" }, [
-                      _vm._v(
-                        _vm._s(item.cz12_nombre) +
-                          " \n                            "
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c(
-                      "ul",
-                      { staticClass: "nav navbar-right panel_toolbox" },
-                      [
-                        _c("li", [
-                          _c("button", {
-                            directives: [
-                              {
-                                name: "show",
-                                rawName: "v-show",
-                                value: _vm.rol != 4 && _vm.rol != 3,
-                                expression: "rol != 4 && rol != 3 "
-                              }
-                            ],
-                            staticClass: "btn-sm btn-primary fa fa-edit mb-2",
-                            on: {
-                              click: function($event) {
-                                return _vm.$emit("editar2", item)
-                              }
-                            }
-                          })
-                        ]),
-                        _vm._v(" "),
-                        _c("li", [
-                          _c("button", {
-                            directives: [
-                              {
-                                name: "show",
-                                rawName: "v-show",
-                                value: _vm.rol != 4 && _vm.rol != 3,
-                                expression: "rol != 4 && rol != 3 "
-                              }
-                            ],
-                            staticClass: "btn-sm btn-danger fa fa-trash mb-2",
-                            on: {
-                              click: function($event) {
-                                return _vm.eliminar(item.cz12_id)
-                              }
-                            }
-                          })
-                        ])
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "col-md-11" }, [
-                      _c("p", {}, [
-                        _vm._v(" By " + _vm._s(item.cz1_nombres) + "  "),
-                        _c("img", {
-                          staticClass: "img-profile-noti",
-                          attrs: {
-                            src: "/../theme/images/profile/" + item.cz1_avatar,
-                            alt: ""
-                          }
-                        })
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "clearfix" })
-                  ]),
-                  _vm._v(" "),
-                  _c("div", {}, [
-                    _c("div", {}, [
-                      _c("div", { staticClass: "col-md-12 hidden-small" }, [
-                        _c("h2", { staticClass: "line_30" }, [
-                          _c("i", { staticClass: "fa fa-clock-o" }),
-                          _vm._v(" " + _vm._s(item.cz12_fecha_creacion) + " ")
-                        ]),
-                        _vm._v(" "),
-                        _c("h2", [
-                          _c(
-                            "a",
-                            {
-                              directives: [
-                                {
-                                  name: "show",
-                                  rawName: "v-show",
-                                  value: item.cz12_archivo != null,
-                                  expression: "item.cz12_archivo != null"
-                                }
-                              ],
-                              attrs: {
-                                href:
-                                  "/../theme/files/noticias/" +
-                                  item.cz12_archivo,
-                                target: "_blank"
-                              }
-                            },
-                            [
-                              _c("li", { staticClass: "fa fa-file-archive-o" }),
-                              _vm._v(
-                                " Archivo adjunto\n                                "
-                              )
-                            ]
-                          )
-                        ]),
-                        _vm._v(" "),
-                        _c("p", { staticClass: "lead noti-text " }, [
-                          _vm._v(_vm._s(item.cz12_descripcion))
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        {
-                          directives: [
-                            {
-                              name: "show",
-                              rawName: "v-show",
-                              value: item.cz12_imagen,
-                              expression: "item.cz12_imagen"
-                            }
-                          ],
-                          staticClass: "col-md-5 col-sm-12"
-                        },
-                        [
-                          _c("img", {
-                            staticClass: "media-object img p-3",
-                            attrs: {
-                              src:
-                                "/../theme/images/noticias/" + item.cz12_imagen
-                            }
-                          })
-                        ]
-                      )
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("span", { staticClass: "pull-right" }, [
-                    _c("h4", [
+              _c("div", { staticClass: "x_panel" }, [
+                _c("div", { staticClass: "x_title" }, [
+                  _c("h2", [
+                    _vm._v(_vm._s(item.cz12_nombre) + " "),
+                    _c("small", [
                       _c(
                         "span",
                         {
@@ -71490,14 +71437,11 @@ var render = function() {
                               value: item.cz12_nivel_imp == 1,
                               expression: "item.cz12_nivel_imp == 1"
                             }
-                          ],
-                          staticClass: "badge lead badge-success"
+                          ]
                         },
                         [_vm._v("Normal")]
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("h4", [
+                      ),
+                      _vm._v(" "),
                       _c(
                         "span",
                         {
@@ -71508,14 +71452,11 @@ var render = function() {
                               value: item.cz12_nivel_imp == 2,
                               expression: "item.cz12_nivel_imp == 2"
                             }
-                          ],
-                          staticClass: "badge lead badge-primary"
+                          ]
                         },
                         [_vm._v("Importante")]
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("h4", [
+                      ),
+                      _vm._v(" "),
                       _c(
                         "span",
                         {
@@ -71526,18 +71467,11 @@ var render = function() {
                               value: item.cz12_nivel_imp == 3,
                               expression: "item.cz12_nivel_imp == 3"
                             }
-                          ],
-                          staticClass: "badge lead badge-warning"
+                          ]
                         },
-                        [
-                          _vm._v(
-                            "Muy\n                                        importante"
-                          )
-                        ]
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("h4", [
+                        [_vm._v("Muy importante")]
+                      ),
+                      _vm._v(" "),
                       _c(
                         "span",
                         {
@@ -71548,14 +71482,187 @@ var render = function() {
                               value: item.cz12_nivel_imp == 4,
                               expression: "item.cz12_nivel_imp == 4"
                             }
-                          ],
-                          staticClass: "badge lead badge-danger"
+                          ]
                         },
                         [_vm._v("Necesaria")]
                       )
                     ])
-                  ])
-                ])
+                  ]),
+                  _vm._v(" "),
+                  _c("ul", { staticClass: "nav navbar-right panel_toolbox" }, [
+                    _c(
+                      "li",
+                      {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: _vm.rol != 4 && _vm.rol != 3,
+                            expression: "rol != 4 && rol != 3 "
+                          }
+                        ]
+                      },
+                      [
+                        _c(
+                          "a",
+                          {
+                            on: {
+                              click: function($event) {
+                                return _vm.$emit("editar2", item)
+                              }
+                            }
+                          },
+                          [_c("i", { staticClass: "fa fa-edit" })]
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "li",
+                      {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: _vm.rol != 4 && _vm.rol != 3,
+                            expression: "rol != 4 && rol != 3 "
+                          }
+                        ]
+                      },
+                      [
+                        _c(
+                          "a",
+                          {
+                            on: {
+                              click: function($event) {
+                                return _vm.eliminar(item.cz12_id)
+                              }
+                            }
+                          },
+                          [_c("i", { staticClass: "fa fa-close" })]
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c("li", [
+                      _c(
+                        "a",
+                        {
+                          staticClass: "collapse-link",
+                          attrs: {
+                            "data-toggle": "collapse",
+                            "data-target": "#collapse" + item.cz12_id
+                          }
+                        },
+                        [_c("i", { staticClass: "fa fa-chevron-up" })]
+                      )
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "clearfix" })
+                ]),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass: "collapse",
+                    attrs: { id: "collapse" + item.cz12_id }
+                  },
+                  [
+                    _c("article", { staticClass: "media event" }, [
+                      _c("div", { staticClass: "media-body" }, [
+                        _c("div", { staticClass: "col-md-12" }, [
+                          _c(
+                            "p",
+                            { staticStyle: { "text-align": "justify" } },
+                            [_vm._v(_vm._s(item.cz12_descripcion))]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          {
+                            directives: [
+                              {
+                                name: "show",
+                                rawName: "v-show",
+                                value: item.cz12_imagen,
+                                expression: "item.cz12_imagen"
+                              }
+                            ],
+                            staticClass: "col-md-5 col-sm-6"
+                          },
+                          [
+                            _c("img", {
+                              staticClass: "media-object img p-3",
+                              attrs: {
+                                src:
+                                  "/../theme/images/noticias/" +
+                                  item.cz12_imagen
+                              }
+                            })
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-md-7 col-sm-6" }, [
+                          _c("p", { staticClass: "mb-1 mt-4" }, [
+                            _c("i", { staticClass: "fa fa-clock-o" }),
+                            _vm._v(
+                              " " +
+                                _vm._s(item.cz12_fecha_creacion) +
+                                "\n                                "
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("p", { staticClass: "mb-2" }, [
+                            _c(
+                              "a",
+                              {
+                                directives: [
+                                  {
+                                    name: "show",
+                                    rawName: "v-show",
+                                    value: item.cz12_archivo != null,
+                                    expression: "item.cz12_archivo != null"
+                                  }
+                                ],
+                                attrs: {
+                                  href:
+                                    "/../theme/files/noticias/" +
+                                    item.cz12_archivo,
+                                  target: "_blank"
+                                }
+                              },
+                              [
+                                _c("li", {
+                                  staticClass: "fa fa-file-archive-o"
+                                }),
+                                _vm._v(
+                                  " Archivo adjunto\n                                    "
+                                )
+                              ]
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("p", [
+                            _c("b", [
+                              _vm._v(" By " + _vm._s(item.cz1_nombres))
+                            ]),
+                            _vm._v(" "),
+                            _c("img", {
+                              staticClass: "img-profile-noti",
+                              attrs: {
+                                src:
+                                  "/../theme/images/profile/" + item.cz1_avatar,
+                                alt: ""
+                              }
+                            })
+                          ])
+                        ])
+                      ])
+                    ])
+                  ]
+                )
               ])
             ]
           )
@@ -71635,7 +71742,7 @@ var render = function() {
                 _vm._s(_vm.pagina) +
                 " / " +
                 _vm._s(Math.ceil(_vm.mbuscar.length / _vm.numero)) +
-                " de\n                    " +
+                " de\n                " +
                 _vm._s(_vm.mbuscar.length) +
                 " noticias"
             )
@@ -77604,7 +77711,7 @@ var render = function() {
                             _vm.moment().diff(item.cz3_fecha_apertura) > 0 &&
                             item.cz4_estado == 0,
                           expression:
-                            " moment().diff(item.cz3_fecha_cierre) < 0 &&  moment().diff(item.cz3_fecha_apertura) > 0 && item.cz4_estado == 0"
+                            "moment().diff(item.cz3_fecha_cierre) < 0 &&  moment().diff(item.cz3_fecha_apertura) > 0 && item.cz4_estado == 0"
                         }
                       ],
                       staticClass: "btn btn-primary btn-lg",
@@ -77660,6 +77767,18 @@ var render = function() {
                   _c(
                     "button",
                     {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value:
+                            _vm.moment().diff(item.cz3_fecha_cierre) < 0 &&
+                            _vm.moment().diff(item.cz3_fecha_apertura) > 0 &&
+                            item.cz4_estado == 0,
+                          expression:
+                            "moment().diff(item.cz3_fecha_cierre) < 0 &&  moment().diff(item.cz3_fecha_apertura) > 0 && item.cz4_estado == 0"
+                        }
+                      ],
                       staticClass: "btn btn-primary btn-lg",
                       attrs: { role: "button" },
                       on: {

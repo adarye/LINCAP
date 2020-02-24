@@ -29,7 +29,7 @@
                 <p class="lead" v-show="$route.params.categoria == 1">
                     <router-link class="btn btn-primary btn-lg"
                         v-bind:to="'/presentar/encuesta/' + item.cz3_id +'/'+ id" role="button"
-                        v-show=" moment().diff(item.cz3_fecha_cierre) < 0 &&  moment().diff(item.cz3_fecha_apertura) > 0 && item.cz4_estado == 0">
+                        v-show="moment().diff(item.cz3_fecha_cierre) < 0 &&  moment().diff(item.cz3_fecha_apertura) > 0 && item.cz4_estado == 0">
                         Presentar</router-link>
                     <router-link class="btn btn-success btn-lg"
                         v-bind:to="'/presentar/encuesta/' +  item.cz3_id +'/'+ id" role="button"
@@ -38,7 +38,7 @@
                 </p>
                 <p class="lead" v-show="$route.params.categoria == '2'">
                     <button @click="presentarEva(item.cz3_id)" class="btn btn-primary btn-lg"
-                        role="button">Presentar</button>
+                        role="button"  v-show="moment().diff(item.cz3_fecha_cierre) < 0 &&  moment().diff(item.cz3_fecha_apertura) > 0 && item.cz4_estado == 0">Presentar</button>
                 </p>
 
             </div>
@@ -90,7 +90,7 @@
                 })
             setTimeout(
                 _ => this.carga = false,
-                10000
+                3000
             )
         },
         methods: {

@@ -157,6 +157,19 @@
                     .then(res => {
                         this.resRA = res.data
                         console.log(this.resRA)
+                        if (this.estado_prueba != 2 || this.estado_prueba != 1 && this.id_empleado == this.id_log) {
+                            for (let i = 0; i < this.resRA.length; i++) {
+                                axios.post('/api/respuesta/ra/guardar', {
+                                        id_gp: this.resRA[i].cz5_gp_id,
+                                        id_pp: this.resRA[i].cz5_id,
+                                        categoria: 'ra',
+                                        rta_ra: null
+                                    })
+                                    .then(res => {
+
+                                    })
+                            }
+                        }
                         
                     })
             },

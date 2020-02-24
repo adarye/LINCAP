@@ -5,7 +5,7 @@
             <div class=" pull-right">
                 Ver
             </div>
-            <div class="col-md-1">
+            <div class="col-md-2">
                 <select v-model="selectPag" @click.prevent="mostrarCaja()" class="form-control">
                     <option value="10">10</option>
                     <option value="25">25</option>
@@ -24,7 +24,7 @@
 
                 </select>
             </div>
-            <div class="col-md-6 col-center has-feedback mt-2">
+            <div class="col-md-5 col-center has-feedback mt-2">
                 <input type="text" v-model="bprueba" class="form-control" v-autofocus placeholder="Buscar" />
             </div>
             <span v-if="mostrar == 1"><input class="select mt-2" v-model="numero" /></span>
@@ -33,6 +33,7 @@
             <table class="table table-striped">
                 <thead>
                     <tr>
+                        <th scope="col">Id</th>
                         <th scope="col">Nombre</th>
                         <th scope="col">Descripcion</th>
                         <th scope="col">Fecha de Apertura</th>
@@ -43,6 +44,7 @@
                 <tbody>
                     <tr v-for="(item, indice) in mbuscar" :key="indice"
                         v-show="(pagina-1) * numero <= indice && pagina*numero > indice || bprueba != ''">
+                        <th>{{item.cz3_id}}</th>
                         <th scope="row">{{ item.cz3_nombre }}
                             <button class="badge badge-pill badge-success float-right p-1"
                                 v-show=" moment().diff(item.cz3_fecha_cierre) < 0 &&  moment().diff(item.cz3_fecha_apertura) > 0"
@@ -130,8 +132,8 @@
         props: ['pruebas'],
         data() {
             return {
-                selectPag: 5,
-                numero: 5,
+                selectPag: 10,
+                numero: 10,
                 mostrar: 0,
                 pagina: 1,
                 bprueba: '',
@@ -185,6 +187,10 @@
                                 prueba.cz3_nombre
                                 .toUpperCase()
                                 .includes(this.bprueba.toUpperCase())
+                            )||(moment().diff(prueba.cz3_fecha_cierre) > 0 &&
+                                prueba.cz3_descripcion
+                                .toUpperCase()
+                                .includes(this.bprueba.toUpperCase())
                             )
                         );
                     } else if (this.select == 'Abiertas') {
@@ -195,11 +201,22 @@
                                 .toUpperCase()
                                 .includes(this.bprueba.toUpperCase())
                             )
+                            ||(moment().diff(prueba.cz3_fecha_cierre) < 0 && moment().diff(prueba
+                                    .cz3_fecha_apertura) > 0 &&
+                                prueba.cz3_descripcion
+                                .toUpperCase()
+                                .includes(this.bprueba.toUpperCase())
+                            )
                         );
                     } else if (this.select == 'Proximas') {
                         return (
                             (moment().diff(prueba.cz3_fecha_apertura) < 0 &&
                                 prueba.cz3_nombre
+                                .toUpperCase()
+                                .includes(this.bprueba.toUpperCase())
+                            )
+                            || (moment().diff(prueba.cz3_fecha_apertura) < 0 &&
+                                prueba.cz3_descripcion
                                 .toUpperCase()
                                 .includes(this.bprueba.toUpperCase())
                             )
