@@ -7,7 +7,7 @@
         </div>
         <nav class="" >
             <ul class="navbar-right navbar  ">
-                <li  class="nav-item dropdown open"  style="padding-left: 53px;">
+            <li  class="nav-item dropdown open"  style="padding-left: 53px;">
                     <a role="button" href="javascript:;" id="navbarDropdown" class="  user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
                         <?php $name = Auth()->user()->cz1_nombres; 
                          $name_separado = explode(" ", $name)                         

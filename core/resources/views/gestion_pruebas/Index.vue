@@ -45,7 +45,7 @@
                             </div>
                             <div class="col-md-12 col-sm-12 form-group has-feedback">
                                 <button type="submit" class="btn btn-primary">Guardar</button>
-                                <button type="button" @click="$modal.hide('create');  $route.params.categoria == 1 ? title= 'Lincap | Admin encuestas': title= 'Lincap | Admin evaluaciones' "
+                                <button type="button" @click="$modal.hide('create'); limpiar();  $route.params.categoria == 1 ? title= 'Lincap | Admin encuestas': title= 'Lincap | Admin evaluaciones' "
                                     class="btn btn-danger">Cancelar</button>
                             </div>
 

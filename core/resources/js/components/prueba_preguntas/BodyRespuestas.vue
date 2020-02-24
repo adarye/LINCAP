@@ -60,6 +60,7 @@
                     <button @click="eliminar(item3.cz5_id)" class="fa fa-trash float-right btn-sm btn-danger" />
                 </div>
             </div>
+             <div class="row">
             <div class="col-md-12">
                 <article v-for="(item4, i) in item3.smmr" :key="`s-${i}`">
                     <div class="custom-control custom-checkbox">
@@ -70,6 +71,7 @@
                         <label class="custom-control-label" :for="item4.cz8_id">{{ item4.cz8_rta }}</label>
                     </div>
                 </article>
+            </div>
             </div>
         </article>
 

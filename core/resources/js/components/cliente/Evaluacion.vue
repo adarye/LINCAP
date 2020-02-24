@@ -73,6 +73,7 @@
                 </div>
 
             </div>
+             <div class="row">
             <div class="col-md-12" v-if="inputs[indice]">
                 <article v-for="(item4, i) in item3.smmr" :key="`s-${i}`">
 
@@ -87,6 +88,7 @@
                     </div>
                 </article>
             </div>
+             </div>
         </article>
 
         <button v-show="estado_prueba != 2" @click="$router.go(-1)" class="btn btn-danger mt-4"

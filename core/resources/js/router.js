@@ -101,7 +101,7 @@ export default new Router({
 
         },
         {
-            path: '/empleados/contrasena',
+            path: '/cambiar-password',
             name: 'RestartPassword',
             component: RestartPassword
 

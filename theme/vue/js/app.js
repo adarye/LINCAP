@@ -2190,6 +2190,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2346,6 +2348,7 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _bus__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../bus */ "./resources/js/bus.js");
 /* harmony import */ var _router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../router */ "./resources/js/router.js");
+//
 //
 //
 //
@@ -2779,6 +2782,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2998,6 +3003,8 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _bus__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../bus */ "./resources/js/bus.js");
 /* harmony import */ var _router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../router */ "./resources/js/router.js");
+//
+//
 //
 //
 //
@@ -3505,7 +3512,7 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale("es");
 
     setTimeout(function (_) {
       return _this.carga = false;
-    }, 10000);
+    }, 3000);
   },
   methods: {
     mostrarCaja: function mostrarCaja() {
@@ -3638,6 +3645,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../router */ "./resources/js/router.js");
+//
 //
 //
 //
@@ -4328,6 +4336,8 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale("es");
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _bus__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../bus */ "./resources/js/bus.js");
+//
+//
 //
 //
 //
@@ -68415,91 +68425,93 @@ var render = function() {
       _vm._l(_vm.resSMMR, function(item3, indice) {
         return _c("article", { key: "o-" + indice }, [
           _c("div", { staticClass: "row mt-2" }, [
-            _c("div", { staticClass: "col-md-6" }, [
+            _c("div", { staticClass: "col-md-12" }, [
               _c("p", { staticClass: "lead" }, [
                 _vm._v(_vm._s(item3.cz5_pregunta))
               ])
             ])
           ]),
           _vm._v(" "),
-          _vm.inputs[indice]
-            ? _c(
-                "div",
-                { staticClass: "col-md-12" },
-                _vm._l(item3.smmr, function(item4, i) {
-                  return _c("article", { key: "s-" + i }, [
-                    _c(
-                      "div",
-                      { staticClass: "custom-control custom-checkbox" },
-                      [
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.inputs[indice],
-                              expression: "inputs[indice]"
-                            }
-                          ],
-                          staticClass: "custom-control-input",
-                          attrs: {
-                            id: item4.cz8_id,
-                            disabled: "",
-                            type: "checkbox"
-                          },
-                          domProps: {
-                            value: item4.cz8_id,
-                            checked: Array.isArray(_vm.inputs[indice])
-                              ? _vm._i(_vm.inputs[indice], item4.cz8_id) > -1
-                              : _vm.inputs[indice]
-                          },
-                          on: {
-                            change: function($event) {
-                              var $$a = _vm.inputs[indice],
-                                $$el = $event.target,
-                                $$c = $$el.checked ? true : false
-                              if (Array.isArray($$a)) {
-                                var $$v = item4.cz8_id,
-                                  $$i = _vm._i($$a, $$v)
-                                if ($$el.checked) {
-                                  $$i < 0 &&
-                                    _vm.$set(
-                                      _vm.inputs,
-                                      indice,
-                                      $$a.concat([$$v])
-                                    )
+          _c("div", { staticClass: "row" }, [
+            _vm.inputs[indice]
+              ? _c(
+                  "div",
+                  { staticClass: "col-md-12" },
+                  _vm._l(item3.smmr, function(item4, i) {
+                    return _c("article", { key: "s-" + i }, [
+                      _c(
+                        "div",
+                        { staticClass: "custom-control custom-checkbox" },
+                        [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.inputs[indice],
+                                expression: "inputs[indice]"
+                              }
+                            ],
+                            staticClass: "custom-control-input",
+                            attrs: {
+                              id: item4.cz8_id,
+                              disabled: "",
+                              type: "checkbox"
+                            },
+                            domProps: {
+                              value: item4.cz8_id,
+                              checked: Array.isArray(_vm.inputs[indice])
+                                ? _vm._i(_vm.inputs[indice], item4.cz8_id) > -1
+                                : _vm.inputs[indice]
+                            },
+                            on: {
+                              change: function($event) {
+                                var $$a = _vm.inputs[indice],
+                                  $$el = $event.target,
+                                  $$c = $$el.checked ? true : false
+                                if (Array.isArray($$a)) {
+                                  var $$v = item4.cz8_id,
+                                    $$i = _vm._i($$a, $$v)
+                                  if ($$el.checked) {
+                                    $$i < 0 &&
+                                      _vm.$set(
+                                        _vm.inputs,
+                                        indice,
+                                        $$a.concat([$$v])
+                                      )
+                                  } else {
+                                    $$i > -1 &&
+                                      _vm.$set(
+                                        _vm.inputs,
+                                        indice,
+                                        $$a
+                                          .slice(0, $$i)
+                                          .concat($$a.slice($$i + 1))
+                                      )
+                                  }
                                 } else {
-                                  $$i > -1 &&
-                                    _vm.$set(
-                                      _vm.inputs,
-                                      indice,
-                                      $$a
-                                        .slice(0, $$i)
-                                        .concat($$a.slice($$i + 1))
-                                    )
+                                  _vm.$set(_vm.inputs, indice, $$c)
                                 }
-                              } else {
-                                _vm.$set(_vm.inputs, indice, $$c)
                               }
                             }
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c(
-                          "label",
-                          {
-                            staticClass: "custom-control-label",
-                            attrs: { for: item4.cz8_id }
-                          },
-                          [_vm._v(_vm._s(item4.cz8_rta))]
-                        )
-                      ]
-                    )
-                  ])
-                }),
-                0
-              )
-            : _vm._e()
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "label",
+                            {
+                              staticClass: "custom-control-label",
+                              attrs: { for: item4.cz8_id }
+                            },
+                            [_vm._v(_vm._s(item4.cz8_rta))]
+                          )
+                        ]
+                      )
+                    ])
+                  }),
+                  0
+                )
+              : _vm._e()
+          ])
         ])
       })
     ],
@@ -68886,170 +68898,173 @@ var render = function() {
       _vm._l(_vm.resSMMR, function(item3, indice) {
         return _c("article", { key: "o-" + indice }, [
           _c("div", { staticClass: "row mt-2" }, [
-            _c("div", { staticClass: "col-md-6" }, [
+            _c("div", { staticClass: "col-md-12" }, [
               _c("p", { staticClass: "lead" }, [
                 _vm._v(_vm._s(item3.cz5_pregunta))
               ])
             ])
           ]),
           _vm._v(" "),
-          _vm.inputs[indice]
-            ? _c(
-                "div",
-                { staticClass: "col-md-12" },
-                _vm._l(item3.smmr, function(item4, i) {
-                  return _c("article", { key: "s-" + i }, [
-                    _c(
-                      "div",
-                      { staticClass: "custom-control custom-checkbox" },
-                      [
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.inputs[indice],
-                              expression: "inputs[indice]"
-                            }
-                          ],
-                          staticClass: "custom-control-input",
-                          attrs: {
-                            id: item4.cz8_id,
-                            disabled:
-                              _vm.inputs[indice].length >=
-                                item3.cz5_n_rtas_correctas &&
-                              _vm.inputs[indice].indexOf(item4.cz8_id) === -1 &&
-                              _vm.editar
-                                ? false
-                                : true,
-                            type: "checkbox"
-                          },
-                          domProps: {
-                            value: item4.cz8_id,
-                            checked: Array.isArray(_vm.inputs[indice])
-                              ? _vm._i(_vm.inputs[indice], item4.cz8_id) > -1
-                              : _vm.inputs[indice]
-                          },
-                          on: {
-                            click: function($event) {
-                              return _vm.guardarSMMR(
-                                item3.cz5_id,
-                                item3.cz5_gp_id,
-                                item4.cz8_id,
-                                item3.cz5_categoria
-                              )
-                            },
-                            change: function($event) {
-                              var $$a = _vm.inputs[indice],
-                                $$el = $event.target,
-                                $$c = $$el.checked ? true : false
-                              if (Array.isArray($$a)) {
-                                var $$v = item4.cz8_id,
-                                  $$i = _vm._i($$a, $$v)
-                                if ($$el.checked) {
-                                  $$i < 0 &&
-                                    _vm.$set(
-                                      _vm.inputs,
-                                      indice,
-                                      $$a.concat([$$v])
-                                    )
-                                } else {
-                                  $$i > -1 &&
-                                    _vm.$set(
-                                      _vm.inputs,
-                                      indice,
-                                      $$a
-                                        .slice(0, $$i)
-                                        .concat($$a.slice($$i + 1))
-                                    )
-                                }
-                              } else {
-                                _vm.$set(_vm.inputs, indice, $$c)
-                              }
-                            }
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c(
-                          "label",
-                          {
-                            staticClass: "custom-control-label",
-                            attrs: { for: item4.cz8_id }
-                          },
-                          [_vm._v(_vm._s(item4.cz8_rta))]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "span",
-                          {
+          _c("div", { staticClass: "row" }, [
+            _vm.inputs[indice]
+              ? _c(
+                  "div",
+                  { staticClass: "col-md-12" },
+                  _vm._l(item3.smmr, function(item4, i) {
+                    return _c("article", { key: "s-" + i }, [
+                      _c(
+                        "div",
+                        { staticClass: "custom-control custom-checkbox" },
+                        [
+                          _c("input", {
                             directives: [
                               {
-                                name: "show",
-                                rawName: "v-show",
-                                value:
-                                  _vm.inputs[indice].filter(function(cz8_id) {
-                                    return cz8_id == item4.cz8_id
-                                  }) != "" && _vm.estado_prueba == 2,
-                                expression:
-                                  "inputs[indice].filter(cz8_id => cz8_id == item4.cz8_id ) != '' && estado_prueba == 2"
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.inputs[indice],
+                                expression: "inputs[indice]"
                               }
+                            ],
+                            staticClass: "custom-control-input",
+                            attrs: {
+                              id: item4.cz8_id,
+                              disabled:
+                                _vm.inputs[indice].length >=
+                                  item3.cz5_n_rtas_correctas &&
+                                _vm.inputs[indice].indexOf(item4.cz8_id) ===
+                                  -1 &&
+                                _vm.editar
+                                  ? false
+                                  : true,
+                              type: "checkbox"
+                            },
+                            domProps: {
+                              value: item4.cz8_id,
+                              checked: Array.isArray(_vm.inputs[indice])
+                                ? _vm._i(_vm.inputs[indice], item4.cz8_id) > -1
+                                : _vm.inputs[indice]
+                            },
+                            on: {
+                              click: function($event) {
+                                return _vm.guardarSMMR(
+                                  item3.cz5_id,
+                                  item3.cz5_gp_id,
+                                  item4.cz8_id,
+                                  item3.cz5_categoria
+                                )
+                              },
+                              change: function($event) {
+                                var $$a = _vm.inputs[indice],
+                                  $$el = $event.target,
+                                  $$c = $$el.checked ? true : false
+                                if (Array.isArray($$a)) {
+                                  var $$v = item4.cz8_id,
+                                    $$i = _vm._i($$a, $$v)
+                                  if ($$el.checked) {
+                                    $$i < 0 &&
+                                      _vm.$set(
+                                        _vm.inputs,
+                                        indice,
+                                        $$a.concat([$$v])
+                                      )
+                                  } else {
+                                    $$i > -1 &&
+                                      _vm.$set(
+                                        _vm.inputs,
+                                        indice,
+                                        $$a
+                                          .slice(0, $$i)
+                                          .concat($$a.slice($$i + 1))
+                                      )
+                                  }
+                                } else {
+                                  _vm.$set(_vm.inputs, indice, $$c)
+                                }
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "label",
+                            {
+                              staticClass: "custom-control-label",
+                              attrs: { for: item4.cz8_id }
+                            },
+                            [_vm._v(_vm._s(item4.cz8_rta))]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "span",
+                            {
+                              directives: [
+                                {
+                                  name: "show",
+                                  rawName: "v-show",
+                                  value:
+                                    _vm.inputs[indice].filter(function(cz8_id) {
+                                      return cz8_id == item4.cz8_id
+                                    }) != "" && _vm.estado_prueba == 2,
+                                  expression:
+                                    "inputs[indice].filter(cz8_id => cz8_id == item4.cz8_id ) != '' && estado_prueba == 2"
+                                }
+                              ]
+                            },
+                            [
+                              _c(
+                                "li",
+                                {
+                                  directives: [
+                                    {
+                                      name: "show",
+                                      rawName: "v-show",
+                                      value:
+                                        _vm.notas_smmr.filter(function(el) {
+                                          return (
+                                            el.cz11_rta == item4.cz8_id &&
+                                            el.cz11_nota > 0
+                                          )
+                                        }) != "",
+                                      expression:
+                                        "notas_smmr.filter(el => el.cz11_rta == item4.cz8_id && el.cz11_nota > 0) != ''"
+                                    }
+                                  ],
+                                  staticClass: "badge badge-success"
+                                },
+                                [_c("a", { staticClass: "fa fa-check " })]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "li",
+                                {
+                                  directives: [
+                                    {
+                                      name: "show",
+                                      rawName: "v-show",
+                                      value:
+                                        _vm.notas_smmr.filter(function(el) {
+                                          return (
+                                            el.cz11_rta == item4.cz8_id &&
+                                            el.cz11_nota > 0
+                                          )
+                                        }) == "",
+                                      expression:
+                                        "notas_smmr.filter(el => el.cz11_rta == item4.cz8_id && el.cz11_nota > 0) == ''"
+                                    }
+                                  ],
+                                  staticClass: "badge badge-danger"
+                                },
+                                [_c("a", { staticClass: "fa fa-close" })]
+                              )
                             ]
-                          },
-                          [
-                            _c(
-                              "li",
-                              {
-                                directives: [
-                                  {
-                                    name: "show",
-                                    rawName: "v-show",
-                                    value:
-                                      _vm.notas_smmr.filter(function(el) {
-                                        return (
-                                          el.cz11_rta == item4.cz8_id &&
-                                          el.cz11_nota > 0
-                                        )
-                                      }) != "",
-                                    expression:
-                                      "notas_smmr.filter(el => el.cz11_rta == item4.cz8_id && el.cz11_nota > 0) != ''"
-                                  }
-                                ],
-                                staticClass: "badge badge-success"
-                              },
-                              [_c("a", { staticClass: "fa fa-check " })]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "li",
-                              {
-                                directives: [
-                                  {
-                                    name: "show",
-                                    rawName: "v-show",
-                                    value:
-                                      _vm.notas_smmr.filter(function(el) {
-                                        return (
-                                          el.cz11_rta == item4.cz8_id &&
-                                          el.cz11_nota > 0
-                                        )
-                                      }) == "",
-                                    expression:
-                                      "notas_smmr.filter(el => el.cz11_rta == item4.cz8_id && el.cz11_nota > 0) == ''"
-                                  }
-                                ],
-                                staticClass: "badge badge-danger"
-                              },
-                              [_c("a", { staticClass: "fa fa-close" })]
-                            )
-                          ]
-                        )
-                      ]
-                    )
-                  ])
-                }),
-                0
-              )
-            : _vm._e()
+                          )
+                        ]
+                      )
+                    ])
+                  }),
+                  0
+                )
+              : _vm._e()
+          ])
         ])
       })
     ],
@@ -69308,104 +69323,106 @@ var render = function() {
       _vm._l(_vm.resSMMR, function(item3, indice) {
         return _c("article", { key: "o-" + indice }, [
           _c("div", { staticClass: "row mt-2" }, [
-            _c("div", { staticClass: "col-md-6" }, [
+            _c("div", { staticClass: "col-md-12" }, [
               _c("p", { staticClass: "lead" }, [
                 _vm._v(_vm._s(item3.cz5_pregunta))
               ])
             ])
           ]),
           _vm._v(" "),
-          _vm.inputs[indice]
-            ? _c(
-                "div",
-                { staticClass: "col-md-12" },
-                _vm._l(item3.smmr, function(item4, i) {
-                  return _c("article", { key: "s-" + i }, [
-                    _c(
-                      "div",
-                      { staticClass: "custom-control custom-checkbox" },
-                      [
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.inputs[indice],
-                              expression: "inputs[indice]"
-                            }
-                          ],
-                          staticClass: "custom-control-input",
-                          attrs: {
-                            id: item4.cz8_id,
-                            disabled:
-                              _vm.inputs[indice].length >=
-                                item3.cz5_n_rtas_correctas &&
-                              _vm.inputs[indice].indexOf(
-                                Number(item4.cz8_id)
-                              ) === -1,
-                            type: "checkbox"
-                          },
-                          domProps: {
-                            value: item4.cz8_id,
-                            checked: Array.isArray(_vm.inputs[indice])
-                              ? _vm._i(_vm.inputs[indice], item4.cz8_id) > -1
-                              : _vm.inputs[indice]
-                          },
-                          on: {
-                            click: function($event) {
-                              return _vm.guardarSMMR(
-                                item3.cz5_id,
-                                item3.cz5_gp_id,
-                                item4.cz8_id,
-                                item3.cz5_categoria
-                              )
+          _c("div", { staticClass: "row" }, [
+            _vm.inputs[indice]
+              ? _c(
+                  "div",
+                  { staticClass: "col-md-12" },
+                  _vm._l(item3.smmr, function(item4, i) {
+                    return _c("article", { key: "s-" + i }, [
+                      _c(
+                        "div",
+                        { staticClass: "custom-control custom-checkbox" },
+                        [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.inputs[indice],
+                                expression: "inputs[indice]"
+                              }
+                            ],
+                            staticClass: "custom-control-input",
+                            attrs: {
+                              id: item4.cz8_id,
+                              disabled:
+                                _vm.inputs[indice].length >=
+                                  item3.cz5_n_rtas_correctas &&
+                                _vm.inputs[indice].indexOf(
+                                  Number(item4.cz8_id)
+                                ) === -1,
+                              type: "checkbox"
                             },
-                            change: function($event) {
-                              var $$a = _vm.inputs[indice],
-                                $$el = $event.target,
-                                $$c = $$el.checked ? true : false
-                              if (Array.isArray($$a)) {
-                                var $$v = item4.cz8_id,
-                                  $$i = _vm._i($$a, $$v)
-                                if ($$el.checked) {
-                                  $$i < 0 &&
-                                    _vm.$set(
-                                      _vm.inputs,
-                                      indice,
-                                      $$a.concat([$$v])
-                                    )
+                            domProps: {
+                              value: item4.cz8_id,
+                              checked: Array.isArray(_vm.inputs[indice])
+                                ? _vm._i(_vm.inputs[indice], item4.cz8_id) > -1
+                                : _vm.inputs[indice]
+                            },
+                            on: {
+                              click: function($event) {
+                                return _vm.guardarSMMR(
+                                  item3.cz5_id,
+                                  item3.cz5_gp_id,
+                                  item4.cz8_id,
+                                  item3.cz5_categoria
+                                )
+                              },
+                              change: function($event) {
+                                var $$a = _vm.inputs[indice],
+                                  $$el = $event.target,
+                                  $$c = $$el.checked ? true : false
+                                if (Array.isArray($$a)) {
+                                  var $$v = item4.cz8_id,
+                                    $$i = _vm._i($$a, $$v)
+                                  if ($$el.checked) {
+                                    $$i < 0 &&
+                                      _vm.$set(
+                                        _vm.inputs,
+                                        indice,
+                                        $$a.concat([$$v])
+                                      )
+                                  } else {
+                                    $$i > -1 &&
+                                      _vm.$set(
+                                        _vm.inputs,
+                                        indice,
+                                        $$a
+                                          .slice(0, $$i)
+                                          .concat($$a.slice($$i + 1))
+                                      )
+                                  }
                                 } else {
-                                  $$i > -1 &&
-                                    _vm.$set(
-                                      _vm.inputs,
-                                      indice,
-                                      $$a
-                                        .slice(0, $$i)
-                                        .concat($$a.slice($$i + 1))
-                                    )
+                                  _vm.$set(_vm.inputs, indice, $$c)
                                 }
-                              } else {
-                                _vm.$set(_vm.inputs, indice, $$c)
                               }
                             }
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c(
-                          "label",
-                          {
-                            staticClass: "custom-control-label",
-                            attrs: { for: item4.cz8_id }
-                          },
-                          [_vm._v(_vm._s(item4.cz8_rta))]
-                        )
-                      ]
-                    )
-                  ])
-                }),
-                0
-              )
-            : _vm._e()
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "label",
+                            {
+                              staticClass: "custom-control-label",
+                              attrs: { for: item4.cz8_id }
+                            },
+                            [_vm._v(_vm._s(item4.cz8_rta))]
+                          )
+                        ]
+                      )
+                    ])
+                  }),
+                  0
+                )
+              : _vm._e()
+          ])
         ])
       }),
       _vm._v(" "),
@@ -69646,97 +69663,99 @@ var render = function() {
             ])
           ]),
           _vm._v(" "),
-          _vm.inputs[indice]
-            ? _c(
-                "div",
-                { staticClass: "col-md-12" },
-                _vm._l(item3.smmr, function(item4, i) {
-                  return _c("article", { key: "s-" + i }, [
-                    _c(
-                      "div",
-                      { staticClass: "custom-control custom-checkbox" },
-                      [
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.inputs[indice],
-                              expression: "inputs[indice]"
-                            }
-                          ],
-                          staticClass: "custom-control-input",
-                          attrs: {
-                            id: item4.cz8_id,
-                            disabled:
-                              _vm.inputs[indice].length >=
-                                item3.cz5_n_rtas_correctas &&
-                              _vm.inputs[indice].indexOf(
-                                Number(item4.cz8_id)
-                              ) === -1,
-                            type: "checkbox"
-                          },
-                          domProps: {
-                            value: item4.cz8_id,
-                            checked: Array.isArray(_vm.inputs[indice])
-                              ? _vm._i(_vm.inputs[indice], item4.cz8_id) > -1
-                              : _vm.inputs[indice]
-                          },
-                          on: {
-                            click: function($event) {
-                              return _vm.guardarSMMR(
-                                item3.cz5_id,
-                                item3.cz5_gp_id,
-                                item4.cz8_id,
-                                item3.cz5_categoria
-                              )
+          _c("div", { staticClass: "row" }, [
+            _vm.inputs[indice]
+              ? _c(
+                  "div",
+                  { staticClass: "col-md-12" },
+                  _vm._l(item3.smmr, function(item4, i) {
+                    return _c("article", { key: "s-" + i }, [
+                      _c(
+                        "div",
+                        { staticClass: "custom-control custom-checkbox" },
+                        [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.inputs[indice],
+                                expression: "inputs[indice]"
+                              }
+                            ],
+                            staticClass: "custom-control-input",
+                            attrs: {
+                              id: item4.cz8_id,
+                              disabled:
+                                _vm.inputs[indice].length >=
+                                  item3.cz5_n_rtas_correctas &&
+                                _vm.inputs[indice].indexOf(
+                                  Number(item4.cz8_id)
+                                ) === -1,
+                              type: "checkbox"
                             },
-                            change: function($event) {
-                              var $$a = _vm.inputs[indice],
-                                $$el = $event.target,
-                                $$c = $$el.checked ? true : false
-                              if (Array.isArray($$a)) {
-                                var $$v = item4.cz8_id,
-                                  $$i = _vm._i($$a, $$v)
-                                if ($$el.checked) {
-                                  $$i < 0 &&
-                                    _vm.$set(
-                                      _vm.inputs,
-                                      indice,
-                                      $$a.concat([$$v])
-                                    )
+                            domProps: {
+                              value: item4.cz8_id,
+                              checked: Array.isArray(_vm.inputs[indice])
+                                ? _vm._i(_vm.inputs[indice], item4.cz8_id) > -1
+                                : _vm.inputs[indice]
+                            },
+                            on: {
+                              click: function($event) {
+                                return _vm.guardarSMMR(
+                                  item3.cz5_id,
+                                  item3.cz5_gp_id,
+                                  item4.cz8_id,
+                                  item3.cz5_categoria
+                                )
+                              },
+                              change: function($event) {
+                                var $$a = _vm.inputs[indice],
+                                  $$el = $event.target,
+                                  $$c = $$el.checked ? true : false
+                                if (Array.isArray($$a)) {
+                                  var $$v = item4.cz8_id,
+                                    $$i = _vm._i($$a, $$v)
+                                  if ($$el.checked) {
+                                    $$i < 0 &&
+                                      _vm.$set(
+                                        _vm.inputs,
+                                        indice,
+                                        $$a.concat([$$v])
+                                      )
+                                  } else {
+                                    $$i > -1 &&
+                                      _vm.$set(
+                                        _vm.inputs,
+                                        indice,
+                                        $$a
+                                          .slice(0, $$i)
+                                          .concat($$a.slice($$i + 1))
+                                      )
+                                  }
                                 } else {
-                                  $$i > -1 &&
-                                    _vm.$set(
-                                      _vm.inputs,
-                                      indice,
-                                      $$a
-                                        .slice(0, $$i)
-                                        .concat($$a.slice($$i + 1))
-                                    )
+                                  _vm.$set(_vm.inputs, indice, $$c)
                                 }
-                              } else {
-                                _vm.$set(_vm.inputs, indice, $$c)
                               }
                             }
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c(
-                          "label",
-                          {
-                            staticClass: "custom-control-label",
-                            attrs: { for: item4.cz8_id }
-                          },
-                          [_vm._v(_vm._s(item4.cz8_rta))]
-                        )
-                      ]
-                    )
-                  ])
-                }),
-                0
-              )
-            : _vm._e()
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "label",
+                            {
+                              staticClass: "custom-control-label",
+                              attrs: { for: item4.cz8_id }
+                            },
+                            [_vm._v(_vm._s(item4.cz8_rta))]
+                          )
+                        ]
+                      )
+                    ])
+                  }),
+                  0
+                )
+              : _vm._e()
+          ])
         ])
       }),
       _vm._v(" "),
@@ -70984,7 +71003,15 @@ var render = function() {
                   _vm._v(" "),
                   _c("td", [_vm._v(_vm._s(item.c0763_descripcion))]),
                   _vm._v(" "),
-                  _c("td"),
+                  item.nota.length >= 1 && item.nota[0].cz4_calificacion != null
+                    ? _c("td", [
+                        _vm._v(
+                          _vm._s(
+                            _vm.moment(item.nota[0].updated_at).format("LLLL")
+                          )
+                        )
+                      ])
+                    : _c("td"),
                   _vm._v(" "),
                   _c(
                     "td",
@@ -72014,83 +72041,86 @@ var render = function() {
             ])
           ]),
           _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "col-md-12" },
-            _vm._l(item3.smmr, function(item4, i) {
-              return _c("article", { key: "s-" + i }, [
-                _c("div", { staticClass: "custom-control custom-checkbox" }, [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.inputs[indice],
-                        expression: "inputs[indice]"
-                      }
-                    ],
-                    staticClass: "custom-control-input",
-                    attrs: {
-                      id: item4.cz8_id,
-                      disabled:
-                        _vm.inputs[indice].length >=
-                          item3.cz5_n_rtas_correctas &&
-                        _vm.inputs[indice].indexOf(Number(item4.cz8_id)) === -1,
-                      type: "checkbox"
-                    },
-                    domProps: {
-                      value: item4.cz8_id,
-                      checked: Array.isArray(_vm.inputs[indice])
-                        ? _vm._i(_vm.inputs[indice], item4.cz8_id) > -1
-                        : _vm.inputs[indice]
-                    },
-                    on: {
-                      click: function($event) {
-                        _vm.guardarSMMRcorrecta(
-                          item4,
-                          _vm.inputs[indice].filter(function(id) {
-                            return id == item4.cz8_id
-                          }).length >= 1
-                        )
+          _c("div", { staticClass: "row" }, [
+            _c(
+              "div",
+              { staticClass: "col-md-12" },
+              _vm._l(item3.smmr, function(item4, i) {
+                return _c("article", { key: "s-" + i }, [
+                  _c("div", { staticClass: "custom-control custom-checkbox" }, [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.inputs[indice],
+                          expression: "inputs[indice]"
+                        }
+                      ],
+                      staticClass: "custom-control-input",
+                      attrs: {
+                        id: item4.cz8_id,
+                        disabled:
+                          _vm.inputs[indice].length >=
+                            item3.cz5_n_rtas_correctas &&
+                          _vm.inputs[indice].indexOf(Number(item4.cz8_id)) ===
+                            -1,
+                        type: "checkbox"
                       },
-                      change: function($event) {
-                        var $$a = _vm.inputs[indice],
-                          $$el = $event.target,
-                          $$c = $$el.checked ? true : false
-                        if (Array.isArray($$a)) {
-                          var $$v = item4.cz8_id,
-                            $$i = _vm._i($$a, $$v)
-                          if ($$el.checked) {
-                            $$i < 0 &&
-                              _vm.$set(_vm.inputs, indice, $$a.concat([$$v]))
+                      domProps: {
+                        value: item4.cz8_id,
+                        checked: Array.isArray(_vm.inputs[indice])
+                          ? _vm._i(_vm.inputs[indice], item4.cz8_id) > -1
+                          : _vm.inputs[indice]
+                      },
+                      on: {
+                        click: function($event) {
+                          _vm.guardarSMMRcorrecta(
+                            item4,
+                            _vm.inputs[indice].filter(function(id) {
+                              return id == item4.cz8_id
+                            }).length >= 1
+                          )
+                        },
+                        change: function($event) {
+                          var $$a = _vm.inputs[indice],
+                            $$el = $event.target,
+                            $$c = $$el.checked ? true : false
+                          if (Array.isArray($$a)) {
+                            var $$v = item4.cz8_id,
+                              $$i = _vm._i($$a, $$v)
+                            if ($$el.checked) {
+                              $$i < 0 &&
+                                _vm.$set(_vm.inputs, indice, $$a.concat([$$v]))
+                            } else {
+                              $$i > -1 &&
+                                _vm.$set(
+                                  _vm.inputs,
+                                  indice,
+                                  $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                                )
+                            }
                           } else {
-                            $$i > -1 &&
-                              _vm.$set(
-                                _vm.inputs,
-                                indice,
-                                $$a.slice(0, $$i).concat($$a.slice($$i + 1))
-                              )
+                            _vm.$set(_vm.inputs, indice, $$c)
                           }
-                        } else {
-                          _vm.$set(_vm.inputs, indice, $$c)
                         }
                       }
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c(
-                    "label",
-                    {
-                      staticClass: "custom-control-label",
-                      attrs: { for: item4.cz8_id }
-                    },
-                    [_vm._v(_vm._s(item4.cz8_rta))]
-                  )
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "label",
+                      {
+                        staticClass: "custom-control-label",
+                        attrs: { for: item4.cz8_id }
+                      },
+                      [_vm._v(_vm._s(item4.cz8_rta))]
+                    )
+                  ])
                 ])
-              ])
-            }),
-            0
-          )
+              }),
+              0
+            )
+          ])
         ])
       }),
       _vm._v(" "),
@@ -77266,6 +77296,7 @@ var render = function() {
                               on: {
                                 click: function($event) {
                                   _vm.$modal.hide("create")
+                                  _vm.limpiar()
                                   _vm.$route.params.categoria == 1
                                     ? (_vm.title = "Lincap | Admin encuestas")
                                     : (_vm.title =
@@ -99068,7 +99099,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
     name: 'InfCorporativa',
     component: _views_empleados_InfCorporativa__WEBPACK_IMPORTED_MODULE_5__["default"]
   }, {
-    path: '/empleados/contrasena',
+    path: '/cambiar-password',
     name: 'RestartPassword',
     component: _views_usuarios_RestartPassword__WEBPACK_IMPORTED_MODULE_10__["default"]
   }, {

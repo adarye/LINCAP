@@ -76,11 +76,12 @@
         <h4  class="display-5 titulo my-3" v-show="resSMMR.length">Preguntas de selección multiple con multiple respuestas</h4>
          <article v-for="(item3, indice) in resSMMR" :key="`o-${indice}`">
             <div class="row mt-2">
-                <div class="col-md-6">
+                <div class="col-md-12">
                     <p class="lead">{{  item3.cz5_pregunta }}</p>
                 </div>
 
             </div>
+            <div class="row">
             <div class="col-md-12" v-if="inputs[indice]">
                 <article v-for="(item4, i) in item3.smmr" :key="`s-${i}`">
 
@@ -94,6 +95,7 @@
 
                     </div>
                 </article>
+            </div>
             </div>
         </article>
 
