@@ -285,7 +285,9 @@ class TercerosmmController extends Controller
             'c0550_rowid',
             'c0550_salario',
             "c0540_id_ciudad_nacimiento",
-            "c0540_id_ciudad_exp_identif"
+            "c0540_id_ciudad_exp_identif",
+            "c0540_id_depto_exp_identif",
+            "c0540_id_pais_exp_identif"
 
         )->join(
             'dbo.t200_mm_terceros',
@@ -346,25 +348,19 @@ class TercerosmmController extends Controller
             'dbo.t011_mm_paises.f011_id'
 
         )
-        // ->join(
-        //     'dbo.t012_mm_deptos',
-        //     'dbo.w0540_empleados.c0540_id_depto_exp_identif',
-        //     '=',
-        //     'dbo.t012_mm_deptos.f012_id'
+        ->join(
+            'dbo.t012_mm_deptos',
+            'dbo.w0540_empleados.c0540_id_depto_exp_identif',
+            '=',
+            'dbo.t012_mm_deptos.f012_id'
 
-        // )
+        )
         ->join(
             'dbo.t013_mm_ciudades',
             'dbo.w0540_empleados.c0540_id_ciudad_exp_identif',
             '=',
             'dbo.t013_mm_ciudades.f013_id'
             
-        )->join(
-            'dbo.t012_mm_deptos',
-            'dbo.t013_mm_ciudades.f013_id_depto',
-            '=',
-            'dbo.t012_mm_deptos.f012_id'
-
         )
         
             ->where('c0550_ind_estado', $estado)
