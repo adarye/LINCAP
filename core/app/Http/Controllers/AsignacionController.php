@@ -11,6 +11,7 @@ use App\z11_resultados;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Mail;
+use Carbon\Carbon;
 
 class AsignacionController extends Controller
 {
@@ -143,9 +144,11 @@ class AsignacionController extends Controller
     }
     public function finalizarPrueba($id)
     {
+      return Carbon::now();
 
         $prueba = z4_rel_ts_gp::where('cz4_ts_id', Auth()->user()->cz1_id_empleado)->where('cz4_gp_id', $id)->first();
         $prueba->cz4_estado = 2;
+
         $prueba->save();
     }
 

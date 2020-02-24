@@ -162,7 +162,7 @@
             });
             setTimeout(
                 _ => this.carga = false,
-                10000
+                3000
             )
         },
         methods: {

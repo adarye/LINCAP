@@ -4253,7 +4253,7 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale("es");
     });
     setTimeout(function (_) {
       return _this.carga = false;
-    }, 10000);
+    }, 3000);
   },
   methods: {
     index: function index() {
@@ -8041,6 +8041,7 @@ __webpack_require__.r(__webpack_exports__);
 
             _this6.limpiar();
           });
+          _this6.bempleado = "";
           swal("Eliminado", {
             icon: "success"
           });

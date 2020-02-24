@@ -304,7 +304,9 @@ import router from '../../js/router';
                         axios.delete(`/api/usuarios/delete/${id}`).then(res => {
                             this.usuarios.splice(indice, 1);
                             this.limpiar();
+                            
                         });
+                        this.bempleado = ""
 
                         swal("Eliminado", {
                             icon: "success"
