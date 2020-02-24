@@ -80,10 +80,10 @@
                     <div class="custom-control custom-checkbox">
 
                         <input @click="guardarSMMR(item3.cz5_id, item3.cz5_gp_id, item4.cz8_id, item3.cz5_categoria)"
-                            v-model="inputs[indice]" :id="item4.cz8_id"
+                            v-model="inputs[indice]" :id="item4.cz8_id + 'o'"
                             :disabled="inputs[indice].length >= item3.cz5_n_rtas_correctas && inputs[indice].indexOf(Number(item4.cz8_id)) === -1"
                             class="custom-control-input" type="checkbox" :value="item4.cz8_id">
-                        <label class="custom-control-label" :for="item4.cz8_id">{{ item4.cz8_rta }}</label>
+                        <label class="custom-control-label" :for="item4.cz8_id + 'o'">{{ item4.cz8_rta }}</label>
 
                     </div>
                 </article>

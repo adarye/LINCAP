@@ -6187,6 +6187,54 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale("es");
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -6885,6 +6933,48 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _js_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../js/router */ "./resources/js/router.js");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -68377,7 +68467,7 @@ var render = function() {
                       staticClass: "custom-control-input",
                       attrs: {
                         disabled: "",
-                        id: item2.cz7_id,
+                        id: item2.cz7_id + "o",
                         type: "radio",
                         name: item.cz5_id
                       },
@@ -68394,7 +68484,7 @@ var render = function() {
                       "label",
                       {
                         staticClass: "custom-control-label",
-                        attrs: { for: item2.cz7_id }
+                        attrs: { for: item2.cz7_id + "o" }
                       },
                       [_vm._v(_vm._s(item2.cz7_rta))]
                     )
@@ -68928,7 +69018,7 @@ var render = function() {
                             ],
                             staticClass: "custom-control-input",
                             attrs: {
-                              id: item4.cz8_id,
+                              id: item4.cz8_id + "o",
                               disabled:
                                 _vm.inputs[indice].length >=
                                   item3.cz5_n_rtas_correctas &&
@@ -68989,7 +69079,7 @@ var render = function() {
                             "label",
                             {
                               staticClass: "custom-control-label",
-                              attrs: { for: item4.cz8_id }
+                              attrs: { for: item4.cz8_id + "o" }
                             },
                             [_vm._v(_vm._s(item4.cz8_rta))]
                           ),
@@ -69353,7 +69443,7 @@ var render = function() {
                             ],
                             staticClass: "custom-control-input",
                             attrs: {
-                              id: item4.cz8_id,
+                              id: item4.cz8_id + "o",
                               disabled:
                                 _vm.inputs[indice].length >=
                                   item3.cz5_n_rtas_correctas &&
@@ -69412,7 +69502,7 @@ var render = function() {
                             "label",
                             {
                               staticClass: "custom-control-label",
-                              attrs: { for: item4.cz8_id }
+                              attrs: { for: item4.cz8_id + "o" }
                             },
                             [_vm._v(_vm._s(item4.cz8_rta))]
                           )
@@ -69686,7 +69776,7 @@ var render = function() {
                             ],
                             staticClass: "custom-control-input",
                             attrs: {
-                              id: item4.cz8_id,
+                              id: item4.cz8_id + "o",
                               disabled:
                                 _vm.inputs[indice].length >=
                                   item3.cz5_n_rtas_correctas &&
@@ -69745,7 +69835,7 @@ var render = function() {
                             "label",
                             {
                               staticClass: "custom-control-label",
-                              attrs: { for: item4.cz8_id }
+                              attrs: { for: item4.cz8_id + "o" }
                             },
                             [_vm._v(_vm._s(item4.cz8_rta))]
                           )
@@ -71008,7 +71098,9 @@ var render = function() {
                     ? _c("td", [
                         _vm._v(
                           _vm._s(
-                            _vm.moment(item.nota[0].updated_at).format("LLLL")
+                            _vm
+                              .moment(item.nota[0].cz4_fecha_finalizacion)
+                              .format("LLLL")
                           )
                         )
                       ])
@@ -72060,7 +72152,7 @@ var render = function() {
                       ],
                       staticClass: "custom-control-input",
                       attrs: {
-                        id: item4.cz8_id,
+                        id: item4.cz8_id + "o",
                         disabled:
                           _vm.inputs[indice].length >=
                             item3.cz5_n_rtas_correctas &&
@@ -72112,7 +72204,7 @@ var render = function() {
                       "label",
                       {
                         staticClass: "custom-control-label",
-                        attrs: { for: item4.cz8_id }
+                        attrs: { for: item4.cz8_id + "o" }
                       },
                       [_vm._v(_vm._s(item4.cz8_rta))]
                     )
@@ -76289,173 +76381,253 @@ var render = function() {
       _vm._v(" "),
       _vm._l(_vm.pruebas, function(item, indice) {
         return _c("div", { key: indice }, [
-          _c(
-            "div",
-            { staticClass: "jumbotron shadow-lg p-3 mb-5 bg-white rounded" },
-            [
-              _c(
-                "span",
-                {
-                  directives: [
-                    {
-                      name: "show",
-                      rawName: "v-show",
-                      value: _vm.moment().diff(item.cz3_fecha_cierre) > 0,
-                      expression: " moment().diff(item.cz3_fecha_cierre) > 0"
-                    }
-                  ],
-                  staticClass: "badge badge-pill badge-danger float-right p-1"
-                },
-                [_c("p", { staticClass: "lead" }, [_vm._v("Cerrada")])]
-              ),
-              _vm._v(" "),
-              _c(
-                "span",
-                {
-                  directives: [
-                    {
-                      name: "show",
-                      rawName: "v-show",
-                      value:
-                        _vm.moment().diff(item.cz3_fecha_cierre) < 0 &&
-                        _vm.moment().diff(item.cz3_fecha_apertura) > 0,
-                      expression:
-                        " moment().diff(item.cz3_fecha_cierre) < 0 &&  moment().diff(item.cz3_fecha_apertura) > 0"
-                    }
-                  ],
-                  staticClass: "badge badge-pill badge-success float-right p-1"
-                },
-                [_c("p", { staticClass: "lead" }, [_vm._v("Abierta")])]
-              ),
-              _vm._v(" "),
-              _c(
-                "span",
-                {
-                  directives: [
-                    {
-                      name: "show",
-                      rawName: "v-show",
-                      value: _vm.moment().diff(item.cz3_fecha_apertura) < 0,
-                      expression: " moment().diff(item.cz3_fecha_apertura) < 0"
-                    }
-                  ],
-                  staticClass: "badge badge-pill badge-warning float-right p-1"
-                },
-                [_c("p", { staticClass: "lead" }, [_vm._v("Proximamente")])]
-              ),
-              _vm._v(" "),
-              _c("h1", { staticClass: "titulo" }, [
-                _vm._v(_vm._s(item.cz3_nombre))
-              ]),
-              _c(
-                "h4",
-                {
-                  directives: [
-                    {
-                      name: "show",
-                      rawName: "v-show",
-                      value: _vm.categoria == 2,
-                      expression: "categoria == 2"
-                    }
+          _c("div", { staticClass: "card my-4" }, [
+            _c("div", { staticClass: "card-header" }, [
+              _c("h4", { staticClass: "titulo" }, [
+                _vm._v(
+                  " " + _vm._s(item.cz3_nombre) + "\n                    "
+                ),
+                _c(
+                  "span",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: _vm.categoria == 2,
+                        expression: "categoria == 2"
+                      }
+                    ]
+                  },
+                  [
+                    _c("li", {
+                      class:
+                        item.cz4_calificacion >= 3.5
+                          ? "fa fa-thumbs-up"
+                          : "fa fa-thumbs-down"
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "span",
+                      {
+                        class:
+                          item.cz4_calificacion >= 3.5
+                            ? "badge badge-success"
+                            : "badge badge-danger"
+                      },
+                      [
+                        _vm._v(
+                          _vm._s(
+                            Math.round(item.cz4_calificacion * 100) / 100
+                          ) + " "
+                        )
+                      ]
+                    )
                   ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "span",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: _vm.moment().diff(item.cz3_fecha_cierre) > 0,
+                        expression: " moment().diff(item.cz3_fecha_cierre) > 0"
+                      }
+                    ],
+                    staticClass: "badge badge-pill badge-danger float-right p-1"
+                  },
+                  [_c("p", { staticClass: "lead" }, [_vm._v("Cerrada")])]
+                ),
+                _vm._v(" "),
+                _c(
+                  "span",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value:
+                          _vm.moment().diff(item.cz3_fecha_cierre) < 0 &&
+                          _vm.moment().diff(item.cz3_fecha_apertura) > 0,
+                        expression:
+                          " moment().diff(item.cz3_fecha_cierre) < 0 &&  moment().diff(item.cz3_fecha_apertura) > 0"
+                      }
+                    ],
+                    staticClass:
+                      "badge badge-pill badge-success float-right p-1"
+                  },
+                  [_c("p", { staticClass: "lead" }, [_vm._v("Abierta")])]
+                ),
+                _vm._v(" "),
+                _c(
+                  "span",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: _vm.moment().diff(item.cz3_fecha_apertura) < 0,
+                        expression:
+                          " moment().diff(item.cz3_fecha_apertura) < 0"
+                      }
+                    ],
+                    staticClass:
+                      "badge badge-pill badge-warning float-right p-1"
+                  },
+                  [_c("p", { staticClass: "lead" }, [_vm._v("Proximamente")])]
+                )
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "card-body" }, [
+              _c("h5", { staticClass: "card-title" }, [
+                _vm._v(" " + _vm._s(item.cz3_descripcion) + " ")
+              ]),
+              _vm._v(" "),
+              _c("p", { staticClass: "card-text" }, [
+                _vm._v("Fecha de Apertura: "),
+                _c("b", [
+                  _vm._v(
+                    _vm._s(_vm.moment(item.cz3_fecha_apertura).format("LLL"))
+                  )
+                ])
+              ]),
+              _vm._v(" "),
+              _c("p", { staticClass: "card-text" }, [
+                _vm._v("Fecha de Cierre:"),
+                _c("b", [
+                  _vm._v(
+                    " " +
+                      _vm._s(_vm.moment(item.cz3_fecha_cierre).format("LLL"))
+                  )
+                ])
+              ]),
+              _vm._v(" "),
+              _c("p", { staticClass: "card-text" }, [
+                _vm._v("\n                 Elaborado(a) por: "),
+                _c("b", [
+                  _vm._v(
+                    _vm._s(item.f200_nombres) +
+                      " " +
+                      _vm._s(item.f200_apellido1) +
+                      "\n                " +
+                      _vm._s(item.f200_apellido2) +
+                      "\n                "
+                  )
+                ])
+              ]),
+              _vm._v(" "),
+              _c(
+                "p",
+                {
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: _vm.$route.params.categoria == 1,
+                      expression: "$route.params.categoria == 1"
+                    }
+                  ],
+                  staticClass: "lead mt-2"
+                },
+                [
+                  _c(
+                    "router-link",
+                    {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value:
+                            _vm.moment().diff(item.cz3_fecha_cierre) < 0 &&
+                            _vm.moment().diff(item.cz3_fecha_apertura) > 0 &&
+                            item.cz4_estado == 0,
+                          expression:
+                            "moment().diff(item.cz3_fecha_cierre) < 0 &&  moment().diff(item.cz3_fecha_apertura) > 0 && item.cz4_estado == 0"
+                        }
+                      ],
+                      staticClass: "btn btn-primary btn",
+                      attrs: {
+                        to: "/presentar/encuesta/" + item.cz3_id + "/" + _vm.id,
+                        role: "button"
+                      }
+                    },
+                    [_vm._v("\n                        Presentar")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "router-link",
+                    {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value:
+                            _vm.moment().diff(item.cz3_fecha_cierre) < 0 &&
+                            _vm.moment().diff(item.cz3_fecha_apertura) > 0 &&
+                            item.cz4_estado == 1,
+                          expression:
+                            " moment().diff(item.cz3_fecha_cierre) < 0 &&  moment().diff(item.cz3_fecha_apertura) > 0 && item.cz4_estado == 1"
+                        }
+                      ],
+                      staticClass: "btn btn-success",
+                      attrs: {
+                        to: "/presentar/encuesta/" + item.cz3_id + "/" + _vm.id,
+                        role: "button"
+                      }
+                    },
+                    [_vm._v("\n                        Continuar")]
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "p",
+                {
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: _vm.$route.params.categoria == "2",
+                      expression: "$route.params.categoria == '2'"
+                    }
+                  ],
+                  staticClass: "lead mt-2"
                 },
                 [
                   _c(
                     "button",
                     {
-                      staticClass: "badge badge-primary",
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value:
+                            _vm.moment().diff(item.cz3_fecha_cierre) < 0 &&
+                            _vm.moment().diff(item.cz3_fecha_apertura) > 0 &&
+                            item.cz4_estado == 0,
+                          expression:
+                            "moment().diff(item.cz3_fecha_cierre) < 0 &&  moment().diff(item.cz3_fecha_apertura) > 0 && item.cz4_estado == 0"
+                        }
+                      ],
+                      staticClass: "btn btn-primary btn",
+                      attrs: { role: "button" },
                       on: {
                         click: function($event) {
-                          return _vm.obtenerEstado(item.cz3_id)
+                          return _vm.presentarEva(item.cz3_id)
                         }
                       }
                     },
-                    [_vm._v("Ver estado")]
+                    [_vm._v("Presentar")]
                   )
                 ]
-              ),
-              _vm._v(" "),
-              _c(
-                "h4",
-                {
-                  directives: [
-                    {
-                      name: "show",
-                      rawName: "v-show",
-                      value: item.cz4_calificacion >= 3.5,
-                      expression: "item.cz4_calificacion >= 3.5"
-                    }
-                  ]
-                },
-                [
-                  _c("li", { staticClass: "fa fa-thumbs-up" }),
-                  _vm._v(" "),
-                  _c("span", { staticClass: "badge badge-success" }, [
-                    _vm._v(
-                      _vm._s(Math.round(item.cz4_calificacion * 100) / 100) +
-                        " "
-                    )
-                  ])
-                ]
-              ),
-              _vm._v(" "),
-              _c(
-                "h4",
-                {
-                  directives: [
-                    {
-                      name: "show",
-                      rawName: "v-show",
-                      value: item.cz4_calificacion < 3.5 && _vm.categoria == 2,
-                      expression:
-                        "item.cz4_calificacion < 3.5 && categoria == 2"
-                    }
-                  ]
-                },
-                [
-                  _c("li", { staticClass: "fa fa-thumbs-down" }),
-                  _vm._v(" "),
-                  _c("span", { staticClass: "badge badge-danger" }, [
-                    _vm._v(
-                      _vm._s(Math.round(item.cz4_calificacion * 100) / 100) +
-                        "\n                "
-                    )
-                  ])
-                ]
-              ),
-              _vm._v(" "),
-              _c("p", { staticClass: "lead" }, [
-                _vm._v(
-                  "Fecha de Apertura: " +
-                    _vm._s(_vm.moment(item.cz3_fecha_apertura).format("LLL")) +
-                    " "
-                )
-              ]),
-              _vm._v(" "),
-              _c("p", { staticClass: "lead" }, [
-                _vm._v(
-                  "Fecha de Cierre: " +
-                    _vm._s(_vm.moment(item.cz3_fecha_cierre).format("LLL")) +
-                    " "
-                )
-              ]),
-              _vm._v(" "),
-              _c("p", { staticClass: "lead" }, [
-                _vm._v(
-                  "Elaborado(a) por: " +
-                    _vm._s(item.f200_nombres) +
-                    " " +
-                    _vm._s(item.f200_apellido1) +
-                    "\n                " +
-                    _vm._s(item.f200_apellido2)
-                )
-              ]),
-              _vm._v(" "),
-              _c("hr", { staticClass: "my-4" }),
-              _vm._v(" "),
-              _c("p", [_vm._v(_vm._s(item.cz3_descripcion))])
-            ]
-          )
+              )
+            ])
+          ])
         ])
       }),
       _vm._v(" "),
@@ -77627,95 +77799,103 @@ var render = function() {
       _vm._v(" "),
       _vm._l(_vm.pruebas, function(item, indice) {
         return _c("div", { key: indice }, [
-          _c(
-            "div",
-            { staticClass: "jumbotron shadow-lg p-3 mb-5 bg-white rounded" },
-            [
-              _c(
-                "span",
-                {
-                  directives: [
-                    {
-                      name: "show",
-                      rawName: "v-show",
-                      value: _vm.moment().diff(item.cz3_fecha_cierre) > 0,
-                      expression: " moment().diff(item.cz3_fecha_cierre) > 0"
-                    }
-                  ],
-                  staticClass: "badge badge-pill badge-danger float-right p-1"
-                },
-                [_c("p", { staticClass: "lead" }, [_vm._v("Cerrada")])]
-              ),
-              _vm._v(" "),
-              _c(
-                "span",
-                {
-                  directives: [
-                    {
-                      name: "show",
-                      rawName: "v-show",
-                      value:
-                        _vm.moment().diff(item.cz3_fecha_cierre) < 0 &&
-                        _vm.moment().diff(item.cz3_fecha_apertura) > 0,
-                      expression:
-                        " moment().diff(item.cz3_fecha_cierre) < 0 &&  moment().diff(item.cz3_fecha_apertura) > 0"
-                    }
-                  ],
-                  staticClass: "badge badge-pill badge-success float-right p-1"
-                },
-                [_c("p", { staticClass: "lead" }, [_vm._v("Abierta")])]
-              ),
-              _vm._v(" "),
-              _c(
-                "span",
-                {
-                  directives: [
-                    {
-                      name: "show",
-                      rawName: "v-show",
-                      value: _vm.moment().diff(item.cz3_fecha_apertura) < 0,
-                      expression: " moment().diff(item.cz3_fecha_apertura) < 0"
-                    }
-                  ],
-                  staticClass: "badge badge-pill badge-warning float-right p-1"
-                },
-                [_c("p", { staticClass: "lead" }, [_vm._v("Proximamente")])]
-              ),
-              _vm._v(" "),
-              _c("h1", { staticClass: "titulo" }, [
-                _vm._v(_vm._s(item.cz3_nombre))
-              ]),
-              _vm._v(" "),
-              _c("p", { staticClass: "lead" }, [
-                _vm._v(
-                  "Fecha de Apertura: " +
-                    _vm._s(_vm.moment(item.cz3_fecha_apertura).format("LLL")) +
-                    " "
+          _c("div", { staticClass: "card my-4" }, [
+            _c("div", { staticClass: "card-header" }, [
+              _c("h4", { staticClass: "titulo" }, [
+                _vm._v(" " + _vm._s(item.cz3_nombre) + "\n                  "),
+                _c(
+                  "span",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: _vm.moment().diff(item.cz3_fecha_cierre) > 0,
+                        expression: " moment().diff(item.cz3_fecha_cierre) > 0"
+                      }
+                    ],
+                    staticClass: "badge badge-pill badge-danger float-right p-1"
+                  },
+                  [_c("p", { staticClass: "lead" }, [_vm._v("Cerrada")])]
+                ),
+                _vm._v(" "),
+                _c(
+                  "span",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value:
+                          _vm.moment().diff(item.cz3_fecha_cierre) < 0 &&
+                          _vm.moment().diff(item.cz3_fecha_apertura) > 0,
+                        expression:
+                          " moment().diff(item.cz3_fecha_cierre) < 0 &&  moment().diff(item.cz3_fecha_apertura) > 0"
+                      }
+                    ],
+                    staticClass:
+                      "badge badge-pill badge-success float-right p-1"
+                  },
+                  [_c("p", { staticClass: "lead" }, [_vm._v("Abierta")])]
+                ),
+                _vm._v(" "),
+                _c(
+                  "span",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: _vm.moment().diff(item.cz3_fecha_apertura) < 0,
+                        expression:
+                          " moment().diff(item.cz3_fecha_apertura) < 0"
+                      }
+                    ],
+                    staticClass:
+                      "badge badge-pill badge-warning float-right p-1"
+                  },
+                  [_c("p", { staticClass: "lead" }, [_vm._v("Proximamente")])]
                 )
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "card-body" }, [
+              _c("h5", { staticClass: "card-title" }, [
+                _vm._v(" " + _vm._s(item.cz3_descripcion) + " ")
               ]),
               _vm._v(" "),
-              _c("p", { staticClass: "lead" }, [
-                _vm._v(
-                  "Fecha de Cierre: " +
-                    _vm._s(_vm.moment(item.cz3_fecha_cierre).format("LLL")) +
-                    " "
-                )
+              _c("p", { staticClass: "card-text" }, [
+                _vm._v("Fecha de Apertura: "),
+                _c("b", [
+                  _vm._v(
+                    _vm._s(_vm.moment(item.cz3_fecha_apertura).format("LLL"))
+                  )
+                ])
               ]),
               _vm._v(" "),
-              _c("p", { staticClass: "lead" }, [
-                _vm._v(
-                  "Elaborado(a) por: " +
-                    _vm._s(item.f200_nombres) +
+              _c("p", { staticClass: "card-text" }, [
+                _vm._v("Fecha de Cierre:"),
+                _c("b", [
+                  _vm._v(
                     " " +
-                    _vm._s(item.f200_apellido1) +
-                    "\n                " +
-                    _vm._s(item.f200_apellido2)
-                )
+                      _vm._s(_vm.moment(item.cz3_fecha_cierre).format("LLL"))
+                  )
+                ])
               ]),
               _vm._v(" "),
-              _c("hr", { staticClass: "my-4" }),
-              _vm._v(" "),
-              _c("p", [_vm._v(_vm._s(item.cz3_descripcion))]),
+              _c("p", { staticClass: "card-text" }, [
+                _vm._v("\n                 Elaborado(a) por: "),
+                _c("b", [
+                  _vm._v(
+                    _vm._s(item.f200_nombres) +
+                      " " +
+                      _vm._s(item.f200_apellido1) +
+                      "\n                " +
+                      _vm._s(item.f200_apellido2) +
+                      "\n                "
+                  )
+                ])
+              ]),
               _vm._v(" "),
               _c(
                 "p",
@@ -77728,7 +77908,7 @@ var render = function() {
                       expression: "$route.params.categoria == 1"
                     }
                   ],
-                  staticClass: "lead"
+                  staticClass: "lead mt-2"
                 },
                 [
                   _c(
@@ -77746,13 +77926,13 @@ var render = function() {
                             "moment().diff(item.cz3_fecha_cierre) < 0 &&  moment().diff(item.cz3_fecha_apertura) > 0 && item.cz4_estado == 0"
                         }
                       ],
-                      staticClass: "btn btn-primary btn-lg",
+                      staticClass: "btn btn-primary btn",
                       attrs: {
                         to: "/presentar/encuesta/" + item.cz3_id + "/" + _vm.id,
                         role: "button"
                       }
                     },
-                    [_vm._v("\n                    Presentar")]
+                    [_vm._v("\n                        Presentar")]
                   ),
                   _vm._v(" "),
                   _c(
@@ -77770,13 +77950,13 @@ var render = function() {
                             " moment().diff(item.cz3_fecha_cierre) < 0 &&  moment().diff(item.cz3_fecha_apertura) > 0 && item.cz4_estado == 1"
                         }
                       ],
-                      staticClass: "btn btn-success btn-lg",
+                      staticClass: "btn btn-success",
                       attrs: {
                         to: "/presentar/encuesta/" + item.cz3_id + "/" + _vm.id,
                         role: "button"
                       }
                     },
-                    [_vm._v("\n                    Continuar")]
+                    [_vm._v("\n                        Continuar")]
                   )
                 ],
                 1
@@ -77793,7 +77973,7 @@ var render = function() {
                       expression: "$route.params.categoria == '2'"
                     }
                   ],
-                  staticClass: "lead"
+                  staticClass: "lead mt-2"
                 },
                 [
                   _c(
@@ -77811,7 +77991,7 @@ var render = function() {
                             "moment().diff(item.cz3_fecha_cierre) < 0 &&  moment().diff(item.cz3_fecha_apertura) > 0 && item.cz4_estado == 0"
                         }
                       ],
-                      staticClass: "btn btn-primary btn-lg",
+                      staticClass: "btn btn-primary btn",
                       attrs: { role: "button" },
                       on: {
                         click: function($event) {
@@ -77823,8 +78003,8 @@ var render = function() {
                   )
                 ]
               )
-            ]
-          )
+            ])
+          ])
         ])
       }),
       _vm._v(" "),

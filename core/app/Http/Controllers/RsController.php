@@ -64,16 +64,16 @@ class RsController extends Controller
          return $i;
     }
     public function guardarCorrectaSMUR(Request $request){
-         z7_rta_smur::select('cz7_pp_id')->where('cz7_pp_id', $request->cz7_pp_id)->update(['cz7_rta_correcta' => $request->cz7_id]);
+         z7_rta_smur::select('cz7_pp_id', 'cz8_pp_id' )->where('cz7_pp_id', $request->cz7_pp_id)->update(['cz7_rta_correcta' => $request->cz7_id]);
     }
     public function guardarCorrectaSMMR(Request $request, $opcion){
       
-        // return $request;
+        //  return $request;
        $res =  $request->cz8_id;
         if($opcion == "true"){
             $res = null;
             
         }
-       return z8_rta_smmr::select('cz8_id')->where('cz8_id', $request->cz8_id)->update(['cz8_rta_correcta' => $res]);
+       return z8_rta_smmr::select( 'cz8_pp_id')->where('cz8_id', $request->cz8_id)->update(['cz8_rta_correcta' => $res]);
    }
 }

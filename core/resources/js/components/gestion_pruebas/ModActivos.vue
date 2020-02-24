@@ -70,7 +70,7 @@
                         </td>
                         <td>{{ item.f285_descripcion }}</td>
                         <td>{{ item.c0763_descripcion }}</td>
-                        <td v-if="item.nota.length >= 1 && item.nota[0].cz4_calificacion != null">{{ moment(item.nota[0].updated_at).format('LLLL')}}</td>
+                        <td v-if="item.nota.length >= 1 && item.nota[0].cz4_calificacion != null">{{ moment(item.nota[0].cz4_fecha_finalizacion).format('LLLL')}}</td>
                         <td v-else></td>
                          <td v-show="$route.params.cat == 2"><h4><span v-if="item.nota.length >= 1 && item.nota[0].cz4_calificacion != null " :class="item.nota[0].cz4_calificacion < 3.5 ? 'badge badge-danger':'badge badge-success'">{{Math.round(item.nota[0].cz4_calificacion * 100) / 100}}</span></h4></td> 
                        

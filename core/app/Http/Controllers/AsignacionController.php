@@ -144,10 +144,11 @@ class AsignacionController extends Controller
     }
     public function finalizarPrueba($id)
     {
-      return Carbon::now();
+      
 
         $prueba = z4_rel_ts_gp::where('cz4_ts_id', Auth()->user()->cz1_id_empleado)->where('cz4_gp_id', $id)->first();
         $prueba->cz4_estado = 2;
+        $prueba->cz4_fecha_finalizacion = Carbon::now();
 
         $prueba->save();
     }

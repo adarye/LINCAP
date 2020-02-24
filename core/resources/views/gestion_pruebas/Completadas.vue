@@ -6,7 +6,55 @@
         
 
         <div v-for="(item, indice) in pruebas" :key="indice">
-            <div class="jumbotron shadow-lg p-3 mb-5 bg-white rounded">
+            <div class="card my-4">
+                <div class="card-header">
+                    <h4 class="titulo"> {{ item.cz3_nombre }}
+                        <span v-show="categoria == 2">
+                    <li :class="item.cz4_calificacion >= 3.5 ? 'fa fa-thumbs-up':'fa fa-thumbs-down' "></li>
+                    <span :class="item.cz4_calificacion >= 3.5 ? 'badge badge-success':'badge badge-danger'">{{Math.round((item.cz4_calificacion*100))/100}} </span>
+                        </span>
+                        
+
+                      <span class="badge badge-pill badge-danger float-right p-1"
+                    v-show=" moment().diff(item.cz3_fecha_cierre) > 0">
+                    <p class="lead">Cerrada</p>
+                </span>
+                <span class="badge badge-pill badge-success float-right p-1"
+                    v-show=" moment().diff(item.cz3_fecha_cierre) < 0 &&  moment().diff(item.cz3_fecha_apertura) > 0">
+                    <p class="lead">Abierta</p>
+                </span>
+                <span class="badge badge-pill badge-warning float-right p-1"
+                    v-show=" moment().diff(item.cz3_fecha_apertura) < 0">
+                    <p class="lead">Proximamente</p>
+                </span>
+                </h4>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title"> {{item.cz3_descripcion}} </h5>
+                    <p class="card-text">Fecha de Apertura: <b>{{ moment(item.cz3_fecha_apertura ).format('LLL') }}</b></p>
+                     <p class="card-text">Fecha de Cierre:<b> {{ moment(item.cz3_fecha_cierre ).format('LLL') }}</b></p>
+                     <p class="card-text">
+                     Elaborado(a) por: <b>{{ item.f200_nombres }} {{ item.f200_apellido1 }}
+                    {{ item.f200_apellido2 }}
+                    </b>
+                    </p>
+                    <p class="lead mt-2" v-show="$route.params.categoria == 1">
+                        <router-link class="btn btn-primary btn"
+                            v-bind:to="'/presentar/encuesta/' + item.cz3_id +'/'+ id" role="button"
+                            v-show="moment().diff(item.cz3_fecha_cierre) < 0 &&  moment().diff(item.cz3_fecha_apertura) > 0 && item.cz4_estado == 0">
+                            Presentar</router-link>
+                        <router-link class="btn btn-success"
+                            v-bind:to="'/presentar/encuesta/' +  item.cz3_id +'/'+ id" role="button"
+                            v-show=" moment().diff(item.cz3_fecha_cierre) < 0 &&  moment().diff(item.cz3_fecha_apertura) > 0 && item.cz4_estado == 1">
+                            Continuar</router-link>
+                    </p>
+                    <p class="lead mt-2" v-show="$route.params.categoria == '2'">
+                        <button @click="presentarEva(item.cz3_id)" class="btn btn-primary btn" role="button"
+                            v-show="moment().diff(item.cz3_fecha_cierre) < 0 &&  moment().diff(item.cz3_fecha_apertura) > 0 && item.cz4_estado == 0">Presentar</button>
+                    </p>
+                </div>
+            </div>
+            <!-- <div class="jumbotron shadow-lg p-3 mb-5 bg-white rounded">
                 <span class="badge badge-pill badge-danger float-right p-1"
                     v-show=" moment().diff(item.cz3_fecha_cierre) > 0">
                     <p class="lead">Cerrada</p>
@@ -41,7 +89,7 @@
                 <hr class="my-4">
                 <p>{{ item.cz3_descripcion }}</p>
 
-            </div>
+            </div> -->
 
         </div>
          <center>

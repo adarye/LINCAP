@@ -59,12 +59,12 @@
                        <div class="custom-control custom-radio">    
                         <input
                          disabled
-                        :id="item2.cz7_id"
+                        :id="item2.cz7_id + 'o'"
                         class="custom-control-input"
                          :checked="respuestas_smur.filter(cz7_id => cz7_id == item2.cz7_id ) != ''"  
                           type="radio" :name="item.cz5_id" 
                          :value="item2.cz7_id">
-                          <label class="custom-control-label" :for="item2.cz7_id">{{ item2.cz7_rta }}</label>
+                          <label class="custom-control-label" :for="item2.cz7_id + 'o'">{{ item2.cz7_rta }}</label>
                        </div>
                     </article>
                     

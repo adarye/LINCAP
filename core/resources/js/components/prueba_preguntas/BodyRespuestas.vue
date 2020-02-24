@@ -64,11 +64,11 @@
             <div class="col-md-12">
                 <article v-for="(item4, i) in item3.smmr" :key="`s-${i}`">
                     <div class="custom-control custom-checkbox">
-                        <input v-model="inputs[indice]" :id="item4.cz8_id"
+                        <input v-model="inputs[indice]" :id="item4.cz8_id + 'o'"
                             :disabled="inputs[indice].length >= item3.cz5_n_rtas_correctas && inputs[indice].indexOf(Number(item4.cz8_id)) === -1"
                             @click="guardarSMMRcorrecta(item4, inputs[indice].filter(id => id == item4.cz8_id).length >=1)"
                             class="custom-control-input" type="checkbox" :value="item4.cz8_id">
-                        <label class="custom-control-label" :for="item4.cz8_id">{{ item4.cz8_rta }}</label>
+                        <label class="custom-control-label" :for="item4.cz8_id + 'o'">{{ item4.cz8_rta }}</label>
                     </div>
                 </article>
             </div>
@@ -103,50 +103,37 @@
             EventBus.$on('cargar', (item) => {
                 this.cargarPreguntas()
             });
-
-
         },
         methods: {
             traerRa() {
-
                 axios.get(`/api/respuestaA/buscar/${this.id}`)
                     .then(res => {
                         this.resRA = res.data
                     })
             },
-
             traerSMMR() {
                 var id_pp = ""
-
                 axios.get(`/api/respuestaM/buscar/${this.id}`)
                     .then(res => {
-
                         res.data
                         this.resSMMR = res.data
                         console.log(this.resSMMR)
-
                         for (var i = 0; i < res.data.length; i++) {
                             this.inputs.push([])
                             for (var j = 0; j < res.data[i].smmr.length; j++) {
-
                                 if (res.data[i].smmr[j].cz8_id == res.data[i].smmr[j].cz8_rta_correcta) {
                                     this.inputs[i].push(Number(res.data[i].smmr[j].cz8_id))
                                 }
-
                             }
-
                         }
                         console.log(this.inputs)
-
                     })
             },
             traerPregunta_SMUR() {
                 axios.get(`/api/pregunta/index/${this.id}`)
                     .then(res => {
                         this.resSMUR = res.data
-
                     })
-
             },
             contar() {
                 this.contador = this.contador + 1
@@ -154,7 +141,6 @@
             editar(dato) {
                 this.$modal.show('editar')
                 this.params = dato
-
             },
             eliminar(id) {
                 swal({
@@ -167,7 +153,6 @@
                     if (willDelete) {
                         axios.delete(`/api/pregunta/delete/${id}`)
                             .then(res => {
-
                                 this.cargarPreguntas();
                                 swal("Eliminado", {
                                     icon: "success"
@@ -175,8 +160,6 @@
                             });
                     }
                 });
-
-
             },
             cargarPreguntas() {
                 this.traerSMMR()
@@ -184,14 +167,12 @@
                 this.traerPregunta_SMUR();
             },
             hide() {
-
                 this.$modal.hide('editar')
             },
             guardarSMURcorrecta(item) {
                 if (this.$route.params.cat == 2) {
                     axios.put('/api/smur/update', item)
                         .then(res => {
-
                         })
                 }
             },
@@ -202,7 +183,6 @@
                     //   if(){}
                     axios.put(`/api/smmr/update/${opcion}`, item)
                         .then(res => {
-
                         })
                 }
             },
@@ -217,5 +197,4 @@
         },
         computed: {}
     };
-
 </script>
