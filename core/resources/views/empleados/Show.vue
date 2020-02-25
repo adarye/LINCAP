@@ -331,7 +331,7 @@
                 console.log(this.informacion);
             },
             cargarContrato() {
-                axios.get(`/api/empleado/${this.$route.params.id}`).then(res => {                
+                axios.get(`/api/empleado/${this.$route.params.id}`).then(res => {             
                     this.usuario = res.data;
                     this.usuario.c0540_fecha_nacimiento =  moment(this.usuario.c0540_fecha_nacimiento).format('ll');
                     this.usuario.c0540_fecha_exp_identif =  moment(this.usuario.c0540_fecha_exp_identif).format('ll');

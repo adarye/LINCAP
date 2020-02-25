@@ -16,7 +16,7 @@ js('resources/js/app.js', 'js')
     .sass('resources/sass/app.scss', 'css');
 
 mix.browserSync({
-    proxy: 'http://localhost/lincap',
+    proxy: 'http://lincap',
     open: false,
 });
 mix.disableNotifications();
