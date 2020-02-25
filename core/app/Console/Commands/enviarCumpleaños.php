@@ -1,29 +1,30 @@
 <?php
 
 namespace App\Console\Commands;
-
-use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
-use App\Mail\Diario;
+use App\Mail\Cumpleaños;
 use App\Terceros;
 use Carbon\Carbon;
+use Illuminate\Console\Command;
 
-class enviarFinalizados extends Command
+
+
+class enviarCumpleaños extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'emp:contrato';
+    protected $signature = 'emp:cumpleaños';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Envia unos correos de los proximos trabajadores que finalizan su contrato';
+    protected $description = 'this is a small description';
 
     /**
      * Create a new command instance.
@@ -42,10 +43,9 @@ class enviarFinalizados extends Command
      */
     public function handle()
     {
-        $date= Carbon::now();
-        $date2= Carbon::now();
-        $date_principio =$date->addDays(6);
-         $date_final = $date2->addDays(7);
+        $fecha = Carbon::now();
+        $mes = $fecha->month;
+        $dia = $fecha->day;
 
        $empleados = Terceros::select(
             "c0541_rowid",
@@ -59,7 +59,8 @@ class enviarFinalizados extends Command
             "c0550_rowid_tercero",
             "c0550_fecha_contrato_hasta",
             "f285_descripcion",
-            "f285_id"
+            "f285_id",
+            "c0541_correo"
 
         )->join(
             'dbo.w0540_empleados',
@@ -93,14 +94,16 @@ class enviarFinalizados extends Command
 
         )
             ->where('c0550_ind_estado', '1')
-            ->where('c0550_fecha_contrato_hasta','>=', $date_principio)
-            ->where('c0550_fecha_contrato_hasta','<=', $date_final)
-            ->orderBy('c0550_fecha_contrato_hasta', 'ASC')
+             ->whereMonth('c0540_fecha_nacimiento','=', $mes)
+            ->whereDay('c0540_fecha_nacimiento','=', $dia)
             ->get();
+            
 
-             if($empleados != '[]' ){
-                Mail::to('adavidparra0412@gmail.com')->send(new Diario($empleados,  $date_principio, $date_final));
-             }
+  
+            foreach ($empleados as $emp) {
+            Mail::to('adavidparra0412@gmail.com')->send(new Cumpleaños($emp));
+            }
+             
         
     }
 }

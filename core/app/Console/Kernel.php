@@ -4,6 +4,7 @@ namespace App\Console;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\Diario;
+use App\Mail\Cumpleaños;
 use App\Terceros;
 use Carbon\Carbon;
 use Illuminate\Console\Scheduling\Schedule;
@@ -28,7 +29,9 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('emp:contrato')->everyMinute();
+         $schedule->command('emp:contrato')->everyMinute();
+         $schedule->command('emp:cumpleaños')->everyMinute();
+      
     }
 
     /**

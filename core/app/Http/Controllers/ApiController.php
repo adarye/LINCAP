@@ -134,6 +134,7 @@ class ApiController extends Controller
 
          )
             ->where('c0550_ind_estado', '1')
+            
             ->get();
 
     {
@@ -192,6 +193,7 @@ class ApiController extends Controller
 
             )
                 ->where('c0550_ind_estado', '1')
+                
                 ->get();
 
             //EMPLEADOS RETIRADOS
