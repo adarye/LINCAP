@@ -6,6 +6,7 @@ use App\Terceros_mm;
 use App\z9_empleados_info;
 use App\Contrato;
 use App\Paises;
+use App\Empleados;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 
@@ -249,6 +250,11 @@ class TercerosmmController extends Controller
          if(empty($contratoA)){
              $estado = 2;
          };
+
+        $id_depto = Empleados::select("c0540_id_depto_exp_identif")
+        ->where("c0540_rowid_tercero", $id)->first();
+
+
          
         //  return Paises::with('departamentos')->get();
         $user = Terceros_mm::select(
@@ -348,30 +354,29 @@ class TercerosmmController extends Controller
             'dbo.w0550_contratos.c0550_rowid_tipo_nomina',
             '=',
             'dbo.w0504_tipos_nomina.c0504_rowid'
-        )->join(
-            'dbo.t011_mm_paises',
-            'dbo.w0540_empleados.c0540_id_pais_exp_identif',
-            '=',
-            'dbo.t011_mm_paises.f011_id'
-
-        )
-        ->join(
-            'dbo.t012_mm_deptos',
-            'dbo.w0540_empleados.c0540_id_depto_exp_identif',
-            '=',
-            'dbo.t012_mm_deptos.f012_id'
-
         )
         ->join(
             'dbo.t013_mm_ciudades',
             'dbo.w0540_empleados.c0540_id_ciudad_exp_identif',
             '=',
-            'dbo.t013_mm_ciudades.f013_id'
-            
+            'dbo.t013_mm_ciudades.f013_id'            
+        )
+        ->join(
+            'dbo.t012_mm_deptos',
+            'dbo.w0540_empleados.c0540_id_depto_exp_identif',
+            '=',
+            'dbo.t012_mm_deptos.f012_id'            
+        )
+        ->join(
+            'dbo.t011_mm_paises',
+            'dbo.w0540_empleados.c0540_id_pais_exp_identif',
+            '=',
+            'dbo.t011_mm_paises.f011_id'            
         )
         
             ->where('c0550_ind_estado', $estado)
             ->where('f200_rowid', $id)
+            ->where('f013_id_depto', $id_depto->c0540_id_depto_exp_identif)
             ->get()->last();
 
             return $user;
