@@ -1,9 +1,9 @@
 <template>
-    <div>
+    <div v-show="mostrar">
         <vue-headful :title=" 'Presentar evaluación | ' + titulo" />
         <center>
             <h1 class="titulo">{{titulo}}</h1>
-        
+
         </center>
 
         <h4 class="display-5 titulo mb-3" v-show="resRA.length">Preguntas con respuesta abierta</h4>
@@ -73,22 +73,23 @@
                 </div>
 
             </div>
-             <div class="row">
-            <div class="col-md-12" v-if="inputs[indice]">
-                <article v-for="(item4, i) in item3.smmr" :key="`s-${i}`">
+            <div class="row">
+                <div class="col-md-12" v-if="inputs[indice]">
+                    <article v-for="(item4, i) in item3.smmr" :key="`s-${i}`">
 
-                    <div class="custom-control custom-checkbox">
+                        <div class="custom-control custom-checkbox">
 
-                        <input @click="guardarSMMR(item3.cz5_id, item3.cz5_gp_id, item4.cz8_id, item3.cz5_categoria)"
-                            v-model="inputs[indice]" :id="item4.cz8_id + 'o'"
-                            :disabled="inputs[indice].length >= item3.cz5_n_rtas_correctas && inputs[indice].indexOf(Number(item4.cz8_id)) === -1"
-                            class="custom-control-input" type="checkbox" :value="item4.cz8_id">
-                        <label class="custom-control-label" :for="item4.cz8_id + 'o'">{{ item4.cz8_rta }}</label>
+                            <input
+                                @click="guardarSMMR(item3.cz5_id, item3.cz5_gp_id, item4.cz8_id, item3.cz5_categoria)"
+                                v-model="inputs[indice]" :id="item4.cz8_id + 'o'"
+                                :disabled="inputs[indice].length >= item3.cz5_n_rtas_correctas && inputs[indice].indexOf(Number(item4.cz8_id)) === -1"
+                                class="custom-control-input" type="checkbox" :value="item4.cz8_id">
+                            <label class="custom-control-label" :for="item4.cz8_id + 'o'">{{ item4.cz8_rta }}</label>
 
-                    </div>
-                </article>
+                        </div>
+                    </article>
+                </div>
             </div>
-             </div>
         </article>
 
         <button v-show="estado_prueba != 2" @click="$router.go(-1)" class="btn btn-danger mt-4"
@@ -129,7 +130,8 @@
                 nota_ra: "",
                 cantidad_preg: 0,
                 titulo: "",
-                index: 0
+                index: 0,
+                mostrar: false
 
 
             };
@@ -172,16 +174,22 @@
 
                         this.estado_prueba = res.data.cz4_estado
 
-                        if (this.estado_prueba == 2 || this.estado_prueba == 1) {
-                            swal('Advertencia', 'Esta prueba ya finalizo', 'warning')
-                            console.log('Estado')
-                            window.location.href = '/pruebas/pendientes/2'
+                        if (res.data == "" || res.data == null || res.data == "{}") {
+                            router.go(-1)
                         } else {
-                            this.traerSMMR()
-                            this.traerRa();
-                            this.traerPregunta_SMUR();
-                            this.buscarResmur()
-                            this.buscarRa();
+
+                            if (this.estado_prueba == 2 || this.estado_prueba == 1) {
+                                swal('Advertencia', 'Esta prueba ya finalizo', 'warning')
+                                console.log('Estado')
+                                window.location.href = '/pruebas/pendientes/2'
+                            } else {
+                                this.traerSMMR()
+                                this.traerRa();
+                                this.traerPregunta_SMUR();
+                                this.buscarResmur()
+                                this.buscarRa();
+                                this.mostrar = true
+                            }
                         }
                     })
 
@@ -225,7 +233,7 @@
             },
             cargar() {
                 this.buscar()
-              
+
             },
             guardarRA(id_pp, id_gp, categoria, ra) {
                 console.log(ra)
@@ -264,14 +272,14 @@
             buscarResmur() {
                 axios.get(`/api/respuesta/smur/buscar/${this.id}/${this.id_empleado}`)
                     .then(res => {
-                    
-                    
+
+
 
                         for (var i = 0; i < res.data.length; i++) {
                             this.respuestas_smur.push(res.data[i].cz11_rta)
                             this.notas_smur.push(res.data[i].cz11_nota)
                         }
-                    
+
 
 
                     })
@@ -327,9 +335,9 @@
 
                 axios.put(`/api/pruebas/finalizar/${this.id}`)
                     .then(res => {
-                        
+
                         // window.location.href = '/pruebas/pendientes/2'
-                        
+
 
                     })
             },
@@ -348,9 +356,9 @@
                             }
 
                         } else {
-                             swal('Informacion',
-                                 'Esta prueba consta de preguntas abiertas, por esto sera calificada después.',
-                                 'success')
+                            swal('Informacion',
+                                'Esta prueba consta de preguntas abiertas, por esto sera calificada después.',
+                                'success')
                         }
                     })
                 this.finalizar()

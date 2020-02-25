@@ -4,7 +4,7 @@
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label>Cargo</label>
-                    <input type="email" class="form-control" placeholder="Cargo" v-model="usuario.c0763_descripcion"
+                    <input type="text" class="form-control" placeholder="Cargo" v-model="usuario.c0763_descripcion"
                         disabled />
                 </div>
                 <div class="form-group col-md-6">
@@ -20,14 +20,14 @@
                 </div>
                 <div class="form-group col-md-6">
                     <label>Lugar de Trabajo</label>
-                    <input placeholder="Lugar de Trabajo" type="text" class="form-control" v-model="usuario.f284_descripcion"
+                    <input placeholder="Lugar de Trabajo" type="text" class="form-control" v-model="usuario.f285_descripcion"
                         disabled />
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label>Tipo de Nomina </label>
-                    <input placeholder="Tipo de Nomina" type="email" class="form-control" v-model="usuario.c0504_descripcion" disabled />
+                    <input placeholder="Tipo de Nomina" type="text" class="form-control" v-model="usuario.c0504_descripcion" disabled />
                 </div>
                 <div class="form-group col-md-6">
                     <label>Entidad Prestadora de Salud</label>
@@ -38,7 +38,7 @@
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label>Administradora del Fondo de Pensiones </label>
-                    <input type="email" class="form-control" placeholder="AFP" v-model="usuario.c0516_id" disabled />
+                    <input type="text" class="form-control" placeholder="AFP" v-model="usuario.c0516_id" disabled />
                 </div>
                 <div class="form-group col-md-6">
                     <label>Administradora de Riesgos Laborales</label>
@@ -49,7 +49,7 @@
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label>Salario Actual</label>
-                    <input type="email" class="form-control" placeholder="Salario Actual" v-model="usuario.c0550_salario" disabled  />
+                    <input type="text" class="form-control" placeholder="Salario Actual" v-model="usuario.c0550_salario" disabled  />
                 </div>
                 <div class="form-group col-md-6">
                     <label>Email Corporativo</label>

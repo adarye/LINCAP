@@ -287,7 +287,8 @@ class TercerosmmController extends Controller
             "c0540_id_ciudad_nacimiento",
             "c0540_id_ciudad_exp_identif",
             "c0540_id_depto_exp_identif",
-            "c0540_id_pais_exp_identif"
+            "c0540_id_pais_exp_identif",
+            "f285_descripcion"
 
         )->join(
             'dbo.t200_mm_terceros',
@@ -317,6 +318,12 @@ class TercerosmmController extends Controller
             'dbo.w0550_contratos.c0550_rowid_entidad_eps',
             '=',
             'dbo.w0515_entidades_eps.c0515_rowid'
+
+        )->join(
+            'dbo.t285_co_centro_op',
+            'dbo.w0550_contratos.c0550_id_co',
+            '=',
+            'dbo.t285_co_centro_op.f285_id'
 
         )->join(
             'dbo.w0516_entidades_afp',

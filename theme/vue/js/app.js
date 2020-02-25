@@ -2806,7 +2806,8 @@ __webpack_require__.r(__webpack_exports__);
       estado_prueba: null,
       user: "",
       titulo: "",
-      inputs: []
+      inputs: [],
+      mostrar: false
     };
   },
   beforeMount: function beforeMount() {
@@ -2820,7 +2821,7 @@ __webpack_require__.r(__webpack_exports__);
 
       if (this.fecha_cierre < new Date() || this.fecha_apertura > new Date()) {
         console.log('cierre');
-        window.location.href = '/pruebas/pendientes/2';
+        window.location.href = '/';
       }
     },
     conseguirEstado: function conseguirEstado() {
@@ -2828,21 +2829,28 @@ __webpack_require__.r(__webpack_exports__);
 
       axios.get("/api/asignacion/estado/".concat(this.$route.params.id, "/").concat(user.id)).then(function (res) {
         _this.estado_prueba = res.data.cz4_estado;
+        console.log(res.data);
 
-        if (_this.estado_prueba == 2) {
-          swal('Advertencia', 'Esta encuesta ya finalizo', 'warning');
-          console.log('Estado');
-          window.location.href = '/pruebas/pendientes/1';
+        if (res.data == "" || res.data == null || res.data == "{}") {
+          _router__WEBPACK_IMPORTED_MODULE_1__["default"].go(-1);
         } else {
-          _this.traerSMMR();
+          if (_this.estado_prueba == 2) {
+            swal('Advertencia', 'Esta encuesta ya finalizo', 'warning');
+            console.log('Estado');
+            window.location.href = '/pruebas/pendientes/1';
+          } else {
+            _this.traerSMMR();
 
-          _this.traerRa();
+            _this.traerRa();
 
-          _this.traerPregunta_SMUR();
+            _this.traerPregunta_SMUR();
 
-          _this.buscarResmur();
+            _this.buscarResmur();
 
-          _this.buscarRa();
+            _this.buscarRa();
+
+            _this.mostrar = true;
+          }
         }
       });
     },
@@ -2854,7 +2862,7 @@ __webpack_require__.r(__webpack_exports__);
         _this2.resRA = res.data;
         console.log(_this2.resRA);
 
-        if (_this2.estado_prueba != 2 || _this2.estado_prueba != 1 && _this2.id_empleado == _this2.id_log) {
+        if (_this2.estado_prueba == 0 && _this2.id_empleado == _this2.id_log) {
           for (var i = 0; i < _this2.resRA.length; i++) {
             axios.post('/api/respuesta/ra/guardar', {
               id_gp: _this2.resRA[i].cz5_gp_id,
@@ -3102,6 +3110,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -3132,7 +3141,8 @@ __webpack_require__.r(__webpack_exports__);
       nota_ra: "",
       cantidad_preg: 0,
       titulo: "",
-      index: 0
+      index: 0,
+      mostrar: false
     };
   },
   created: function created() {
@@ -3168,20 +3178,26 @@ __webpack_require__.r(__webpack_exports__);
       axios.get("/api/asignacion/estado/".concat(this.$route.params.id, "/").concat(user.id)).then(function (res) {
         _this2.estado_prueba = res.data.cz4_estado;
 
-        if (_this2.estado_prueba == 2 || _this2.estado_prueba == 1) {
-          swal('Advertencia', 'Esta prueba ya finalizo', 'warning');
-          console.log('Estado');
-          window.location.href = '/pruebas/pendientes/2';
+        if (res.data == "" || res.data == null || res.data == "{}") {
+          _router__WEBPACK_IMPORTED_MODULE_1__["default"].go(-1);
         } else {
-          _this2.traerSMMR();
+          if (_this2.estado_prueba == 2 || _this2.estado_prueba == 1) {
+            swal('Advertencia', 'Esta prueba ya finalizo', 'warning');
+            console.log('Estado');
+            window.location.href = '/pruebas/pendientes/2';
+          } else {
+            _this2.traerSMMR();
 
-          _this2.traerRa();
+            _this2.traerRa();
 
-          _this2.traerPregunta_SMUR();
+            _this2.traerPregunta_SMUR();
 
-          _this2.buscarResmur();
+            _this2.buscarResmur();
 
-          _this2.buscarRa();
+            _this2.buscarRa();
+
+            _this2.mostrar = true;
+          }
         }
       });
     },
@@ -68280,7 +68296,7 @@ var render = function() {
               [
                 _c(
                   "router-link",
-                  { attrs: { to: "/gestion/pruebas/1" + _vm.user } },
+                  { attrs: { to: "/gestion/pruebas/1/" + _vm.user } },
                   [_vm._v(" Encuestas")]
                 )
               ],
@@ -69186,6 +69202,16 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
+    {
+      directives: [
+        {
+          name: "show",
+          rawName: "v-show",
+          value: _vm.mostrar,
+          expression: "mostrar"
+        }
+      ]
+    },
     [
       _c("vue-headful", {
         attrs: {
@@ -69562,6 +69588,16 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
+    {
+      directives: [
+        {
+          name: "show",
+          rawName: "v-show",
+          value: _vm.mostrar,
+          expression: "mostrar"
+        }
+      ]
+    },
     [
       _c("vue-headful", {
         attrs: { title: "Presentar evaluación | " + _vm.titulo }
@@ -72812,7 +72848,7 @@ var render = function() {
               }
             ],
             staticClass: "form-control",
-            attrs: { type: "email", placeholder: "Cargo", disabled: "" },
+            attrs: { type: "text", placeholder: "Cargo", disabled: "" },
             domProps: { value: _vm.usuario.c0763_descripcion },
             on: {
               input: function($event) {
@@ -72903,8 +72939,8 @@ var render = function() {
               {
                 name: "model",
                 rawName: "v-model",
-                value: _vm.usuario.f284_descripcion,
-                expression: "usuario.f284_descripcion"
+                value: _vm.usuario.f285_descripcion,
+                expression: "usuario.f285_descripcion"
               }
             ],
             staticClass: "form-control",
@@ -72913,13 +72949,13 @@ var render = function() {
               type: "text",
               disabled: ""
             },
-            domProps: { value: _vm.usuario.f284_descripcion },
+            domProps: { value: _vm.usuario.f285_descripcion },
             on: {
               input: function($event) {
                 if ($event.target.composing) {
                   return
                 }
-                _vm.$set(_vm.usuario, "f284_descripcion", $event.target.value)
+                _vm.$set(_vm.usuario, "f285_descripcion", $event.target.value)
               }
             }
           })
@@ -72942,7 +72978,7 @@ var render = function() {
             staticClass: "form-control",
             attrs: {
               placeholder: "Tipo de Nomina",
-              type: "email",
+              type: "text",
               disabled: ""
             },
             domProps: { value: _vm.usuario.c0504_descripcion },
@@ -72998,7 +73034,7 @@ var render = function() {
               }
             ],
             staticClass: "form-control",
-            attrs: { type: "email", placeholder: "AFP", disabled: "" },
+            attrs: { type: "text", placeholder: "AFP", disabled: "" },
             domProps: { value: _vm.usuario.c0516_id },
             on: {
               input: function($event) {
@@ -73053,7 +73089,7 @@ var render = function() {
             ],
             staticClass: "form-control",
             attrs: {
-              type: "email",
+              type: "text",
               placeholder: "Salario Actual",
               disabled: ""
             },

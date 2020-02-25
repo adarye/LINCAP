@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div v-show="mostrar">
           <vue-headful
             :title="id_creador == user ?  'Lincap | Ver encuesta ' :  'Presentar encuesta | ' + titulo "
         />
@@ -115,7 +115,8 @@
                 estado_prueba: null,
                 user: "",
                 titulo: "",
-                inputs: []
+                inputs: [],
+                mostrar: false
 
 
             };
@@ -132,13 +133,19 @@
              this.conseguirEstado()
                 if ((this.fecha_cierre < new Date() || this.fecha_apertura > new Date())) {
                     console.log('cierre')
-                    window.location.href = '/pruebas/pendientes/2'
+                    window.location.href = '/'
                 }
             },
             conseguirEstado(){
             axios.get(`/api/asignacion/estado/${this.$route.params.id}/${user.id}`)
             .then(res=>{
                this.estado_prueba = res.data.cz4_estado
+               console.log(res.data)
+              if(res.data == "" || res.data == null || res.data == "{}"){
+                  router.go(-1)
+              }
+              else{
+              
               
                if (this.estado_prueba == 2) {
                             swal('Advertencia', 'Esta encuesta ya finalizo', 'warning')
@@ -150,8 +157,11 @@
                             this.traerPregunta_SMUR();
                             this.buscarResmur()
                             this.buscarRa();
+                            this.mostrar = true
                         }
+              }
             })
+            
             },
             traerRa() {
                 console.log(this.id)
@@ -159,7 +169,7 @@
                     .then(res => {
                         this.resRA = res.data
                         console.log(this.resRA)
-                        if (this.estado_prueba != 2 || this.estado_prueba != 1 && this.id_empleado == this.id_log) {
+                        if (this.estado_prueba == 0 && this.id_empleado == this.id_log) {
                             for (let i = 0; i < this.resRA.length; i++) {
                                 axios.post('/api/respuesta/ra/guardar', {
                                         id_gp: this.resRA[i].cz5_gp_id,
