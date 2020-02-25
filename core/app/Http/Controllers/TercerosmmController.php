@@ -291,7 +291,9 @@ class TercerosmmController extends Controller
             'c0550_rowid',
             'c0550_salario',
             "c0540_id_ciudad_nacimiento",
-            "c0540_id_ciudad_exp_identif"
+            "c0540_id_ciudad_exp_identif",
+            "c0540_id_depto_exp_identif",
+            "c0540_id_pais_exp_identif"
 
         )->join(
             'dbo.t200_mm_terceros',
