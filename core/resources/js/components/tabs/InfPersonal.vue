@@ -72,7 +72,7 @@
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
-                    <label>Selecciona tu ciudad:</label>
+                    <label>Ciudad:</label>
                     <select class="form-control" :disabled="validated ? false : true"  v-on:change="$emit('cargarBarrios', $event)">
                         <option>...</option>
                         <option v-for="(item, indice) in ciudades" :key="indice" v-bind:value="item.f013_id">
@@ -80,7 +80,7 @@
                     </select>
                 </div>
                 <div class="form-group col-md-6">
-                    <label>Selecciona tu barrio:</label>
+                    <label>Barrio:</label>
                     <select class="form-control" :disabled="validated ? false : true" @change="$emit('cambiarBarrio', $event)">
                         <option>...</option>
                         <option v-for="(item, indice) in barrios" :key="indice" v-bind:value="item.f014_id">
@@ -95,7 +95,7 @@
                         :disabled="validated ? false : true" v-model="empleado_info.cz9_nombre_familiar" v-max-length="75"   v-uppercase/>
                 </div>
                 <div class="form-group col-md-6">
-                    <label>Nombre de un familiar</label>
+                    <label>Contacto de emergencia</label>
                     <input type="text" class="form-control" v-model="empleado_info.cz9_nombre_contacto" :disabled="validated ? false : true" v-max-length="55" v-uppercase/>
                 </div>
             </div>

@@ -1,8 +1,46 @@
 <template>
     <div>
-        <vue-headful
-            title=" Lincap | Empleados activos "
-        />
+        <button type="button" class="btn btn-info mt-3">
+                <export-excel :data="mbuscar" :fields="campos">
+                    Download Data
+                </export-excel>
+            </button>
+        <modal name="campos" :clickToClose="false" :adaptive="true" :width="525" :height="425">
+            <div class="table-responsive-md table-responsive-sm table-wrapper-scroll-y my-custom-scrollbar">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col" class="texto">Cargo</th>
+
+                            <th scope="col" class="texto">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="(item, i) in activos[0]" :key="`o-${i}`">
+                            <th scope="row">{{ activos }}</th>
+                            <td>
+                                <input type="checkbox" name="eleccion"
+                                    @click="incluir(item.c0763_rowid, $event.target.checked)">
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+            <button type="button" class="btn btn-info mt-3">
+                <export-excel :data="mbuscar">
+                    Download Data
+                </export-excel>
+                <li class="fa fa-filter"></li>
+            </button>
+            <button type="button" class="btn btn-danger mt-3" @click="$modal.hide('campos');">
+                Cerrar
+            </button>
+        </modal>
+
+
+
+        <vue-headful title=" Lincap | Empleados activos " />
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><i class="fa fa-folder-open"> Empleados</i></li>
@@ -10,7 +48,7 @@
                 <li class="breadcrumb-item active" aria-current="page"></li>
             </ol>
         </nav>
-        
+
         <nav class="navbar navbar-light bg-light my-2">
 
             <div class=" pull-right">
@@ -36,10 +74,10 @@
             </div>
             <div class="col-md-6 mt-2 col-center has-feedback">
                 <input type="text" v-model="bempleado" class="form-control" v-autofocus placeholder="Buscar" />
-            </div>  
-             <span v-if="mostrar == 1"><input class="select mt-2" v-model="numero" /></span>          
+            </div>
+            <span v-if="mostrar == 1"><input class="select mt-2" v-model="numero" /></span>
         </nav>
-        
+
         <div class="table-responsive-md table-responsive-sm">
             <table class="table table-striped">
                 <thead>
@@ -97,7 +135,7 @@
             <div class="pull-right mt-2">Página {{ pagina }} / {{ Math.ceil(mbuscar.length / numero) }} de
                 {{ mbuscar.length }} Registros</div>
         </div>
-         <center>
+        <center>
             <div v-show="activos.length == 0" class="spinner-border text-primary " role="status">
                 <span class="sr-only">Loading...</span>
             </div>
@@ -123,22 +161,34 @@
                 mostrar: 0,
                 bempleado: '',
                 pagina: 1,
-                moment: moment
+                moment: moment,
+                campos:{
+                    'Cedula': 'c0541_id',
+                    'Nombre': 'c0541_nombres',
+                    'Apellido 1': 'c0541_apellido1',
+                    'Apellido 2': 'c0541_apellido2',
+                    'Cargo': 'c0763_descripcion',
+                    'Sede':'f285_descripcion',
+                    'Centro de Costo': 'f284_descripcion'
+
+
+                }
             };
         },
         beforeMount() {
             console.log(window.user.rol)
-            if(window.user.rol == 1 || window.user.rol == 2 || window.user.rol == 3){
-                 
-                 this.getCO();
-            axios.get("/api/registros").then(res => {
-                this.activos = res.data;
-                console.log(this.activos);
+            if (window.user.rol == 1 || window.user.rol == 2 || window.user.rol == 3) {
 
-            });
-            }else{
-            router.push('/');
-            
+                this.getCO();
+                axios.get("/api/registros").then(res => {
+                    this.activos = res.data;
+                    console.log(this.activos);
+                    this.campos["ROWID"] = 'c0541_rowid'
+
+                });
+            } else {
+                router.push('/');
+
             }
         },
         methods: {
@@ -160,9 +210,9 @@
 
         },
         computed: {
-        
+
             mbuscar: function () {
-                
+
                 return this.activos.filter((activo) => {
                     this.pagina = 1
                     if (this.selectCO == null || this.selectCO == 'co') {

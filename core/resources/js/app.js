@@ -28,6 +28,10 @@ import vueHeadful from 'vue-headful';
 
 Vue.component('vue-headful', vueHeadful);
 
+import excel from 'vue-excel-export'
+
+Vue.use(excel)
+
 
 
 
