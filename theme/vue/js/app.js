@@ -2656,7 +2656,7 @@ __webpack_require__.r(__webpack_exports__);
         _this10.estado_prueba = res.data.cz4_estado;
         console.log(_this10.estado_prueba);
 
-        if (user.id != _this10.id_creador) {
+        if (user.id != _this10.id_creador && user.rol != 2 && user.rol != 1) {
           swal('Advertencia', 'Acceso denegado', 'warning');
 
           _this10.$router.go(-1);
@@ -3508,10 +3508,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale("es");
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['pruebas'],
+  props: ['pruebas', 'estado'],
   data: function data() {
     return {
       selectPag: 10,
@@ -3555,6 +3564,7 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale("es");
     mbuscar: function mbuscar() {
       var _this2 = this;
 
+      this.pagina = 1;
       return this.pruebas.filter(function (prueba) {
         if (_this2.select == null || _this2.select == 'Todas') {
           return prueba.cz3_nombre.toUpperCase().includes(_this2.bprueba.toUpperCase()) || prueba.cz3_descripcion.toUpperCase().includes(_this2.bprueba.toUpperCase());
@@ -3817,10 +3827,12 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale('es');
       selectEM: 'MOSTRAR TODOS',
       titulo: "",
       id_creador: null,
-      id_log: null
+      id_log: null,
+      rol: null
     };
   },
   mounted: function mounted() {
+    this.rol = user.rol;
     this.id_log = user.id;
     this.id_prueba = this.$route.params.id;
     this.buscar();
@@ -3842,39 +3854,28 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale('es');
         _this.activos = res.data;
       });
     },
-    traerRelacion: function traerRelacion() {
-      var _this2 = this;
-
-      axios.get("/api/asignacion/index/".concat(this.id_prueba)).then(function (res) {
-        _this2.emp_calificacion = res.data;
-
-        for (var i = 0; i < res.data.length; i++) {
-          _this2.seleccionados.push(res.data[i].cz4_ts_id);
-        }
-
-        console.log(_this2.seleccionados);
-      });
-    },
     quitarRelacion: function quitarRelacion() {
-      var _this3 = this;
+      var _this2 = this;
 
       this.seleccionados = [];
       axios.get("/api/asignacion/index/".concat(this.id_prueba)).then(function (res) {
         for (var i = 0; i < res.data.length; i++) {
-          _this3.seleccionados.push(res.data[i].cz4_ts_id);
+          _this2.seleccionados.push(res.data[i].cz4_ts_id);
 
-          _this3.traerActivos();
+          _this2.traerActivos();
         }
       });
     },
     getCO: function getCO() {
-      var _this4 = this;
+      var _this3 = this;
 
       axios.get("/api/getCO").then(function (res) {
-        _this4.CO = res.data;
+        _this3.CO = res.data;
       });
     },
     incluir: function incluir(c0550_rowid_tercero) {
+      var _this4 = this;
+
       var wrapper = document.createElement('div');
       wrapper.innerHTML = "<div class='spinner-border text-primary row' role='status'> <span class='sr-only'>Loading...</span> </div>  <div class=''>Enviando...</div> ";
       swal({
@@ -3883,11 +3884,12 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale('es');
         content: wrapper,
         closeOnClickOutside: false
       });
-      this.seleccionados.push(c0550_rowid_tercero);
       axios.post("/api/asignacion/guardar", {
         id: c0550_rowid_tercero,
         id_prueba: this.id_prueba
       }).then(function (res) {
+        _this4.traerActivos();
+
         console.log(res.data);
         swal('Correcto', res.data.mensaje, 'success');
       });
@@ -3903,24 +3905,16 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale('es');
         content: wrapper,
         closeOnClickOutside: false
       });
+      axios.post("/api/asignacion/delete", {
+        id_ts: item,
+        id_prueba: this.id_prueba
+      }).then(function (res) {
+        console.log(res.data);
 
-      for (var i = 0; i < this.seleccionados.length; i++) {
-        if (this.seleccionados[i] === item) {
-          this.seleccionados.splice(i, 1);
-          axios.post("/api/asignacion/delete", {
-            id_ts: item,
-            id_prueba: this.id_prueba
-          }).then(function (res) {
-            console.log(res.data);
+        _this5.traerActivos();
 
-            _this5.traerActivos();
-
-            _this5.traerRelacion();
-
-            swal('Correcto', 'Se ha eliminado la asignación ', 'success');
-          });
-        }
-      }
+        swal('Correcto', 'Se ha eliminado la asignación ', 'success');
+      });
     },
     guardarTodos: function guardarTodos(filtrados) {
       var _this6 = this;
@@ -3948,12 +3942,13 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale('es');
         seleccionados: this.seleccionados
       }).then(function (res) {
         console.log(res.data);
-
-        _this6.traerRelacion();
-
         swal('Se han seleccionado todos', '', 'success');
+
+        _this6.traerActivos();
       })["catch"](function (res) {
         swal('Ha sucedido un error inesperado', '', 'error');
+
+        _this6.traerActivos();
       });
     },
     quitarTodos: function quitarTodos(filtrados) {
@@ -3986,8 +3981,12 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale('es');
         _this7.quitarRelacion();
 
         swal('Se han quitado las asignaciones', '', 'success');
+
+        _this7.traerActivos();
       })["catch"](function (res) {
         swal('Ha sucedido un error inesperado', '', 'error');
+
+        _this7.traerActivos();
       });
     },
     buscarEncuesta: function buscarEncuesta(id) {
@@ -4013,9 +4012,11 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale('es');
         if (_this9.id_creador != user.id && user.rol != 2 && user.rol != 1) {
           window.location.href = '/';
         } else {
-          _this9.getCO();
+          if (_this9.id_creador != _this9.id_log) {
+            _this9.selectEM = "SELECCIONADOS";
+          }
 
-          _this9.traerRelacion();
+          _this9.getCO();
 
           _this9.traerActivos();
         }
@@ -4039,56 +4040,28 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale('es');
           return activo.f285_id.includes(_this10.selectCO) && _nombre_completo.toUpperCase().includes(_this10.bempleado.toUpperCase()) || activo.f285_id.includes(_this10.selectCO) && activo.c0541_id.toUpperCase().includes(_this10.bempleado.toUpperCase()) || activo.f285_id.includes(_this10.selectCO) && activo.c0763_descripcion.toUpperCase().includes(_this10.bempleado.toUpperCase());
         } else if (_this10.selectCO != 'co' && _this10.selectEM == 'SELECCIONADOS') {
           if (_this10.bempleado == "") {
-            return _this10.seleccionados.filter(function (c0550_rowid_tercero) {
-              return c0550_rowid_tercero == activo.c0550_rowid_tercero;
-            }) != '' && activo.f285_id.includes(_this10.selectCO);
+            return activo.nota.length >= 1 && activo.f285_id.includes(_this10.selectCO);
           }
 
           var _nombre_completo2 = activo.c0541_nombres + " " + activo.c0541_apellido1 + " " + activo.c0541_apellido2;
 
-          return _this10.seleccionados.filter(function (c0550_rowid_tercero) {
-            return c0550_rowid_tercero == activo.c0550_rowid_tercero;
-          }) != '' && _nombre_completo2.toUpperCase().includes(_this10.bempleado.toUpperCase()) && activo.f285_id.includes(_this10.selectCO) || _this10.seleccionados.filter(function (c0550_rowid_tercero) {
-            return c0550_rowid_tercero == activo.c0550_rowid_tercero;
-          }) != '' && activo.c0541_id.toUpperCase().includes(_this10.bempleado.toUpperCase()) && activo.f285_id.includes(_this10.selectCO) || _this10.seleccionados.filter(function (c0550_rowid_tercero) {
-            return c0550_rowid_tercero == activo.c0550_rowid_tercero;
-          }) != '' && activo.c0763_descripcion.toUpperCase().includes(_this10.bempleado.toUpperCase()) && activo.f285_id.includes(_this10.selectCO);
+          return activo.nota.length >= 1 && _nombre_completo2.toUpperCase().includes(_this10.bempleado.toUpperCase()) && activo.f285_id.includes(_this10.selectCO) || activo.nota.length >= 1 && activo.c0541_id.toUpperCase().includes(_this10.bempleado.toUpperCase()) && activo.f285_id.includes(_this10.selectCO) || activo.nota.length >= 1 && activo.c0763_descripcion.toUpperCase().includes(_this10.bempleado.toUpperCase()) && activo.f285_id.includes(_this10.selectCO);
         } else if (_this10.selectEM == "SELECCIONADOS") {
           var _nombre_completo3 = activo.c0541_nombres + " " + activo.c0541_apellido1 + " " + activo.c0541_apellido2;
 
-          return _this10.seleccionados.filter(function (c0550_rowid_tercero) {
-            return c0550_rowid_tercero == activo.c0550_rowid_tercero;
-          }) != '' && _nombre_completo3.toUpperCase().includes(_this10.bempleado.toUpperCase()) || _this10.seleccionados.filter(function (c0550_rowid_tercero) {
-            return c0550_rowid_tercero == activo.c0550_rowid_tercero;
-          }) != '' && activo.c0541_id.toUpperCase().includes(_this10.bempleado.toUpperCase()) || _this10.seleccionados.filter(function (c0550_rowid_tercero) {
-            return c0550_rowid_tercero == activo.c0550_rowid_tercero;
-          }) != '' && activo.c0763_descripcion.toUpperCase().includes(_this10.bempleado.toUpperCase());
+          return activo.nota.length >= 1 && _nombre_completo3.toUpperCase().includes(_this10.bempleado.toUpperCase()) || activo.nota.length >= 1 && activo.c0541_id.toUpperCase().includes(_this10.bempleado.toUpperCase()) || activo.nota.length >= 1 && activo.c0763_descripcion.toUpperCase().includes(_this10.bempleado.toUpperCase());
         } else if (_this10.selectCO != 'co' && _this10.selectEM == 'NO SELECCIONADOS') {
           if (_this10.bempleado == "") {
-            return _this10.seleccionados.filter(function (c0550_rowid_tercero) {
-              return c0550_rowid_tercero == activo.c0550_rowid_tercero;
-            }) == '' && activo.f285_id.includes(_this10.selectCO);
+            return activo.nota.length == 0 && activo.f285_id.includes(_this10.selectCO);
           }
 
           var _nombre_completo4 = activo.c0541_nombres + " " + activo.c0541_apellido1 + " " + activo.c0541_apellido2;
 
-          return _this10.seleccionados.filter(function (c0550_rowid_tercero) {
-            return c0550_rowid_tercero == activo.c0550_rowid_tercero;
-          }) == '' && _nombre_completo4.toUpperCase().includes(_this10.bempleado.toUpperCase()) && activo.f285_id.includes(_this10.selectCO) || _this10.seleccionados.filter(function (c0550_rowid_tercero) {
-            return c0550_rowid_tercero == activo.c0550_rowid_tercero;
-          }) == '' && activo.c0541_id.toUpperCase().includes(_this10.bempleado.toUpperCase()) && activo.f285_id.includes(_this10.selectCO) || _this10.seleccionados.filter(function (c0550_rowid_tercero) {
-            return c0550_rowid_tercero == activo.c0550_rowid_tercero;
-          }) == '' && activo.c0763_descripcion.toUpperCase().includes(_this10.bempleado.toUpperCase()) && activo.f285_id.includes(_this10.selectCO);
+          return activo.nota.length == 0 && _nombre_completo4.toUpperCase().includes(_this10.bempleado.toUpperCase()) && activo.f285_id.includes(_this10.selectCO) || activo.nota.length == 0 && activo.c0541_id.toUpperCase().includes(_this10.bempleado.toUpperCase()) && activo.f285_id.includes(_this10.selectCO) || activo.nota.length == 0 && activo.c0763_descripcion.toUpperCase().includes(_this10.bempleado.toUpperCase()) && activo.f285_id.includes(_this10.selectCO);
         } else if (_this10.selectEM == "NO SELECCIONADOS") {
           var _nombre_completo5 = activo.c0541_nombres + " " + activo.c0541_apellido1 + " " + activo.c0541_apellido2;
 
-          return _this10.seleccionados.filter(function (c0550_rowid_tercero) {
-            return c0550_rowid_tercero == activo.c0550_rowid_tercero;
-          }) == '' && _nombre_completo5.toUpperCase().includes(_this10.bempleado.toUpperCase()) || _this10.seleccionados.filter(function (c0550_rowid_tercero) {
-            return c0550_rowid_tercero == activo.c0550_rowid_tercero;
-          }) == '' && activo.c0541_id.toUpperCase().includes(_this10.bempleado.toUpperCase()) || _this10.seleccionados.filter(function (c0550_rowid_tercero) {
-            return c0550_rowid_tercero == activo.c0550_rowid_tercero;
-          }) == '' && activo.c0763_descripcion.toUpperCase().includes(_this10.bempleado.toUpperCase());
+          return activo.nota.length == 0 && _nombre_completo5.toUpperCase().includes(_this10.bempleado.toUpperCase()) || activo.nota.length == 0 && activo.c0541_id.toUpperCase().includes(_this10.bempleado.toUpperCase()) || activo.nota.length == 0 && activo.c0763_descripcion.toUpperCase().includes(_this10.bempleado.toUpperCase());
         }
       });
     }
@@ -6528,7 +6501,8 @@ __webpack_require__.r(__webpack_exports__);
       axios.post('/api/estadistica/buscar/smur', {
         id: id,
         co: this.selectSede,
-        cargos: this.cargos_filtro
+        cargos: this.cargos_filtro,
+        id_prueba: this.id
       }).then(function (res) {
         console.log(res.data); //  this.chartData.push([rta])
 
@@ -6541,7 +6515,8 @@ __webpack_require__.r(__webpack_exports__);
       axios.post('/api/estadistica/buscar/smmr', {
         id: id,
         co: this.selectSede,
-        cargos: this.cargos_filtro
+        cargos: this.cargos_filtro,
+        id_prueba: this.id
       }).then(function (res) {
         _this5.chartData2[j].push([rta, res.data]);
       });
@@ -6724,6 +6699,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale("es");
 
@@ -6757,10 +6737,13 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale("es");
       fecha_actual: '',
       id_prueba: '',
       moment: moment__WEBPACK_IMPORTED_MODULE_0___default.a,
-      title: ""
+      title: "",
+      estado: false,
+      rol: null
     };
   },
   beforeMount: function beforeMount() {
+    this.rol = user.rol;
     this.traerPruebas();
 
     if (this.$route.params.categoria == 1) {
@@ -70106,8 +70089,30 @@ var render = function() {
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "table-responsive-md table-responsive-sm" }, [
-        _c("table", { staticClass: "table table-striped" }, [
-          _vm._m(0),
+        _c("table", { staticClass: "table table-striped table-hover" }, [
+          _c("thead", [
+            _c("tr", [
+              _c("th", { attrs: { scope: "col" } }, [_vm._v("Key")]),
+              _vm._v(" "),
+              _vm.estado
+                ? _c("th", { attrs: { scope: "col" } }, [_vm._v("Autor ")])
+                : _vm._e(),
+              _vm._v(" "),
+              _c("th", { attrs: { scope: "col" } }, [_vm._v("Nombre")]),
+              _vm._v(" "),
+              _c("th", { attrs: { scope: "col" } }, [_vm._v("Descripcion")]),
+              _vm._v(" "),
+              _c("th", { attrs: { scope: "col" } }, [
+                _vm._v("Fecha de Apertura")
+              ]),
+              _vm._v(" "),
+              _c("th", { attrs: { scope: "col" } }, [
+                _vm._v("Fecha de Cierre")
+              ]),
+              _vm._v(" "),
+              _c("th", { attrs: { scope: "col" } }, [_vm._v("Acciones")])
+            ])
+          ]),
           _vm._v(" "),
           _c(
             "tbody",
@@ -70132,7 +70137,9 @@ var render = function() {
                 [
                   _c("th", [_vm._v(_vm._s(item.cz3_id))]),
                   _vm._v(" "),
-                  _c("th", [_vm._v(_vm._s(item.cz1_nombres))]),
+                  _vm.estado
+                    ? _c("th", [_vm._v(_vm._s(item.cz1_nombres))])
+                    : _vm._e(),
                   _vm._v(" "),
                   _c("th", { attrs: { scope: "row" } }, [
                     _vm._v(
@@ -70361,25 +70368,27 @@ var render = function() {
             }),
             0
           )
-        ]),
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-md-4 " }),
         _vm._v(" "),
-        _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col-md-4 col-float" }),
-          _vm._v(" "),
-          _c(
-            "div",
-            {
-              directives: [
-                {
-                  name: "show",
-                  rawName: "v-show",
-                  value: _vm.bprueba == "",
-                  expression: "bprueba == ''"
-                }
-              ],
-              staticClass: "col-md-6 col-center"
-            },
-            [
+        _c(
+          "div",
+          {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value: _vm.bprueba == "",
+                expression: "bprueba == ''"
+              }
+            ],
+            staticClass: "col-md-4 "
+          },
+          [
+            _c("center", [
               _c(
                 "button",
                 {
@@ -70425,8 +70434,23 @@ var render = function() {
                 },
                 [_c("li", { staticClass: "fa fa-long-arrow-right" })]
               )
-            ]
-          )
+            ])
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-md-4" }, [
+          _c("div", { staticClass: "pull-right" }, [
+            _vm._v(
+              "Página " +
+                _vm._s(_vm.pagina) +
+                " / " +
+                _vm._s(Math.ceil(_vm.mbuscar.length / _vm.numero)) +
+                " de\n                " +
+                _vm._s(_vm.mbuscar.length) +
+                " Registros"
+            )
+          ])
         ])
       ]),
       _vm._v(" "),
@@ -70467,30 +70491,7 @@ var render = function() {
     1
   )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("thead", [
-      _c("tr", [
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Id")]),
-        _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Elaborada por")]),
-        _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Nombre")]),
-        _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Descripcion")]),
-        _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Fecha de Apertura")]),
-        _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Fecha de Cierre")]),
-        _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Acciones")])
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -70831,8 +70832,8 @@ var render = function() {
         {
           name: "show",
           rawName: "v-show",
-          value: _vm.id_creador == _vm.id_log,
-          expression: "id_creador == id_log "
+          value: _vm.id_creador == _vm.id_log || _vm.rol == 2 || _vm.rol == 1,
+          expression: "id_creador == id_log || rol == 2 || rol == 1"
         }
       ]
     },
@@ -70907,35 +70908,37 @@ var render = function() {
       ]),
       _vm._v(" "),
       _c("nav", { staticClass: "navbar navbar-light bg-light my-2" }, [
-        _c("div", { staticClass: "col-md-2 col-center has-feedback" }, [
-          _c(
-            "button",
-            {
-              staticClass: "btn btn-primary",
-              attrs: { type: "button" },
-              on: {
-                click: function($event) {
-                  return _vm.guardarTodos(_vm.mbuscar)
-                }
-              }
-            },
-            [_vm._v("Todos")]
-          ),
-          _vm._v(" "),
-          _c(
-            "button",
-            {
-              staticClass: "btn btn-danger",
-              attrs: { type: "button" },
-              on: {
-                click: function($event) {
-                  return _vm.quitarTodos(_vm.mbuscar)
-                }
-              }
-            },
-            [_vm._v("Quitar")]
-          )
-        ]),
+        _vm.id_creador == _vm.id_log
+          ? _c("div", { staticClass: "col-md-2 col-center has-feedback" }, [
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-primary",
+                  attrs: { type: "button" },
+                  on: {
+                    click: function($event) {
+                      return _vm.guardarTodos(_vm.mbuscar)
+                    }
+                  }
+                },
+                [_vm._v("Todos")]
+              ),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-danger",
+                  attrs: { type: "button" },
+                  on: {
+                    click: function($event) {
+                      return _vm.quitarTodos(_vm.mbuscar)
+                    }
+                  }
+                },
+                [_vm._v("Quitar")]
+              )
+            ])
+          : _vm._e(),
         _vm._v(" "),
         _c(
           "div",
@@ -71132,9 +71135,11 @@ var render = function() {
                 [_vm._v("Nota")]
               ),
               _vm._v(" "),
-              _c("th", { staticClass: "texto", attrs: { scope: "col" } }, [
-                _vm._v("Acciones")
-              ])
+              _vm.id_creador == _vm.id_log
+                ? _c("th", { staticClass: "texto", attrs: { scope: "col" } }, [
+                    _vm._v("Acciones")
+                  ])
+                : _vm._e()
             ])
           ]),
           _vm._v(" "),
@@ -71230,84 +71235,70 @@ var render = function() {
                     ]
                   ),
                   _vm._v(" "),
-                  _c("td", [
-                    _c(
-                      "span",
-                      {
-                        directives: [
+                  _vm.id_creador == _vm.id_log
+                    ? _c("td", [
+                        _c(
+                          "span",
                           {
-                            name: "show",
-                            rawName: "v-show",
-                            value:
-                              _vm.seleccionados.filter(function(
-                                c0550_rowid_tercero
-                              ) {
-                                return (
-                                  c0550_rowid_tercero ==
-                                  item.c0550_rowid_tercero
-                                )
-                              }) != "",
-                            expression:
-                              "seleccionados.filter(c0550_rowid_tercero => c0550_rowid_tercero == item.c0550_rowid_tercero ) != ''"
-                          }
-                        ]
-                      },
-                      [
-                        _c("button", {
-                          staticClass: " btn btn-primary fa fa-check-square-o",
-                          on: {
-                            click: function($event) {
-                              return _vm.excluir(item.c0550_rowid_tercero)
-                            }
-                          }
-                        }),
+                            directives: [
+                              {
+                                name: "show",
+                                rawName: "v-show",
+                                value: item.nota.length >= 1,
+                                expression: "item.nota.length >= 1"
+                              }
+                            ]
+                          },
+                          [
+                            _c("button", {
+                              staticClass:
+                                " btn btn-primary fa fa-check-square-o",
+                              on: {
+                                click: function($event) {
+                                  return _vm.excluir(item.c0550_rowid_tercero)
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("button", {
+                              staticClass: "btn btn-success fa fa-search-plus",
+                              on: {
+                                click: function($event) {
+                                  return _vm.buscarEncuesta(
+                                    item.c0550_rowid_tercero
+                                  )
+                                }
+                              }
+                            })
+                          ]
+                        ),
                         _vm._v(" "),
-                        _c("button", {
-                          staticClass: "btn btn-success fa fa-search-plus",
-                          on: {
-                            click: function($event) {
-                              return _vm.buscarEncuesta(
-                                item.c0550_rowid_tercero
-                              )
-                            }
-                          }
-                        })
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "span",
-                      {
-                        directives: [
+                        _c(
+                          "span",
                           {
-                            name: "show",
-                            rawName: "v-show",
-                            value:
-                              _vm.seleccionados.filter(function(
-                                c0550_rowid_tercero
-                              ) {
-                                return (
-                                  c0550_rowid_tercero ==
-                                  item.c0550_rowid_tercero
-                                )
-                              }) == "",
-                            expression:
-                              "seleccionados.filter(c0550_rowid_tercero => c0550_rowid_tercero == item.c0550_rowid_tercero ) == ''"
-                          }
-                        ]
-                      },
-                      [
-                        _c("button", {
-                          staticClass: "btn btn-outline-primary fa fa-square-o",
-                          on: {
-                            click: function($event) {
-                              return _vm.incluir(item.c0550_rowid_tercero)
-                            }
-                          }
-                        })
-                      ]
-                    )
-                  ])
+                            directives: [
+                              {
+                                name: "show",
+                                rawName: "v-show",
+                                value: item.nota.length == 0,
+                                expression: "item.nota.length == 0"
+                              }
+                            ]
+                          },
+                          [
+                            _c("button", {
+                              staticClass:
+                                "btn btn-outline-primary fa fa-square-o",
+                              on: {
+                                click: function($event) {
+                                  return _vm.incluir(item.c0550_rowid_tercero)
+                                }
+                              }
+                            })
+                          ]
+                        )
+                      ])
+                    : _vm._e()
                 ]
               )
             }),
@@ -77812,7 +77803,7 @@ var render = function() {
       _c(
         "button",
         {
-          staticClass: "btn btn-round btn-success",
+          staticClass: "btn btn-round btn-primary",
           attrs: { type: "button", title: "Nuevo" },
           on: {
             click: function($event) {
@@ -77826,22 +77817,58 @@ var render = function() {
         [_c("i", { staticClass: "fa fa-plus" })]
       ),
       _vm._v(" "),
-      _c(
-        "button",
-        {
-          staticClass: "btn btn-round btn-primary",
-          attrs: { type: "button", title: "Ver todas" },
-          on: {
-            click: function($event) {
-              _vm.traerPruebasAll()
-              _vm.$route.params.categoria == 1
-                ? (_vm.title = "Lincap | Todas las encuestas")
-                : (_vm.title = "Lincap | Todas las evaluaciónes")
-            }
-          }
-        },
-        [_c("i", { staticClass: "fa fa-binoculars" })]
-      ),
+      _vm.rol == 1 || _vm.rol == 2
+        ? _c("span", [
+            _c(
+              "button",
+              {
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value: !_vm.estado,
+                    expression: "!estado "
+                  }
+                ],
+                staticClass: "btn btn-round btn-primary",
+                attrs: { type: "button", title: "Ver todas" },
+                on: {
+                  click: function($event) {
+                    _vm.traerPruebasAll()
+                    _vm.estado = true
+                    _vm.$route.params.categoria == 1
+                      ? (_vm.title = "Lincap | Todas las encuestas")
+                      : (_vm.title = "Lincap | Todas las evaluaciónes")
+                  }
+                }
+              },
+              [_c("i", { staticClass: "fa fa-binoculars" })]
+            ),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value: _vm.estado,
+                    expression: "estado"
+                  }
+                ],
+                staticClass: "btn btn-round btn-success",
+                attrs: { type: "button", title: "Volver" },
+                on: {
+                  click: function($event) {
+                    _vm.traerPruebas()
+                    _vm.estado = false
+                  }
+                }
+              },
+              [_c("i", { staticClass: "fa fa-binoculars" })]
+            )
+          ])
+        : _vm._e(),
       _vm._v(" "),
       _c(
         "Pruebas",
@@ -77857,7 +77884,7 @@ var render = function() {
             }
           },
           "Pruebas",
-          { pruebas: _vm.pruebas },
+          { pruebas: _vm.pruebas, estado: _vm.estado },
           false
         )
       )
@@ -78213,8 +78240,8 @@ var render = function() {
             {
               name: "show",
               rawName: "v-show",
-              value: _vm.rol != 4 && _vm.rol != 3,
-              expression: "rol != 4 && rol != 3 "
+              value: _vm.rol != 4 && _vm.rol != 5,
+              expression: "rol != 4 && rol != 5 "
             }
           ]
         },
@@ -78230,7 +78257,7 @@ var render = function() {
                   expression: "mostrar == false"
                 }
               ],
-              staticClass: "btn btn-outline-primary",
+              staticClass: "btn-round btn btn-primary",
               attrs: { type: "button" },
               on: {
                 click: function($event) {
@@ -78238,7 +78265,7 @@ var render = function() {
                 }
               }
             },
-            [_vm._v("Publicar")]
+            [_c("i", { staticClass: "fa fa-plus" })]
           ),
           _vm._v(" "),
           _c(
@@ -78252,7 +78279,7 @@ var render = function() {
                   expression: "mostrar"
                 }
               ],
-              staticClass: "btn btn-primary",
+              staticClass: "btn btn-round btn-success",
               attrs: { type: "button" },
               on: {
                 click: function($event) {
@@ -78262,7 +78289,7 @@ var render = function() {
                 }
               }
             },
-            [_vm._v("Cerrar")]
+            [_c("i", { staticClass: "fa fa-plus" })]
           )
         ]
       ),

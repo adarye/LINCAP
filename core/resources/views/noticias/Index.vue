@@ -3,10 +3,10 @@
          <vue-headful
             :title="title"
         />
-        <div v-show="rol != 4 && rol != 3 ">
-        <button class="btn btn-outline-primary" type="button" v-show="mostrar == false"
-            @click="mostrar = true, title = 'Lincap | Crear noticia'">Publicar</button>
-        <button class="btn btn-primary" type="button" v-show="mostrar" @click="mostrar = false, limpiar(), title='Lincap | Noticias'">Cerrar</button>
+        <div v-show="rol != 4 && rol != 5 ">
+        <button class="btn-round btn btn-primary" type="button" v-show="mostrar == false"
+            @click="mostrar = true, title = 'Lincap | Crear noticia'"><i class="fa fa-plus"></i></button>
+        <button class="btn btn-round btn-success" type="button" v-show="mostrar" @click="mostrar = false, limpiar(), title='Lincap | Noticias'"><i class="fa fa-plus"></i></button>
         </div>
         <form v-show="mostrar == true && editar == false" class="my-3" method="POST" @submit.prevent="validar">
              <div class="row">

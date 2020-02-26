@@ -30,11 +30,11 @@
             <span v-if="mostrar == 1"><input class="select mt-2" v-model="numero" /></span>
         </nav>
         <div class="table-responsive-md table-responsive-sm">
-            <table class="table table-striped">
+            <table class="table table-striped table-hover">
                 <thead>
                     <tr>
-                        <th scope="col">Id</th>
-                        <th scope="col">Elaborada por</th>
+                        <th scope="col">Key</th>
+                        <th scope="col" v-if="estado">Autor </th>
                         <th scope="col">Nombre</th>
                         <th scope="col">Descripcion</th>
                         <th scope="col">Fecha de Apertura</th>
@@ -46,7 +46,7 @@
                     <tr v-for="(item, indice) in mbuscar" :key="indice"
                         v-show="(pagina-1) * numero <= indice && pagina*numero > indice || bprueba != ''">
                         <th>{{item.cz3_id}}</th>
-                        <th>{{item.cz1_nombres}}</th>
+                        <th v-if="estado">{{item.cz1_nombres}}</th>
                         <th scope="row">{{ item.cz3_nombre }}
                             <button class="badge badge-pill badge-success float-right p-1"
                                 v-show=" moment().diff(item.cz3_fecha_cierre) < 0 &&  moment().diff(item.cz3_fecha_apertura) > 0"
@@ -101,10 +101,11 @@
                 </tbody>
 
             </table>
-
-            <div class="row">
-                <div class="col-md-4 col-float"></div>
-                <div v-show="bprueba == ''" class="col-md-6 col-center">
+        </div>
+        <div class="row">
+                <div class="col-md-4 "></div>
+                <div v-show="bprueba == ''" class="col-md-4 ">
+                  <center>
                     <button type="button" @click.prevent="pagina=pagina-1" v-show="pagina!=1" class="btn btn-primary">
                         <li class="fa fa-long-arrow-left"></li>
                     </button>
@@ -113,11 +114,17 @@
                         class="btn btn-success">
                         <li class="fa fa-long-arrow-right"></li>
                     </button>
+                  </center>
                 </div>
+                 <div class="col-md-4">
+
+                <div class="pull-right">Página {{ pagina }} / {{ Math.ceil(mbuscar.length / numero) }} de
+                    {{ mbuscar.length }} Registros</div>
             </div>
-        </div>
-        <center>
-            
+            </div>
+       
+
+        <center> 
             <div v-show="carga  && pruebas.length == []" class="spinner-border text-primary " role="status">
                 <span class="sr-only">Loading...</span>
             </div>
@@ -125,13 +132,15 @@
                <p>No se encontraron resultados</p>
             </div>
         </center>
+         
+            
     </div>
 </template>
 <script>
     import moment from "moment";
     moment.locale("es");
     export default {
-        props: ['pruebas'],
+        props: ['pruebas', 'estado'],
         data() {
             return {
                 selectPag: 10,
@@ -182,6 +191,7 @@
 
 
             mbuscar: function () {
+                this.pagina = 1
                 return this.pruebas.filter((prueba) => {
                     if (this.select == null || this.select == 'Todas') {
                         return prueba.cz3_nombre.toUpperCase().includes(this.bprueba.toUpperCase()) ||

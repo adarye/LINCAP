@@ -1,6 +1,6 @@
 <template>
 
-    <div v-show="id_creador == id_log ">
+    <div v-show="id_creador == id_log || rol == 2 || rol == 1" >
          <vue-headful
             :title="$route.params.cat == 1 ?  'Lincap | Asignar encuesta':  'Lincap | Asignar evaluación'"
         />
@@ -20,7 +20,7 @@
         </nav>
 
         <nav class="navbar navbar-light bg-light my-2">
-            <div class="col-md-2 col-center has-feedback">
+            <div v-if="id_creador == id_log" class="col-md-2 col-center has-feedback">
                 <button type="button" class="btn btn-primary" @click="guardarTodos(mbuscar)">Todos</button>
                 <button type="button" class="btn btn-danger" @click="quitarTodos(mbuscar)">Quitar</button>
             </div>
@@ -54,7 +54,7 @@
                         <th scope="col" class="texto">Cargo</th>
                          <th scope="col" class="texto">Fecha de realizacion</th>
                          <th scope="col" class="texto" v-show="$route.params.cat == 2">Nota</th>
-                        <th scope="col" class="texto">Acciones</th>
+                        <th scope="col" class="texto" v-if="id_creador == id_log">Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -74,12 +74,12 @@
                         <td v-else></td>
                          <td v-show="$route.params.cat == 2"><h4><span v-if="item.nota.length >= 1 && item.nota[0].cz4_calificacion != null " :class="item.nota[0].cz4_calificacion < 3.5 ? 'badge badge-danger':'badge badge-success'">{{Math.round(item.nota[0].cz4_calificacion * 100) / 100}}</span></h4></td> 
                        
-                        <td>
+                        <td v-if="id_creador == id_log">
                             
 
 
                             <span
-                                v-show="seleccionados.filter(c0550_rowid_tercero => c0550_rowid_tercero == item.c0550_rowid_tercero ) != ''">
+                                v-show="item.nota.length >= 1">
                                 <button class=" btn btn-primary fa fa-check-square-o"
                                     @click="excluir(item.c0550_rowid_tercero)">
                                 </button>
@@ -88,7 +88,7 @@
                                 <!-- {{ emp_calificacion.filter(emp => emp.cz4_ts_id == item.c0550_rowid_tercero && emp.cz4_calificacion != null)}} -->
                             </span>
                             <span
-                                v-show="seleccionados.filter(c0550_rowid_tercero => c0550_rowid_tercero == item.c0550_rowid_tercero ) == ''">
+                                v-show="item.nota.length == 0">
                                 <button class="btn btn-outline-primary fa fa-square-o"
                                     @click="incluir(item.c0550_rowid_tercero)">
                                 </button>
@@ -155,13 +155,15 @@
                 selectEM: 'MOSTRAR TODOS',
                 titulo: "",
                 id_creador: null,
-                id_log : null
+                id_log : null,
+                rol: null
             };
         },
         mounted() {
+            this.rol = user.rol
             this.id_log = user.id
             this.id_prueba = this.$route.params.id
-            
+           
             this.buscar()
         },
         methods: {
@@ -180,17 +182,7 @@
 
                 });
             },
-            traerRelacion() {
-                axios.get(`/api/asignacion/index/${this.id_prueba}`).then(res => {
-                    this.emp_calificacion = res.data;
-                    for (var i = 0; i < res.data.length; i++) {
-
-                        this.seleccionados.push(res.data[i].cz4_ts_id)
-                    }
-                    console.log(this.seleccionados)
-
-                });
-            },
+           
             quitarRelacion() {
                 this.seleccionados = []
                 axios.get(`/api/asignacion/index/${this.id_prueba}`).then(res => {
@@ -217,12 +209,12 @@
                     content: wrapper,
                     closeOnClickOutside: false
                 });
-                this.seleccionados.push(c0550_rowid_tercero)
                 axios.post("/api/asignacion/guardar", {
                         id: c0550_rowid_tercero,
                         id_prueba: this.id_prueba
                     })
                     .then(res => {
+                         this.traerActivos()
                         console.log(res.data)
                          swal('Correcto', res.data.mensaje, 'success')
                     });
@@ -238,9 +230,7 @@
                     content: wrapper,
                     closeOnClickOutside: false
                 });
-                for (var i = 0; i < this.seleccionados.length; i++) {
-                    if (this.seleccionados[i] === item) {
-                        this.seleccionados.splice(i, 1);
+                
                         axios.post("/api/asignacion/delete", {
                                 id_ts: item,
                                 id_prueba: this.id_prueba
@@ -248,11 +238,10 @@
                             .then(res => {
                                 console.log(res.data)
                                  this.traerActivos()
-                                this.traerRelacion()
                                 swal('Correcto','Se ha eliminado la asignación ', 'success')
                             });
-                    }
-                }
+                    
+                
             },
             guardarTodos(filtrados) {
                 var empleados = null
@@ -278,12 +267,13 @@
                     seleccionados: this.seleccionados
                 }).then(res => {
                     console.log(res.data)
-                    this.traerRelacion();
                     swal('Se han seleccionado todos', '', 'success')
+                    this.traerActivos()
 
 
                 }).catch(res => {
                     swal('Ha sucedido un error inesperado', '', 'error')
+                    this.traerActivos()
                 })
             },
 
@@ -313,10 +303,12 @@
                     console.log(res.data)
                     this.quitarRelacion();
                     swal('Se han quitado las asignaciones', '', 'success')
+                    this.traerActivos()
 
 
                 }).catch(res => {
                     swal('Ha sucedido un error inesperado', '', 'error')
+                    this.traerActivos()
                 })
             },
             buscarEncuesta(id) {
@@ -339,8 +331,10 @@
                         window.location.href = '/'
                     }
                     else{
+                         if(this.id_creador != this.id_log){
+                this.selectEM = "SELECCIONADOS"
+            }
                         this.getCO();
-            this.traerRelacion()
             this.traerActivos();
 
                     }
@@ -393,8 +387,7 @@
                         );
                     } else if (this.selectCO != 'co' && this.selectEM == 'SELECCIONADOS') {
                         if (this.bempleado == "") {
-                            return this.seleccionados.filter(c0550_rowid_tercero => c0550_rowid_tercero ==
-                                activo.c0550_rowid_tercero) != '' && activo.f285_id.includes(this
+                            return activo.nota.length >= 1 && activo.f285_id.includes(this
                                 .selectCO)
                         }
                         const nombre_completo =
@@ -404,23 +397,20 @@
                             " " +
                             activo.c0541_apellido2;
                         return (
-                            (this.seleccionados.filter(c0550_rowid_tercero => c0550_rowid_tercero ==
-                                    activo.c0550_rowid_tercero) != '' &&
+                            (activo.nota.length >= 1 &&
                                 nombre_completo
                                 .toUpperCase()
                                 .includes(this.bempleado.toUpperCase()) &&
                                 activo.f285_id.includes(this.selectCO)
 
                             ) ||
-                            (this.seleccionados.filter(c0550_rowid_tercero => c0550_rowid_tercero ==
-                                    activo.c0550_rowid_tercero) != '' &&
+                            (activo.nota.length >= 1 &&
                                 activo.c0541_id
                                 .toUpperCase()
                                 .includes(this.bempleado.toUpperCase()) &&
                                 activo.f285_id.includes(this.selectCO)
                             ) ||
-                            (this.seleccionados.filter(c0550_rowid_tercero => c0550_rowid_tercero ==
-                                    activo.c0550_rowid_tercero) != '' &&
+                            (activo.nota.length >= 1 &&
                                 activo.c0763_descripcion
                                 .toUpperCase()
                                 .includes(this.bempleado.toUpperCase()) &&
@@ -435,28 +425,24 @@
                             activo.c0541_apellido1 +
                             " " +
                             activo.c0541_apellido2;
-                        return (this.seleccionados.filter(c0550_rowid_tercero => c0550_rowid_tercero ==
-                                    activo.c0550_rowid_tercero) != '' &&
+                        return ( activo.nota.length >= 1 &&
                                 nombre_completo
                                 .toUpperCase()
                                 .includes(this.bempleado.toUpperCase())
                             ) ||
-                            (this.seleccionados.filter(c0550_rowid_tercero => c0550_rowid_tercero ==
-                                    activo.c0550_rowid_tercero) != '' &&
+                            (activo.nota.length >= 1 &&
                                 activo.c0541_id
                                 .toUpperCase()
                                 .includes(this.bempleado.toUpperCase())
                             ) ||
-                            (this.seleccionados.filter(c0550_rowid_tercero => c0550_rowid_tercero ==
-                                    activo.c0550_rowid_tercero) != '' &&
+                            (activo.nota.length >= 1 &&
                                 activo.c0763_descripcion
                                 .toUpperCase()
                                 .includes(this.bempleado.toUpperCase())
                             )
                     } else if (this.selectCO != 'co' && this.selectEM == 'NO SELECCIONADOS') {
                         if (this.bempleado == "") {
-                            return this.seleccionados.filter(c0550_rowid_tercero => c0550_rowid_tercero ==
-                                activo.c0550_rowid_tercero) == '' && activo.f285_id.includes(this
+                            return activo.nota.length == 0 && activo.f285_id.includes(this
                                 .selectCO)
                         }
                         const nombre_completo =
@@ -466,23 +452,20 @@
                             " " +
                             activo.c0541_apellido2;
                         return (
-                            (this.seleccionados.filter(c0550_rowid_tercero => c0550_rowid_tercero ==
-                                    activo.c0550_rowid_tercero) == '' &&
+                            (activo.nota.length == 0 &&
                                 nombre_completo
                                 .toUpperCase()
                                 .includes(this.bempleado.toUpperCase()) &&
                                 activo.f285_id.includes(this.selectCO)
 
                             ) ||
-                            (this.seleccionados.filter(c0550_rowid_tercero => c0550_rowid_tercero ==
-                                    activo.c0550_rowid_tercero) == '' &&
+                            (activo.nota.length == 0 &&
                                 activo.c0541_id
                                 .toUpperCase()
                                 .includes(this.bempleado.toUpperCase()) &&
                                 activo.f285_id.includes(this.selectCO)
                             ) ||
-                            (this.seleccionados.filter(c0550_rowid_tercero => c0550_rowid_tercero ==
-                                    activo.c0550_rowid_tercero) == '' &&
+                            (activo.nota.length == 0 &&
                                 activo.c0763_descripcion
                                 .toUpperCase()
                                 .includes(this.bempleado.toUpperCase()) &&
@@ -497,20 +480,17 @@
                             activo.c0541_apellido1 +
                             " " +
                             activo.c0541_apellido2;
-                        return (this.seleccionados.filter(c0550_rowid_tercero => c0550_rowid_tercero ==
-                                    activo.c0550_rowid_tercero) == '' &&
+                        return (activo.nota.length == 0 &&
                                 nombre_completo
                                 .toUpperCase()
                                 .includes(this.bempleado.toUpperCase())
                             ) ||
-                            (this.seleccionados.filter(c0550_rowid_tercero => c0550_rowid_tercero ==
-                                    activo.c0550_rowid_tercero) == '' &&
+                            (activo.nota.length == 0 &&
                                 activo.c0541_id
                                 .toUpperCase()
                                 .includes(this.bempleado.toUpperCase())
                             ) ||
-                            (this.seleccionados.filter(c0550_rowid_tercero => c0550_rowid_tercero ==
-                                    activo.c0550_rowid_tercero) == '' &&
+                            (activo.nota.length == 0 &&
                                 activo.c0763_descripcion
                                 .toUpperCase()
                                 .includes(this.bempleado.toUpperCase())

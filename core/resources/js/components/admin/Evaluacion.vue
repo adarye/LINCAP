@@ -319,7 +319,7 @@
                         this.calificacion_final = Math.round(res.data.cz4_calificacion * 100) / 100
                         this.estado_prueba = res.data.cz4_estado
                         console.log(this.estado_prueba)
-                        if (user.id != this.id_creador) {
+                        if (user.id != this.id_creador && user.rol != 2 && user.rol != 1 ) {
                             swal('Advertencia', 'Acceso denegado', 'warning')
                             this.$router.go(-1)
                         } else {

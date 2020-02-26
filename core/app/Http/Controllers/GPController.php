@@ -57,6 +57,7 @@ class GPController extends Controller
                 '=',
                 'dbo.z1_usuarios.cz1_id_empleado'
             )
+            ->where('cz3_id_creador', '!=', Auth()->user()->cz1_id_empleado)
             ->where('cz3_categoria', $categoria)->get();
         }
     }

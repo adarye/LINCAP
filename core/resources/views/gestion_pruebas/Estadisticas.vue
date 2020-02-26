@@ -236,7 +236,8 @@
                 axios.post('/api/estadistica/buscar/smur', {
                     id: id,
                     co: this.selectSede,
-                    cargos: this.cargos_filtro
+                    cargos: this.cargos_filtro,
+                    id_prueba: this.id
                 }).then(res => {
                     console.log(res.data)
                     //  this.chartData.push([rta])
@@ -247,7 +248,8 @@
                 axios.post('/api/estadistica/buscar/smmr', {
                     id: id,
                     co: this.selectSede,
-                    cargos: this.cargos_filtro
+                    cargos: this.cargos_filtro,
+                    id_prueba: this.id
                 }).then(res => {
 
                     this.chartData2[j].push([rta, res.data])

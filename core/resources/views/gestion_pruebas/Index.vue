@@ -1,5 +1,6 @@
 <template>
     <div>
+        
          <vue-headful
             :title="title"
         />
@@ -100,12 +101,16 @@
           }"></Activos>
         </modal>
 
-        <button type="button" class="btn btn-round btn-success" @click="$modal.show('create'); $route.params.categoria == 1 ? title= 'Lincap | Crear encuesta': title= 'Lincap | Crear evaluación'"
+        <button type="button" class="btn btn-round btn-primary" @click="$modal.show('create'); $route.params.categoria == 1 ? title= 'Lincap | Crear encuesta': title= 'Lincap | Crear evaluación'"
             title="Nuevo"><i class="fa fa-plus"></i></button>
-             <button  type="button" class="btn btn-round btn-primary" @click="traerPruebasAll(); $route.params.categoria == 1 ? title= 'Lincap | Todas las encuestas': title= 'Lincap | Todas las evaluaciónes'"
-            title="Ver todas"><i class="fa fa-binoculars"></i></button>
+            <span v-if="rol == 1 || rol ==2">
+             <button  type="button" class="btn btn-round btn-primary" @click="traerPruebasAll(); estado= true; $route.params.categoria == 1 ? title= 'Lincap | Todas las encuestas': title= 'Lincap | Todas las evaluaciónes'"
+            title="Ver todas" v-show="!estado "><i class="fa fa-binoculars"></i></button>
+              <button  type="button" class="btn btn-round btn-success" @click="traerPruebas(); estado= false" 
+              title="Volver" v-show="estado"><i class="fa fa-binoculars"></i></button>
+              </span>
              
-      <Pruebas v-bind="{pruebas: pruebas}" v-on:asignar="asignar" v-on:eliminar="eliminar"
+      <Pruebas v-bind="{pruebas: pruebas, estado: estado}" v-on:asignar="asignar" v-on:eliminar="eliminar"
       v-on:editar="editar" v-on:cerrar="cerrar" v-on:preguntas="preguntas" v-on:estadisticas="estadisticas">
       </Pruebas>
     </div>
@@ -151,13 +156,15 @@ import 'pc-bootstrap4-datetimepicker/build/css/bootstrap-datetimepicker.css';
                 fecha_actual:  '',
                 id_prueba: '',
                 moment: moment,
-                title: ""
+                title: "",
+                estado: false,
+                rol: null
 
                 
             }       
         },
         beforeMount(){    
-              
+                this.rol = user.rol
                 this.traerPruebas();
                 if( this.$route.params.categoria == 1){
                  this.title = 'Lincap | Admin encuestas'}

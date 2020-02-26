@@ -23,8 +23,9 @@ class AsignacionController extends Controller
 
     public function guardar(Request $request)
     {
-        if (Gate::allows('isAdmin') ||
-            Gate::allows('isRRHH') || Gate::allows('isSST') || Gate::allows('isJefe')) {
+        $empleado =  z3_gestion_pruebas::select('cz3_id_creador')->where('cz3_id',$request->id_prueba )->first();
+      
+        if ( $empleado->cz3_id_creador == Auth()->user()->cz1_id_empleado) {
             //ELIMINAMOS CUALQUIER PRUEBA DUPLICADA
             // $prueba = z4_rel_ts_gp::where('cz4_ts_id', $request->id)->where('cz4_gp_id', $request->id_prueba)->first();
             // $prueba->delete();
@@ -78,8 +79,8 @@ class AsignacionController extends Controller
     public function delete(Request $request)
     {
         //return $request->seleccionados;
-        if (Gate::allows('isAdmin') ||
-            Gate::allows('isRRHH') || Gate::allows('isSST') || Gate::allows('isJefe')) {
+        $empleado =  z3_gestion_pruebas::select('cz3_id_creador')->where('cz3_id',$request->id_prueba )->first();
+        if ($empleado->cz3_id_creador == Auth()->user()->cz1_id_empleado) {
             $prueba = z4_rel_ts_gp::where('cz4_ts_id', $request->id_ts)->where('cz4_gp_id', $request->id_prueba)->first();
             $prueba->delete();
             $respuestas = z11_resultados::where('cz11_id_empleado', $request->id_ts)->where('cz11_id_gp', $request->id_prueba)->delete();
@@ -97,8 +98,8 @@ class AsignacionController extends Controller
     }
     public function guardarTodos(Request $request)
     {
-        if (Gate::allows('isAdmin') ||
-            Gate::allows('isRRHH') || Gate::allows('isSST') || Gate::allows('isJefe') ) {
+        $empleado =  z3_gestion_pruebas::select('cz3_id_creador')->where('cz3_id',$request->id_prueba )->first();
+        if ($empleado->cz3_id_creador == Auth()->user()->cz1_id_empleado ) {
             $todos = (array) $request->activos;
             $i = 0;
 
@@ -122,8 +123,8 @@ class AsignacionController extends Controller
     }
     public function quitarTodos(Request $request)
     {
-        if (Gate::allows('isAdmin') ||
-            Gate::allows('isRRHH') || Gate::allows('isSST') || Gate::allows('isJefe')) {
+        $empleado =  z3_gestion_pruebas::select('cz3_id_creador')->where('cz3_id',$request->id_prueba )->first();
+        if ($empleado->cz3_id_creador == Auth()->user()->cz1_id_empleado) {
             $todos = (array) $request->activos;
             $i = 0;
 
@@ -166,8 +167,10 @@ class AsignacionController extends Controller
 
     public function conseguirNota($id)
     {
+        $empleado =  z3_gestion_pruebas::select('cz3_id_creador')->where('cz3_id',$id )->first();
+       
         if (Gate::allows('isAdmin') ||
-            Gate::allows('isRRHH') || Gate::allows('isSST') || Gate::allows('isJefe') ) {
+            Gate::allows('isRRHH') || $empleado->cz3_id_creador == Auth()->user()->cz1_id_empleado ) {
 
         return Terceros_mm::select(
             "c0541_rowid",
