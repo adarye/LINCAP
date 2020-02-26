@@ -8,11 +8,15 @@ use Illuminate\Support\Facades\Gate;
 use Carbon\Carbon;
 class NoticiasController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function guardar(Request $request)
     {
         
         if(Gate::allows('isAdmin') || 
-        Gate::allows('isRRHH')) {
+        Gate::allows('isRRHH') || Gate::allows('isSST') || Gate::allows('isJefe')) {
         $noticia = new z12_noticias;
         $noticia->cz12_nombre = $request->nombre;
         $noticia->cz12_descripcion = $request->descripcion;
@@ -58,7 +62,7 @@ class NoticiasController extends Controller
     public function delete($id)
     {
         if(Gate::allows('isAdmin') || 
-        Gate::allows('isRRHH')) {
+        Gate::allows('isRRHH') || Gate::allows('isSST') || Gate::allows('isJefe')) {
         $noticia = z12_noticias::find($id);
         $noticia->delete();
         return $noticia;
@@ -69,7 +73,7 @@ class NoticiasController extends Controller
     {
     //    return $request;
     if(Gate::allows('isAdmin') || 
-    Gate::allows('isRRHH')) {
+    Gate::allows('isRRHH') || Gate::allows('isSST') || Gate::allows('isJefe')) {
         $noticia =  z12_noticias::find($request->id);
         $noticia->cz12_nombre = $request->nombre;
         $noticia->cz12_descripcion = $request->descripcion;

@@ -34,7 +34,8 @@ class ApiController extends Controller
                 "c0550_rowid_tercero",
                 "c0550_fecha_contrato_hasta",
                 "f285_descripcion",
-                "f285_id"
+                "f285_id",
+                "f284_descripcion"
 
             )->join(
                 'dbo.w0540_empleados',

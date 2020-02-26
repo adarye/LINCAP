@@ -34,6 +34,7 @@
                 <thead>
                     <tr>
                         <th scope="col">Id</th>
+                        <th scope="col">Elaborada por</th>
                         <th scope="col">Nombre</th>
                         <th scope="col">Descripcion</th>
                         <th scope="col">Fecha de Apertura</th>
@@ -45,6 +46,7 @@
                     <tr v-for="(item, indice) in mbuscar" :key="indice"
                         v-show="(pagina-1) * numero <= indice && pagina*numero > indice || bprueba != ''">
                         <th>{{item.cz3_id}}</th>
+                        <th>{{item.cz1_nombres}}</th>
                         <th scope="row">{{ item.cz3_nombre }}
                             <button class="badge badge-pill badge-success float-right p-1"
                                 v-show=" moment().diff(item.cz3_fecha_cierre) < 0 &&  moment().diff(item.cz3_fecha_apertura) > 0"
@@ -71,15 +73,15 @@
                                 @click="$emit('asignar',item.cz3_id)">
                                 <li class="fa fa-users"></li>
                             </button>
-                            <button type="button" class="btn btn-primary btn-sm" title="Editar"
+                            <button v-show="item.cz3_id_creador == user" type="button" class="btn btn-primary btn-sm" title="Editar"
                                 @click="$emit('editar',item)">
                                 <li class="fa fa-edit"></li>
                             </button>
-                            <button type="button" class="btn btn-warning btn-sm" title="Cerrar"
+                            <button v-show="item.cz3_id_creador == user" type="button" class="btn btn-warning btn-sm" title="Cerrar"
                                 @click="$emit('cerrar',item.cz3_id)">
                                 <li class="fa fa-calendar"></li>
                             </button>
-                            <button type="button" class="btn btn-primary btn-sm" title="Administrar"
+                            <button v-show="item.cz3_id_creador == user" type="button" class="btn btn-primary btn-sm" title="Administrar"
                                 @click="$emit('preguntas',item.cz3_id)">
                                 <li class="fa fa-gear"></li>
                             </button>
@@ -88,7 +90,7 @@
 
                                 <li class="fa fa-bar-chart"></li>
                             </button>
-                            <button type="button" class="btn btn-danger btn-sm" title="Eliminar"
+                            <button v-show="item.cz3_id_creador == user" type="button" class="btn btn-danger btn-sm" title="Eliminar"
                                 @click="$emit('eliminar',item.cz3_id, indice)">
                                 <li class="fa fa-trash-o"></li>
                             </button>
@@ -140,12 +142,15 @@
                 select: 'Todas',
                 moment: moment,
                 id: null,
-                carga: true
+                carga: true,
+                user: null
+
             }
 
         },
       
         mounted() {
+            this.user = user.id
             setTimeout(
                 _ => this.carga = false, 
                 3000 

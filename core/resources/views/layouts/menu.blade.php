@@ -22,12 +22,15 @@
             <li><a><i class="fa fa-folder-open"></i>Empleados<span class="fa fa-chevron-down"></span></a>
                 <ul class="nav child_menu" style="display: none">
                     @cannot('isJefe')
+                    @cannot('isAdministrativo')
+                    
                     <li>
                         <router-link :to="{name: 'Activos'}" id="activos">Activos</router-link>
                     </li>
                     <li>
                         <router-link :to="{name: 'Retirados'}">Retirados</router-link>
                     </li>
+                    @endcannot
                     @endcannot
                    
                     <li>

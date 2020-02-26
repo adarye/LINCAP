@@ -32,6 +32,7 @@
             
             <span v-if="mostrar == 1"><input class="select mt-2" v-model="numero" /></span>
         </nav>
+        {{rol}}
 
 
         <div class="row mt-4">
@@ -47,16 +48,15 @@
                                 <span v-show="item.cz12_nivel_imp == 4">Necesaria</span>
                             </small>
                         </h2>
-
                         <ul class="nav navbar-right panel_toolbox">
-                            <li v-show="rol != 4 && rol != 3 ">
+                            <li v-show="rol != 4 && rol != 5 ">
                                 <a @click="$emit('editar2', item)">
                                     <i class="fa fa-edit"> </i>
                                 </a>
 
                             </li>
                             
-                            <li v-show="rol != 4 && rol != 3 ">
+                            <li v-show="rol != 4 && rol != 5 ">
                                 <a @click="eliminar(item.cz12_id)">
                                     <i class="fa fa-close"> </i>
                                 </a>

@@ -101,7 +101,9 @@
         </modal>
 
         <button type="button" class="btn btn-round btn-success" @click="$modal.show('create'); $route.params.categoria == 1 ? title= 'Lincap | Crear encuesta': title= 'Lincap | Crear evaluación'"
-            title="Nuevo">Nuevo</button>
+            title="Nuevo"><i class="fa fa-plus"></i></button>
+             <button  type="button" class="btn btn-round btn-primary" @click="traerPruebasAll(); $route.params.categoria == 1 ? title= 'Lincap | Todas las encuestas': title= 'Lincap | Todas las evaluaciónes'"
+            title="Ver todas"><i class="fa fa-binoculars"></i></button>
              
       <Pruebas v-bind="{pruebas: pruebas}" v-on:asignar="asignar" v-on:eliminar="eliminar"
       v-on:editar="editar" v-on:cerrar="cerrar" v-on:preguntas="preguntas" v-on:estadisticas="estadisticas">
@@ -165,6 +167,14 @@ import 'pc-bootstrap4-datetimepicker/build/css/bootstrap-datetimepicker.css';
              
             },
         methods: {
+            traerPruebasAll(){
+
+                axios.get(`/api/gp/all/${this.$route.params.categoria}`)
+                .then(res=>{                    
+                    this.pruebas = res.data
+                    
+                })
+            },
             traerPruebas(){
 
                 axios.get(`/api/gp/${this.$route.params.categoria}`)

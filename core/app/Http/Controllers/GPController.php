@@ -44,6 +44,22 @@ class GPController extends Controller
             ->where('cz3_categoria', $categoria)->get();
         }
     }
+    public function indexAll($categoria)
+    {
+        if(Gate::allows('isAdmin') || 
+        Gate::allows('isRRHH') ) {
+
+        return z3_gestion_pruebas::select('cz3_id', 'cz3_nombre', 'cz3_categoria',
+            'cz3_descripcion', 'cz3_id_creador', 'cz3_fecha_apertura','cz3_fecha_cierre', 'cz1_nombres')
+            ->join(
+                'dbo.z1_usuarios',
+                'dbo.z3_gestion_pruebas.cz3_id_creador',
+                '=',
+                'dbo.z1_usuarios.cz1_id_empleado'
+            )
+            ->where('cz3_categoria', $categoria)->get();
+        }
+    }
     public function update(Request $request)
     {
         if(Gate::allows('isAdmin') || 

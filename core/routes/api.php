@@ -73,6 +73,7 @@ Route::put('gp/update', 'GPController@update');
 Route::put('gp/cerrar', 'GPController@cerrar');
 Route::delete('gp/delete/{id}', 'GPController@delete');
 Route::get('gp/{categoria}', 'GPController@index');
+Route::get('gp/all/{categoria}', 'GPController@indexAll');
 Route::get('gp/buscar/{id}', 'GPController@buscar');
 Route::get('preguntas/contar/{id}', 'GPController@contarPreguntas');
 Route::post('gp/copiarPrueba', 'GPController@copiarPrueba');

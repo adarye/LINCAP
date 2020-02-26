@@ -3506,6 +3506,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale("es");
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -3520,12 +3522,14 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale("es");
       select: 'Todas',
       moment: moment__WEBPACK_IMPORTED_MODULE_0___default.a,
       id: null,
-      carga: true
+      carga: true,
+      user: null
     };
   },
   mounted: function mounted() {
     var _this = this;
 
+    this.user = user.id;
     setTimeout(function (_) {
       return _this.carga = false;
     }, 3000);
@@ -4006,7 +4010,7 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale('es');
         _this9.titulo = res.data.cz3_nombre;
         _this9.id_creador = res.data.cz3_id_creador;
 
-        if (_this9.id_creador != user.id) {
+        if (_this9.id_creador != user.id && user.rol != 2 && user.rol != 1) {
           window.location.href = '/';
         } else {
           _this9.getCO();
@@ -6718,6 +6722,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale("es");
 
@@ -6764,15 +6770,22 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale("es");
     }
   },
   methods: {
-    traerPruebas: function traerPruebas() {
+    traerPruebasAll: function traerPruebasAll() {
       var _this = this;
 
-      axios.get("/api/gp/".concat(this.$route.params.categoria)).then(function (res) {
+      axios.get("/api/gp/all/".concat(this.$route.params.categoria)).then(function (res) {
         _this.pruebas = res.data;
       });
     },
-    crear: function crear() {
+    traerPruebas: function traerPruebas() {
       var _this2 = this;
+
+      axios.get("/api/gp/".concat(this.$route.params.categoria)).then(function (res) {
+        _this2.pruebas = res.data;
+      });
+    },
+    crear: function crear() {
+      var _this3 = this;
 
       console.log(this.datos.cz3_fecha_apertura + ' ' + this.datos.cz3_fecha_cierre);
       var fechaC = this.datos.cz3_fecha_cierre.split('-');
@@ -6800,13 +6813,13 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale("es");
           datos: this.datos,
           categoria: this.$route.params.categoria
         }).then(function (res) {
-          _this2.traerPruebas();
+          _this3.traerPruebas();
 
           swal('Guardado', 'El registro se guardo correctamente', 'success');
 
-          _this2.$modal.hide('create');
+          _this3.$modal.hide('create');
 
-          _this2.limpiar();
+          _this3.limpiar();
         });
       }
 
@@ -6838,7 +6851,7 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale("es");
       this.datos.cz3_fecha_cierre = '';
     },
     actualizar: function actualizar() {
-      var _this3 = this;
+      var _this4 = this;
 
       var fechaC = this.datos.cz3_fecha_cierre.split('-');
       var mes_hora = fechaC[2].split(' ');
@@ -6859,14 +6872,14 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale("es");
         swal('Advertencia', 'Las fechas deben tener un rango en vigencia', 'warning');
       } else {
         axios.put('/api/gp/update', this.datos).then(function (res) {
-          _this3.traerPruebas();
+          _this4.traerPruebas();
 
           swal('Prueba Actualizada', '', 'success');
 
-          _this3.$modal.hide('editar'); //  this.options2.format = 'YYYY-MM-DD LT'
+          _this4.$modal.hide('editar'); //  this.options2.format = 'YYYY-MM-DD LT'
 
 
-          _this3.limpiar();
+          _this4.limpiar();
         });
       }
 
@@ -6877,7 +6890,7 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale("es");
       }
     },
     cerrar: function cerrar(id) {
-      var _this4 = this;
+      var _this5 = this;
 
       swal({
         title: "Advertencia",
@@ -6887,18 +6900,18 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale("es");
         dangerMode: true
       }).then(function (willDelete) {
         if (willDelete) {
-          _this4.fecha_actual = moment__WEBPACK_IMPORTED_MODULE_0___default()().format("YYYY/DD/MM h:mm:ss");
+          _this5.fecha_actual = moment__WEBPACK_IMPORTED_MODULE_0___default()().format("YYYY/DD/MM h:mm:ss");
           axios.put('/api/gp/cerrar', {
-            fecha_actual: _this4.fecha_actual,
+            fecha_actual: _this5.fecha_actual,
             id: id
           }).then(function (res) {
-            _this4.traerPruebas();
+            _this5.traerPruebas();
           });
         }
       });
     },
     eliminar: function eliminar(id, indice) {
-      var _this5 = this;
+      var _this6 = this;
 
       swal({
         title: "Advertencia",
@@ -6909,7 +6922,7 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale("es");
       }).then(function (willDelete) {
         if (willDelete) {
           axios["delete"]("/api/gp/delete/".concat(id)).then(function (res) {
-            _this5.traerPruebas();
+            _this6.traerPruebas();
           });
         }
       });
@@ -6919,11 +6932,11 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale("es");
       _js_router__WEBPACK_IMPORTED_MODULE_1__["default"].push('/gestion/pruebas/asignar/' + this.$route.params.categoria + '/' + id); //  this.$modal.show('asignar')
     },
     preguntas: function preguntas(id) {
-      var _this6 = this;
+      var _this7 = this;
 
       axios.get("/api/prueba/inicio/".concat(id)).then(function (res) {
         if (res.data == "") {
-          _js_router__WEBPACK_IMPORTED_MODULE_1__["default"].push('/prueba/preguntas/' + _this6.$route.params.categoria + '/' + id);
+          _js_router__WEBPACK_IMPORTED_MODULE_1__["default"].push('/prueba/preguntas/' + _this7.$route.params.categoria + '/' + id);
         } else {
           swal('Advertencia', 'No se pueden editar las preguntas porque alguien ya la contesto.', 'warning');
         }
@@ -70119,6 +70132,8 @@ var render = function() {
                 [
                   _c("th", [_vm._v(_vm._s(item.cz3_id))]),
                   _vm._v(" "),
+                  _c("th", [_vm._v(_vm._s(item.cz1_nombres))]),
+                  _vm._v(" "),
                   _c("th", { attrs: { scope: "row" } }, [
                     _vm._v(
                       _vm._s(item.cz3_nombre) + "\n                        "
@@ -70242,6 +70257,14 @@ var render = function() {
                     _c(
                       "button",
                       {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: item.cz3_id_creador == _vm.user,
+                            expression: "item.cz3_id_creador == user"
+                          }
+                        ],
                         staticClass: "btn btn-primary btn-sm",
                         attrs: { type: "button", title: "Editar" },
                         on: {
@@ -70256,6 +70279,14 @@ var render = function() {
                     _c(
                       "button",
                       {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: item.cz3_id_creador == _vm.user,
+                            expression: "item.cz3_id_creador == user"
+                          }
+                        ],
                         staticClass: "btn btn-warning btn-sm",
                         attrs: { type: "button", title: "Cerrar" },
                         on: {
@@ -70270,6 +70301,14 @@ var render = function() {
                     _c(
                       "button",
                       {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: item.cz3_id_creador == _vm.user,
+                            expression: "item.cz3_id_creador == user"
+                          }
+                        ],
                         staticClass: "btn btn-primary btn-sm",
                         attrs: { type: "button", title: "Administrar" },
                         on: {
@@ -70298,6 +70337,14 @@ var render = function() {
                     _c(
                       "button",
                       {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: item.cz3_id_creador == _vm.user,
+                            expression: "item.cz3_id_creador == user"
+                          }
+                        ],
                         staticClass: "btn btn-danger btn-sm",
                         attrs: { type: "button", title: "Eliminar" },
                         on: {
@@ -70428,6 +70475,8 @@ var staticRenderFns = [
     return _c("thead", [
       _c("tr", [
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Id")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Elaborada por")]),
         _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Nombre")]),
         _vm._v(" "),
@@ -70783,7 +70832,7 @@ var render = function() {
           name: "show",
           rawName: "v-show",
           value: _vm.id_creador == _vm.id_log,
-          expression: "id_creador == id_log"
+          expression: "id_creador == id_log "
         }
       ]
     },
@@ -71554,7 +71603,7 @@ var render = function() {
             ])
           : _vm._e()
       ]),
-      _vm._v(" "),
+      _vm._v("\n    " + _vm._s(_vm.rol) + "\n\n\n    "),
       _c(
         "div",
         { staticClass: "row mt-4" },
@@ -71653,8 +71702,8 @@ var render = function() {
                           {
                             name: "show",
                             rawName: "v-show",
-                            value: _vm.rol != 4 && _vm.rol != 3,
-                            expression: "rol != 4 && rol != 3 "
+                            value: _vm.rol != 4 && _vm.rol != 5,
+                            expression: "rol != 4 && rol != 5 "
                           }
                         ]
                       },
@@ -71680,8 +71729,8 @@ var render = function() {
                           {
                             name: "show",
                             rawName: "v-show",
-                            value: _vm.rol != 4 && _vm.rol != 3,
-                            expression: "rol != 4 && rol != 3 "
+                            value: _vm.rol != 4 && _vm.rol != 5,
+                            expression: "rol != 4 && rol != 5 "
                           }
                         ]
                       },
@@ -77774,7 +77823,24 @@ var render = function() {
             }
           }
         },
-        [_vm._v("Nuevo")]
+        [_c("i", { staticClass: "fa fa-plus" })]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-round btn-primary",
+          attrs: { type: "button", title: "Ver todas" },
+          on: {
+            click: function($event) {
+              _vm.traerPruebasAll()
+              _vm.$route.params.categoria == 1
+                ? (_vm.title = "Lincap | Todas las encuestas")
+                : (_vm.title = "Lincap | Todas las evaluaciónes")
+            }
+          }
+        },
+        [_c("i", { staticClass: "fa fa-binoculars" })]
       ),
       _vm._v(" "),
       _c(

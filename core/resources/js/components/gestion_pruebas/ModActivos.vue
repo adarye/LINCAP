@@ -1,6 +1,6 @@
 <template>
 
-    <div v-show="id_creador == id_log">
+    <div v-show="id_creador == id_log ">
          <vue-headful
             :title="$route.params.cat == 1 ?  'Lincap | Asignar encuesta':  'Lincap | Asignar evaluación'"
         />
@@ -335,7 +335,7 @@
                 axios.get(`/api/gp/buscar/${this.$route.params.id}`).then(res => {
                     this.titulo = res.data.cz3_nombre
                     this.id_creador = res.data.cz3_id_creador
-                    if(this.id_creador != user.id){
+                    if(this.id_creador != user.id && user.rol != 2 && user.rol != 1  ){
                         window.location.href = '/'
                     }
                     else{

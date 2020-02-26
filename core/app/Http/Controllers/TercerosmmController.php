@@ -126,7 +126,8 @@ class TercerosmmController extends Controller
         if (!empty($estado)) {        
             $empleado = z9_empleados_info::find($id);     
 
-            if (Gate::denies('isDefault')) {              
+            if (Gate::allows('isAdmin') || 
+            Gate::allows('isRRHH') || Gate::allows('isSST')) {              
                 $empleado->cz9_fecha_tpprueba = $request->fecha_tpprueba;
                 $empleado->cz9_fecha_vacuna = $request->fecha_vacuna;
                 $empleado->cz9_lugar_vacuna = $request->lugar_vacuna;
@@ -150,7 +151,8 @@ class TercerosmmController extends Controller
 
             $empleado = new z9_empleados_info;
 
-            if (Gate::denies('isDefault')) {
+            if (Gate::allows('isAdmin') || 
+            Gate::allows('isRRHH') || Gate::allows('isSST')) {
 
                 $empleado->cz9_fecha_tpprueba = $request->fecha_tpprueba;
                 $empleado->cz9_fecha_vacuna = $request->fecha_vacuna;
