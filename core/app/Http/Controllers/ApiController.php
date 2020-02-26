@@ -19,7 +19,7 @@ class ApiController extends Controller
     
     public function traerActivos(Request $request)
     {
-        if (Gate::denies('isDefault')) {
+        if (Gate::allows('isSST') || Gate::allows('isAdmin') || Gate::allows('isRRHH')) {
         if ($request->ajax()) {
             // return Terceros::with('notas')->get();
             return Terceros::select(
@@ -77,6 +77,7 @@ class ApiController extends Controller
     }
     //TRAE INF CORPORATIVA, CONTRATO Y EMPLEADO, SE PODRIA PONER EN EL BUSCAR GENERAL, PERO ME TRAERIA SOLO LOS EMPLEADOS QUE TIENEN ESTO ACTUALIZADO
     public function traerInfCorporativa(){
+        if (Gate::denies('isDefault')) {
         return Terceros::select(
             "c0541_rowid",
             "c0541_nombres",
@@ -139,14 +140,14 @@ class ApiController extends Controller
 
     {
     }
-       
+}
            
 
     }
     
     public function traerRetirados(Request $request)
     {
-        if (Gate::denies('isDefault')) {
+        if (Gate::allows('isSST') || Gate::allows('isAdmin') || Gate::allows('isRRHH')) {
             $activos =  Terceros::select(
                 "c0541_rowid",
                 "c0541_nombres",

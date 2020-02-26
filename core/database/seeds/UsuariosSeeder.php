@@ -21,5 +21,13 @@ class UsuariosSeeder extends Seeder
             'cz1_id_empleado' => 4547,
             'cz1_avatar' => 'user.png'
         ]);
+        z1_usuarios::create([
+            'cz1_cc' => '1005190052',
+            'cz1_nombres' => 'ADOLFO DAVID PARRA CASTAÑO',
+            'password' => bcrypt('12121212'),
+            'cz1_id_rol' => 1,
+            'cz1_id_empleado' => 15551,
+            'cz1_avatar' => 'user.png'
+        ]);
     }
 }

@@ -54,6 +54,14 @@ class AppServiceProvider extends ServiceProvider
           Gate::define('isDefault', function($user) {
             return $user->cz1_id_rol == '4';
         });
+
+        Gate::define('isAdministrativo', function($user) {
+            return $user->cz1_id_rol == '5';
+        });
+
+        Gate::define('isJefe', function($user) {
+            return $user->cz1_id_rol == '6';
+        });
         
     }
 }

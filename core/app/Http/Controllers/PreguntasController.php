@@ -17,7 +17,7 @@ class PreguntasController extends Controller
     public function guardar(Request $request)
     {
         if(Gate::allows('isAdmin') || 
-        Gate::allows('isRRHH') || Gate::allows('isSST') ) {
+        Gate::allows('isRRHH') || Gate::allows('isSST') || Gate::allows('isJefe') ) {
         $pregunta = new z5_prueba_preguntas();
         $pregunta->cz5_pregunta = $request->cz5_pregunta;
         $pregunta->cz5_categoria = $request->cz5_categoria;
@@ -32,7 +32,7 @@ class PreguntasController extends Controller
     public function traerSMUR($id){
        $empleado = z4_rel_ts_gp::all()->where('cz4_gp_id', $id)->where('cz4_ts_id', Auth()->user()->cz1_id_empleado)->first();
        if($empleado != null || Gate::allows('isAdmin') || 
-       Gate::allows('isRRHH') || Gate::allows('isSST')){
+       Gate::allows('isRRHH') || Gate::allows('isSST') || Gate::allows('isJefe')){
         return z5_prueba_preguntas::with('respuestas')
         ->where('cz5_gp_id', $id)
         ->where('cz5_categoria', 'smur')
@@ -45,7 +45,7 @@ class PreguntasController extends Controller
     {
         $empleado = z4_rel_ts_gp::all()->where('cz4_gp_id', $id)->where('cz4_ts_id', Auth()->user()->cz1_id_empleado)->first();
         if($empleado != null || Gate::allows('isAdmin') || 
-        Gate::allows('isRRHH') || Gate::allows('isSST')){
+        Gate::allows('isRRHH') || Gate::allows('isSST') || Gate::allows('isJefe')){
         return z5_prueba_preguntas::select( 'cz5_pregunta', 'cz5_categoria', 'cz5_id', 'cz5_gp_id')->
            where('cz5_gp_id', $id)->where('cz5_categoria', 'ra')->orderBy('cz5_id', 'ASC')->get();
         }
@@ -54,7 +54,7 @@ class PreguntasController extends Controller
     {
         $empleado = z4_rel_ts_gp::all()->where('cz4_gp_id', $id)->where('cz4_ts_id', Auth()->user()->cz1_id_empleado)->first();
         if($empleado != null || Gate::allows('isAdmin') || 
-        Gate::allows('isRRHH') || Gate::allows('isSST')){
+        Gate::allows('isRRHH') || Gate::allows('isSST') || Gate::allows('isJefe')){
         return z5_prueba_preguntas::with('smmr')
             ->where('cz5_gp_id', $id)
             ->where('cz5_categoria', 'smmr')
@@ -64,7 +64,7 @@ class PreguntasController extends Controller
     public function updateRA(Request $request)
     {
         if(Gate::allows('isAdmin') || 
-        Gate::allows('isRRHH') || Gate::allows('isSST') ) {
+        Gate::allows('isRRHH') || Gate::allows('isSST') || Gate::allows('isJefe') ) {
         $ra = z5_prueba_preguntas::find($request->cz5_id);
         $ra->cz5_pregunta = $request->cz5_pregunta;
         $ra->save();
@@ -74,7 +74,7 @@ class PreguntasController extends Controller
     public function delete($id)
     {
         if(Gate::allows('isAdmin') || 
-        Gate::allows('isRRHH') || Gate::allows('isSST') ) {
+        Gate::allows('isRRHH') || Gate::allows('isSST') || Gate::allows('isJefe') ) {
         $pregunta = z5_prueba_preguntas::find($id);
         $pregunta->delete();
         }

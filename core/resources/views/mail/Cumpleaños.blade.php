@@ -7,7 +7,7 @@
             <p class="titulo" id="e">
             <b>HOLA {{$empleado->c0541_nombres}}</b>
             <br>
-            En este dia tan especial {{\Carbon\Carbon::now()->format('d/m/Y')}}, queremos agradecerte 
+            En este dia tan especial {{\Carbon\Carbon::now()->format('d/m/Y')}}, queremos agradecerte por tu labor como {{$empleado->c0763_descripcion}}
         </p>
         {{-- {{$empleados}} --}}
             

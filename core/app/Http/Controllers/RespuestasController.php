@@ -113,7 +113,7 @@ class RespuestasController extends Controller
         $prueba = z3_gestion_pruebas::find($id);
         //  return $prueba->cz3;
         if (Gate::allows('isAdmin') ||
-            Gate::allows('isRRHH') || Gate::allows('isSST') || $empleado == Auth()->user()->cz1_id_empleado) {
+            Gate::allows('isRRHH') || Gate::allows('isSST') || Gate::allows('isJefe') || $empleado == Auth()->user()->cz1_id_empleado) {
             if ($prueba->cz3_id_creador == Auth()->user()->cz1_id_empleado || $empleado == Auth()->user()->cz1_id_empleado) {
                 return z11_resultados::select('cz11_rta', 'cz11_nota','cz11_pp_id')->where('cz11_id_gp', $id)
                     ->where('cz11_id_empleado', $empleado)->where('cz11_categoria', 'smur')->orderBy('cz11_pp_id', 'ASC')->get();
@@ -124,7 +124,7 @@ class RespuestasController extends Controller
     {
         $prueba = z3_gestion_pruebas::find($id);
         if (Gate::allows('isAdmin') ||
-            Gate::allows('isRRHH') || Gate::allows('isSST') || $empleado == Auth()->user()->cz1_id_empleado) {
+            Gate::allows('isRRHH') || Gate::allows('isSST') || Gate::allows('isJefe') || $empleado == Auth()->user()->cz1_id_empleado) {
             if ($prueba->cz3_id_creador == Auth()->user()->cz1_id_empleado || $empleado == Auth()->user()->cz1_id_empleado) {
                 return z11_resultados::select('cz11_rta', 'cz11_nota', 'cz11_pp_id')->where('cz11_id_gp', $id)
                     ->where('cz11_id_empleado', $empleado)->where('cz11_categoria', 'smmr')->orderBy('cz11_pp_id', 'ASC')->get();
@@ -136,7 +136,7 @@ class RespuestasController extends Controller
         $prueba = z3_gestion_pruebas::find($id);
 
         if (Gate::allows('isAdmin') ||
-            Gate::allows('isRRHH') || Gate::allows('isSST') || $empleado == Auth()->user()->cz1_id_empleado) {
+            Gate::allows('isRRHH') || Gate::allows('isSST') || Gate::allows('isJefe') || $empleado == Auth()->user()->cz1_id_empleado) {
             if ($prueba->cz3_id_creador == Auth()->user()->cz1_id_empleado || $empleado == Auth()->user()->cz1_id_empleado) {
                 return z11_resultados::select('cz11_rta_ra', 'cz11_pp_id', 'cz11_nota')->where('cz11_id_gp', $id)
                     ->where('cz11_id_empleado', $empleado)->where('cz11_categoria', 'ra')->orderBy('cz11_pp_id','ASC')->get();
@@ -284,6 +284,8 @@ class RespuestasController extends Controller
 
     public function calificaRA(Request $request)
     {
+        if (Gate::allows('isAdmin') ||
+        Gate::allows('isRRHH') || Gate::allows('isSST') || Gate::allows('isJefe') || $empleado == Auth()->user()->cz1_id_empleado) {
         
         $total_preguntas = z3_gestion_pruebas::join(
             'z5_prueba_preguntas',
@@ -329,6 +331,7 @@ class RespuestasController extends Controller
         }
 
         return $nota_final;
+    }
 
     }
 

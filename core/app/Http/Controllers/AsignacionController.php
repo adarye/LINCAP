@@ -24,7 +24,7 @@ class AsignacionController extends Controller
     public function guardar(Request $request)
     {
         if (Gate::allows('isAdmin') ||
-            Gate::allows('isRRHH') || Gate::allows('isSST')) {
+            Gate::allows('isRRHH') || Gate::allows('isSST') || Gate::allows('isJefe')) {
             //ELIMINAMOS CUALQUIER PRUEBA DUPLICADA
             // $prueba = z4_rel_ts_gp::where('cz4_ts_id', $request->id)->where('cz4_gp_id', $request->id_prueba)->first();
             // $prueba->delete();
@@ -79,7 +79,7 @@ class AsignacionController extends Controller
     {
         //return $request->seleccionados;
         if (Gate::allows('isAdmin') ||
-            Gate::allows('isRRHH') || Gate::allows('isSST')) {
+            Gate::allows('isRRHH') || Gate::allows('isSST') || Gate::allows('isJefe')) {
             $prueba = z4_rel_ts_gp::where('cz4_ts_id', $request->id_ts)->where('cz4_gp_id', $request->id_prueba)->first();
             $prueba->delete();
             $respuestas = z11_resultados::where('cz11_id_empleado', $request->id_ts)->where('cz11_id_gp', $request->id_prueba)->delete();
@@ -89,7 +89,7 @@ class AsignacionController extends Controller
     public function index($id)
     {
         if (Gate::allows('isAdmin') ||
-            Gate::allows('isRRHH') || Gate::allows('isSST')) {
+            Gate::allows('isRRHH') || Gate::allows('isSST') || Gate::allows('isJefe')) {
             $registros = z4_rel_ts_gp::select('cz4_ts_id', 'cz4_calificacion')->where('cz4_gp_id', $id)->get();
             $j = json_decode($registros, true);
             return $registros;
@@ -98,7 +98,7 @@ class AsignacionController extends Controller
     public function guardarTodos(Request $request)
     {
         if (Gate::allows('isAdmin') ||
-            Gate::allows('isRRHH') || Gate::allows('isSST')) {
+            Gate::allows('isRRHH') || Gate::allows('isSST') || Gate::allows('isJefe') ) {
             $todos = (array) $request->activos;
             $i = 0;
 
@@ -123,7 +123,7 @@ class AsignacionController extends Controller
     public function quitarTodos(Request $request)
     {
         if (Gate::allows('isAdmin') ||
-            Gate::allows('isRRHH') || Gate::allows('isSST')) {
+            Gate::allows('isRRHH') || Gate::allows('isSST') || Gate::allows('isJefe')) {
             $todos = (array) $request->activos;
             $i = 0;
 
@@ -166,6 +166,8 @@ class AsignacionController extends Controller
 
     public function conseguirNota($id)
     {
+        if (Gate::allows('isAdmin') ||
+            Gate::allows('isRRHH') || Gate::allows('isSST') || Gate::allows('isJefe') ) {
 
         return Terceros_mm::select(
             "c0541_rowid",
@@ -232,6 +234,7 @@ class AsignacionController extends Controller
                 $query->select()->where('cz4_gp_id', $id);
             }))
             ->get();
+        }
 
     }
 

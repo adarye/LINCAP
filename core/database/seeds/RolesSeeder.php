@@ -29,5 +29,14 @@ class RolesSeeder extends Seeder
             'cz2_nombre' => 'DEFAULT',
             'cz2_descripcion' => 'DEFAULT'
         ]);
+        z2_roles::create([
+            'cz2_nombre' => 'ADMINISTRATIVO',
+            'cz2_descripcion' => 'ADMINISTRATIVO'
+        ]);
+        z2_roles::create([
+            'cz2_nombre' => 'JEFES',
+            'cz2_descripcion' => 'JEFES'
+        ]);
+       
     }
 }

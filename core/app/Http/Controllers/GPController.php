@@ -18,7 +18,7 @@ class GPController extends Controller
     public function crear(Request $request)
     {
         if(Gate::allows('isAdmin') || 
-        Gate::allows('isRRHH') || Gate::allows('isSST') ) {
+        Gate::allows('isRRHH') || Gate::allows('isSST') || Gate::allows('isJefe') ) {
 
         $prueba = new z3_gestion_pruebas();
         $prueba->cz3_nombre = $request->datos['cz3_nombre'];
@@ -36,7 +36,7 @@ class GPController extends Controller
     public function index($categoria)
     {
         if(Gate::allows('isAdmin') || 
-        Gate::allows('isRRHH') || Gate::allows('isSST') ) {
+        Gate::allows('isRRHH') || Gate::allows('isSST') || Gate::allows('isJefe')) {
 
         return z3_gestion_pruebas::select('cz3_id', 'cz3_nombre', 'cz3_categoria',
             'cz3_descripcion', 'cz3_id_creador', 'cz3_fecha_apertura','cz3_fecha_cierre')
@@ -47,7 +47,7 @@ class GPController extends Controller
     public function update(Request $request)
     {
         if(Gate::allows('isAdmin') || 
-        Gate::allows('isRRHH') || Gate::allows('isSST') ) {
+        Gate::allows('isRRHH') || Gate::allows('isSST') || Gate::allows('isJefe') ) {
 
         $prueba = z3_gestion_pruebas::find($request->cz3_id);
         $prueba->cz3_nombre = $request->cz3_nombre;
@@ -62,7 +62,7 @@ class GPController extends Controller
     public function cerrar(Request $request)
     {
         if(Gate::allows('isAdmin') || 
-        Gate::allows('isRRHH') || Gate::allows('isSST') ) {
+        Gate::allows('isRRHH') || Gate::allows('isSST') || Gate::allows('isJefe') ) {
         $prueba = z3_gestion_pruebas::find($request->id);
         if($prueba->cz3_id_creador == Auth()->user()->cz1_id_empleado){
         $prueba->cz3_fecha_cierre = $request->fecha_actual;
@@ -74,7 +74,7 @@ class GPController extends Controller
     public function delete($id)
     {
         if(Gate::allows('isAdmin') || 
-        Gate::allows('isRRHH') || Gate::allows('isSST') ) {
+        Gate::allows('isRRHH') || Gate::allows('isSST') || Gate::allows('isJefe') ) {
         $prueba = z3_gestion_pruebas::find($id);
         if($prueba->cz3_id_creador == Auth()->user()->cz1_id_empleado){
         $prueba->delete();
