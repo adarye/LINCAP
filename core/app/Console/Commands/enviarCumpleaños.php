@@ -101,7 +101,10 @@ class enviarCumpleaños extends Command
 
   
             foreach ($empleados as $emp) {
-            Mail::to('adavidparra0412@gmail.com')->send(new Cumpleaños($emp));
+                if($emp->c0541_correo != null){
+                    // $emp->c0541_correo
+                Mail::to($emp->c0541_correo)->send(new Cumpleaños($emp));
+                    }
             }
              
         
