@@ -3,6 +3,8 @@
          <vue-headful
             title="Lincap | Actualizar datos"
         />
+        <button @click="this.cambiar">Ver Siguiente</button>
+         <!-- <button @click="this.cambiar">Ver A</button> -->
 
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
@@ -119,7 +121,9 @@
                 imagen: "",
                 imagen_miniatura: "",
                 estado: 0,
-                actualizando: false
+                actualizando: false,
+                perfiles: [],
+                i: 0
             };
         },
         beforeMount() {
@@ -331,8 +335,12 @@
                 console.log(this.informacion);
             },
             cargarContrato() {
-                axios.get(`/api/empleado/${this.$route.params.id}`).then(res => {             
-                    this.usuario = res.data;
+                axios.get(`/api/empleado/${this.$route.params.id}`).then(res => {
+                    this.perfiles = res.data             
+                    this.usuario = res.data[0];
+
+                    console.log('look down')
+                    console.log(res.data)
                     this.usuario.c0540_fecha_nacimiento =  moment(this.usuario.c0540_fecha_nacimiento).format('ll');
                     this.usuario.c0540_fecha_exp_identif =  moment(this.usuario.c0540_fecha_exp_identif).format('ll');
                      this.usuario.c0550_fecha_ingreso =  moment(this.usuario.c0550_fecha_ingreso).format('ll');
@@ -345,6 +353,18 @@
                 
                     console.log(res.data);
                 });
+            },
+            cambiar(){ 
+                this.i++
+                this.usuario = this.perfiles[this.i]
+                this.usuario.c0540_fecha_nacimiento =  moment(this.usuario.c0540_fecha_nacimiento).format('ll');
+                    this.usuario.c0540_fecha_exp_identif =  moment(this.usuario.c0540_fecha_exp_identif).format('ll');
+                     this.usuario.c0550_fecha_ingreso =  moment(this.usuario.c0550_fecha_ingreso).format('ll');
+                     if(this.usuario.c0550_fecha_contrato_hasta != null){
+                         this.usuario.c0550_fecha_contrato_hasta =  moment(this.usuario.c0550_fecha_contrato_hasta).format('ll');}
+                    else{
+                        this.usuario.c0550_fecha_contrato_hasta = 'Fecha Indefinida'
+                    }
             },
             validarCampos() {
                 

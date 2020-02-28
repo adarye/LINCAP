@@ -1,41 +1,23 @@
 <template>
     <div>
-        <button type="button" class="btn btn-info mt-3">
-                <export-excel :data="mbuscar" :fields="campos">
-                    Download Data
-                </export-excel>
-            </button>
-        <modal name="campos" :clickToClose="false" :adaptive="true" :width="525" :height="425">
-            <div class="table-responsive-md table-responsive-sm table-wrapper-scroll-y my-custom-scrollbar">
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th scope="col" class="texto">Cargo</th>
 
-                            <th scope="col" class="texto">Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr v-for="(item, i) in activos[0]" :key="`o-${i}`">
-                            <th scope="row">{{ activos }}</th>
-                            <td>
-                                <input type="checkbox" name="eleccion"
-                                    @click="incluir(item.c0763_rowid, $event.target.checked)">
-                            </td>
-                        </tr>
+        <modal name="campos" :clickToClose="false" :adaptive="true" :width="250" :height="400">
+           
+            
+                <Excel v-on:filtrar="filtrar"></Excel>
 
-                    </tbody>
-                </table>
-            </div>
-            <button type="button" class="btn btn-info mt-3">
-                <export-excel :data="mbuscar">
-                    Download Data
-                </export-excel>
-                <li class="fa fa-filter"></li>
+         <div class="col-md-12  col-sm-8 form-group has-feedback">
+            <vue-excel-xlsx :sheetname="'sheetname'" class="btn btn-sm btn-info mt-3" :data="mbuscar" :columns="columns"
+                :filename="moment().format('L') + '-activos.xls' " title="Exportar">
+                <i class="fa fa-print"></i>
+            </vue-excel-xlsx>
+
+            <button type="button" title="Cerrar" class="btn btn-sm btn-danger mt-3"
+                @click="$modal.hide('campos'); columnas =[]">
+                <i class="fa fa-close"></i>
             </button>
-            <button type="button" class="btn btn-danger mt-3" @click="$modal.hide('campos');">
-                Cerrar
-            </button>
+         </div>
+                     
         </modal>
 
 
@@ -72,8 +54,13 @@
                         {{ item.f285_descripcion }}</option>
                 </select>
             </div>
-            <div class="col-md-6 mt-2 col-center has-feedback">
+            <div class="col-md-4 mt-2 col-center has-feedback">
                 <input type="text" v-model="bempleado" class="form-control" v-autofocus placeholder="Buscar" />
+            </div>
+            <div class="col-md-2">
+                <button title="Exportar" type="button" class="btn btn-success mt-3" @click="$modal.show('campos')">
+                    <i class="fa fa-file-excel-o"></i>
+                </button>
             </div>
             <span v-if="mostrar == 1"><input class="select mt-2" v-model="numero" /></span>
         </nav>
@@ -162,17 +149,10 @@
                 bempleado: '',
                 pagina: 1,
                 moment: moment,
-                campos:{
-                    'Cedula': 'c0541_id',
-                    'Nombre': 'c0541_nombres',
-                    'Apellido 1': 'c0541_apellido1',
-                    'Apellido 2': 'c0541_apellido2',
-                    'Cargo': 'c0763_descripcion',
-                    'Sede':'f285_descripcion',
-                    'Centro de Costo': 'f284_descripcion'
+                columns: [
 
-
-                }
+                ],
+                index: 0
             };
         },
         beforeMount() {
@@ -183,7 +163,8 @@
                 axios.get("/api/registros").then(res => {
                     this.activos = res.data;
                     console.log(this.activos);
-                    this.campos["ROWID"] = 'c0541_rowid'
+                    // this.campos["ROWID"] = 'c0541_rowid'
+
 
                 });
             } else {
@@ -192,6 +173,10 @@
             }
         },
         methods: {
+            fechaFormat(value) {
+                return moment(value).format('L')
+
+            },
             mostrarCaja: function () {
                 if (this.selectPag == 0) {
                     this.mostrar = 1
@@ -205,7 +190,35 @@
                     this.CO = res.data;
                     console.log(this.CO);
                 });
+            },
+            filtrar(item, e, campo) {
+                var index = -1
+                if (e == true) {
+                    if (item == 'Fecha de Ingreso' || item == 'Fecha de vencimiento del contrato') {
+                        this.columns.push({
+                            'label': item,
+                            'field': campo,
+                            'dataFormat': this.fechaFormat
+                        })
+                    } else {
+                        this.columns.push({
+                            'label': item,
+                            'field': campo
+                        })
+                    }
+                } else {
+                    this.columns.find(function (o, i) {
+                        if (item === o.label) {
+                            index = i
+
+                        }
+
+                    })
+                    this.columns.splice(index, 1)
+                }
+
             }
+
 
 
         },

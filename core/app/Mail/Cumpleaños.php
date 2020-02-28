@@ -20,7 +20,7 @@ class Cumpleaños extends Mailable
     public function __construct($empleado)
     {
         $this->empleado = $empleado;
-        Mailable::subject('Feliz Cumpleaños');
+        Mailable::subject('Un día muy especial');
     }
 
     /**

@@ -15,8 +15,9 @@
             <div class=" pull-left">
                 Noticias
             </div>
-            <div class="col-md-4 col-center col-sm-2">
-                <select v-model="select" class="form-control">
+              <div class="col-md-1"> <span class="icon pull-right"><i class="fa fa-building"></i></span></div>
+            <div class="col-md-3 col-sm-2">
+                <select v-model="select" class="form-control pull-left">
                     <option value="SELECCIONAR CATEGORIA">SELECCIONAR CATEGORIA</option>
                     <option value="1">NORMAL</option>
                     <option value="2">IMPORTANTE</option>
@@ -25,9 +26,9 @@
 
                 </select>
             </div>
-            
-            <div class="col-md-5  has-feedback mt-2">
-                <input type="text" v-model="bnoticia" class="form-control" v-autofocus placeholder="Buscar noticia" />
+            <div class="col-md-1"> <span class="icon pull-right"><i class="fa fa-search"></i></span></div>
+            <div class="col-md-4  has-feedback mt-2">
+                <input type="text" v-model="bnoticia" class="form-control pull-left" v-autofocus placeholder="Buscar noticia" />
             </div>
             
             <span v-if="mostrar == 1"><input class="select mt-2" v-model="numero" /></span>

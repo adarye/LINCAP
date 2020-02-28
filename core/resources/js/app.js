@@ -32,6 +32,10 @@ import excel from 'vue-excel-export'
 
 Vue.use(excel)
 
+import VueExcelXlsx from "vue-excel-xlsx";
+Vue.use(VueExcelXlsx);
+
+
 
 
 
@@ -71,6 +75,10 @@ Vue.component('BodyNoticias', BodyNoticias)
 
 import CuadroEstadistico from './components/gestion_pruebas/CuadroEstadistico'
 Vue.component('CuadroEstadistico', CuadroEstadistico)
+
+import Excel from './components/empleados/Excel'
+Vue.component('Excel', Excel)
+
 
 
 import autofocus from "vue-autofocus-directive";

@@ -379,7 +379,7 @@ class TercerosmmController extends Controller
             ->where('c0550_ind_estado', $estado)
             ->where('f200_rowid', $id)
             ->where('f013_id_depto', $id_depto->c0540_id_depto_exp_identif)
-            ->get()->last();
+            ->get();
 
             return $user;
             

@@ -29,8 +29,9 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-         $schedule->command('emp:contrato')->everyMinute();
-         $schedule->command('emp:cumpleaños')->everyMinute();
+         $schedule->command('emp:contrato')->dailyAt('08:00');
+        //  $schedule->command('emp:cumpleaños')->dailyAt('08:00');
+        $schedule->command('emp:cumpleaños')->everyMinute();
       
     }
 

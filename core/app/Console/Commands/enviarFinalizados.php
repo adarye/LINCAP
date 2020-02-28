@@ -99,7 +99,7 @@ class enviarFinalizados extends Command
             ->get();
 
              if($empleados != '[]' ){
-                Mail::to('adavidparra0412@gmail.com')->send(new Diario($empleados,  $date_principio, $date_final));
+                Mail::to('sistemas@linco.com.co')->send(new Diario($empleados,  $date_principio, $date_final));
              }
         
     }

@@ -7,7 +7,7 @@
             <p class="titulo" id="e">
                 <b>Cordial saludo,</b>
             <br>
-         Estos contratos finalizaran el {{$date_principio->addDays(1)->format('d/m/Y') }}
+         A esto(s) empleados les diremos adiós dentro de 8 días
         </p>
             
             @foreach($empleados as $emp)
