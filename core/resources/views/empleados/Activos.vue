@@ -13,7 +13,7 @@
             </vue-excel-xlsx>
 
             <button type="button" title="Cerrar" class="btn btn-sm btn-danger mt-3"
-                @click="columns = 'dd'; $modal.hide('campos'); ">
+                @click="columns = []; $modal.hide('campos'); ">
                 <i class="fa fa-close"></i>
             </button>
          </div>
