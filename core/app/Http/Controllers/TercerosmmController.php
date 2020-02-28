@@ -40,7 +40,9 @@ class TercerosmmController extends Controller
             "c0541_apellido1",
             "c0541_nombres",
             'dbo.w0540_empleados.c0540_ind_sexo',
-            'dbo.w0540_empleados.c0540_rowid_tercero'
+            'dbo.w0540_empleados.c0540_rowid_tercero',
+            'c0540_id_nivel_educativo'
+            // 'c0702_descripcion'
 
         )->join(
             'dbo.t200_mm_terceros',
@@ -48,13 +50,26 @@ class TercerosmmController extends Controller
             '=',
             'dbo.t200_mm_terceros.f200_rowid_contacto'
 
-        )->join(
+        )
+        ->join(
+            // 'dbo.w0540_empleados',
+            'dbo.w0702_gh01_nivel_academico',
+            'dbo.w0540_empleados.c0540_rowid_nivel_educativo'
+            ,
+            '=',
+            'dbo.w0702_gh01_nivel_academico.c0702_rowid'
+            
+
+        )
+        ->join(
             'dbo.w0540_empleados',
             'dbo.t200_mm_terceros.f200_rowid',
             '=',
             'dbo.w0540_empleados.c0540_rowid_tercero'
 
-        )->join(
+        )
+        
+        ->join(
             'dbo.w0541_terceros_seleccion',
             'dbo.w0540_empleados.c0540_rowid_prospecto'
             ,
