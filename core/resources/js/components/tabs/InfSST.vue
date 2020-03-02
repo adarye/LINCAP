@@ -4,7 +4,7 @@
             <div class="form-row">
                         <div class="form-group col-md-6">
                             <label>Tipo de sangre</label>
-                            <input type="text" class="form-control" :disabled="validated_admin ? false : true" v-model="tipo_sangre"  />
+                            <input type="text" class="form-control" disabled v-model="tipo_sangre"  />
                         </div>
                         <div class="form-group col-md-6">
                             <label>Archivo de titulación de carné de vacunación <a v-show="empleado_info.cz9_archivo_titulacion != ''  "
