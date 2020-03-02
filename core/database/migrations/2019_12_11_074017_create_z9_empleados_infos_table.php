@@ -31,6 +31,19 @@ class CreateZ9EmpleadosInfosTable extends Migration
             $table->string('cz9_mail_corp')->nullable(true);
             $table->string('cz9_tel_corp')->nullable(true);
             $table->string('cz9_cel_corp')->nullable(true);
+            $table->text('cz9_premios')->nullable(true);
+
+            $table->date('cz9_fv_ta')->nullable(true);
+            $table->date('cz9_fv_bpm')->nullable(true);
+            $table->date('cz9_fv_md')->nullable(true);
+            $table->date('cz9_fv_carne_vacunacion')->nullable(true);
+            $table->date('cz9_fv_carne_alimentos')->nullable(true);
+
+            $table->string('cz9_archivo_titulacion')->nullable(true);
+            $table->string('cz9_archivo_vacunacion')->nullable(true);
+
+
+
             $table->Integer('cz9_id_empleado');
             $table->foreign('cz9_id_empleado')->references('c0540_rowid_tercero')->on('dbo.w0540_empleados')->onDelete('cascade');
             $table->timestamps();

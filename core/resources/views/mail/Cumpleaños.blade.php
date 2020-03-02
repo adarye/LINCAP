@@ -96,11 +96,11 @@ strong {
                                     <td>
                                         <table border="0" cellpadding="0" cellspacing="0" width="100%">
                                           <td style="text-align: justify; padding: 10px 0 0 0; color: #153643; font-family: Arial, sans-serif; font-size: 16px; line-height: 20px; font-style: oblique;">
-                                                                ¡Feliz cumpleaños!
-                                                                Que disfrutes de este día
+                                                                La familia LINCO desea
+                                                                que disfrutes de este día
                                                                 con ilusión y en compañía
                                                                 de las personas que más
-                                                                amas en el mundo.Que esta nueva etapa 
+                                                                amas en el mundo. Que esta nueva etapa 
                                                                 venga colmada de éxitos y bendiciones,
                                                                  y que la gracia de Dios se derrame sobre ti.
                                                             </td>

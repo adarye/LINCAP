@@ -174,7 +174,7 @@
         },
         methods: {
             fechaFormat(value) {
-                return moment(value).format('L')
+                return moment(value).format('l')
 
             },
             mostrarCaja: function () {
@@ -195,6 +195,7 @@
                 var index = -1
                 if (e == true) {
                     if (item == 'Fecha de Ingreso' || item == 'Fecha de vencimiento del contrato') {
+                        console.log('entro')
                         this.columns.push({
                             'label': item,
                             'field': campo,
