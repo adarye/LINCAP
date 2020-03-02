@@ -58,8 +58,7 @@
             <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
                 <InfSST
                     v-bind="{ empleado_info: empleado_info, validated:validated, validated_admin: validated_admin, tipo_sangre : tipo_sangre }"
-                    v-on:getFileTitulacion="getFileTitulacion" v-on:getFileVacunacion="getFileVacunacion"
-                    >
+                    v-on:getFileTitulacion="getFileTitulacion" v-on:getFileVacunacion="getFileVacunacion">
                 </InfSST>
             </div>
         </div>
@@ -184,7 +183,7 @@
             },
             getFileTitulacion(event) {
                 let file = event.target.files[0];
-               
+
 
                 if (!/\.(pdf)$/i.test(file.name)) {
                     swal(
@@ -204,14 +203,14 @@
                         this.estado2 = 0
                     } else {
                         this.estado2 = 1
-                         this.file_titulacion = file;
+                        this.file_titulacion = file;
                     }
                 }
 
             },
-             getFileVacunacion(event) {
+            getFileVacunacion(event) {
                 let file = event.target.files[0];
-               console.log(event)
+                console.log(event)
                 if (!/\.(pdf)$/i.test(file.name)) {
                     swal(
                         "Advertencia",
@@ -230,7 +229,7 @@
                         this.estado2 = 0
                     } else {
                         this.estado2 = 1
-                         this.file_vacunacion = file;
+                        this.file_vacunacion = file;
                     }
                 }
 
@@ -279,23 +278,44 @@
                     });
             },
             actualizar() {
-               let formData = new FormData();
-               formData.append("email", this.informacion.f015_email);
-               formData.append("telefono", this.informacion.f015_telefono);
-               formData.append("celular", this.informacion.f015_celular);
-               formData.append("direccion", this.informacion.f015_direccion1);
-               formData.append("barrio", this.informacion.f015_id_barrio);
-               formData.append("ciudad", this.informacion.f015_id_ciudad);
-               formData.append("familiar_linco", this.empleado_info.cz9_nombre_familiar  ? this.empleado_info.cz9_nombre_familiar:"");
-               formData.append("contacto", this.empleado_info.cz9_nombre_contacto);
+                let formData = new FormData();
+                formData.append("email", this.informacion.f015_email);
+                formData.append("telefono", this.informacion.f015_telefono);
+                formData.append("celular", this.informacion.f015_celular);
+                formData.append("direccion", this.informacion.f015_direccion1);
+                formData.append("barrio", this.informacion.f015_id_barrio);
+                formData.append("ciudad", this.informacion.f015_id_ciudad);
+                formData.append("familiar_linco", this.empleado_info.cz9_nombre_familiar ? this.empleado_info
+                    .cz9_nombre_familiar : "");
+                formData.append("contacto", this.empleado_info.cz9_nombre_contacto);
                 formData.append("con_num", this.empleado_info.cz9_tel_contacto);
                 formData.append("file_titulacion", this.file_titulacion);
                 formData.append("file_vacunacion", this.file_vacunacion);
+                formData.append("talla_uni", this.empleado_info.cz9_talla_uniforme);
+                formData.append("talla_cal", this.empleado_info.cz9_talla_calzado);
+                formData.append("email_corp", this.empleado_info.cz9_mail_corp);
+                formData.append("tel_corp", this.empleado_info.cz9_tel_corp);
+                formData.append("cel_corp", this.empleado_info.cz9_cel_corp);
+                formData.append("fecha_tpprueba", this.empleado_info.cz9_fecha_tpprueba);
+                formData.append("fecha_vacuna", this.empleado_info.cz9_fecha_vacuna);
+                formData.append("lugar_vacuna", this.empleado_info.cz9_lugar_vacuna);
+                formData.append("fecha_vacuna_tifoidea", this.empleado_info.cz9_fecha_vacuna_tifoidea);
+                formData.append("lugar_vacuna_tifoidea", this.empleado_info.cz9_lugar_vacuna_tifoidea);
+                formData.append("fecha_vacuna_toxoide", this.empleado_info.cz9_fecha_vacuna_toxoide);
+                formData.append("reentrenamiento", this.empleado_info.cz9_reentrenamiento);
+                formData.append("cz9_premios", this.empleado_info.cz9_premios);
+                formData.append("cz9_fv_ta", this.empleado_info.cz9_fv_ta);
+                 formData.append("cz9_fv_bpm", this.empleado_info.cz9_fv_bpm);
+                  formData.append("cz9_fv_md", this.empleado_info.cz9_fv_md);
+                   formData.append("cz9_fv_carne_vacunacion", this.empleado_info.cz9_fv_carne_vacunacion);
+                   formData.append("cz9_fv_carne_alimentos", this.empleado_info.cz9_fv_carne_alimentos);
+                   formData.append("cz9_archivo_titulacion", this.empleado_info.cz9_archivo_titulacion);
+                   formData.append("cz9_archivo_vacunacion", this.empleado_info.cz9_archivo_vacunacion);
 
 
 
                 const params = {
-                     
+
                     email: this.informacion.f015_email,
                     telefono: this.informacion.f015_telefono,
                     celular: this.informacion.f015_celular,
