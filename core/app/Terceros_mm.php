@@ -18,4 +18,8 @@ class Terceros_mm extends Model
    public function nota(){
     return $this->notas();
 }
+public function empleado_info()
+{
+    return $this->hasOne('App\z9_empleados_info', 'cz9_id_empleado');
+}
 }
