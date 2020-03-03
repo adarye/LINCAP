@@ -294,8 +294,8 @@ class TercerosmmController extends Controller
                 'cz9_fv_carne_alimentos',
                 'cz9_archivo_titulacion',
                 'cz9_archivo_vacunacion',
-                'cz9_id_vivienda',
-                'c0780_descripcion'
+                'cz9_id_vivienda'
+                ,'c0780_descripcion'
 
 
 
@@ -319,13 +319,15 @@ class TercerosmmController extends Controller
                 'dbo.w0541_terceros_seleccion.c0541_rowid'
                 
 
-            )->join(
+            )
+            ->join(
                 'w0780_gh01_clase_social',
                 'w0541_terceros_seleccion.c0541_rowid_clases_sociales',
                 '=',
                 'w0780_gh01_clase_social.c0780_rowid'
 
-            )->join(
+            )
+            ->join(
                 'dbo.w0550_contratos',
                 'dbo.w0540_empleados.c0540_rowid_tercero',
                 '=',
@@ -340,6 +342,8 @@ class TercerosmmController extends Controller
                 ->first();
 
             return $empleado;
+        }else{
+            return 'acceso denegado';
         }
     }
 

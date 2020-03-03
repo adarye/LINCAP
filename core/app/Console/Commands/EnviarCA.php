@@ -107,9 +107,9 @@ class EnviarCA extends Command
                 'cz9_fv_ta',  $fecha
             )->get();
              
-    //    if($empleados != '[]'){
+       if($empleados != '[]'){
         Mail::to('adavidparra0412@gmail.com')->send(new CursoAlturas($empleados, $fecha));
-    //    }
+    }
 
     }
 }

@@ -22,7 +22,7 @@ class CursoAlturas extends Mailable
     {
         $this->fecha = $fecha;
         $this->empleados = $empleados;
-        Mailable::subject('Proximos vencimientos del curso de alturas');
+        Mailable::subject('Proximos vencimientos del curso de altura');
     }
 
     /**

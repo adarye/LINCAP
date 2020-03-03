@@ -7,6 +7,9 @@ use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use Illuminate\Support\Facades\Mail;
 
+use App\Terceros;
+use App\Mail\CursoMD;
+
 class Kernel extends ConsoleKernel
 {
     /**
@@ -30,7 +33,13 @@ class Kernel extends ConsoleKernel
         $schedule->command('emp:cumpleaños')->dailyAt('08:00');
         $schedule->command('emp:CarneVacunacion')->monthlyOn(20, '08:00');
         $schedule->command('emp:CarneAlimentos')->monthlyOn(20, '08:00');
-        $schedule->command('emp:enviarCA')->everyMinute();
+        $schedule->command('emp:enviarCA')->dailyAt('08:00');
+         $schedule->command('emp:enviarMD')->dailyAt('08:00');
+         $schedule->command('emp:enviarBPM')->everyMinute();
+//         $schedule->call(function () {
+       
+// })->everyMinute();
+
        
     }
 

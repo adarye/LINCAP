@@ -155,13 +155,13 @@
         },
         beforeMount() {
             if (window.user.rol == 1 || window.user.rol == 2 || window.user.rol == 3) {
-                console.log(this.$route.params.id);
+               
             } else {
                 router.push('/empleado/' + window.user.id);
             }
             axios.get(`/api/empleado/show/${this.$route.params.id}`).then(res => {
                 this.informacion = res.data[0];
-                console.log(this.informacion);
+               
                 this.apellidos =
                     this.informacion.c0541_apellido1 +
                     " " +
@@ -182,7 +182,7 @@
                 axios.get('/api/viviendas')
                 .then(res=>{
                     this.viviendas = res.data
-                    console.log(res.data)
+                    
                 })
 
             },
@@ -192,7 +192,7 @@
 
             habilitarFormulario() {
                 this.validated = true;
-                console.log(window.user.rol)
+                
                 if (window.user.rol == 1 || window.user.rol == 2 || window.user.rol == 3) {
                     this.validated_admin = true;
                 }
@@ -227,7 +227,7 @@
             },
             getFileVacunacion(event) {
                 let file = event.target.files[0];
-                console.log(event)
+                
                 if (!/\.(pdf)$/i.test(file.name)) {
                     swal(
                         "Advertencia",
@@ -254,13 +254,15 @@
             desabilitarFormulario() {
                 this.validated = false;
                 this.validated_admin = false;
-                console.log(this.ciudad_seleccionada);
+               
             },
             traerEmpleadoInfo() {
                 axios
                     .get(`/api/empleado/informacion/${this.$route.params.id}`)
                     .then(res => {
+                        console.log(res.data)
                         if (res.data == "") {
+                            console.log("entre aqui ayudame bro")
                             this.empleado_info = {
                                 cz9_nombre_familiar: "",
                                 cz9_nombre_contacto: "",
@@ -370,14 +372,14 @@
                     cz9_archivo_titulacion: this.empleado_info.cz9_archivo_titulacion,
                     cz9_archivo_vacunacion: this.empleado_info.cz9_archivo_vacunacion
                 };
-                console.log(params);
-                console.log(this.informacion.c0540_rowid_tercero);
+               
+               
                 axios.post(
                         `/api/empleado/update/${this.informacion.c0540_rowid_tercero}`,
                         formData
                     )
                     .then(res => {
-                        console.log(res.data);
+                       
                         this.validated = false;
                         this.validated_admin = false;
                         swal("Registro actualizado", "Datos Correctos", "success");
@@ -495,7 +497,7 @@
                 if (this.estado != 0) {
                     let formData = new FormData();
                     formData.append("imagen", this.imagen);
-                    console.log(formData)
+                   
 
                     axios
                         .post(`/api/usuario/avatar/${this.$route.params.id}`, formData)
@@ -519,15 +521,14 @@
 
             cambiarBarrio(event) {
                 this.informacion.f015_id_barrio = event.target.value;
-                console.log(this.informacion);
+                
             },
             cargarContrato() {
                 axios.get(`/api/empleado/${this.$route.params.id}`).then(res => {
                     this.perfiles = res.data
                     this.usuario = res.data[0];
 
-                    console.log('look down')
-                    console.log(res.data)
+                  
                     this.usuario.c0540_fecha_nacimiento = moment(this.usuario.c0540_fecha_nacimiento).format(
                         'll');
                     this.usuario.c0540_fecha_exp_identif = moment(this.usuario.c0540_fecha_exp_identif).format(
@@ -548,7 +549,7 @@
 
 
 
-                    console.log(this.usuario.c0550_ind_termino_contrato);
+
                 });
             },
             cambiar() {
@@ -566,7 +567,7 @@
             },
             validarCampos() {
 
-                console.log(this.informacion.f015_email);
+               
                 if (this.informacion.f015_email == "") {
                     swal("Alerta", "El email es obligatorio", "warning");
                 } else if (this.informacion.f015_telefono == "") {
