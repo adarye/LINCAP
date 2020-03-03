@@ -62,18 +62,18 @@
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label>FV Curso de alturas</label>
-                    <input v-model="empleado_info.cz9_fv_ta" type="date" class="form-control" placeholder="Fecha de Vencimiento" :disabled="validated ? false : true"  v-uppercase  v-max-length="25"/>
+                    <input v-model="empleado_info.cz9_fv_ta" type="date" class="form-control" placeholder="Fecha de Vencimiento" :disabled="validated_admin ? false : true"  v-uppercase  v-max-length="25"/>
                 </div>
                 <div class="form-group col-md-6">
                     <label>FV de BPM</label>
-                    <input v-model="empleado_info.cz9_fv_bpm" type="date" class="form-control" placeholder="Fecha de Vencimiento" :disabled="validated ? false : true"  v-uppercase  v-max-length="25"/>
+                    <input v-model="empleado_info.cz9_fv_bpm" type="date" class="form-control" placeholder="Fecha de Vencimiento" :disabled="validated_admin ? false : true"  v-uppercase  v-max-length="25"/>
                 </div>
                 
             </div>
              <div class="form-row">
                 <div class="form-group col-md-6">
                     <label>FV Curso sobre manejo defensivo</label>
-                    <input v-model="empleado_info.cz9_fv_md" type="date" class="form-control" placeholder="Fecha de Vencimiento" :disabled="validated ? false : true"  v-uppercase  v-max-length="25"/>
+                    <input v-model="empleado_info.cz9_fv_md" type="date" class="form-control" placeholder="Fecha de Vencimiento" :disabled="validated_admin ? false : true"  v-uppercase  v-max-length="25"/>
                 </div>
                <div class="form-group col-md-6">
                     <label>Email Corporativo</label>
@@ -98,7 +98,7 @@
 </template>
 <script>
     export default {
-        props: ['informacion', 'usuario', 'validated', 'empleado_info', 'tipo_contrato'],
+        props: ['informacion', 'usuario', 'validated', 'empleado_info', 'tipo_contrato', 'validated_admin'],
         data(){
             return{
                

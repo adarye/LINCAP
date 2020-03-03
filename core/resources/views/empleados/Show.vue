@@ -54,7 +54,8 @@
                         usuario: usuario,
                         empleado_info: empleado_info,
                         validated: validated,
-                        tipo_contrato: tipo_contrato
+                        tipo_contrato: tipo_contrato,
+                        validated_admin: validated_admin
                     }"></InfCorporativa>
             </div>
             <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
