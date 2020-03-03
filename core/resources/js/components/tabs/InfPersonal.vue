@@ -72,7 +72,7 @@
                 </div>
                 <div class="form-group col-md-6">
                     <label>Estrato</label>
-                    <input v-model="informacion.c0541_rowid_clases_sociales" type="text" class="form-control" placeholder="Estrato" disabled v-uppercase v-numeric-only
+                    <input v-model="empleado_info.c0780_descripcion" type="text" class="form-control" placeholder="Estrato" disabled v-uppercase v-numeric-only
                         v-max-length="16" />
                 </div>
             </div>
@@ -84,7 +84,7 @@
                 </div>
                 <div class="form-group col-md-6">
                     <label>Tipo de vivienda:</label>
-                    <select v-model="vivienda" class="form-control" :disabled="validated ? false : true">
+                    <select v-model="empleado_info.cz9_id_vivienda" class="form-control" :disabled="validated ? false : true">
                         <option :value="item.c0706_rowid" v-for="(item, indice) in viviendas" :key="indice">{{item.c0706_descripcion}}</option>
                         
                     </select>

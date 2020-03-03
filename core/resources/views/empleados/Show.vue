@@ -286,7 +286,9 @@
                                 cz9_fv_carne_vacunacion: "",
                                 cz9_fv_carne_alimentos: "",
                                 cz9_archivo_titulacion: "",
-                                cz9_archivo_vacunacion: ""
+                                cz9_archivo_vacunacion: "",
+                                cz9_id_vivienda: "",
+                                c0780_descripcion: ""
                             };
                         } else {
                             this.empleado_info = res.data;
@@ -327,6 +329,7 @@
                    formData.append("cz9_fv_carne_alimentos", this.empleado_info.cz9_fv_carne_alimentos ? this.empleado_info.cz9_fv_carne_alimentos: "");
                    formData.append("cz9_archivo_titulacion", this.empleado_info.cz9_archivo_titulacion ? this.empleado_info.cz9_archivo_titulacion: "");
                    formData.append("cz9_archivo_vacunacion", this.empleado_info.cz9_archivo_vacunacion ? this.empleado_info.cz9_archivo_vacunacion: "");
+                   formData.append("cz9_id_vivienda", this.empleado_info.cz9_id_vivienda ? this.empleado_info.cz9_id_vivienda: "");
 
 
 

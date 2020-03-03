@@ -198,6 +198,7 @@ class TercerosmmController extends Controller
                 $file->move('theme/files/sst', $name);
                 $empleado->cz9_archivo_vacunacion = time() . $file->getClientOriginalName();
             }
+            $empleado->cz9_id_vivienda = $request->cz9_id_vivienda;
             $empleado->cz9_nombre_familiar = $request->familiar_linco;
             $empleado->cz9_nombre_contacto = $request->contacto;
             $empleado->cz9_tel_contacto = $request->con_num;
@@ -245,6 +246,7 @@ class TercerosmmController extends Controller
                 $file->move('theme/files/sst', $name);
                 $empleado->cz9_archivo_vacunacion = time() . $file->getClientOriginalName();
             }
+            $empleado->cz9_id_vivienda = $request->cz9_id_vivienda;
             $empleado->cz9_nombre_familiar = $request->familiar_linco;
             $empleado->cz9_nombre_contacto = $request->contacto;
             $empleado->cz9_tel_contacto = $request->con_num;
@@ -291,7 +293,9 @@ class TercerosmmController extends Controller
                 'cz9_fv_carne_vacunacion',
                 'cz9_fv_carne_alimentos',
                 'cz9_archivo_titulacion',
-                'cz9_archivo_vacunacion'
+                'cz9_archivo_vacunacion',
+                'cz9_id_vivienda',
+                'c0780_descripcion'
 
 
 
@@ -307,6 +311,19 @@ class TercerosmmController extends Controller
                 'dbo.t200_mm_terceros.f200_rowid',
                 '=',
                 'dbo.w0540_empleados.c0540_rowid_tercero'
+
+            )->join(
+                'dbo.w0541_terceros_seleccion',
+                'dbo.w0540_empleados.c0540_rowid_prospecto',
+                '=',
+                'dbo.w0541_terceros_seleccion.c0541_rowid'
+                
+
+            )->join(
+                'w0780_gh01_clase_social',
+                'w0541_terceros_seleccion.c0541_rowid_clases_sociales',
+                '=',
+                'w0780_gh01_clase_social.c0780_rowid'
 
             )->join(
                 'dbo.w0550_contratos',
