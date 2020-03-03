@@ -1,14 +1,14 @@
 <?php
 
 namespace App\Console;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Mail;
-use App\Mail\Diario;
-use App\Mail\Cumpleaños;
-use App\Terceros;
+
+
+use App\z9_empleados_info;
 use Carbon\Carbon;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use Illuminate\Support\Facades\Mail;
+
 
 class Kernel extends ConsoleKernel
 {
@@ -29,10 +29,13 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-         $schedule->command('emp:contrato')->dailyAt('08:00');
-         $schedule->command('emp:cumpleaños')->dailyAt('08:00');
-        // $schedule->command('emp:cumpleaños')->everyMinute();
-      
+        $schedule->command('emp:contrato')->dailyAt('08:00');
+        $schedule->command('emp:cumpleaños')->dailyAt('08:00');
+        $schedule->command('emp:CarneVacunacion')->monthlyOn(4, '08:00');
+        $schedule->command('emp:CarneAlimentos')->everyMinute();
+
+     
+
     }
 
     /**
@@ -42,7 +45,7 @@ class Kernel extends ConsoleKernel
      */
     protected function commands()
     {
-        $this->load(__DIR__.'/Commands');
+        $this->load(__DIR__ . '/Commands');
 
         require base_path('routes/console.php');
     }
