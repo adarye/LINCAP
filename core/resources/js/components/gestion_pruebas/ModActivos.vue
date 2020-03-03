@@ -21,8 +21,8 @@
 
         <nav class="navbar navbar-light bg-light my-2">
             <div v-if="id_creador == id_log" class="col-md-2 col-center has-feedback">
-                <button type="button" class="btn btn-primary" @click="guardarTodos(mbuscar)">Todos</button>
-                <button type="button" class="btn btn-danger" @click="quitarTodos(mbuscar)">Quitar</button>
+                <button type="button" class="btn btn-primary" @click="guardarTodos(mbuscar)" title="Asignar a todos"><i class="fa fa-users"></i></button>
+                <button type="button" class="btn btn-danger" @click="quitarTodos(mbuscar)" title="Quitar a todos"><i class="fa fa-users"></i></button>
             </div>
             <div class="col-md-3 col-center col-sm-2  has-feedback">
                 <select v-model="selectEM" class="form-control">
@@ -38,8 +38,14 @@
                         {{ item.f285_descripcion }}</option>
                 </select>
             </div>
-            <div class="col-md-3 col-center has-feedback">
+            <div class="col-md-2 col-center has-feedback">
                 <input type="text" v-model="bempleado" class="form-control" v-autofocus placeholder="Buscar" />
+            </div>
+            <div class="col-md-1  col-sm-1 form-group has-feedback">
+            <vue-excel-xlsx :sheetname="'sheetname'" class="btn btn-sm btn-info mt-3" :data="mbuscar" :columns="columns"
+                :filename="titulo + '-resultados.xls' " title="Exportar">
+                <i class="fa fa-print"></i>
+            </vue-excel-xlsx>
             </div>
             <span v-if="mostrar == 1"><input class="select mt-2" v-model="numero" /></span>
         </nav>
@@ -71,6 +77,7 @@
                         <td>{{ item.f285_descripcion }}</td>
                         <td>{{ item.c0763_descripcion }}</td>
                         <td v-if=" item.nota.length >= 1 && item.nota[0].cz4_calificacion != null">{{ moment(item.nota[0].cz4_fecha_finalizacion).format('LLLL')}}</td>
+                        <td v-else-if="$route.params.cat == 1 && item.nota.length >= 1 && item.nota[0].cz4_fecha_finalizacion != null">{{ moment(item.nota[0].cz4_fecha_finalizacion).format('LLLL')}}</td>
                         <td v-else></td>
                          <td v-show="$route.params.cat == 2"><h4><span v-if="item.nota.length >= 1 && item.nota[0].cz4_calificacion != null " :class="item.nota[0].cz4_calificacion < 3.5 ? 'badge badge-danger':'badge badge-success'">{{Math.round(item.nota[0].cz4_calificacion * 100) / 100}}</span></h4></td> 
                        
@@ -156,7 +163,54 @@
                 titulo: "",
                 id_creador: null,
                 id_log : null,
-                rol: null
+                rol: null,
+                columns:[
+                    {
+                        label: "Cedula",
+                        field: "c0541_id"
+                    },
+                    {
+                        label: "Nombre(s)",
+                        field: "c0541_nombres"
+                    },
+                    {
+                        label: "Apellido 1",
+                        field: "c0541_apellido1"
+                    },
+                    {
+                        label: "Apellido 2",
+                        field: "c0541_apellido2"
+                    },
+                     {
+                        label: "Cargo",
+                        field: "c0763_descripcion"
+                    },
+
+                    {
+                        label: "Centro de operacion",
+                        field: "f285_descripcion"
+                    },
+                    {
+                        label: "Fecha de ingreso",
+                        field: "c0550_fecha_ingreso",
+                        dataFormat: this.fechaFormat2
+                    },
+                     {
+                        label: "Fecha de terminacion del contrato",
+                        field: "c0550_fecha_contrato_hasta",
+                         dataFormat: this.fechaFormat2
+                    },
+                     {
+                        label: "Fecha de realizacion",
+                        field: "nota",
+                        dataFormat: this.fechaFormat
+                    },
+                      {
+                        label: "Nota",
+                        field: "nota",
+                        dataFormat: this.notaFormat
+                    }
+                ]
             };
         },
         mounted() {
@@ -167,6 +221,38 @@
             this.buscar()
         },
         methods: {
+            notaFormat(value){
+                 if(value.length > 0 && value[0].cz4_calificacion != null){ 
+                   return Math.round(value[0].cz4_calificacion * 100) / 100
+               }
+               else{
+                   return ""
+               }
+            },
+            fechaFormat2(value){
+                 if(value != null){
+               var fecha = new Date(value)
+                   var fecha_format = fecha.setDate(fecha.getDate() + 1);
+ 
+                   console.log(new Date(fecha_format))
+                   return new Date(fecha_format)
+               }
+               else{
+                   return "Indefinida"
+               }
+
+            },
+            fechaFormat(value){
+                console.log(value)
+                 if(value.length > 0 && value[0].cz4_fecha_finalizacion != null){ 
+                   return new Date(value[0].cz4_fecha_finalizacion)
+               }
+               else{
+                   return ""
+               }
+               
+
+            },
             mostrarCaja: function () {
                 if (this.selectPag == 0) {
                     this.mostrar = 1

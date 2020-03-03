@@ -134,3 +134,8 @@
 .alert-color {
     background-color: #1d3e70;
 }
+
+.anyClass {
+    height: 250px;
+    overflow-y: scroll;
+}
