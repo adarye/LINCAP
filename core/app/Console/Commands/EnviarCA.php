@@ -1,8 +1,11 @@
 <?php
 
 namespace App\Console\Commands;
-
+use Carbon\Carbon;
+use App\Terceros;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Console\Command;
+use App\Mail\CursoAlturas;
 
 class EnviarCA extends Command
 {
@@ -37,7 +40,8 @@ class EnviarCA extends Command
      */
     public function handle()
     {
-        $fecha =new Carbon().addDays(2);
+        $time =new Carbon();
+        $fecha = $time->addDays(7);
        
         
         $fecha = $fecha->format('Y-m-d');
@@ -99,15 +103,13 @@ class EnviarCA extends Command
 
          )
             ->where('c0550_ind_estado', '1')
-
             ->where(
-                'cz9_fv_carne_alimentos', '>=',  $fecha
-            )
-            ->where('cz9_fv_carne_alimentos', '<=', $fecha2 )
-            ->get();
+                'cz9_fv_ta',  $fecha
+            )->get();
              
-       if($empleados != '[]'){
-        Mail::to('adavidparra0412@gmail.com')->send(new CarneAlimentos($empleados, $fecha, $fecha2));
-       }
+    //    if($empleados != '[]'){
+        Mail::to('adavidparra0412@gmail.com')->send(new CursoAlturas($empleados, $fecha));
+    //    }
+
     }
 }

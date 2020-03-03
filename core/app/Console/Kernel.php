@@ -2,13 +2,10 @@
 
 namespace App\Console;
 
-
-use App\z9_empleados_info;
 use Carbon\Carbon;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use Illuminate\Support\Facades\Mail;
-
 
 class Kernel extends ConsoleKernel
 {
@@ -31,11 +28,10 @@ class Kernel extends ConsoleKernel
     {
         $schedule->command('emp:contrato')->dailyAt('08:00');
         $schedule->command('emp:cumpleaños')->dailyAt('08:00');
-        $schedule->command('emp:CarneVacunacion')->monthlyOn(4, '08:00');
-        $schedule->command('emp:CarneAlimentos')->everyMinute();
-
-     
-
+        $schedule->command('emp:CarneVacunacion')->monthlyOn(20, '08:00');
+        $schedule->command('emp:CarneAlimentos')->monthlyOn(20, '08:00');
+        $schedule->command('emp:enviarCA')->everyMinute();
+       
     }
 
     /**
