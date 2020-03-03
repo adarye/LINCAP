@@ -51,6 +51,8 @@ class AsignacionController extends Controller
                 ->where('dbo.z1_usuarios.cz1_id_empleado', $request->id)
                 ->first();
 
+                
+
             if ($user_email->f015_email == null) {
                 return response()->json(['error' => '', 'mensaje' => 'No tiene un correo electrónico registrado']);
             } else {

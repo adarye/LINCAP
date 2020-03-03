@@ -1,5 +1,6 @@
 <template>
     <div>
+      
         <h4 class="display-5 titulo mb-3" v-show="resRA.length">Preguntas con respuesta abierta</h4>
         <article v-for="(dato, i) in resRA" :key="`A-${i}`">
             <div class="row mt-2">
@@ -58,6 +59,9 @@
                 <div class="col-md-2">
                     <button @click="editar(item3)" class="fa fa-pencil float-right btn-sm btn-primary" />
                     <button @click="eliminar(item3.cz5_id)" class="fa fa-trash float-right btn-sm btn-danger" />
+                </div>
+                <div class="col-md-12 mb-2">
+                   <p style="font-size: 12px; font-style: italic;">(Seleccione  {{item3.cz5_n_rtas_correctas}})</p>
                 </div>
             </div>
              <div class="row">

@@ -103,6 +103,9 @@
                 <div class="col-md-12">
                     <p class="lead">{{  item3.cz5_pregunta }}</p>
                 </div>
+                  <div class="col-md-12 mb-2">
+                   <p style="font-size: 12px; font-style: italic;">(Posibles respuestas:  {{item3.cz5_n_rtas_correctas}})</p>
+                </div>
             </div>
             <div class="row">
             <div class="col-md-12" v-if="inputs[indice]">
