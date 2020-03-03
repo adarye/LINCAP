@@ -174,7 +174,9 @@
         },
         methods: {
             fechaFormat(value) {
-                return moment(value).format('l')
+                // return  moment(value).format('YYYY') 
+                return new Date(value)
+                
 
             },
             mostrarCaja: function () {
