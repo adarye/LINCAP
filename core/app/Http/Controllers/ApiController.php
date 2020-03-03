@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Gate;
+use App\w0706_gh01_tipos_vivienda;
 
 
 class ApiController extends Controller
@@ -306,6 +307,10 @@ class ApiController extends Controller
 
     public function getCo(){
         return t285_co_centro_op::all();
+    }
+    public function getViviendas(){
+        return w0706_gh01_tipos_vivienda::all();
+
     }
 
 }

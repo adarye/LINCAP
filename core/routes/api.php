@@ -55,11 +55,14 @@ Route::get('empleado/{id}', 'TercerosmmController@traerEmpleados');
 Route::get('empleado/informacion/{id}', 'TercerosmmController@traerEmpleadoInfo');
  
 
-//CIUDADES Y BARRIOS
+//CIUDADES  Y BARRIOS
 
 Route::get('ciudad', 'UbicacionController@cargarCiudades');
 Route::get('barrios/{id}', 'UbicacionController@cargarBarrios');
 
+//TIPOS DE VIVIENDA
+
+Route::get('viviendas', 'ApiController@getViviendas');
 
 //CENTRO DE OPERACIONES
 Route::get('getCO', 'ApiController@getCO');

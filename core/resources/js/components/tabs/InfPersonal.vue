@@ -84,12 +84,13 @@
                 </div>
                 <div class="form-group col-md-6">
                     <label>Tipo de vivienda:</label>
-                    <select class="form-control" :disabled="validated ? false : true">
-                        <option>...</option>
-                        <option>Tipo de vivienda</option>
+                    <select v-model="vivienda" class="form-control" :disabled="validated ? false : true">
+                        <option :value="item.c0706_rowid" v-for="(item, indice) in viviendas" :key="indice">{{item.c0706_descripcion}}</option>
+                        
                     </select>
                 </div>
             </div>
+            
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label>Estado civil</label>
@@ -210,7 +211,7 @@ import moment from "moment";
     moment.locale("es");
     export default {
         props: ['informacion', 'usuario', 'apellidos', 'ciudades', 'barrios', 'validated', 'empleado_info', 'sexo',
-            'validated_admin', 'getImage', 'estado_civil'
+            'validated_admin', 'getImage', 'estado_civil', 'viviendas', 'vivienda'
         ],
 
         data() {

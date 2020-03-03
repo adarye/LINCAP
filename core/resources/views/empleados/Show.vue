@@ -42,8 +42,10 @@
                         empleado_info: empleado_info,
                         sexo: sexo,
                         estado_civil: estado_civil,
-                        validated_admin: validated_admin
-                    }" v-on:cargarBarrios="cargarBarrios" v-on:cambiarBarrio="cambiarBarrio" v-on:getImage="getImage">
+                        validated_admin: validated_admin,
+                        viviendas: viviendas,
+                        vivienda: vivienda
+                    }" v-on:cargarBarrios="cargarBarrios" v-on:changeVivienda="changeVivienda" v-on:cambiarBarrio="cambiarBarrio" v-on:getImage="getImage">
                 </infPersonal>
             </div>
             <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
@@ -146,7 +148,9 @@
                 tipo_sangre: "",
                 file_titulacion: "",
                 file_vacunacion: "",
-                estado2: ""
+                estado2: "",
+                viviendas: [],
+                vivienda: ""
             };
         },
         beforeMount() {
@@ -169,10 +173,23 @@
             this.cargarContrato();
             this.cargarCiudades();
             this.traerEmpleadoInfo()
+            this.cargarViviendas()
 
         },
 
         methods: {
+            cargarViviendas(){
+                axios.get('/api/viviendas')
+                .then(res=>{
+                    this.viviendas = res.data
+                    console.log(res.data)
+                })
+
+            },
+            changeVivienda(vivienda){
+                this.vivienda = vivienda
+            },
+
             habilitarFormulario() {
                 this.validated = true;
                 console.log(window.user.rol)

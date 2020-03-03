@@ -175,7 +175,18 @@
         methods: {
             fechaFormat(value) {
                 // return  moment(value).format('YYYY') 
-                return new Date(value)
+               
+               if(value != null){
+               var fechai = new Date(value)
+                   var h = fechai.setDate(fechai.getDate() + 1);
+ 
+                   console.log(new Date(h))
+                   return new Date(h)
+               }
+               else{
+                   return "Indefinida"
+               }
+               
                 
 
             },
