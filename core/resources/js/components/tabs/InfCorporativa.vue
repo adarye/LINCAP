@@ -92,6 +92,15 @@
                 </div>
                 
             </div>
+             <div class="form-row col-md-6">
+                   <label>Premios</label>
+                 <textarea rows="4" cols="50" type="text" class="form-control"
+                        :disabled="validated_admin ? false : true" v-model="empleado_info.cz9_premios"
+                        v-uppercase v-max-length="4500">
+                    </textarea>
+                
+                
+            </div>
             <!-- <p>Fecha de Ingreso: {{  moment(usuario.c0550_fecha_ingreso, "YYYY-MM-DD").format("ll")  }}</p> -->
         </form>
     </div>

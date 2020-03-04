@@ -1,8 +1,6 @@
 <template>
     <div>
         <vue-headful title="Lincap | Actualizar datos" />
-        <button @click="this.cambiar">Ver Siguiente</button>
-        <!-- <button @click="this.cambiar">Ver A</button> -->
 
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">

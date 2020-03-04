@@ -180,6 +180,7 @@ class TercerosmmController extends Controller
                 $empleado->cz9_fv_ta = $request->cz9_fv_ta;
                 $empleado->cz9_fv_bpm = $request->cz9_fv_bpm;
                 $empleado->cz9_fv_md = $request->cz9_fv_md;
+                $empleado->cz9_premios = $request->cz9_premios;
                 $empleado->cz9_fv_carne_vacunacion = $request->cz9_fv_carne_vacunacion;
                 $empleado->cz9_fv_carne_alimentos = $request->cz9_fv_carne_alimentos;
                
@@ -228,6 +229,7 @@ class TercerosmmController extends Controller
                 $empleado->cz9_fv_ta = $request->cz9_fv_ta;
                 $empleado->cz9_fv_bpm = $request->cz9_fv_bpm;
                 $empleado->cz9_fv_md = $request->cz9_fv_md;
+                $empleado->cz9_premios = $request->cz9_premios;
                 $empleado->cz9_fv_carne_vacunacion = $request->cz9_fv_carne_vacunacion;
                 $empleado->cz9_fv_carne_alimentos = $request->cz9_fv_carne_alimentos;
                 
@@ -295,7 +297,8 @@ class TercerosmmController extends Controller
                 'cz9_archivo_titulacion',
                 'cz9_archivo_vacunacion',
                 'cz9_id_vivienda'
-                ,'c0780_descripcion'
+                ,'c0780_descripcion',
+                'cz9_premios'
 
 
 
