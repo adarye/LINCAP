@@ -1,6 +1,44 @@
 <template>
     <div>
 
+        <modal name="cargos" :clickToClose="false" :adaptive="true" :width="525" :height="380">
+            <div class="table-responsive-md table-responsive-sm table-wrapper-scroll-y my-custom-scrollbar">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col" class="texto">Cargo</th>
+
+                            <th scope="col" class="texto">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="(item, i) in cargos" :key="`o-${i}`">
+
+
+                            <th scope="row">{{ item.c0763_descripcion }}</th>
+
+
+                            <td>
+
+                                <input type="checkbox" name="eleccion"
+                                    :checked="cargos_filtro.filter(id => id == item.c0763_rowid ) != ''"
+                                    @click="incluir(item.c0763_rowid, $event.target.checked)">
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+          <div class="col-md-12">
+               <button type="button" class="btn btn-danger mt-3" @click="cargos_filtro = [];">
+                <i class=" fa fa-refresh" title="Quitar filtro"></i>
+            </button>
+            <button type="button" class="btn btn-warning mt-3" @click="$modal.hide('cargos');">
+                <i class="fa fa-close" title="Cerrar"></i>
+            </button>
+          </div>
+        </modal>
+
         <modal name="campos" :clickToClose="false" :adaptive="true" :width="250" :height="400">
 
 
@@ -54,14 +92,19 @@
                         {{ item.f285_descripcion }}</option>
                 </select>
             </div>
-            <div class="col-md-4 mt-2 col-center has-feedback">
+            <div class="col-md-4 mt-1 col-center has-feedback">
                 <input type="text" v-model="bempleado" class="form-control" v-autofocus placeholder="Buscar" />
             </div>
-            <div class="col-md-2">
-                <button title="Exportar" type="button" class="btn btn-success mt-3" @click="$modal.show('campos')">
+            <div class="col-md-2 mt-1">
+                <button title="Exportar" type="button" class=" btn btn-success" @click="$modal.show('campos')">
                     <i class="fa fa-file-excel-o"></i>
                 </button>
+                <button class="btn btn-primary" @click="$modal.show('cargos')" title="Filtrar por cargos">
+                    <i class="fa fa-filter"></i>
+                </button>
             </div>
+           
+           
             <span v-if="mostrar == 1"><input class="select mt-2" v-model="numero" /></span>
         </nav>
 
@@ -146,12 +189,12 @@
                 selectCO: 'co',
                 numero: 25,
                 mostrar: 0,
-                bempleado: '',
+                bempleado: "",
                 pagina: 1,
                 moment: moment,
-                columns: [
-
-                ],
+                columns: [],
+                cargos: [],
+                cargos_filtro: [],
                 index: 0
             };
         },
@@ -160,12 +203,10 @@
             if (window.user.rol == 1 || window.user.rol == 2 || window.user.rol == 3) {
 
                 this.getCO();
+                this.buscarCargos();
                 axios.get("/api/registros").then(res => {
                     this.activos = res.data;
                     console.log(this.activos);
-                    // this.campos["ROWID"] = 'c0541_rowid'
-
-
                 });
             } else {
                 router.push('/');
@@ -186,8 +227,28 @@
                     return "Indefinida"
                 }
 
+            },
+            buscarCargos() {
+                axios.get('/api/estadistica/cargar/cargos')
+                    .then(res => {
+                        this.cargos = res.data
 
+                    })
 
+            },
+            incluir(id, event) {
+                if (event == true) {
+                    this.cargos_filtro.push(id)
+                } else if (event == false) {
+
+                    for (var i = 0; i < this.cargos_filtro.length; i++) {
+                        if (this.cargos_filtro[i] === id) {
+                            this.cargos_filtro.splice(i, 1);
+                        }
+                    }
+
+                }
+                console.log(this.cargos_filtro)
             },
             mostrarCaja: function () {
                 if (this.selectPag == 0) {
@@ -203,7 +264,7 @@
                     console.log(this.CO);
                 });
             },
-            
+
             filtrar(item, e, campo, nombre_tabla, isDate) {
                 var index = -1
                 if (e == true) {
@@ -221,18 +282,17 @@
                             'label': item,
                             'field': campo,
                             'dataFormat': function (campo) {
-                                if(campo != null  ){
-                                 if(isDate != ''){
-                                      var fecha = new Date(campo[nombre_tabla])
-                                      var fecha_c = fecha.setDate(fecha.getDate() + 1);
+                                if (campo != null) {
+                                    if (isDate != '') {
+                                        var fecha = new Date(campo[nombre_tabla])
+                                        var fecha_c = fecha.setDate(fecha.getDate() + 1);
 
-                                     return new Date(fecha_c) 
-                                 }
-                                 else{
-                                 console.log(campo[nombre_tabla])
-                                 return campo[nombre_tabla];
-                                 }
-                                 
+                                        return new Date(fecha_c)
+                                    } else {
+                                        console.log(campo[nombre_tabla])
+                                        return campo[nombre_tabla];
+                                    }
+
                                 }
                             }
 
@@ -266,13 +326,64 @@
 
                 return this.activos.filter((activo) => {
                     this.pagina = 1
-                    if (this.selectCO == null || this.selectCO == 'co') {
+                    if (this.selectCO == null || this.selectCO == 'co' && this.cargos_filtro.length == 0) {
                         const nombre_completo = activo.c0541_nombres + ' ' + activo.c0541_apellido1 + ' ' +
                             activo.c0541_apellido2
 
                         return activo.c0541_id.toUpperCase().includes(this.bempleado.toUpperCase()) ||
                             nombre_completo.toUpperCase().includes(this.bempleado.toUpperCase()) ||
                             activo.c0763_descripcion.toUpperCase().includes(this.bempleado.toUpperCase())
+
+                    } else if (this.cargos_filtro.length > 0 && this.selectCO != 'co') {
+                        const nombre_completo =
+                            activo.c0541_nombres +
+                            " " +
+                            activo.c0541_apellido1 +
+                            " " +
+                            activo.c0541_apellido2;
+                        return ((activo.f285_id.includes(this.selectCO) && this.cargos_filtro.filter(a =>
+                                    a == activo
+                                    .c0550_rowid_cargo) != '' &&
+                                nombre_completo
+                                .toUpperCase()
+                                .includes(this.bempleado.toUpperCase())) ||
+                            (activo.f285_id.includes(this.selectCO) && this.cargos_filtro.filter(a =>
+                                    a == activo
+                                    .c0550_rowid_cargo) != '' &&
+                                activo.c0541_id
+                                .toUpperCase()
+                                .includes(this.bempleado.toUpperCase())) ||
+                            (activo.f285_id.includes(this.selectCO) && this.cargos_filtro.filter(a =>
+                                    a == activo
+                                    .c0550_rowid_cargo) != '' &&
+                                activo.c0763_descripcion
+                                .toUpperCase()
+                                .includes(this.bempleado.toUpperCase()))
+                        )
+
+                    } else if (this.cargos_filtro.length > 0) {
+                        const nombre_completo =
+                            activo.c0541_nombres +
+                            " " +
+                            activo.c0541_apellido1 +
+                            " " +
+                            activo.c0541_apellido2;
+                        return ((this.cargos_filtro.filter(a => a == activo
+                                    .c0550_rowid_cargo) != '' &&
+                                nombre_completo
+                                .toUpperCase()
+                                .includes(this.bempleado.toUpperCase())) ||
+                            (this.cargos_filtro.filter(a => a == activo
+                                    .c0550_rowid_cargo) != '' &&
+                                activo.c0541_id
+                                .toUpperCase()
+                                .includes(this.bempleado.toUpperCase())) ||
+                            (this.cargos_filtro.filter(a => a == activo
+                                    .c0550_rowid_cargo) != '' &&
+                                activo.c0763_descripcion
+                                .toUpperCase()
+                                .includes(this.bempleado.toUpperCase()))
+                        )
 
                     } else {
                         const nombre_completo =

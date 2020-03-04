@@ -490,7 +490,9 @@ class TercerosmmController extends Controller
                 ->where('f013_id_depto', $id_depto->c0540_id_depto_exp_identif)
                 ->get();
 
-            return $user;
+                $results = $user->last();
+
+            return $results;
 
         }
     }
