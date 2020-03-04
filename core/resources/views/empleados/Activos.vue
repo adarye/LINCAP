@@ -2,22 +2,22 @@
     <div>
 
         <modal name="campos" :clickToClose="false" :adaptive="true" :width="250" :height="400">
-           
-            
-                <Excel v-on:filtrar="filtrar"></Excel>
 
-         <div class="col-md-12  col-sm-8 form-group has-feedback">
-            <vue-excel-xlsx :sheetname="'sheetname'" class="btn btn-sm btn-info mt-3" :data="mbuscar" :columns="columns"
-                :filename="moment().format('L') + '-activos.xls' " title="Exportar">
-                <i class="fa fa-print"></i>
-            </vue-excel-xlsx>
 
-            <button type="button" title="Cerrar" class="btn btn-sm btn-danger mt-3"
-                @click="columns = []; $modal.hide('campos'); ">
-                <i class="fa fa-close"></i>
-            </button>
-         </div>
-                     
+            <Excel v-on:filtrar="filtrar"></Excel>
+
+            <div class="col-md-12  col-sm-8 form-group has-feedback">
+                <vue-excel-xlsx :sheetname="'sheetname'" class="btn btn-sm btn-info mt-3" :data="mbuscar"
+                    :columns="columns" :filename="moment().format('L') + '-activos.xls' " title="Exportar">
+                    <i class="fa fa-print"></i>
+                </vue-excel-xlsx>
+
+                <button type="button" title="Cerrar" class="btn btn-sm btn-danger mt-3"
+                    @click="columns = []; $modal.hide('campos'); ">
+                    <i class="fa fa-close"></i>
+                </button>
+            </div>
+
         </modal>
 
 
@@ -175,19 +175,18 @@
         methods: {
             fechaFormat(value) {
                 // return  moment(value).format('YYYY') 
-               
-               if(value != null){
-               var fechai = new Date(value)
-                   var h = fechai.setDate(fechai.getDate() + 1);
- 
-                   console.log(new Date(h))
-                   return new Date(h)
-               }
-               else{
-                   return "Indefinida"
-               }
-               
-                
+
+                if (value != null) {
+                    var fechai = new Date(value)
+                    var h = fechai.setDate(fechai.getDate() + 1);
+
+                    console.log(new Date(h))
+                    return new Date(h)
+                } else {
+                    return "Indefinida"
+                }
+
+
 
             },
             mostrarCaja: function () {
@@ -204,16 +203,41 @@
                     console.log(this.CO);
                 });
             },
-            filtrar(item, e, campo) {
+            
+            filtrar(item, e, campo, nombre_tabla, isDate) {
                 var index = -1
                 if (e == true) {
-                    if (item == 'Fecha de Ingreso' || item == 'Fecha de vencimiento del contrato') {
+                    if (item == 'Fecha de Ingreso' || item == 'Fecha de vencimiento del contrato' && campo !=
+                        'empleado_info') {
                         console.log('entro')
                         this.columns.push({
                             'label': item,
                             'field': campo,
                             'dataFormat': this.fechaFormat
                         })
+                    } else if (campo == 'empleado_info') {
+                        console.log('entre2')
+                        this.columns.push({
+                            'label': item,
+                            'field': campo,
+                            'dataFormat': function (campo) {
+                                if(campo != null  ){
+                                 if(isDate != ''){
+                                      var fecha = new Date(campo[nombre_tabla])
+                                      var fecha_c = fecha.setDate(fecha.getDate() + 1);
+
+                                     return new Date(fecha_c) 
+                                 }
+                                 else{
+                                 console.log(campo[nombre_tabla])
+                                 return campo[nombre_tabla];
+                                 }
+                                 
+                                }
+                            }
+
+                        })
+
                     } else {
                         this.columns.push({
                             'label': item,
