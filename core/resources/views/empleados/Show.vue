@@ -60,7 +60,7 @@
             </div>
             <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
                 <InfSST
-                    v-bind="{ empleado_info: empleado_info, validated:validated, validated_admin: validated_admin, tipo_sangre : tipo_sangre }"
+                    v-bind="{ empleado_info: empleado_info, validated:validated, validated_admin: validated_admin, tipo_sangre : tipo_sangre, rol: rol }"
                     v-on:getFileTitulacion="getFileTitulacion" v-on:getFileVacunacion="getFileVacunacion">
                 </InfSST>
             </div>
@@ -151,10 +151,12 @@
                 file_vacunacion: "",
                 estado2: "",
                 viviendas: [],
-                vivienda: ""
+                vivienda: "",
+                rol: ""
             };
         },
         beforeMount() {
+            this.rol = window.user.rol
             if (window.user.rol == 1 || window.user.rol == 2 || window.user.rol == 3) {
                
             } else {
@@ -384,6 +386,7 @@
                         this.validated = false;
                         this.validated_admin = false;
                         swal("Registro actualizado", "Datos Correctos", "success");
+                         this.traerEmpleadoInfo()
                     });
 
             },

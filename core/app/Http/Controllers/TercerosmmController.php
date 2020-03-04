@@ -320,7 +320,7 @@ class TercerosmmController extends Controller
                 
 
             )
-            ->join(
+            ->leftjoin(
                 'w0780_gh01_clase_social',
                 'w0541_terceros_seleccion.c0541_rowid_clases_sociales',
                 '=',

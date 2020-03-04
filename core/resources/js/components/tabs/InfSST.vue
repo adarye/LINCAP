@@ -3,11 +3,11 @@
         <form class="my-2">
             <div class="form-row">
                         <div class="form-group col-md-6">
-                            <label>Tipo de sangre</label>
+                            <label>Tipo de sangre {{rol}}</label>
                             <input type="text" class="form-control" disabled v-model="tipo_sangre"  />
                         </div>
                         <div class="form-group col-md-6">
-                            <label>Archivo de titulación de carné de vacunación <a v-show="empleado_info.cz9_archivo_titulacion != ''  "
+                            <label>Archivo de titulación de carné de vacunación <a v-show="empleado_info.cz9_archivo_titulacion != '' && empleado_info.cz9_archivo_titulacion != null  "
                                             :href="'/../theme/files/sst/'+ empleado_info.cz9_archivo_titulacion" target="_blank">|| 
                                                click para descargar
                                         </a></label>
@@ -51,7 +51,7 @@
                         </div>
                         <div class="form-group col-md-6">
                             <label>Archivo escaneado 
-                                del carné de vacunación <a v-show="empleado_info.cz9_archivo_vacunacion != ''  "
+                                del carné de vacunación <a v-show="empleado_info.cz9_archivo_vacunacion != '' && empleado_info.cz9_archivo_vacunacion != null  "
                                             :href="'/../theme/files/sst/'+ empleado_info.cz9_archivo_vacunacion" target="_blank">|| 
                                                click para descargar
                                         </a></label>
@@ -69,6 +69,18 @@
 </template>
 <script>
 export default {
-    props:['empleado_info','validated_admin', 'tipo_sangre', 'validated']
+    props:['empleado_info','validated_admin', 'tipo_sangre', 'validated','rol'],
+    data(){
+        return {
+         
+        }
+
+    },
+    methods: {
+        mounted(){
+            
+        }
+
+    },
 }
 </script>
