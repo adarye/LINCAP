@@ -325,6 +325,7 @@
                 formData.append("fecha_vacuna_tifoidea", this.empleado_info.cz9_fecha_vacuna_tifoidea ? this.empleado_info.cz9_fecha_vacuna_tifoidea : "");
                 formData.append("lugar_vacuna_tifoidea", this.empleado_info.cz9_lugar_vacuna_tifoidea ? this.empleado_info.cz9_lugar_vacuna_tifoidea : "");
                 formData.append("fecha_vacuna_toxoide", this.empleado_info.cz9_fecha_vacuna_toxoide ? this.empleado_info.cz9_fecha_vacuna_toxoide: "");
+                formData.append("lugar_vacuna_toxoide", this.empleado_info.cz9_lugar_vacuna_toxoide ? this.empleado_info.cz9_lugar_vacuna_toxoide: "");
                 formData.append("reentrenamiento", this.empleado_info.cz9_reentrenamiento ? this.empleado_info.cz9_reentrenamiento: "");
                 formData.append("cz9_premios", this.empleado_info.cz9_premios ? this.empleado_info.cz9_premios: "");
                 formData.append("cz9_fv_ta", this.empleado_info.cz9_fv_ta ? this.empleado_info.cz9_fv_ta: "");
