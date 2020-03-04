@@ -38,6 +38,7 @@
                     {{ item.f200_apellido2 }}
                     </b>
                     </p>
+                    <p class="card-text">Key:<b> {{item.cz3_id}}</b></p>
                     <p class="lead mt-2" v-show="$route.params.categoria == 1">
                         <router-link class="btn btn-primary btn"
                             v-bind:to="'/presentar/encuesta/' + item.cz3_id +'/'+ id" role="button"

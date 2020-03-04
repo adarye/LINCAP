@@ -116,7 +116,8 @@ class ApiController extends Controller
             "f285_id",
             "cz9_mail_corp",
             "cz9_tel_corp",
-            "cz9_cel_corp"
+            "cz9_cel_corp",
+            "cz9_id"
             
 
 
@@ -158,7 +159,7 @@ class ApiController extends Controller
 
          )
             ->where('c0550_ind_estado', '1')
-            
+            ->orderBy("cz9_id", "ASC")
             ->get();
 
     {

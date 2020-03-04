@@ -89,9 +89,12 @@
                                             :href="'/../theme/files/noticias/'+ item.cz12_archivo" target="_blank">
                                             <li class="fa fa-file-archive-o"></li> Archivo adjunto
                                         </a></p>
+                                         <p class="mb-1 mt-2"> <i class="fa fa-key"></i> {{item.cz12_id}}
+                                    </p>
                                        <p><b> By {{item.cz1_nombres}}</b> <img
                                         :src="'/../theme/images/profile/'+ item.cz1_avatar" alt=""
                                         class="img-profile-noti"></p>
+                                       
                                 </div>
                             </div>
                         </article>

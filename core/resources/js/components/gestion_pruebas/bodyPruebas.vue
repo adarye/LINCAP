@@ -196,6 +196,7 @@
                     if (this.select == null || this.select == 'Todas') {
                         return prueba.cz3_nombre.toUpperCase().includes(this.bprueba.toUpperCase()) ||
                             prueba.cz3_descripcion.toUpperCase().includes(this.bprueba.toUpperCase())
+                            
                     } else if (this.select == 'Cerradas') {
                         return (
                             (moment().diff(prueba.cz3_fecha_cierre) > 0 &&

@@ -42,7 +42,7 @@
         <table class="table table-striped">
             <thead>
                 <tr>
-                    
+                    <th scope="col" class="texto">Key</th>
                     <th scope="col" class="texto">Nombre</th>
                     <th scope="col" class="texto">C. O</th>
                     <th scope="col" class="texto">Cargo</th>                    
@@ -53,6 +53,7 @@
             </thead>
             <tbody>
                 <tr v-for="(item, indice) in mbuscar" :key="indice" v-show="(pagina-1) * numero <= indice && pagina*numero > indice || bempleado != '' ">
+                    <th>{{ item.cz9_id }}</th>
                     <th scope="row">{{ item.c0541_nombres }} {{ item.c0541_apellido1 }}
                         {{ item.c0541_apellido2 }}  </th>
              
