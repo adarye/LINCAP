@@ -1,20 +1,52 @@
+<!DOCTYPE html>
 <html>
-    <head>
+<head>
+<style>
+table, td, th {  
+  border: 1px solid #ddd;
+  text-align: left;
+}
 
-    </head>
-    <body>
-        <div>
-            <p class="titulo" id="e">
-                <b>Cordial saludo,</b>
-            <br>
-         A esto(s) empleados les diremos adiós dentro de 8 días
-        </p>
-            
-            @foreach($empleados as $emp)
-            <ul>
-                <li><b> {{$emp->c0541_id}} | </b> <b>{{$emp->c0541_nombres }} {{$emp->c0541_apellido1 }} {{$emp->c0541_apellido2 }}  | </b> <b>{{$emp->c0763_descripcion}}  |</b>  {{\Carbon\Carbon::parse($emp->c0550_fecha_contrato_hasta)->format('d/m/Y')  }} </li>
-            </ul>
-            @endforeach
-        </div>
-    </body>
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th, td {
+  padding: 11px;
+}
+</style>
+</head>
+<body>
+
+<p>A estos trabajadores les diremos adiós en 7 días <b> ({{\Carbon\Carbon::parse($date_final)->format('d/m/Y')}})</b></p>
+<?php  $i = 1 ?>
+<table>
+  <tr>
+    <th>Row</th>
+    <th>Cédula</th>
+    <th>Nombres</th>
+    <th>Apellidos</th>
+    <th>Centro de Operacion</th>
+    <th>Cargo</th>
+    <th>Fecha de ingreso</th>
+    <th>Fecha de retiro</th>
+  </tr>
+  @foreach($empleados as $emp)
+  <tr>
+  <th>{{$i++}}</th>
+    <td>{{$emp->c0541_id}}</td>
+  <td>{{$emp->c0541_nombres}}</td>
+  <td>{{$emp->c0541_apellido1}} {{$emp->c0541_apellido2}}</td>
+  <td>{{$emp->f285_descripcion}}</td>
+  <td>{{$emp->c0763_descripcion}}</td>
+  <td>{{\Carbon\Carbon::parse($emp->c0550_fecha_ingreso)->format('d/m/Y')}}</td>
+  <td>{{\Carbon\Carbon::parse($emp->c0550_fecha_contrato_hasta)->format('d/m/Y')}}</td>
+  </tr>
+  @endforeach
+  
+</table>
+
+</body>
 </html>
+

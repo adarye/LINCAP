@@ -29,13 +29,17 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('emp:contrato')->dailyAt('08:00');
+        $schedule->command('emp:contrato')->everyMinute();
         $schedule->command('emp:cumpleaños')->dailyAt('08:00');
+
         $schedule->command('emp:CarneVacunacion')->monthlyOn(20, '08:00');
         $schedule->command('emp:CarneAlimentos')->monthlyOn(20, '08:00');
-        $schedule->command('emp:enviarCA')->dailyAt('08:00');
+
+      
+
+         $schedule->command('emp:enviarCA')->dailyAt('08:00');
          $schedule->command('emp:enviarMD')->dailyAt('08:00');
-         $schedule->command('emp:enviarBPM')->everyMinute();
+         $schedule->command('emp:enviarBPM')->dailyAt('08:00');
 //         $schedule->call(function () {
        
 // })->everyMinute();

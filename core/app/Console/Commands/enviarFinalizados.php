@@ -46,7 +46,6 @@ class enviarFinalizados extends Command
         $date2= Carbon::now();
         $date_principio =$date->addDays(6);
          $date_final = $date2->addDays(7);
-
        $empleados = Terceros::select(
             "c0541_rowid",
             "c0541_nombres",

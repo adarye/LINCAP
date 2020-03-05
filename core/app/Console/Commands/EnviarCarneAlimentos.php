@@ -62,7 +62,8 @@ class EnviarCarneAlimentos extends Command
             "cz9_mail_corp",
             "cz9_tel_corp",
             "cz9_cel_corp",
-            "cz9_fv_carne_vacunacion"
+            "cz9_fv_carne_vacunacion",
+            "cz9_fv_carne_alimentos"
             
 
 
