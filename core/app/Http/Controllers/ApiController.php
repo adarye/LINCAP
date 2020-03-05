@@ -41,7 +41,9 @@ class ApiController extends Controller
                 "f200_rowid",
                 "f284_descripcion",
                 "c0550_rowid_cargo",
-                "c0550_fecha_retiro"
+                "c0550_fecha_retiro",
+                "c0702_descripcion",
+                "c0780_descripcion"
                 
     
             )->join(
@@ -63,6 +65,19 @@ class ApiController extends Controller
                 '=',
                 'dbo.w0541_terceros_seleccion.c0541_rowid'
     
+            )->join(
+                'dbo.w0702_gh01_nivel_academico',
+                'dbo.w0540_empleados.c0540_rowid_nivel_educativo'
+                ,
+                '=',
+                'dbo.w0702_gh01_nivel_academico.c0702_rowid'
+
+            )->leftjoin(
+                'w0780_gh01_clase_social',
+                'w0541_terceros_seleccion.c0541_rowid_clases_sociales',
+                '=',
+                'w0780_gh01_clase_social.c0780_rowid'
+
             )->join(
                 'dbo.w0550_contratos',
                 'dbo.w0540_empleados.c0540_rowid_tercero',

@@ -39,7 +39,7 @@
           </div>
         </modal>
 
-        <modal name="campos" :clickToClose="false" :adaptive="true" :width="250" :height="400">
+        <modal name="campos" :clickToClose="false" :adaptive="true" :width="285" :height="400">
 
 
             <Excel v-on:filtrar="filtrar"></Excel>
@@ -268,8 +268,8 @@
             filtrar(item, e, campo, nombre_tabla, isDate) {
                 var index = -1
                 if (e == true) {
-                    if (item == 'Fecha de Ingreso' || item == 'Fecha de vencimiento del contrato' && campo !=
-                        'empleado_info') {
+                    if (item == 'Fecha de Ingreso' || item == 'Fecha de vencimiento del contrato'
+                     || item=='Fecha de nacimiento'&& campo !='empleado_info') {
                         console.log('entro')
                         this.columns.push({
                             'label': item,

@@ -222,6 +222,7 @@ export default {
                 //Asignamos la imagen a  nuestra data
                 let file = event.target.files[0];
                 this.imagen = file;
+                console.log(file.size)
 
                 if (!/\.(jepg|jpg|png|gif)$/i.test(file.name)) {
                     swal(
@@ -232,10 +233,10 @@ export default {
                     this.estado = 0
                 } else {
 
-                    if (file.size > 3000000) {
+                    if (file.size > 5000000) {
                         swal(
                             "Advertencia",
-                            "El peso de la imagen no puede exceder los 200kb",
+                            "El peso de la imagen no puede exceder los 4mb",
                             "warning"
                         );
                         this.estado = 0
@@ -269,10 +270,10 @@ export default {
                     this.estado2 = 0
                 } else {
 
-                    if (file.size > 30000000) {
+                    if (file.size > 20000000) {
                         swal(
                             "Advertencia",
-                            "El peso del archivo no puede exceder los 30mb",
+                            "El peso del archivo no puede exceder los 20mb",
                             "warning"
                         );
                         this.estado2 = 0

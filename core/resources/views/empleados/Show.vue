@@ -212,10 +212,10 @@
                     this.estado2 = 0
                 } else {
 
-                    if (file.size > 30000000) {
+                    if (file.size >  5000000) {
                         swal(
                             "Advertencia",
-                            "El peso del archivo no puede exceder los 30mb",
+                            "El peso del archivo no puede exceder los 5mb",
                             "warning"
                         );
                         this.estado2 = 0
@@ -238,10 +238,10 @@
                     this.estado2 = 0
                 } else {
 
-                    if (file.size > 30000000) {
+                    if (file.size > 5000000) {
                         swal(
                             "Advertencia",
-                            "El peso del archivo no puede exceder los 30mb",
+                            "El peso del archivo no puede exceder los 4mb",
                             "warning"
                         );
                         this.estado2 = 0
@@ -301,31 +301,31 @@
             },
             actualizar() {
                 let formData = new FormData();
-                formData.append("email", this.informacion.f015_email ?  this.informacion.f015_email : "");
+                formData.append("email", this.informacion.f015_email ?  this.informacion.f015_email.toUpperCase() : "");
                 formData.append("telefono", this.informacion.f015_telefono ?  this.informacion.f015_telefono : "");
                 formData.append("celular", this.informacion.f015_celular ?  this.informacion.f015_celular : "");
                 formData.append("direccion", this.informacion.f015_direccion1 ?  this.informacion.f015_direccion1 : "");
                 formData.append("barrio", this.informacion.f015_id_barrio  ? this.informacion.f015_id_barrio : "");
                 formData.append("ciudad", this.informacion.f015_id_ciudad ? this.informacion.f015_id_ciudad : "");
-                formData.append("familiar_linco", this.empleado_info.cz9_nombre_familiar ? this.empleado_info.cz9_nombre_familiar : "");
-                formData.append("contacto", this.empleado_info.cz9_nombre_contacto  ? this.empleado_info.cz9_nombre_contacto : "");
+                formData.append("familiar_linco", this.empleado_info.cz9_nombre_familiar ? this.empleado_info.cz9_nombre_familiar.toUpperCase() : "");
+                formData.append("contacto", this.empleado_info.cz9_nombre_contacto  ? this.empleado_info.cz9_nombre_contacto.toUpperCase() : "");
                 formData.append("con_num", this.empleado_info.cz9_tel_contacto ? this.empleado_info.cz9_tel_contacto : "");
                 formData.append("file_titulacion", this.file_titulacion ? this.file_titulacion : "");
                 formData.append("file_vacunacion", this.file_vacunacion ? this.file_vacunacion : "" );
                 formData.append("talla_uni", this.empleado_info.cz9_talla_uniforme ? this.empleado_info.cz9_talla_uniforme : "" );
                 formData.append("talla_cal", this.empleado_info.cz9_talla_calzado ? this.empleado_info.cz9_talla_calzado : "");
-                formData.append("email_corp", this.empleado_info.cz9_mail_corp ? this.empleado_info.cz9_mail_corp : "");
+                formData.append("email_corp", this.empleado_info.cz9_mail_corp ? this.empleado_info.cz9_mail_corp.toUpperCase() : "");
                 formData.append("tel_corp", this.empleado_info.cz9_tel_corp ? this.empleado_info.cz9_tel_corp : "");
                 formData.append("cel_corp", this.empleado_info.cz9_cel_corp ? this.empleado_info.cz9_cel_corp : "");
                 formData.append("fecha_tpprueba", this.empleado_info.cz9_fecha_tpprueba ? this.empleado_info.cz9_fecha_tpprueba : "");
                 formData.append("fecha_vacuna", this.empleado_info.cz9_fecha_vacuna ? this.empleado_info.cz9_fecha_vacuna : "");
-                formData.append("lugar_vacuna", this.empleado_info.cz9_lugar_vacuna ? this.empleado_info.cz9_lugar_vacuna : "");
+                formData.append("lugar_vacuna", this.empleado_info.cz9_lugar_vacuna ? this.empleado_info.cz9_lugar_vacuna.toUpperCase() : "");
                 formData.append("fecha_vacuna_tifoidea", this.empleado_info.cz9_fecha_vacuna_tifoidea ? this.empleado_info.cz9_fecha_vacuna_tifoidea : "");
-                formData.append("lugar_vacuna_tifoidea", this.empleado_info.cz9_lugar_vacuna_tifoidea ? this.empleado_info.cz9_lugar_vacuna_tifoidea : "");
+                formData.append("lugar_vacuna_tifoidea", this.empleado_info.cz9_lugar_vacuna_tifoidea ? this.empleado_info.cz9_lugar_vacuna_tifoidea.toUpperCase() : "");
                 formData.append("fecha_vacuna_toxoide", this.empleado_info.cz9_fecha_vacuna_toxoide ? this.empleado_info.cz9_fecha_vacuna_toxoide: "");
-                formData.append("lugar_vacuna_toxoide", this.empleado_info.cz9_lugar_vacuna_toxoide ? this.empleado_info.cz9_lugar_vacuna_toxoide: "");
+                formData.append("lugar_vacuna_toxoide", this.empleado_info.cz9_lugar_vacuna_toxoide ? this.empleado_info.cz9_lugar_vacuna_toxoide.toUpperCase(): "");
                 formData.append("reentrenamiento", this.empleado_info.cz9_reentrenamiento ? this.empleado_info.cz9_reentrenamiento: "");
-                formData.append("cz9_premios", this.empleado_info.cz9_premios ? this.empleado_info.cz9_premios: "");
+                formData.append("cz9_premios", this.empleado_info.cz9_premios ? this.empleado_info.cz9_premios.toUpperCase(): "");
                 formData.append("cz9_fv_ta", this.empleado_info.cz9_fv_ta ? this.empleado_info.cz9_fv_ta: "");
                  formData.append("cz9_fv_bpm", this.empleado_info.cz9_fv_bpm ? this.empleado_info.cz9_fv_bpm: "");
                   formData.append("cz9_fv_md", this.empleado_info.cz9_fv_md ? this.empleado_info.cz9_fv_md: "");
@@ -468,10 +468,10 @@
                     this.estado = 0
                 } else {
 
-                    if (file.size > 4000000) {
+                    if (file.size > 8000000) {
                         swal(
                             "Advertencia",
-                            "El peso de la imagen no puede exceder los 4mb",
+                            "El peso de la imagen no puede exceder las 7mb",
                             "warning"
                         );
                         this.estado = 0
