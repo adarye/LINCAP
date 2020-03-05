@@ -34,7 +34,7 @@
                         v-model="usuario.f012_descripcion" disabled />
                 </div>
                 <div class="form-group col-md-6">
-                    <label>Ciudad de Expedición</label>
+                    <label>Ciudad / municipio de Expedición</label>
                     <input type="text" class="form-control" 
                         v-model="usuario.f013_descripcion" disabled />
                 </div>
@@ -60,7 +60,7 @@
                         v-uppercase v-max-length="55" v-model="informacion.f012_descripcion" />
                 </div>
                 <div class="form-group col-md-6">
-                    <label>Ciudad de Nacimiento</label>
+                    <label>Ciudad / municipio de Nacimiento</label>
                     <input type="text" class="form-control"  disabled v-uppercase
                         v-numeric-only v-max-length="16" v-model="informacion.f013_descripcion" />
                 </div>
@@ -130,7 +130,7 @@
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
-                    <label>Ciudad:</label>
+                    <label>Ciudad / municipio:</label>
                     <select class="form-control" :disabled="validated ? false : true"
                         v-on:change="$emit('cargarBarrios', $event)">
                         <option>...</option>
