@@ -185,7 +185,8 @@
                     if (this.select == null || this.select == 'Todas') {
                         return String(prueba.cz3_id).toUpperCase().includes(this.bprueba.toUpperCase()) ||
                         prueba.cz3_nombre.toUpperCase().includes(this.bprueba.toUpperCase()) ||
-                            prueba.cz3_descripcion.toUpperCase().includes(this.bprueba.toUpperCase())
+                            prueba.cz3_descripcion.toUpperCase().includes(this.bprueba.toUpperCase()) ||
+                             prueba.cz1_nombres.toUpperCase().includes(this.bprueba.toUpperCase())
                             
                     } else if (this.select == 'Cerradas') {
                         return (
@@ -195,6 +196,9 @@
                                 prueba.cz3_descripcion.toUpperCase().includes(this.bprueba.toUpperCase())
                             )||(moment().diff(prueba.cz3_fecha_cierre) > 0 &&
                                String(prueba.cz3_id).toUpperCase().includes(this.bprueba.toUpperCase())
+                            )
+                            ||(moment().diff(prueba.cz3_fecha_cierre) > 0 &&
+                              prueba.cz1_nombres.toUpperCase().includes(this.bprueba.toUpperCase())
                             )
                         );
                     } else if (this.select == 'Abiertas') {
@@ -213,6 +217,9 @@
                             )||(moment().diff(prueba.cz3_fecha_cierre) < 0 && moment().diff(prueba
                                     .cz3_fecha_apertura) > 0 &&
                                  String(prueba.cz3_id).toUpperCase().includes(this.bprueba.toUpperCase())
+                            )||(moment().diff(prueba.cz3_fecha_cierre) < 0 && moment().diff(prueba
+                                    .cz3_fecha_apertura) > 0 &&
+                                prueba.cz1_nombres.toUpperCase().includes(this.bprueba.toUpperCase())
                             )
                         );
                     } else if (this.select == 'Proximas') {
@@ -228,6 +235,8 @@
                                 .includes(this.bprueba.toUpperCase())
                             )|| (moment().diff(prueba.cz3_fecha_apertura) < 0 &&
                                String(prueba.cz3_id).toUpperCase().includes(this.bprueba.toUpperCase())
+                            )|| (moment().diff(prueba.cz3_fecha_apertura) < 0 &&
+                              prueba.cz1_nombres.toUpperCase().includes(this.bprueba.toUpperCase())
                             )
                         );
                     }

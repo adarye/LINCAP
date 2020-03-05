@@ -154,9 +154,8 @@ export default {
                         activo.c0541_apellido1 +
                         " " +
                         activo.c0541_apellido2;
-                    return (
-                 activo.c0541_id.toUpperCase().includes(this.bempleado.toUpperCase())  
-                ||
+                    return (String(activo.cz9_id).toUpperCase().includes(this.bempleado.toUpperCase()) ||
+                
                 nombre_completo.toUpperCase().includes(this.bempleado.toUpperCase())
                 ||                        
                 activo.c0763_descripcion.toUpperCase().includes(this.bempleado.toUpperCase())
@@ -172,14 +171,13 @@ export default {
                             nombre_completo
                                 .toUpperCase()
                                 .includes(this.bempleado.toUpperCase())) ||
-                        (activo.f285_id.includes(this.selectCO) &&
-                            activo.c0541_id
-                                .toUpperCase()
-                                .includes(this.bempleado.toUpperCase())) ||
+                       
                         (activo.f285_id.includes(this.selectCO) &&
                             activo.c0763_descripcion
                                 .toUpperCase()
-                                .includes(this.bempleado.toUpperCase()))
+                                .includes(this.bempleado.toUpperCase()))||
+                                 (activo.f285_id.includes(this.selectCO) &&
+                           String(activo.cz9_id).toUpperCase().includes(this.bempleado.toUpperCase()))
                     );
                 }  
             })

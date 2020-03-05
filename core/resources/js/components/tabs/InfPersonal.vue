@@ -4,24 +4,24 @@
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label>Nombre</label>
-                    <input type="email" class="form-control" placeholder="Nombres" v-model="informacion.c0541_nombres"
+                    <input type="email" class="form-control"  v-model="informacion.c0541_nombres"
                         disabled />
                 </div>
                 <div class="form-group col-md-6">
                     <label>Apellidos</label>
-                    <input type="text" class="form-control" placeholder="Apellidos" v-model="apellidos" disabled />
+                    <input type="text" class="form-control"  v-model="apellidos" disabled />
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label>Cédula</label>
-                    <input type="text" class="form-control" placeholder="Cédula" v-model="informacion.c0541_id"
+                    <input type="text" class="form-control" v-model="informacion.c0541_id"
                         disabled />
                 </div>
 
                 <div class="form-group col-md-6">
                     <label>Fecha de Expedición</label>
-                    <input placeholder="Fecha de Expedición" type="text" class="form-control"
+                    <input  type="text" class="form-control"
                         v-model="usuario.c0540_fecha_exp_identif" disabled />
                 </div>
 
@@ -30,12 +30,12 @@
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label>Departamento de Expedición</label>
-                    <input type="text" class="form-control" placeholder="Departamento de Expedición"
+                    <input type="text" class="form-control" 
                         v-model="usuario.f012_descripcion" disabled />
                 </div>
                 <div class="form-group col-md-6">
                     <label>Ciudad de Expedición</label>
-                    <input type="text" class="form-control" placeholder="Ciudad de Expedición"
+                    <input type="text" class="form-control" 
                         v-model="usuario.f013_descripcion" disabled />
                 </div>
 
@@ -45,41 +45,41 @@
 
                 <div class="form-group col-md-6">
                     <label>Fecha de Nacimiento</label>
-                    <input type="text" class="form-control" placeholder="Fecha de Nacimiento"
+                    <input type="text" class="form-control" 
                         v-model="usuario.c0540_fecha_nacimiento" disabled />
                 </div>
                 <div class="form-group col-md-6">
                     <label>País de Nacimiento</label>
-                    <input type="text" class="form-control" placeholder="País de Nacimiento" disabled v-model="informacion.f011_descripcion"/>
+                    <input type="text" class="form-control"  disabled v-model="informacion.f011_descripcion"/>
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label>Departamento de Nacimiento</label>
-                    <input type="text" class="form-control" placeholder="Departamento de Nacimiento" disabled
+                    <input type="text" class="form-control"  disabled
                         v-uppercase v-max-length="55" v-model="informacion.f012_descripcion" />
                 </div>
                 <div class="form-group col-md-6">
                     <label>Ciudad de Nacimiento</label>
-                    <input type="text" class="form-control" placeholder="Ciudad de Nacimiento" disabled v-uppercase
+                    <input type="text" class="form-control"  disabled v-uppercase
                         v-numeric-only v-max-length="16" v-model="informacion.f013_descripcion" />
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label>Edad</label>
-                    <input :value="moment().diff(informacion.c0540_fecha_nacimiento, 'years')" type="text" class="form-control" placeholder="Edad" disabled v-uppercase v-max-length="55" />
+                    <input :value="moment().diff(informacion.c0540_fecha_nacimiento, 'years')" type="text" class="form-control"  disabled v-uppercase v-max-length="55" />
                 </div>
                 <div class="form-group col-md-6">
                     <label>Estrato</label>
-                    <input v-model="empleado_info.c0780_descripcion" type="text" class="form-control" placeholder="Estrato" disabled v-uppercase v-numeric-only
+                    <input v-model="empleado_info.c0780_descripcion" type="text" class="form-control" disabled v-uppercase v-numeric-only
                         v-max-length="16" />
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label>Nivel de escolaridad:</label>
-                    <input type="text" class="form-control" v-model="informacion.c0702_descripcion" placeholder="Nivel de escolaridad" disabled v-uppercase
+                    <input type="text" class="form-control" v-model="informacion.c0702_descripcion"  disabled v-uppercase
                         v-max-length="55" />
                 </div>
                 <div class="form-group col-md-6">
@@ -94,24 +94,24 @@
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label>Estado civil</label>
-                    <input type="text" class="form-control" v-model="estado_civil" placeholder="Estado civil" disabled v-uppercase
+                    <input type="text" class="form-control" v-model="estado_civil"  disabled v-uppercase
                         v-max-length="55" />
                 </div>
                 <div class="form-group col-md-6">
                     <label>Celular</label>
-                    <input type="text" class="form-control" placeholder="Celular" v-model="informacion.f015_celular"
+                    <input type="text" class="form-control"  v-model="informacion.f015_celular"
                         :disabled="validated ? false : true" v-numeric-only v-max-length="16" />
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label>Email</label>
-                    <input type="email" class="form-control" placeholder="Email" v-model="informacion.f015_email"
+                    <input type="email" class="form-control"  v-model="informacion.f015_email"
                         :disabled="validated ? false : true" v-uppercase v-max-length="55" />
                 </div>
                 <div class="form-group col-md-6">
                     <label>Teléfono</label>
-                    <input type="text" class="form-control" placeholder="Numero de teléfono"
+                    <input type="text" class="form-control" 
                         v-model="informacion.f015_telefono" :disabled="validated ? false : true" v-uppercase
                         v-numeric-only v-max-length="16" />
                 </div>
@@ -120,7 +120,7 @@
                 <div class="form-group col-md-6">
                     <label>Dirección</label>
                     <input type="text" class="form-control" v-model="informacion.f015_direccion1"
-                        :disabled="validated ? false : true" v-uppercase v-max-length="55" placeholder="Dirección" />
+                        :disabled="validated ? false : true" v-uppercase v-max-length="55"  />
                 </div>
                 <div class="form-group col-md-6">
                     <label>Barrio</label>

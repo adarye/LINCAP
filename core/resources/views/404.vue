@@ -8,10 +8,10 @@
             <div class="text-center text-center">
               <h1 class="error-number">404</h1>
               <h2>Lo sentimos, pero no pudimos encontrar esta página</h2>
-              <p>Esta página no existe, o no tienes permisos para estar en ella 
+              <p>Esta página no existe 
               </p>
               <div class="mid_center">
-                <h3><router-link :to="{name: 'InfCorporativa'}">Inicio</router-link></h3>
+                <h3><router-link :to="{name: 'IndexNoticias'}">Inicio</router-link></h3>
                 <form>
                   <div class="col-xs-12 form-group pull-right top_search">
                     <!-- <div class="input-group">

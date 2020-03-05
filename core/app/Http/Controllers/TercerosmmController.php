@@ -104,7 +104,9 @@ class TercerosmmController extends Controller
                 ->where('f012_id_pais', $id_depto->c0540_id_pais_nacimiento)
 
                 ->get();
-        }
+        }else{
+            return redirect('/accces-denied');   
+        }  
 
     }
 
@@ -346,8 +348,8 @@ class TercerosmmController extends Controller
 
             return $empleado;
         }else{
-            return 'acceso denegado';
-        }
+            return redirect('/accces-denied');   
+        }  
     }
 
     //TRAE TODO LO RELACIONADO CON EL CONTRATO Y EL EMPLEADO
@@ -497,7 +499,9 @@ class TercerosmmController extends Controller
 
             return $results;
 
-        }
+        }else{
+            return redirect('/accces-denied');   
+        }  
     }
 
 }

@@ -111,6 +111,9 @@ class ApiController extends Controller
         } else {
             return view('pages.index');
         }
+        
+    }else{
+        return redirect('/accces-denied');   
     }
     }
     //TRAE INF CORPORATIVA, CONTRATO Y EMPLEADO, SE PODRIA PONER EN EL BUSCAR GENERAL, PERO ME TRAERIA SOLO LOS EMPLEADOS QUE TIENEN ESTO ACTUALIZADO
@@ -253,6 +256,7 @@ class ApiController extends Controller
                 ->where('c0550_ind_estado', '1')
                 ->orderBy('c0541_nombres', 'ASC')
                 ->get();
+                
 
             //EMPLEADOS RETIRADOS
             $retirados= Terceros_mm::select(
@@ -324,10 +328,10 @@ class ApiController extends Controller
                 $resultados = $retirados->unique();
                 $retirados2 = json_decode($resultados, true);
                 
-                
-     
         return [$activos,
         $retirados2];
+            }else{
+                return redirect('/accces-denied');   
             }
         
     }
@@ -366,7 +370,9 @@ class ApiController extends Controller
             )
             ->where('dbo.w0541_terceros_seleccion.c0541_id', '=', $id)
             ->first();    
-    }   
+    }else{
+        return redirect('/accces-denied');   
+    }    
     }
 
     public function myAvatar(Request $request)

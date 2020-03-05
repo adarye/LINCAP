@@ -37,7 +37,9 @@ class UsuariosController extends Controller
             'z2_roles.cz2_id'
         )->get();
 
-    }
+    }else{
+        return redirect('/accces-denied');   
+    } 
 }
     public function create(Request $request)
     {

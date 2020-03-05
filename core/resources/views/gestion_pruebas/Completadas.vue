@@ -33,7 +33,7 @@
                    
                 </div>
                 <div class="card-body">
-                    <h5 class="card-title"> {{item.cz3_descripcion}} <button class="btn btn-sm btn-info" title="Ver estado" @click="obtenerEstado(item.cz3_id)"> <i style="" class="fa fa-search-plus"  ></i></button></h5> 
+                    <h5 class="card-title"> {{item.cz3_descripcion}} <button class="btn btn-sm btn-info" v-show="$route.params.categoria == 2" title="Ver estado" @click="obtenerEstado(item.cz3_id)"> <i style="" class="fa fa-search-plus"  ></i></button></h5> 
                     <p class="card-text">Fecha de Apertura: <b>{{ moment(item.cz3_fecha_apertura ).format('LLL') }}</b></p>
                      <p class="card-text">Fecha de Cierre:<b> {{ moment(item.cz3_fecha_cierre ).format('LLL') }}</b></p>
                      <p class="card-text">

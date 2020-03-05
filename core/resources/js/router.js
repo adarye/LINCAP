@@ -43,6 +43,7 @@ import IndexPreguntas from '../views/prueba_preguntas/Index.vue';
 import IndexNoticias from '../views/noticias/Index.vue';
 
 //Vista de 404
+import v403 from '../views/403';
 import v404 from '../views/404';
 
 
@@ -166,6 +167,11 @@ export default new Router({
             path: '/',
             name: 'IndexNoticias',
             component: IndexNoticias
+        },
+        {
+            path: '/accces-denied',
+            name: '403',
+            component: v403
         },
         {
             path: '*',

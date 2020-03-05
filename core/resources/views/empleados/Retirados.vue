@@ -285,10 +285,13 @@
                             'dataFormat': function (campo) {
                                 if (campo != null) {
                                     if (isDate != '') {
+                                         if(campo[nombre_tabla] != null){
+                                          
                                         var fecha = new Date(campo[nombre_tabla])
                                         var fecha_c = fecha.setDate(fecha.getDate() + 1);
 
                                         return new Date(fecha_c)
+                                         }
                                     } else {
                                         console.log(campo[nombre_tabla])
                                         return campo[nombre_tabla];

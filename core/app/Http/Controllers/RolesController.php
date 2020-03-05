@@ -17,13 +17,17 @@ class RolesController extends Controller
     public function index(Request $request){
         if (Gate::allows('isAdmin')) {    
         return z2_roles::all();
-        }      
+        } else{
+            return redirect('/accces-denied');   
+        }     
     }
 
     public function show($id){   
         if (Gate::allows('isAdmin')) {    
           return z2_roles::where('cz2_id', $id)->get();
-        }
+        }else{
+            return redirect('/accces-denied');   
+        }   
     }
 
     public function update(Request $request, $cz2_id){
@@ -53,6 +57,8 @@ class RolesController extends Controller
     if (Gate::allows('isAdmin')) {
     $rol = z2_roles::find($id);
     $rol->delete();
-    }
+    }else{
+        return redirect('/accces-denied');   
+    }  
 }
 }

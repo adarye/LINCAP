@@ -3,7 +3,7 @@
         <form class="my-2">
             <div class="form-row">
                         <div class="form-group col-md-6">
-                            <label>Tipo de sangre {{rol}}</label>
+                            <label>Tipo de sangres</label>
                             <input type="text" class="form-control" disabled v-model="tipo_sangre"  />
                         </div>
                         <div class="form-group col-md-6">

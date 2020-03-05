@@ -444,8 +444,8 @@
                     if (this.barrios.length == 0) {
                         this.informacion.f015_id_barrio = ""
                         swal(
-                            "No se encontraron barrios",
-                            "Comuníquese con los proveedores de LINCAP para agregar mas barrios",
+                            "Advertencia",
+                            "No se encontraron barrios para esta ciudad",
                             "warning"
                         );
                     }
