@@ -106,11 +106,11 @@
                 <div class="col-md-4 "></div>
                 <div v-show="bprueba == ''" class="col-md-4 ">
                   <center>
-                    <button type="button" @click.prevent="pagina=pagina-1" v-show="pagina!=1" class="btn btn-primary">
+                    <button type="button" @click.prevent="pagina=pagina-1" :disabled="pagina == 1" class="btn btn-primary">
                         <li class="fa fa-long-arrow-left"></li>
                     </button>
 
-                    <button type="button" @click.prevent="pagina=pagina+1" v-show="(pagina*numero)/(mbuscar.length) < 1"
+                    <button type="button" @click.prevent="pagina=pagina+1" :disabled="(pagina * numero) / mbuscar.length >= 1"
                         class="btn btn-success">
                         <li class="fa fa-long-arrow-right"></li>
                     </button>
@@ -174,18 +174,7 @@
                     this.numero = this.selectPag
                 }
             },
-            calcularTiempo() {
 
-
-            }
-
-            //     },
-            //      asignados(){
-            //       axios.get(`/api/asignacion/contar/${this.id}`)
-            //       .then(res=>{
-
-            //       })
-            //   }
         },
         computed: {
 
@@ -194,19 +183,18 @@
                 this.pagina = 1
                 return this.pruebas.filter((prueba) => {
                     if (this.select == null || this.select == 'Todas') {
-                        return prueba.cz3_nombre.toUpperCase().includes(this.bprueba.toUpperCase()) ||
+                        return String(prueba.cz3_id).toUpperCase().includes(this.bprueba.toUpperCase()) ||
+                        prueba.cz3_nombre.toUpperCase().includes(this.bprueba.toUpperCase()) ||
                             prueba.cz3_descripcion.toUpperCase().includes(this.bprueba.toUpperCase())
                             
                     } else if (this.select == 'Cerradas') {
                         return (
                             (moment().diff(prueba.cz3_fecha_cierre) > 0 &&
-                                prueba.cz3_nombre
-                                .toUpperCase()
-                                .includes(this.bprueba.toUpperCase())
+                                prueba.cz3_nombre.toUpperCase().includes(this.bprueba.toUpperCase())
                             )||(moment().diff(prueba.cz3_fecha_cierre) > 0 &&
-                                prueba.cz3_descripcion
-                                .toUpperCase()
-                                .includes(this.bprueba.toUpperCase())
+                                prueba.cz3_descripcion.toUpperCase().includes(this.bprueba.toUpperCase())
+                            )||(moment().diff(prueba.cz3_fecha_cierre) > 0 &&
+                               String(prueba.cz3_id).toUpperCase().includes(this.bprueba.toUpperCase())
                             )
                         );
                     } else if (this.select == 'Abiertas') {
@@ -222,6 +210,9 @@
                                 prueba.cz3_descripcion
                                 .toUpperCase()
                                 .includes(this.bprueba.toUpperCase())
+                            )||(moment().diff(prueba.cz3_fecha_cierre) < 0 && moment().diff(prueba
+                                    .cz3_fecha_apertura) > 0 &&
+                                 String(prueba.cz3_id).toUpperCase().includes(this.bprueba.toUpperCase())
                             )
                         );
                     } else if (this.select == 'Proximas') {
@@ -235,6 +226,8 @@
                                 prueba.cz3_descripcion
                                 .toUpperCase()
                                 .includes(this.bprueba.toUpperCase())
+                            )|| (moment().diff(prueba.cz3_fecha_apertura) < 0 &&
+                               String(prueba.cz3_id).toUpperCase().includes(this.bprueba.toUpperCase())
                             )
                         );
                     }

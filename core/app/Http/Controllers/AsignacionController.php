@@ -185,11 +185,20 @@ class AsignacionController extends Controller
     public function finalizarPrueba($id)
     {
 
+        $time = new Carbon();
+        $fecha = $time->format('Y-m-d H:i:s');
+    $prueba = z3_gestion_pruebas::select('cz3_fecha_apertura', 'cz3_fecha_cierre', 'cz3_id')->where('cz3_id',$id)->first();
+    if($prueba['cz3_fecha_apertura'] > $fecha ||  $prueba['cz3_fecha_cierre'] < $fecha){
+
+    }
+    else{
+
         $prueba = z4_rel_ts_gp::where('cz4_ts_id', Auth()->user()->cz1_id_empleado)->where('cz4_gp_id', $id)->first();
         $prueba->cz4_estado = 2;
         $prueba->cz4_fecha_finalizacion = Carbon::now();
 
         $prueba->save();
+    }
     }
 
     public function contar($id)

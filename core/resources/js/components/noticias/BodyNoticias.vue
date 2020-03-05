@@ -33,9 +33,7 @@
             
             <span v-if="mostrar == 1"><input class="select mt-2" v-model="numero" /></span>
         </nav>
-        {{rol}}
-
-
+       
         <div class="row mt-4">
             
             <div class="col-md-8 " v-for="(item, indice) in mbuscar" :key="indice"
@@ -220,7 +218,8 @@
                 return this.noticias.filter((noticia) => {
                     this.pagina = 1
                     if (this.select == null || this.select == 'SELECCIONAR CATEGORIA') {
-                        return noticia.cz12_nombre.toUpperCase().includes(this.bnoticia.toUpperCase()) ||
+                        return String(noticia.cz12_id).toUpperCase().includes(this.bnoticia.toUpperCase())
+                         noticia.cz12_nombre.toUpperCase().includes(this.bnoticia.toUpperCase()) ||
                             noticia.cz12_descripcion.toUpperCase().includes(this.bnoticia.toUpperCase())
                     } else if (this.select == '4') {
                         return (
@@ -234,6 +233,10 @@
                                 noticia.cz12_descripcion
                                 .toUpperCase()
                                 .includes(this.bnoticia.toUpperCase())
+
+                            )||
+                            (noticia.cz12_nivel_imp == 4 &&
+                               String(noticia.cz12_id).toUpperCase().includes(this.bnoticia.toUpperCase())
 
                             )
                         );
@@ -249,6 +252,10 @@
                                 .toUpperCase()
                                 .includes(this.bnoticia.toUpperCase())
 
+                            )||
+                            (noticia.cz12_nivel_imp == 3 &&
+                               String(noticia.cz12_id).toUpperCase().includes(this.bnoticia.toUpperCase())
+
                             )
                         );
                     } else if (this.select == '2') {
@@ -263,6 +270,10 @@
                                 .toUpperCase()
                                 .includes(this.bnoticia.toUpperCase())
 
+                            )||
+                            (noticia.cz12_nivel_imp == 2 &&
+                               String(noticia.cz12_id).toUpperCase().includes(this.bnoticia.toUpperCase())
+
                             )
                         );
                     } else if (this.select == '1') {
@@ -276,6 +287,10 @@
                                 noticia.cz12_descripcion
                                 .toUpperCase()
                                 .includes(this.bnoticia.toUpperCase())
+
+                            )||
+                            (noticia.cz12_nivel_imp == 1 &&
+                               String(noticia.cz12_id).toUpperCase().includes(this.bnoticia.toUpperCase())
 
                             )
                         );

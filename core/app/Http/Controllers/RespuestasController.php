@@ -9,6 +9,8 @@ use App\z11_resultados;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use \Debugbar;
+use Carbon\Carbon;
+use Jenssegers\Date\Date;
 
 class RespuestasController extends Controller
 {
@@ -24,14 +26,7 @@ class RespuestasController extends Controller
         $estado->cz4_estado = '1';
         $estado->save();
 
-        //     $fecha = Carbon::createFromFormat('d/m/Y', '11/06/2020');
-        //     $date = Carbon::now();
-        //     $date = $date->format('d-m-Y');
-
-        //    if ($fecha->greaterThan($date)){
-        //          return 'hola';
-        //      }
-        //       return $fecha.'  '. $date;
+      
 
         $register = z11_resultados::select('cz11_id')->where('cz11_id_empleado', Auth()->user()->cz1_id_empleado)
             ->where('cz11_pp_id', $request->id_pp)->delete();
@@ -77,7 +72,10 @@ class RespuestasController extends Controller
     {
         $estado = z4_rel_ts_gp::select('cz4_id','cz4_estado')->where('cz4_ts_id', Auth()->user()->cz1_id_empleado)
             ->where('cz4_gp_id', $request->id_gp)->first();
-            if($estado->cz4_estado != 2){
+            $time = new Carbon();
+        $fecha = $time->format('Y-m-d H:i:s');
+    $prueba = z3_gestion_pruebas::select('cz3_fecha_apertura', 'cz3_fecha_cierre', 'cz3_id')->where('cz3_id',$request->id_gp)->first();
+            if($estado->cz4_estado != 2 && $prueba['cz3_fecha_apertura'] < $fecha ||  $prueba['cz3_fecha_cierre'] > $fecha){
         $estado->cz4_estado = '1';
         $estado->save();
 
@@ -145,7 +143,17 @@ class RespuestasController extends Controller
     }
     public function calificar($emp, $id)
     {
-    //   return  z11_resultados::all()->where('cz11_pp_id', $id)->where('cz11_id_empleado', $emp)->where('cz11_categoria', 'ra');
+        
+            
+        $date = Date::now()->format(' Y-m-d H:i:s ');
+        $time = new Carbon();
+        $fecha = $time->format('Y-m-d H:i:s');
+    $prueba = z3_gestion_pruebas::select('cz3_fecha_apertura', 'cz3_fecha_cierre', 'cz3_id')->where('cz3_id',$id)->first();
+    $estado = z4_rel_ts_gp::select('cz4_estado','cz4_calificacion')->where('cz4_ts_id', Auth()->user()->cz1_id_empleado)->where('cz4_gp_id', $id)->first();
+    if($prueba['cz3_fecha_apertura'] > $fecha ||  $prueba['cz3_fecha_cierre'] < $fecha || $estado['cz4_estado'] == 2   ){
+        return  $estado ;
+    }
+    else{
         $smur = z11_resultados::select(
             'cz11_id',
             'cz11_pp_id',
@@ -169,7 +177,7 @@ class RespuestasController extends Controller
 
             )
             ->where('cz11_id_gp', $id)
-            ->where('cz11_id_empleado', $emp)
+            ->where('cz11_id_empleado',  Auth()->user()->cz1_id_empleado)
             ->where('cz5_categoria', 'smur')
             ->distinct()
             ->get();
@@ -197,7 +205,7 @@ class RespuestasController extends Controller
 
             )
             ->where('cz11_id_gp', $id)
-            ->where('cz11_id_empleado', $emp)
+            ->where('cz11_id_empleado',  Auth()->user()->cz1_id_empleado)
             ->where('cz5_categoria', 'smmr')
             ->orderBy('cz11_rta')
             ->get();
@@ -260,23 +268,25 @@ class RespuestasController extends Controller
 
                 $rta_id = $item->cz11_rta;
 
-            } else {
+            } 
                 if ($rta_id != $item->cz11_rta) {
                     $nota = z11_resultados::find($item->cz11_id);
                     $nota->cz11_nota = $calificacion;
                     $nota->save();
                     $calificacion = 0;
                 }
-            }
+            
 
         }
 
-        $nota_final = z4_rel_ts_gp::where('cz4_ts_id', $emp)->where('cz4_gp_id', $id)->first();
+        $nota_final = z4_rel_ts_gp::where('cz4_ts_id',  Auth()->user()->cz1_id_empleado)->where('cz4_gp_id', $id)->first();
         $nota_final->cz4_calificacion = $acumulado;
         $nota_final->save();
         return $acumulado;
-
     }
+    }
+
+    
     public function validarInicio($id_prueba)
     {
         return z11_resultados::select('cz11_id')->where('cz11_id_gp', $id_prueba)->first();
