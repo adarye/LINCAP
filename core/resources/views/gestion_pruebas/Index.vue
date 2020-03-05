@@ -191,7 +191,7 @@ import 'pc-bootstrap4-datetimepicker/build/css/bootstrap-datetimepicker.css';
                 })
             },
             crear() {
-                console.log(this.datos.cz3_fecha_apertura + ' ' + this.datos.cz3_fecha_cierre)
+               
                
              
                var fechaC =  this.datos.cz3_fecha_cierre.split('-');
@@ -209,9 +209,9 @@ import 'pc-bootstrap4-datetimepicker/build/css/bootstrap-datetimepicker.css';
 
                 var fechaApertura = fechaA[0] +'/'+ mesA + '/'+ fechaA[1] + ' ' + horaA
                   fechaApertura = new Date(fechaApertura)
-                 console.log(fechaCierre +' ' + fechaApertura)
+               
                  var diffDays = fechaApertura.getDate() - new Date().getDate();
-                 console.log(diffDays)
+               
               
 
                  if(this.datos.cz3_nombre == null || this.datos.cz3_descripcion == null ||

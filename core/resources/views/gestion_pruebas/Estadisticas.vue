@@ -232,14 +232,14 @@
             },
             buscarRes(id, j, rta) {
 
-                console.log(this.selectSede)
+               
                 axios.post('/api/estadistica/buscar/smur', {
                     id: id,
                     co: this.selectSede,
                     cargos: this.cargos_filtro,
                     id_prueba: this.id
                 }).then(res => {
-                    console.log(res.data)
+                
                     //  this.chartData.push([rta])
                     this.chartData[j].push([rta, res.data])
                 });
@@ -259,7 +259,7 @@
                 axios.get('/api/getCO')
                     .then(res => {
                         this.sedes = res.data
-                        console.log(res.data)
+
                     })
             },
             buscarCargos() {
@@ -288,13 +288,12 @@
                     }
 
                 }
-                console.log(this.cargos_filtro)
             }
         },
         computed: {
             cargaFinalizada() {
                 if (this.resSMMR.length == this.chartData2.length) {
-                    console.log(this.resSMMR.length + ' ' + this.chartData2.length)
+                  
                     // swal('Estadisticas','Han sido cargadas correctamente','success')
                 }
             }

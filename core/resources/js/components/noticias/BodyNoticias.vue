@@ -172,7 +172,7 @@
                 axios.get('/api/noticias/')
                     .then(res => {
                         this.noticias = res.data
-                        console.log(this.noticias)
+                        
                     })
             },
             eliminar(id) {
@@ -186,7 +186,7 @@
                     if (willDelete) {
                         axios.delete(`/api/noticia/delete/${id}`)
                             .then(res => {
-                                console.log(res.data)
+                            
                                 this.index();
                                 swal("Eliminado", {
                                     icon: "success"
@@ -200,7 +200,7 @@
             descargarFile(id) {
                 axios.get(`api/noticia/download-file/${id}`)
                     .then(res => {
-                        console.log(res.data)
+                      
                     })
             },
             mostrarCaja: function () {

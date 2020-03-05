@@ -165,7 +165,7 @@ export default {
                     formData.append('importancia', this.importancia);
                     formData.append('archivo', this.file);
 
-                     console.log(formData)
+                     
                     axios({
                     method: 'post',
                     url: '/api/noticia/guardar',
@@ -173,7 +173,7 @@ export default {
                   
                 })
                         .then(res => {
-                            console.log(res.data)
+                            
                             swal('Publicacion guardada','','success')
                             .then(select => {
                                  EventBus.$emit("cargar", "o");
@@ -208,7 +208,7 @@ export default {
                     formData.append('importancia', this.importancia);
                     formData.append('archivo', this.file);
                     formData.append('id', this.id);
-                    console.log(formData)
+                   
             axios.post('/api/noticia/actualizar', formData)
             .then(res=>{
                 EventBus.$emit("cargar", "o");
@@ -222,7 +222,7 @@ export default {
                 //Asignamos la imagen a  nuestra data
                 let file = event.target.files[0];
                 this.imagen = file;
-                console.log(file.size)
+                
 
                 if (!/\.(jepg|jpg|png|gif)$/i.test(file.name)) {
                     swal(

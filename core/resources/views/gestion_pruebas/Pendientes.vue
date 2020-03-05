@@ -89,11 +89,9 @@
         beforeMount() {
             this.id = user.id
             this.categoria = this.$route.params.categoria
-            console.log(this.id)
             axios.get(`/api/pruebas/pendientes/${this.$route.params.categoria}`)
                 .then(res => {
                     this.pruebas = res.data
-                    console.log(this.pruebas)
                 })
             setTimeout(
                 _ => this.carga = false,

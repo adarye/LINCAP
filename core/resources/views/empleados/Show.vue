@@ -261,9 +261,7 @@
                 axios
                     .get(`/api/empleado/informacion/${this.$route.params.id}`)
                     .then(res => {
-                        console.log(res.data)
                         if (res.data == "") {
-                            console.log("entre aqui ayudame bro")
                             this.empleado_info = {
                                 cz9_nombre_familiar: "",
                                 cz9_nombre_contacto: "",
@@ -295,7 +293,7 @@
                             };
                         } else {
                             this.empleado_info = res.data;
-                            console.log(this.empleado_info);
+                        
                         }
                     });
             },

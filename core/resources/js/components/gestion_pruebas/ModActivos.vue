@@ -234,7 +234,6 @@
                var fecha = new Date(value)
                    var fecha_format = fecha.setDate(fecha.getDate() + 1);
  
-                   console.log(new Date(fecha_format))
                    return new Date(fecha_format)
                }
                else{
@@ -243,7 +242,6 @@
 
             },
             fechaFormat(value){
-                console.log(value)
                  if(value.length > 0 && value[0].cz4_fecha_finalizacion != null){ 
                    return new Date(value[0].cz4_fecha_finalizacion)
                }
@@ -263,7 +261,7 @@
             },
             traerActivos() {
                 axios.get(`/api/asignacion/traerNotas/${this.id_prueba}`).then(res => {
-                    console.log(res.data)
+
                     this.activos = res.data;
 
                 });
@@ -301,7 +299,6 @@
                     })
                     .then(res => {
                          this.traerActivos()
-                        console.log(res.data)
                          swal('Correcto', res.data.mensaje, 'success')
                     });
 
@@ -322,7 +319,6 @@
                                 id_prueba: this.id_prueba
                             })
                             .then(res => {
-                                console.log(res.data)
                                  this.traerActivos()
                                 swal('Correcto','Se ha eliminado la asignación ', 'success')
                             });
@@ -336,7 +332,6 @@
                 } else {
                     empleados = filtrados
                 }
-                console.log(empleados)
 
                 const wrapper = document.createElement('div');
                 wrapper.innerHTML =
@@ -352,7 +347,6 @@
                     activos: empleados,
                     seleccionados: this.seleccionados
                 }).then(res => {
-                    console.log(res.data)
                     swal('Se han seleccionado todos', '', 'success')
                     this.traerActivos()
 
@@ -370,7 +364,7 @@
                 } else {
                     empleados = filtrados
                 }
-                console.log(empleados)
+
 
                 const wrapper = document.createElement('div');
                 wrapper.innerHTML =
@@ -386,7 +380,6 @@
                     activos: empleados,
                     seleccionados: this.seleccionados
                 }).then(res => {
-                    console.log(res.data)
                     this.quitarRelacion();
                     swal('Se han quitado las asignaciones', '', 'success')
                     this.traerActivos()
@@ -400,7 +393,6 @@
             buscarEncuesta(id) {
                 axios.get(`/api/gp/buscar/${this.id_prueba}`)
                     .then(res => {
-                        console.log(res.data)
                         if (res.data.cz3_categoria == 1) {
                             router.push('/administrar/encuesta/' + this.id_prueba + '/' + id +'/' + user.id)
                         } else if (res.data.cz3_categoria == 2) {
