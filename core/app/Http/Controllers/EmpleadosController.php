@@ -53,10 +53,14 @@ class EmpleadosController extends Controller
 
         $date = Date::now()->format('l j F Y');
         
-        $view = view('ejemplo', compact('empleado', 'date'))->render();
+        $view = view('certificaciones.certificado_laboral', compact('empleado', 'date'))->render();
         $pdf = \App::make('dompdf.wrapper');
         $pdf->loadHTML($view);
 
-        return $pdf->stream('invoice');
+        // return PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])
+        // ->loadView($view)->stream();
+
+         return $pdf->setOptions([ 'isRemoteEnabled' => true])->stream();
+        // return $pdf->stream('invoice');
     }
 }

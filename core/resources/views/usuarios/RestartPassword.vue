@@ -17,9 +17,9 @@
                     <input type="password" class="form-control" placeholder="Repite la nueva contraseña" v-model="password_nueva" />
                     </div>
                     <div class="col-md-12 col-sm-12 form-group has-feedback">
-                    <button type="submit" class="btn btn-outline-primary">Actualizar  <i class="fa fa-save"></i></button>
+                    <button type="submit" class="btn btn-primary" title="Actualizar"><i class="fa fa-save"></i></button>
                     <button type="button" @click="cerrar"
-                                        class="btn btn-outline-danger">Cerrar  <i class="fa fa-close"></i></button>
+                                      title="Cerrar"  class="btn btn-danger"> <i class="fa fa-close"></i></button>
                                 
                     </div>
                                        
@@ -95,7 +95,7 @@ export default {
             }
         },
         cerrar(){
-            router.push('/empleados/InfCorporativa');
+            router.push('/');
        // window.location.href = "http:/amazon.com"
       }
     },

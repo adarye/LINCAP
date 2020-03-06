@@ -495,7 +495,7 @@
                 return this.activos.filter((activo) => {
                     this.pagina = 1
                     if (this.selectCO == null || this.selectCO == 'co' && this.selectEM ==
-                        'MOSTRAR TODOS' && this.cargos_filtro.length == 0) {
+                        'MOSTRAR TODOS') {
                         const nombre_completo = activo.c0541_nombres + ' ' + activo.c0541_apellido1 + ' ' +
                             activo.c0541_apellido2
 
@@ -504,55 +504,7 @@
                             nombre_completo.toUpperCase().includes(this.bempleado.toUpperCase()) ||
                             activo.c0763_descripcion.toUpperCase().includes(this.bempleado.toUpperCase())
 
-                    }else if (this.cargos_filtro.length > 0 && this.selectCO != 'co' && this.selectEM ==
-                        'MOSTRAR TODOS' ) {
-                        const nombre_completo =
-                            activo.c0541_nombres +
-                            " " +
-                            activo.c0541_apellido1 +
-                            " " +
-                            activo.c0541_apellido2;
-                        return ((activo.f285_id.includes(this.selectCO) && this.cargos_filtro.filter(a =>
-                                    a == activo.c0550_rowid_cargo) != '' &&
-                                nombre_completo
-                                .toUpperCase()
-                                .includes(this.bempleado.toUpperCase())) ||
-                            (activo.f285_id.includes(this.selectCO) && this.cargos_filtro.filter(a =>
-                                    a == activo.c0550_rowid_cargo) != '' &&
-                                activo.c0541_id
-                                .toUpperCase()
-                                .includes(this.bempleado.toUpperCase())) ||
-                            (activo.f285_id.includes(this.selectCO) && this.cargos_filtro.filter(a =>
-                                    a == activo.c0550_rowid_cargo) != '' &&
-                                activo.c0763_descripcion
-                                .toUpperCase()
-                                .includes(this.bempleado.toUpperCase()))
-                        )
 
-                    } else if (this.cargos_filtro.length > 0 && this.selectEM ==
-                        'MOSTRAR TODOS') {
-                        const nombre_completo =
-                            activo.c0541_nombres +
-                            " " +
-                            activo.c0541_apellido1 +
-                            " " +
-                            activo.c0541_apellido2;
-                        return ((this.cargos_filtro.filter(a => a == activo
-                                    .c0550_rowid_cargo) != '' &&
-                                nombre_completo
-                                .toUpperCase()
-                                .includes(this.bempleado.toUpperCase())) ||
-                            (this.cargos_filtro.filter(a => a == activo
-                                    .c0550_rowid_cargo) != '' &&
-                                activo.c0541_id
-                                .toUpperCase()
-                                .includes(this.bempleado.toUpperCase())) ||
-                            (this.cargos_filtro.filter(a => a == activo
-                                    .c0550_rowid_cargo) != '' &&
-                                activo.c0763_descripcion
-                                .toUpperCase()
-                                .includes(this.bempleado.toUpperCase()))
-                        )
 
                     } else if (this.selectEM == "MOSTRAR TODOS" && this.selectCO != 'co') {
                         const nombre_completo =
@@ -576,7 +528,7 @@
                                 .toUpperCase()
                                 .includes(this.bempleado.toUpperCase()))
                         );
-                    }  else if (this.selectCO != 'co' && this.selectEM == 'SELECCIONADOS') {
+                    } else if (this.selectCO != 'co' && this.selectEM == 'SELECCIONADOS') {
                         if (this.bempleado == "") {
                             return activo.nota.length >= 1 && activo.f285_id.includes(this
                                 .selectCO)
@@ -609,80 +561,6 @@
                             )
                         );
 
-                    }else if (this.cargos_filtro.length > 0 && this.selectEM ==
-                        'SELECCIONADOS') {
-                        const nombre_completo =
-                            activo.c0541_nombres +
-                            " " +
-                            activo.c0541_apellido1 +
-                            " " +
-                            activo.c0541_apellido2;
-                        return ((this.cargos_filtro.filter(a => a == activo
-                                    .c0550_rowid_cargo) != '' &&
-                                nombre_completo
-                                .toUpperCase()
-                                .includes(this.bempleado.toUpperCase())
-                                && 
-                                activo.nota.length >= 1 &&
-                                nombre_completo
-                                ) ||
-                            (this.cargos_filtro.filter(a => a == activo
-                                    .c0550_rowid_cargo) != '' &&
-                                activo.c0541_id
-                                .toUpperCase()
-                                .includes(this.bempleado.toUpperCase())
-                                &&
-                                activo.nota.length >= 1 &&
-                                nombre_completo
-                                ) ||
-                            (this.cargos_filtro.filter(a => a == activo
-                                    .c0550_rowid_cargo) != '' &&
-                                activo.c0763_descripcion
-                                .toUpperCase()
-                                .includes(this.bempleado.toUpperCase())
-                                &&
-                                activo.nota.length >= 1 &&
-                                nombre_completo
-                                )
-                        )
-
-                    }else if (this.cargos_filtro.length > 0 && this.selectEM ==
-                        'NO SELECCIONADOS') {
-                        const nombre_completo =
-                            activo.c0541_nombres +
-                            " " +
-                            activo.c0541_apellido1 +
-                            " " +
-                            activo.c0541_apellido2;
-                        return ((this.cargos_filtro.filter(a => a == activo
-                                    .c0550_rowid_cargo) != '' &&
-                                nombre_completo
-                                .toUpperCase()
-                                .includes(this.bempleado.toUpperCase())
-                                && 
-                                activo.nota.length == 0 &&
-                                nombre_completo
-                                ) ||
-                            (this.cargos_filtro.filter(a => a == activo
-                                    .c0550_rowid_cargo) != '' &&
-                                activo.c0541_id
-                                .toUpperCase()
-                                .includes(this.bempleado.toUpperCase())
-                                &&
-                                activo.nota.length == 0 &&
-                                nombre_completo
-                                ) ||
-                            (this.cargos_filtro.filter(a => a == activo
-                                    .c0550_rowid_cargo) != '' &&
-                                activo.c0763_descripcion
-                                .toUpperCase()
-                                .includes(this.bempleado.toUpperCase())
-                                &&
-                                activo.nota.length >= 1 &&
-                                nombre_completo
-                                )
-                        )
-
                     } else if (this.selectEM == "SELECCIONADOS") {
                         const nombre_completo =
                             activo.c0541_nombres +
@@ -690,7 +568,7 @@
                             activo.c0541_apellido1 +
                             " " +
                             activo.c0541_apellido2;
-                        return (activo.nota.length >= 1 &&
+                        return ( activo.nota.length >= 1 &&
                                 nombre_completo
                                 .toUpperCase()
                                 .includes(this.bempleado.toUpperCase())
