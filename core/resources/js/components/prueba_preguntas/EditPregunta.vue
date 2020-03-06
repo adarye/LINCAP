@@ -60,7 +60,6 @@ export default {
         }
     },
     mounted(){
-        console.log(this.params)
         this.tipo_respuesta = this.params.cz5_categoria
         if( this.tipo_respuesta == 'smur'   ){
         this.numero = this.params.respuestas.length
@@ -96,13 +95,11 @@ export default {
             axios.put('/api/respuestaS/update',{size:  this.params.respuestas.length, respuestas:this.params.respuestas
             })
             .then(res=>{
-                console.log(res.data)
             })
             }
              else if( this.tipo_respuesta == 'smmr'){
                  axios.put('/api/respuestaS/updateSMMR',{size:  this.params.smmr.length, smmr:this.params.smmr})
             .then(res=>{
-                console.log(res.data)
             })
             }
 

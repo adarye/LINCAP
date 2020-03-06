@@ -102,7 +102,6 @@
         },
         mounted() {
             this.validarInicio()
-            console.log('bodyrespuestas')
             this.cargarPreguntas();
             EventBus.$on('cargar', (item) => {
                 this.cargarPreguntas()
@@ -121,7 +120,6 @@
                     .then(res => {
                         res.data
                         this.resSMMR = res.data
-                        console.log(this.resSMMR)
                         for (var i = 0; i < res.data.length; i++) {
                             this.inputs.push([])
                             for (var j = 0; j < res.data[i].smmr.length; j++) {
@@ -130,7 +128,6 @@
                                 }
                             }
                         }
-                        console.log(this.inputs)
                     })
             },
             traerPregunta_SMUR() {
@@ -181,8 +178,7 @@
                 }
             },
             guardarSMMRcorrecta(item, opcion) {
-                console.log(this.inputs)
-                console.log(opcion)
+
                 if (this.$route.params.cat == 2) {
                     //   if(){}
                     axios.put(`/api/smmr/update/${opcion}`, item)

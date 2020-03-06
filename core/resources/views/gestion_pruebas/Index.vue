@@ -148,8 +148,8 @@ import 'pc-bootstrap4-datetimepicker/build/css/bootstrap-datetimepicker.css';
                     cz3_id:null,
                     cz3_nombre: null,
                     cz3_descripcion: null,
-                    cz3_fecha_apertura: null,
-                    cz3_fecha_cierre:  null
+                    cz3_fecha_apertura: "",
+                    cz3_fecha_cierre:  ""
                 },
                 
                 titulo: 'Crear Encuesta',
@@ -194,7 +194,16 @@ import 'pc-bootstrap4-datetimepicker/build/css/bootstrap-datetimepicker.css';
                
                
              
-               var fechaC =  this.datos.cz3_fecha_cierre.split('-');
+               
+               
+              
+
+                 if(this.datos.cz3_nombre == null || this.datos.cz3_descripcion == null ||
+                this.datos.cz3_fecha_apertura == "" || this.datos.cz3_fecha_cierre == ""){
+                      swal('Advertencia', 'Todos los campos son necesarios', 'warning')
+                }
+                else{
+                    var fechaC =  this.datos.cz3_fecha_cierre.split('-');
                var mes_hora = fechaC[2].split(' ')
                var mesC =  mes_hora[0]
                var horaC = mes_hora[1]
@@ -211,14 +220,8 @@ import 'pc-bootstrap4-datetimepicker/build/css/bootstrap-datetimepicker.css';
                   fechaApertura = new Date(fechaApertura)
                
                  var diffDays = fechaApertura.getDate() - new Date().getDate();
-               
-              
-
-                 if(this.datos.cz3_nombre == null || this.datos.cz3_descripcion == null ||
-                this.datos.cz3_fecha_apertura == null || this.datos.cz3_fecha_cierre == null){
-                      swal('Advertencia', 'Todos los campos son necesarios', 'warning')
                 }
-                else if(fechaApertura > fechaCierre || diffDays < 0
+                if(fechaApertura > fechaCierre || diffDays < 0
                  ){
                      swal('Advertencia', 'Las fechas deben tener un rango en vigencia', 'warning')
                 }

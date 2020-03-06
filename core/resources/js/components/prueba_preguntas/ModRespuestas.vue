@@ -45,7 +45,6 @@
             }
         },
         created(){
-        console.log('g' + this.res.length)
         },
 
         methods: {

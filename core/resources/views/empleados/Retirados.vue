@@ -269,7 +269,7 @@
             filtrar(item, e, campo, nombre_tabla, isDate) {
                 var index = -1
                 if (e == true) {
-                    if (item == 'Fecha de Ingreso' || item == 'Fecha de vencimiento del contrato' && campo !=
+                    if (item == 'Fecha de Ingreso' || item == 'Fecha de vencimiento del contrato' || item == 'Fecha de nacimiento' && campo !=
                         'empleado_info') {
                         console.log('entro')
                         this.columns.push({
@@ -345,6 +345,7 @@
                             .includes(this.bempleado.toUpperCase())
                         );
                     } else if (this.cargos_filtro.length > 0 && this.selectCO != 'co') {
+                      
                         const nombre_completo =
                             retirado.c0541_nombres +
                             " " +

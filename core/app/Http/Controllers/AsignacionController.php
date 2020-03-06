@@ -232,7 +232,8 @@ class AsignacionController extends Controller
                 "c0550_fecha_contrato_hasta",
                 "f285_descripcion",
                 "f285_id",
-                "f200_rowid"
+                "f200_rowid",
+                'c0550_rowid_cargo'
 
             )->join(
                 'dbo.t200_mm_terceros',

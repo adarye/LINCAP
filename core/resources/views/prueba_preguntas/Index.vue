@@ -30,6 +30,7 @@
                                     </div>
                                 <div class="col-md-12 col-center col-sm-8 form-group has-feedback">
                                     <select v-model="tipo_respuesta" class="form-control" >
+                                        <option value="Seleccione..." >Seleccione...</option>
                                         <option value="smur" >Seleccion multiple con unica respuesta</option>
                                         <option value="smmr"> Seleccion multiple con multiples respuesta</option>
                                         <option value="ra"> Respuesta Abierta</option>
@@ -134,6 +135,7 @@ export default {
     },
    
     mounted() {
+        
         this.id_log = user.id
         this.buscar();
         this.buscarPruebas()
@@ -150,7 +152,6 @@ export default {
         },
         crear() {
            
-           console.log(this.res)
             if (this.pregunta == "" || this.tipo_respuesta == "Seleccione...") {
                 swal("Advertencia", "Llene todos los campos", "warning");
             } else if ( this.tipo_respuesta == "smmr" || this.tipo_respuesta == "smur" ) {
@@ -167,7 +168,7 @@ export default {
 
                     }
                       else if (this.res.length != this.n_respuestas) {
-                           console.log(this.res.length + " " + this.n_respuestas);
+                          
                             swal( "Advertencia", "Escriba las posibles respuestas","warning");
                     }
                     else {
@@ -205,7 +206,7 @@ export default {
                         categoria: this.tipo_respuesta
                     })
                     .then(res => {
-                        console.log(res.data);
+                      
                         EventBus.$emit("cargar", this.tipo_respuesta);
                         swal(
                             "Mensaje",
@@ -229,7 +230,10 @@ export default {
                 );
             } else if (this.n_respuestas == 0 || this.n_respuestas == null) {
                 swal("Advertencia", "Ingrese un valor valido", "warning");
-            } else {
+            } else if (this.n_respuestas <  this.rtas_correctas) {
+                swal("Advertencia", "La cantidad de respuestas correctas debe ser menor al total de posibles respuestas", "warning");
+            }
+            else {
                 this.$modal.show("respuestas");
             }
         },
@@ -253,7 +257,6 @@ export default {
             axios.post('/api/gp/copiarPrueba', {id: this.prueba_seleccionada, prueba: this.$route.params.id})
             .then(res=>{
                  EventBus.$emit("cargar", "o");
-                console.log(res.data)
                 swal('Mensaje', 'Preguntas copiadas exitosamente', 'success')
             })
 
