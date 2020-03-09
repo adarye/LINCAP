@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Empleados;
 use Jenssegers\Date\Date;
+use PDF;
 
 class EmpleadosController extends Controller
 {
@@ -54,13 +55,15 @@ class EmpleadosController extends Controller
         $date = Date::now()->format('l j F Y');
         
         $view = view('certificaciones.certificado_laboral', compact('empleado', 'date'))->render();
-        $pdf = \App::make('dompdf.wrapper');
-        $pdf->loadHTML($view);
+        // $pdf = \App::make('dompdf.wrapper');
+       $pdf = PDF::loadHTML($view);
 
-        // return PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])
-        // ->loadView($view)->stream();
+        
+        
 
-         return $pdf->setOptions([ 'isRemoteEnabled' => true])->stream();
-        // return $pdf->stream('invoice');
+        // return $pdf->download('certificaciones.pdf');
+
+          return $pdf->setOptions([ 'isRemoteEnabled' => true])->stream();
+         return $pdf->stream('invoice');
     }
 }
