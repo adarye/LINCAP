@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class CursoAlturas extends Mailable
+class PeriodoPrueba extends Mailable
 {
     public $empleados;
     public $fecha;
@@ -20,10 +20,9 @@ class CursoAlturas extends Mailable
      */
     public function __construct($empleados, $fecha)
     {
-        
         $this->empleados = $empleados;
         $this->fecha = $fecha;
-        Mailable::subject('Proximos vencimientos del curso de altura');
+        Mailable::subject('Proximos vencimientos del periodo de prueba');
     }
 
     /**
@@ -33,6 +32,6 @@ class CursoAlturas extends Mailable
      */
     public function build()
     {
-        return $this->view('mail.EnviarCA');
+        return $this->view('mail.EnviarPP');
     }
 }

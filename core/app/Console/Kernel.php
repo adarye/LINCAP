@@ -8,7 +8,7 @@ use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use Illuminate\Support\Facades\Mail;
 
 use App\Terceros;
-use App\Mail\CursoMD;
+use App\Mail\PeriodoPrueba;
 
 class Kernel extends ConsoleKernel
 {
@@ -29,23 +29,26 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('emp:contrato')->everyMinute();
+        $schedule->command('emp:contrato')->dailyAt('08:00');
         $schedule->command('emp:cumpleaños')->dailyAt('08:00');
+
+        //SST
 
         $schedule->command('emp:CarneVacunacion')->monthlyOn(20, '08:00');
         $schedule->command('emp:CarneAlimentos')->monthlyOn(20, '08:00');
 
       
-
+         //RRHH
          $schedule->command('emp:enviarCA')->dailyAt('08:00');
          $schedule->command('emp:enviarMD')->dailyAt('08:00');
          $schedule->command('emp:enviarBPM')->dailyAt('08:00');
+          $schedule->command('emp:enviarPP')->dailyAt('08:00');
 //         $schedule->call(function () {
-       
+    
 // })->everyMinute();
 
        
-    }
+}
 
     /**
      * Register the commands for the application.
