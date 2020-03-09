@@ -185,6 +185,7 @@ class TercerosmmController extends Controller
                 $empleado->cz9_premios = $request->cz9_premios;
                 $empleado->cz9_fv_carne_vacunacion = $request->cz9_fv_carne_vacunacion;
                 $empleado->cz9_fv_carne_alimentos = $request->cz9_fv_carne_alimentos;
+                $empleado->cz9_talla_uniforme = $request->talla_uni;
                
 
                 if ($request->hasFile('file_titulacion')) {
@@ -205,7 +206,7 @@ class TercerosmmController extends Controller
             $empleado->cz9_nombre_familiar = $request->familiar_linco;
             $empleado->cz9_nombre_contacto = $request->contacto;
             $empleado->cz9_tel_contacto = $request->con_num;
-            $empleado->cz9_talla_uniforme = $request->talla_uni;
+            // $empleado->cz9_talla_uniforme = $request->talla_uni;
             $empleado->cz9_talla_calzado = $request->talla_cal;
             $empleado->cz9_mail_corp = $request->email_corp;
             $empleado->cz9_tel_corp = $request->tel_corp;
@@ -234,6 +235,7 @@ class TercerosmmController extends Controller
                 $empleado->cz9_premios = $request->cz9_premios;
                 $empleado->cz9_fv_carne_vacunacion = $request->cz9_fv_carne_vacunacion;
                 $empleado->cz9_fv_carne_alimentos = $request->cz9_fv_carne_alimentos;
+                $empleado->cz9_talla_uniforme = $request->talla_uni;
                 
                 if ($request->hasFile('file_titulacion')) {
                     $file = $request->file('file_titulacion');
@@ -254,7 +256,7 @@ class TercerosmmController extends Controller
             $empleado->cz9_nombre_familiar = $request->familiar_linco;
             $empleado->cz9_nombre_contacto = $request->contacto;
             $empleado->cz9_tel_contacto = $request->con_num;
-            $empleado->cz9_talla_uniforme = $request->talla_uni;
+            // $empleado->cz9_talla_uniforme = $request->talla_uni;
             $empleado->cz9_talla_calzado = $request->talla_cal;
             $empleado->cz9_id_empleado = $id;
             $empleado->cz9_mail_corp = $request->email_corp;

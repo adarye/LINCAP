@@ -81,7 +81,7 @@
                 <input type="text" v-model="bempleado" class="form-control" v-autofocus placeholder="Buscar" />
             </div>
             <div class="col-md-2  col-sm-1 form-group has-feedback">
-                <vue-excel-xlsx :sheetname="'sheetname'" class="btn btn-sm btn-info mt-1" :data="mbuscar"
+                <vue-excel-xlsx :sheetname="'NOTAS'" class="btn btn-sm btn-info mt-1" :data="mbuscar"
                     :columns="columns" :filename="titulo + '-resultados.xls' " title="Exportar">
                     <i class="fa fa-print"></i>
                 </vue-excel-xlsx>

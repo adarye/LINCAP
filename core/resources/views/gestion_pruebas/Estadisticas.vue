@@ -87,7 +87,7 @@
             </div>
         </article>
 
-        <modal name="cargos" :clickToClose="false" :adaptive="true" :width="525" :height="425">
+        <modal name="cargos" :clickToClose="false" :adaptive="true" :width="525" :height="380">
             <div class="table-responsive-md table-responsive-sm table-wrapper-scroll-y my-custom-scrollbar">
                 <table class="table table-striped">
                     <thead>
@@ -115,12 +115,14 @@
                     </tbody>
                 </table>
             </div>
+            <div class="col-md-12">
             <button type="button" class="btn btn-info mt-3" @click="filtrar">
                 Filtrar <li class="fa fa-filter"></li>
             </button>
             <button type="button" class="btn btn-danger mt-3" @click="$modal.hide('cargos');">
                 Cerrar
             </button>
+            </div>
         </modal>
 
 

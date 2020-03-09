@@ -179,9 +179,9 @@
             return {
                 CO: [],
                 retirados: [],
-                selectPag: 25,
+                selectPag: 10,
                 selectCO: 'co',
-                numero: 25,
+                numero: 10,
                 mostrar: 0,
                 bempleado: "",
                 pagina: 1,

@@ -15,7 +15,7 @@
             <div class=" pull-right">
                 Ver
             </div>
-            <div class="col-md-1">
+            <div class="col-md-2">
                 <select v-model="selectPag" @click.prevent="mostrarCaja()" class="form-control">
                     <option value="10">10</option>
                     <option value="25">25</option>
@@ -33,7 +33,7 @@
                         {{ item.f285_descripcion }}</option>
                 </select>
             </div>
-            <div class="col-md-6 mt-2 col-center has-feedback">
+            <div class="col-md-5 mt-2 col-center has-feedback">
                 <input type="text" v-model="bempleado" class="form-control" v-autofocus placeholder="Buscar" />
             </div>  
              <span v-if="mostrar == 1"><input class="select mt-2" v-model="numero" /></span>          
@@ -104,9 +104,9 @@ export default {
         return {
             CO: [],
             activos: [],
-            selectPag: 25,
+            selectPag: 10,
             selectCO: 'co',
-            numero: 25,
+            numero: 10,
             mostrar: 0,
             bempleado: '',
             pagina: 1,

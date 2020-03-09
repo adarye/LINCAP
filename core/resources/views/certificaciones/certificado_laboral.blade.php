@@ -23,7 +23,7 @@
         .titulo {
             color: black;
             font-weight: bold;
-            font-size: 17px;
+            font-size: 16px;
             font-family: Century Gothic, CenturyGothic, AppleGothic, sans-serif;
             margin-top: 25px;
         }
@@ -31,6 +31,7 @@
         .p {
             color: black;
             /* font-weight: bold; */
+            font-size: 15px;
 
             font-family: Century Gothic, CenturyGothic, AppleGothic, sans-serif;
             margin-top: 25px;
@@ -43,14 +44,15 @@
 
         .box {
             position: absolute;
-            bottom: 35px;
+            bottom: 90px;
            
 
         }
         .box2 {
             position: absolute;
-            bottom: 35px;
+            bottom: 90px;
             right: 5px;
+            font-size: 16px
            
 
         }
@@ -82,9 +84,9 @@
         {{ $empleado->c0541_apellido2 }}, identificado (a) con cédula de ciudadanía número {{ $empleado->c0541_id }}
         expedida en {{ $empleado->f013_descripcion }}, se encuentra vinculado (a) a LINCO S.A.S desde
         {{ \Carbon\Carbon::parse($empleado->c0550_fecha_ingreso)->format('d/m/Y')  }},
-        desempeñando actualmente el cargo de {{ $empleado->c0763_descripcion }}, con contrato
+        desempeñando actualmente el cargo de {{ $empleado->c0763_descripcion }},@if($empleado->c0550_fecha_contrato_hasta != null) con contrato
         Termino Fijo, renovable, el cual a la fecha se encuentra vigente hasta el
-        {{ \Carbon\Carbon::parse($empleado->c0550_fecha_contrato_hasta)->format('d/m/Y')  }}, devengando un salario
+        {{ \Carbon\Carbon::parse($empleado->c0550_fecha_contrato_hasta)->format('d/m/Y')  }} ,@else con un contrato de termino indefinido, @endif devengando un salario
         mensual de {{ NumeroALetras::convertir($empleado->c0550_salario, 'pesos', false)}}
          M/CTE (${{ number_format($empleado->c0550_salario) }}),
         más todas las prestaciones legales vigentes.
@@ -129,7 +131,7 @@
     <div class="box2" align="justify">
         
            <b>Telefax:  </b>   (57)(7)648 48 91 <br>
-      <b> Dirección: </b> Carrera 4 No. 5-04 <br>
+      <b> Dirección: <b/> Carrera 4 No. 5-04 <br>
       (Antigua licorera de Sder)<br>
        <b style="color: orange;">+Floridablanca +Santander +Colombia</b>
        

@@ -335,43 +335,7 @@
 
 
 
-                const params = {
-
-                    email: this.informacion.f015_email,
-                    telefono: this.informacion.f015_telefono,
-                    celular: this.informacion.f015_celular,
-                    direccion: this.informacion.f015_direccion1,
-                    barrio: this.informacion.f015_id_barrio,
-                    ciudad: this.informacion.f015_id_ciudad,
-                    familiar_linco: this.empleado_info.cz9_nombre_familiar,
-                    contacto: this.empleado_info.cz9_nombre_contacto,
-                    con_num: this.empleado_info.cz9_tel_contacto,
-                    talla_uni: this.empleado_info.cz9_talla_uniforme,
-                    talla_cal: this.empleado_info.cz9_talla_calzado,
-                    email_corp: this.empleado_info.cz9_mail_corp,
-                    tel_corp: this.empleado_info.cz9_tel_corp,
-                    cel_corp: this.empleado_info.cz9_cel_corp,
-                    fecha_tpprueba: this.empleado_info.cz9_fecha_tpprueba,
-                    fecha_vacuna: this.empleado_info.cz9_fecha_vacuna,
-                    lugar_vacuna: this.empleado_info.cz9_lugar_vacuna,
-                    fecha_vacuna_tifoidea: this.empleado_info
-                        .cz9_fecha_vacuna_tifoidea,
-                    lugar_vacuna_tifoidea: this.empleado_info
-                        .cz9_lugar_vacuna_tifoidea,
-                    fecha_vacuna_toxoide: this.empleado_info
-                        .cz9_fecha_vacuna_toxoide,
-                    lugar_vacuna_toxoide: this.empleado_info
-                        .cz9_lugar_vacuna_toxoide,
-                    reentrenamiento: this.empleado_info.cz9_reentrenamiento,
-                    cz9_premios: this.empleado_info.cz9_premios,
-                    cz9_fv_ta: this.empleado_info.cz9_fv_ta,
-                    cz9_fv_bpm: this.empleado_info.cz9_fv_bpm,
-                    cz9_fv_md: this.empleado_info.cz9_fv_md,
-                    cz9_fv_carne_vacunacion: this.empleado_info.cz9_fv_carne_vacunacion,
-                    cz9_fv_carne_alimentos: this.empleado_info.cz9_fv_carne_alimentos,
-                    cz9_archivo_titulacion: this.empleado_info.cz9_archivo_titulacion,
-                    cz9_archivo_vacunacion: this.empleado_info.cz9_archivo_vacunacion
-                };
+             
                
                
                 axios.post(
@@ -528,8 +492,8 @@
                 axios.get(`/api/empleado/${this.$route.params.id}`).then(res => {
                     // this.perfiles = res.data
                     this.usuario = res.data;
-
-                  
+                 
+                  this.usuario.c0550_salario = new Intl.NumberFormat("es-CO", {style: "currency" ,currency: "COP"}).format( this.usuario.c0550_salario)
                     this.usuario.c0540_fecha_nacimiento = moment(this.usuario.c0540_fecha_nacimiento).format(
                         'll');
                     this.usuario.c0540_fecha_exp_identif = moment(this.usuario.c0540_fecha_exp_identif).format(
