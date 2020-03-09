@@ -14,7 +14,6 @@
                         ?>
                         <img src="/../theme/images/profile/{{ Auth()->user()->cz1_avatar }}"
                             alt="">
-                            {{-- {{Auth()->user()->cz1_nombres}}  --}}
                             {{ $name_separado[0]}}
                     </a>
                     <div class="dropdown-menu  " aria-labelledby="navbarDropdown">
