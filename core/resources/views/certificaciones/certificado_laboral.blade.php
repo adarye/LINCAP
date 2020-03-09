@@ -82,11 +82,11 @@
         {{ $empleado->c0541_apellido2 }}, identificado (a) con cédula de ciudadanía número {{ $empleado->c0541_id }}
         expedida en {{ $empleado->f013_descripcion }}, se encuentra vinculado (a) a LINCO S.A.S desde
         {{ \Carbon\Carbon::parse($empleado->c0550_fecha_ingreso)->format('d/m/Y')  }},
-        desepeñando actualmente el cargo de {{ $empleado->c0763_descripcion }}, con contrato
+        desempeñando actualmente el cargo de {{ $empleado->c0763_descripcion }}, con contrato
         Termino Fijo, renovable, el cual a la fecha se encuentra vigente hasta el
         {{ \Carbon\Carbon::parse($empleado->c0550_fecha_contrato_hasta)->format('d/m/Y')  }}, devengando un salario
         mensual de {{ NumeroALetras::convertir($empleado->c0550_salario, 'pesos', false)}}
-        PESOS M/CTE (${{ number_format($empleado->c0550_salario) }}),
+         M/CTE (${{ number_format($empleado->c0550_salario) }}),
         más todas las prestaciones legales vigentes.
         <br><br>
         Se expide en la ciudad de Floridablanca, a solicitud del interesado el {{ $date }}.
