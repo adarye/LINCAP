@@ -7,11 +7,11 @@
     <style type="text/css">
         .upn {
             /* background-image:url("https://www.portalempleo.linco.com.co/fotos/fondo_default.png"); */
-            background-repeat: no-repeat;
-            width: 450px;
-            height: 350px;
+            /* width: 450px;
+            height: 350px; */
             position: absolute;
-            background-position: -200px 0;
+            bottom: -370px;
+            right: 280px;
             opacity: .400;
         }
 
@@ -76,7 +76,7 @@
         CERTIFICA QUE:
         <br><br><br><br>
     </div>
-    {{-- <img class="upn" src="https://www.portalempleo.linco.com.co/fotos/fondo_default.png"> --}}
+    
     <p class="p" align="justify">
         El (la) señor (a), {{ $empleado->c0541_nombres }} {{ $empleado->c0541_apellido1 }}
         {{ $empleado->c0541_apellido2 }}, identificado (a) con cédula de ciudadanía número {{ $empleado->c0541_id }}
@@ -125,6 +125,7 @@
         
     </span>
     </div>
+    <img class="upn" src="http://lincapd/theme/images/system/fondo.jpg">
     <div class="box2" align="justify">
         
            <b>Telefax:  </b>   (57)(7)648 48 91 <br>

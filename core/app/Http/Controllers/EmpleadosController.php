@@ -12,6 +12,9 @@ class EmpleadosController extends Controller
     //
     public function imprimir(){
 
+        $id_depto = Empleados::select("c0540_id_depto_exp_identif", "c0540_id_pais_exp_identif")
+                ->where("c0540_rowid_tercero", Auth()->user()->cz1_id_empleado)->first();
+
         $empleado = Empleados::select(
         "c0541_nombres",
         "c0541_id",
@@ -50,6 +53,8 @@ class EmpleadosController extends Controller
         )
         ->where('c0540_rowid_tercero', Auth()->user()->cz1_id_empleado)
         ->where('c0550_ind_estado', '1')
+        ->where('f013_id_depto', $id_depto->c0540_id_depto_exp_identif)
+        ->where('f013_id_pais', $id_depto->c0540_id_pais_exp_identif)
         ->first();
 
         $date = Date::now()->format('l j F Y');
@@ -58,10 +63,6 @@ class EmpleadosController extends Controller
         // $pdf = \App::make('dompdf.wrapper');
        $pdf = PDF::loadHTML($view);
 
-        
-        
-
-        // return $pdf->download('certificaciones.pdf');
 
           return $pdf->setOptions([ 'isRemoteEnabled' => true])->stream();
          return $pdf->stream('invoice');
