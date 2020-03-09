@@ -36,16 +36,21 @@
        
         <div class="row mt-4">
             
-            <div class="col-md-8 " v-for="(item, indice) in mbuscar" :key="indice"
+            <div class="col-md-6 " v-for="(item, indice) in mbuscar" :key="indice"
                 v-show="(pagina-1) * numero <= indice && pagina*numero > indice || bnoticia != ''">
                 <div class="x_panel">
-                    <div class="x_title">
-                        <h2>{{item.cz12_nombre}} <small>
-                                <span v-show="item.cz12_nivel_imp == 1">Normal</span>
-                                <span v-show="item.cz12_nivel_imp == 2">Importante</span>
-                                <span v-show="item.cz12_nivel_imp == 3">Muy importante</span>
-                                <span v-show="item.cz12_nivel_imp == 4">Necesaria</span>
+                    <small>
+                                 <h4 style="color: white !important;"><span v-show="item.cz12_nivel_imp == 1"
+                                        class="badge lead badge-success">Normal</span></h4>
+                                <h4><span v-show="item.cz12_nivel_imp == 2"
+                                        class="badge lead badge-primary">Importante</span></h4>
+                                <h4><span v-show="item.cz12_nivel_imp == 3" class="badge lead badge-warning">Muy
+                                        importante</span></h4>
+                                <h4><span v-show="item.cz12_nivel_imp == 4"
+                                        class="badge lead badge-danger">Necesaria</span></h4>
                             </small>
+                    <div class="x_title">
+                        <h2>{{item.cz12_nombre}} 
                         </h2>
                         <ul class="nav navbar-right panel_toolbox">
                             <li v-show="rol != 4 && rol != 5 ">

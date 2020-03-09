@@ -8,7 +8,7 @@
                         disabled />
                 </div>
                 <div class="form-group col-md-6">
-                    <label>Centro de costo</label>
+                    <label>Centro de Costo</label>
                     <input placeholder="Centro de costo" type="text" class="form-control" v-model="usuario.f284_descripcion"
                         disabled />
                 </div>
@@ -19,7 +19,7 @@
                     <input placeholder="Tipo de Contrato" type="text" class="form-control" v-model="tipo_contrato" disabled />
                 </div>
                 <div class="form-group col-md-6">
-                    <label>Fecha terminación de cotrato </label>
+                    <label>Fecha de Terminación del Contrato </label>
                     <input  placeholder="Fecha de Terminación" type="text" class="form-control" v-model="usuario.c0550_fecha_contrato_hasta" disabled />
                 </div>
                
@@ -38,30 +38,30 @@
             <div class="form-row">
                <div class="form-group col-md-6">
                     <label>Fecha de Ingreso</label>
-                    <input type="text" class="form-control" placeholder="Fecha de Ingreso"
+                    <input type="text" class="form-control"
                         v-model="usuario.c0550_fecha_ingreso" disabled />
                 </div>
                 <div class="form-group col-md-6">
-                    <label>Administradora de Riesgos Laborales</label>
-                    <input type="text" class="form-control" placeholder="ARL" v-model=" usuario.c0517_id"
+                    <label>ARL</label>
+                    <input type="text" class="form-control" v-model=" usuario.c0517_id"
                         disabled />
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
-                    <label>Administradora del Fondo de Pensiones </label>
-                    <input type="text" class="form-control" placeholder="AFP" v-model="usuario.c0516_id" disabled />
+                    <label>AFP</label>
+                    <input type="text" class="form-control"  v-model="usuario.c0516_id" disabled />
                 </div>
                 <div class="form-group col-md-6">
-                    <label>Entidad Prestadora de Salud</label>
-                    <input type="text" class="form-control" placeholder="EPS" v-model="usuario.c0515_id"
+                    <label>EPS</label>
+                    <input type="text" class="form-control"  v-model="usuario.c0515_id"
                         disabled />
                 </div>
                 
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
-                    <label>FV Curso de alturas</label>
+                    <label>FV Curso de Alturas</label>
                     <input v-model="empleado_info.cz9_fv_ta" type="date" class="form-control" placeholder="Fecha de Vencimiento" :disabled="validated_admin ? false : true"  v-uppercase  v-max-length="25"/>
                 </div>
                 <div class="form-group col-md-6">
@@ -72,7 +72,7 @@
             </div>
              <div class="form-row">
                 <div class="form-group col-md-6">
-                    <label>FV Curso sobre manejo defensivo</label>
+                    <label>FV Curso sobre Manejo Defensivo</label>
                     <input v-model="empleado_info.cz9_fv_md" type="date" class="form-control"  :disabled="validated_admin ? false : true"  v-uppercase  v-max-length="25"/>
                 </div>
                <div class="form-group col-md-6">
@@ -83,7 +83,7 @@
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
-                    <label>Teléfono Corporativo con extensión</label>
+                    <label>Teléfono Corporativo con Extensión</label>
                     <input type="text" class="form-control"  :disabled="validated ? false : true" v-model="empleado_info.cz9_tel_corp" v-uppercase  v-max-length="25"/>
                 </div>
                 <div class="form-group col-md-6">

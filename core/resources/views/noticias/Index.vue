@@ -32,10 +32,11 @@
               <div class="row">
                 <div class="col-md-10 col-center col-sm-10 form-group has-feedback">
                     <select  class="form-control"  v-model="importancia">
-                           <option value="1">NORMAL</option>
-                           <option  value="2">IMPORTANTE</option>
-                           <option  value="3">MUY IMPORTANTE</option>
-                           <option  value="4">NECESARIA</option>
+                        <option value="Nivel de Importancia">Nivel de Importancia</option>
+                           <option value="1">Normal</option>
+                           <option  value="2">Importante</option>
+                           <option  value="3">Muy Importante</option>
+                           <option  value="4">Necesaria</option>
                             </select>
                     </div>
              </div>
@@ -264,7 +265,7 @@ export default {
                 if (!/\.(txt|doc|docx|pdf|pptx|xlsx|ppt)$/i.test(file.name)) {
                     swal(
                         "Advertencia",
-                        "El archivo a adjuntar no es una imagen",
+                        "El archivo a adjuntar no es una archivo",
                         "warning"
                     );
                     this.estado2 = 0

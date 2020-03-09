@@ -34,7 +34,7 @@
                         v-model="usuario.f012_descripcion" disabled />
                 </div>
                 <div class="form-group col-md-6">
-                    <label>Ciudad / municipio de Expedición</label>
+                    <label>Ciudad de Expedición</label>
                     <input type="text" class="form-control" 
                         v-model="usuario.f013_descripcion" disabled />
                 </div>
@@ -60,7 +60,7 @@
                         v-uppercase v-max-length="55" v-model="informacion.f012_descripcion" />
                 </div>
                 <div class="form-group col-md-6">
-                    <label>Ciudad / municipio de Nacimiento</label>
+                    <label>Ciudad de Nacimiento</label>
                     <input type="text" class="form-control"  disabled v-uppercase
                         v-numeric-only v-max-length="16" v-model="informacion.f013_descripcion" />
                 </div>
@@ -78,12 +78,12 @@
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
-                    <label>Nivel de escolaridad:</label>
+                    <label>Nivel de Escolaridad</label>
                     <input type="text" class="form-control" v-model="informacion.c0702_descripcion"  disabled v-uppercase
                         v-max-length="55" />
                 </div>
                 <div class="form-group col-md-6">
-                    <label>Tipo de vivienda:</label>
+                    <label>Tipo de Vivienda</label>
                     <select v-model="empleado_info.cz9_id_vivienda" class="form-control" :disabled="validated ? false : true">
                         <option :value="item.c0706_rowid" v-for="(item, indice) in viviendas" :key="indice">{{item.c0706_descripcion}}</option>
                         
@@ -93,7 +93,7 @@
             
             <div class="form-row">
                 <div class="form-group col-md-6">
-                    <label>Estado civil</label>
+                    <label>Estado Civil</label>
                     <input type="text" class="form-control" v-model="estado_civil"  disabled v-uppercase
                         v-max-length="55" />
                 </div>
@@ -130,7 +130,7 @@
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
-                    <label>Ciudad / municipio:</label>
+                    <label>Ciudad</label>
                     <select class="form-control" :disabled="validated ? false : true"
                         v-on:change="$emit('cargarBarrios', $event)">
                         <option>...</option>
@@ -139,7 +139,7 @@
                     </select>
                 </div>
                 <div class="form-group col-md-6">
-                    <label>Barrio:</label>
+                    <label>Barrio</label>
                     <select class="form-control" :disabled="validated ? false : true"
                         @change="$emit('cambiarBarrio', $event)">
                         <option>...</option>
@@ -150,20 +150,20 @@
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
-                    <label>Nombre de un familiar en Linco</label>
+                    <label>Nombre de un Familiar en Linco</label>
                     <input type="text" class="form-control" placeholder="opcional" :disabled="validated ? false : true"
                         v-model="empleado_info.cz9_nombre_familiar" v-max-length="75" v-uppercase />
                 </div>
                 <div class="form-group col-md-6">
-                    <label>Contacto de emergencia</label>
+                    <label>Nombre de un Familiar en caso de Emergencia</label>
                     <input type="text" class="form-control" v-model="empleado_info.cz9_nombre_contacto"
                         :disabled="validated ? false : true" v-max-length="55" v-uppercase />
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
-                    <label v-if="!empleado_info.cz9_nombre_contacto"> Numero de teléfono de</label>
-                    <label v-if="empleado_info.cz9_nombre_contacto"> Numero de teléfono de
+                    <label v-if="!empleado_info.cz9_nombre_contacto"> Numero de Teléfono del Familiar en caso de Emergencia</label>
+                    <label v-if="empleado_info.cz9_nombre_contacto"> Numero de Teléfono de
                         {{ empleado_info.cz9_nombre_contacto.toUpperCase() }}</label>
                     <input type="text" class="form-control" :disabled="validated ? false : true"
                         v-model="empleado_info.cz9_tel_contacto" v-max-length="25" v-numeric-only />
@@ -175,19 +175,19 @@
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
-                    <label>Talla de uniforme</label>
-                    <input type="text" class="form-control" :disabled="validated ? false : true"
+                    <label>Talla de Uniforme</label>
+                    <input type="text" class="form-control" :disabled="validated_admin ? false : true"
                         v-model="empleado_info.cz9_talla_uniforme" v-max-length="2" v-uppercase required />
                 </div>
                 <div class="form-group col-md-6">
-                    <label>Talla de calzado</label>
+                    <label>Talla de Calzado</label>
                     <input type="text" class="form-control" :disabled="validated ? false : true"
                         v-model="empleado_info.cz9_talla_calzado" v-max-length="2" v-uppercase v-numeric-only />
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
-                    <label>Terminación del periodo de prueba</label>
+                    <label>Terminación del Periodo de Prueba</label>
                     <input type="date" class="form-control" :disabled="validated_admin ? false : true"
                         v-model="empleado_info.cz9_fecha_tpprueba" />
                 </div>
