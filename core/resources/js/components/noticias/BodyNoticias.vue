@@ -90,7 +90,7 @@
                                     </p>
                                     <p class="mb-2"> <a v-show="item.cz12_archivo != null"
                                             :href="'/../theme/files/noticias/'+ item.cz12_archivo" target="_blank" style="text-decoration: underline;" title="Descargar">
-                                            <li class="fa fa-file-archive-o"></li>  Archivo adjunto
+                                            <li class="fa fa-download"></li>  Descargar archivo
                                         </a></p>
                                          <p class="mb-1 mt-2"> <i class="fa fa-key"></i> key: {{item.cz12_id}}
                                     </p>

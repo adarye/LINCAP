@@ -19,7 +19,7 @@ th, td {
 </head>
 <body>
 
-<p>A estos trabajadores se le vencerá el carnét de alimentos entre <b> {{\Carbon\Carbon::parse($fecha)->format('d/m/Y')}}</b> y <b>{{\Carbon\Carbon::parse($fecha2)->format('d/m/Y')}}</b></p>
+<p>Entre <b> {{\Carbon\Carbon::parse($fecha)->format('d/m/Y')}}</b> y <b>{{\Carbon\Carbon::parse($fecha2)->format('d/m/Y')}}</b>, se le vencerá el carnét de alimentos a estos trabajadores:  </p>
 <?php  $i = 1 ?>
 <table>
   <tr>

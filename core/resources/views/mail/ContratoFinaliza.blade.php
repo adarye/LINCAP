@@ -19,7 +19,7 @@ th, td {
 </head>
 <body>
 
-<p>A estos trabajadores les diremos adiós en 7 días <b> ({{\Carbon\Carbon::parse($date_final)->format('d/m/Y')}})</b></p>
+<p>En 7 días, se vencerá el contrato de los siguientes trabajadores: <b> ({{\Carbon\Carbon::parse($date_final)->format('d/m/Y')}})</b></p>
 <?php  $i = 1 ?>
 <table>
   <tr>

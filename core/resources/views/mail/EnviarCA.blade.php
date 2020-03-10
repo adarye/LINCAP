@@ -19,7 +19,7 @@ th, td {
 </head>
 <body>
 
-<p>A estos trabajadores se le vencerá el curso de trabajo en alturas en 7 días ({{\Carbon\Carbon::parse($fecha)->format('d/m/Y')}})</p>
+<p>En 7 días ({{\Carbon\Carbon::parse($fecha)->format('d/m/Y')}}), se vencerá el curso de <b>trabajo en alturas</b> a los siguientes trabajadores:</p>
 <?php  $i = 1 ?>
 <table>
   <tr>

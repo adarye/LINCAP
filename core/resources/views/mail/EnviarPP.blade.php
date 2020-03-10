@@ -20,7 +20,7 @@ th, td {
 </head>
 <body>
 
-<p>A estos trabajadores se le vencerá el periodo de prueba en 7 días ({{\Carbon\Carbon::parse($fecha)->format('d/m/Y')}})</p>
+<p>En 7 días ({{\Carbon\Carbon::parse($fecha)->format('d/m/Y')}}), se vencerá el  <b>periodo de prueba</b> de los siguientes trabajadores:</p>
 <?php  $i = 1 ?>
 <table>
   <tr>
