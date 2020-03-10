@@ -86,13 +86,13 @@
                                         :src="'/../theme/images/noticias/'+ item.cz12_imagen">
                                 </div>
                                 <div class="col-md-7 col-sm-6">
-                                     <p class="mb-1 mt-4"> <i class="fa fa-clock-o"></i> {{item.cz12_fecha_creacion}}
+                                     <p class="mb-1 mt-4"> <i class="fa fa-clock-o"></i> Fecha de creación: {{item.cz12_fecha_creacion}}
                                     </p>
                                     <p class="mb-2"> <a v-show="item.cz12_archivo != null"
-                                            :href="'/../theme/files/noticias/'+ item.cz12_archivo" target="_blank">
-                                            <li class="fa fa-file-archive-o"></li> Archivo adjunto
+                                            :href="'/../theme/files/noticias/'+ item.cz12_archivo" target="_blank" style="text-decoration: underline;" title="Descargar">
+                                            <li class="fa fa-file-archive-o"></li>  Archivo adjunto
                                         </a></p>
-                                         <p class="mb-1 mt-2"> <i class="fa fa-key"></i> {{item.cz12_id}}
+                                         <p class="mb-1 mt-2"> <i class="fa fa-key"></i> key: {{item.cz12_id}}
                                     </p>
                                        <p><b> By {{item.cz1_nombres}}</b> <img
                                         :src="'/../theme/images/profile/'+ item.cz1_avatar" alt=""

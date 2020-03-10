@@ -107,7 +107,7 @@
                 axios.get(`/api/pruebas/completadas/estado/${id}`)
                 .then(res=>{
                     if(res.data >= 1 ){
-                    swal('Advertencia',   res.data + ' pregunta(s) restantes por calificar', 'warning')
+                    swal('Advertencia',   res.data + ' pregunta(s) restante(s) por calificar', 'warning')
                     }
                      else if (res.data == 0 ){
                     swal('Correcto', 'Ya esta totalmente calificada', 'success')

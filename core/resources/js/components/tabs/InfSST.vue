@@ -8,7 +8,7 @@
                         </div>
                         <div class="form-group col-md-6">
                             <label>Archivo de Titulación del Carné de Vacunación <a v-show="empleado_info.cz9_archivo_titulacion != '' && empleado_info.cz9_archivo_titulacion != null  "
-                                            :href="'/../theme/files/sst/'+ empleado_info.cz9_archivo_titulacion" target="_blank" style="text-decoration: underline;">|| 
+                                            :href="'/../theme/files/sst/'+ empleado_info.cz9_archivo_titulacion" target="_blank" style="text-decoration: underline;" title="Descargar">|| 
                                                 Descargar 
                                         </a></label>
                             <input type="file" class="form-control" :disabled="validated_admin ? false : true"   v-on:change="$emit('getFileTitulacion', $event)"/>
@@ -52,7 +52,7 @@
                         <div class="form-group col-md-6">
                             <label>Archivo Escaneado 
                                 del Carné de Vacunación <a v-show="empleado_info.cz9_archivo_vacunacion != '' && empleado_info.cz9_archivo_vacunacion != null  "
-                                            :href="'/../theme/files/sst/'+ empleado_info.cz9_archivo_vacunacion" target="_blank" style="text-decoration: underline;">||  
+                                            :href="'/../theme/files/sst/'+ empleado_info.cz9_archivo_vacunacion" target="_blank" style="text-decoration: underline;" title="Descargar">||  
                                                Descargar
                                         </a></label>
                             <input type="file" class="form-control" :disabled="validated ? false : true"  v-on:change="$emit('getFileVacunacion', $event)"/>

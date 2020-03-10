@@ -202,6 +202,8 @@
             getFileTitulacion(event) {
                 let file = event.target.files[0];
 
+                if(file){
+
 
                 if (!/\.(pdf)$/i.test(file.name)) {
                     swal(
@@ -210,6 +212,7 @@
                         "warning"
                     );
                     this.estado2 = 0
+                   
                 } else {
 
                     if (file.size >  5000000) {
@@ -224,11 +227,12 @@
                         this.file_titulacion = file;
                     }
                 }
+                }
 
             },
             getFileVacunacion(event) {
                 let file = event.target.files[0];
-                
+                if(file){
                 if (!/\.(pdf)$/i.test(file.name)) {
                     swal(
                         "Advertencia",
@@ -249,6 +253,7 @@
                         this.estado2 = 1
                         this.file_vacunacion = file;
                     }
+                }
                 }
 
             },

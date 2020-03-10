@@ -28,9 +28,10 @@
                         <form @submit.prevent="enviarEmail">
                             <h1>Restablecer</h1>
                             <div class="col-md-12 col-center col-sm-8 form-group has-feedback">
-                                <input required v-numeric-only v-max-length="16" v-autofocus type="text" class="form-control"
-                                    v-model="cedula" placeholder="Número de cédula" />
-                                <span class="fa fa-user form-control-feedback right" aria-hidden="true" title="Número de cédula"></span>
+                                <input required v-numeric-only v-max-length="16" v-autofocus type="text"
+                                    class="form-control" v-model="cedula" placeholder="Número de cédula" />
+                                <span class="fa fa-user form-control-feedback right" aria-hidden="true"
+                                    title="Número de cédula"></span>
                             </div>
                             <div class="col-md-12 col-sm-12 form-group has-feedback">
                                 <button type="submit" class="btn btn-primary">Enviar Token</button>
@@ -47,13 +48,13 @@
             <div class="login_wrapper">
                 <div class="animate form login_form">
                     <section class="login_content shadow-lg p-3 mb-5 bg-white rounded">
-                        
+
                         <form @submit.prevent="enviarToken">
                             <h1>Validar Token</h1>
 
                             <div class="col-md-12 col-center col-sm-8 form-group has-feedback">
                                 <input v-max-length="50" v-autofocus type="text" class="form-control" v-model="token"
-                                    placeholder="Token"/>
+                                    placeholder="Token" />
                             </div>
                             <div class="col-md-12 col-sm-12 form-group has-feedback">
                                 <button type="submit" class="btn btn-warning">Enviar</button>
@@ -67,23 +68,24 @@
         <modal name="resetPassword" :clickToClose="false" :adaptive="true" :width="430">
             <div class="login_wrapper">
                 <div class="animate form login_form">
-                    <section class="login_content shadow-lg p-3 mb-5 bg-white rounded">        
+                    <section class="login_content shadow-lg p-3 mb-5 bg-white rounded">
                         <form @submit.prevent="cambiarPassword">
                             <h1>Cambiar Contraseña</h1>
-                                <div class="col-md-12 col-center col-sm-8 form-group has-feedback">
-                                    <input v-max-length="50" v-autofocus :type="passwordFieldType" class="form-control"
-                                        v-model="password1" placeholder="Nueva contraseña" onfocus />
-                                    <label title="Mostrar / Ocultar" @click="mostrarContrasena" :class="eyeFieltType"></label>
-                                </div>
-                                <div class="col-md-12 col-center col-sm-8 form-group has-feedback">
-                                    <input v-max-length="50" :type="passwordFieldType" class="form-control"
-                                        v-model="password2" placeholder="Confirmar contraseña"/>
-                                </div>
-                                <div class="col-md-12 col-sm-12 form-group has-feedback">
-                                    <button type="submit" class="btn btn-primary">Restablecer</button>
-                                    <button type="button" @click="$modal.hide('resetPassword');"
-                                        class="btn btn-danger">Cancelar</button>
-                                </div>                           
+                            <div class="col-md-12 col-center col-sm-8 form-group has-feedback">
+                                <input v-max-length="50" v-autofocus :type="passwordFieldType" class="form-control"
+                                    v-model="password1" placeholder="Nueva contraseña" onfocus />
+                                <label title="Mostrar / Ocultar" @click="mostrarContrasena"
+                                    :class="eyeFieltType"></label>
+                            </div>
+                            <div class="col-md-12 col-center col-sm-8 form-group has-feedback">
+                                <input v-max-length="50" :type="passwordFieldType" class="form-control"
+                                    v-model="password2" placeholder="Confirmar contraseña" />
+                            </div>
+                            <div class="col-md-12 col-sm-12 form-group has-feedback">
+                                <button type="submit" class="btn btn-primary">Restablecer</button>
+                                <button type="button" @click="$modal.hide('resetPassword');"
+                                    class="btn btn-danger">Cancelar</button>
+                            </div>
                         </form>
                     </section>
                 </div>
@@ -110,7 +112,8 @@
         methods: {
             mostrarContrasena() {
                 this.passwordFieldType = this.passwordFieldType === 'password' ? 'text' : 'password'
-                this.eyeFieltType = this.passwordFieldType === 'password' ? 'fa fa-eye-slash form-control-feedback right' : 'fa fa-eye form-control-feedback right'
+                this.eyeFieltType = this.passwordFieldType === 'password' ?
+                    'fa fa-eye-slash form-control-feedback right' : 'fa fa-eye form-control-feedback right'
             },
             iniciarSesion() {
                 this.parametros = {
@@ -159,12 +162,12 @@
             },
             enviarEmail() {
                 swal({
-  title: 'Auto close alert!',
-  text: 'I will close in 2 seconds.',
-  timer: 6000,
-  showCancelButton: false,
-  showConfirmButton: false
-})
+                    title: '',
+                    text: 'Cargando...',
+                    buttons: false,
+                    closeOnClickOutside: false,
+                    closeOnEsc: false
+                })
                 // swal("Cargando...");
                 axios.post('/api/usuario/email', {
                         cedula: this.cedula
@@ -192,7 +195,7 @@
                         console.log(res.data)
                         if (res.data.error != '') {
                             swal("Error", res.data.error, "error");
-                            this.token= ''
+                            this.token = ''
 
                         } else {
                             this.$modal.hide('token');

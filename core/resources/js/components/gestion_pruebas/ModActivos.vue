@@ -85,9 +85,9 @@
                     :columns="columns" :filename="titulo + '-resultados.xls' " title="Exportar">
                     <i class="fa fa-print"></i>
                 </vue-excel-xlsx>
-                <button class="btn btn-primary mt-1" @click="$modal.show('cargos')" title="Filtrar por cargos">
+                <!-- <button class="btn btn-primary mt-1" @click="$modal.show('cargos')" title="Filtrar por cargos">
                     <i class="fa fa-filter"></i>
-                </button>
+                </button> -->
             </div>
             <span v-if="mostrar == 1"><input class="select mt-2" v-model="numero" /></span>
         </nav>

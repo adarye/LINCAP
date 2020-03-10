@@ -81,7 +81,7 @@
             </div>
         </nav>
         <Respuestas v-bind="{ id: $route.params.id }"></Respuestas>
-         <modal name="pruebas" :clickToClose="false" :adaptive="true" :width="450" :height="355">
+         <modal name="pruebas" :clickToClose="false" :adaptive="true" :width="450" :height="370">
                 <div class="table-responsive-md table-responsive-sm table-wrapper-scroll-y my-custom-scrollbar">
             <table class="table table-striped">
                 <thead>
@@ -105,13 +105,15 @@
 
                 </tbody>
             </table>
-                </div>
+                </div >
+                <div class="col-md-12">
                  <button type="button" class="btn btn-info mt-3" @click="copiarPrueba">
                   Copiar   <li class="fa fa-copy"></li>
                 </button>
                  <button type="button" class="btn btn-danger mt-3" @click="$modal.hide('pruebas')">
                   Cerrar 
                 </button>
+                </div>
          </modal>
     </div>
 </template>
