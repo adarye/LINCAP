@@ -158,7 +158,14 @@
                 this.$modal.show('password');
             },
             enviarEmail() {
-                swal("Cargando...");
+                swal({
+  title: 'Auto close alert!',
+  text: 'I will close in 2 seconds.',
+  timer: 6000,
+  showCancelButton: false,
+  showConfirmButton: false
+})
+                // swal("Cargando...");
                 axios.post('/api/usuario/email', {
                         cedula: this.cedula
                     })
