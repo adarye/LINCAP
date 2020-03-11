@@ -25,7 +25,7 @@
 
                     <textarea :disabled="editar ? false : true" v-model="respuestas_ra[i]"
                         @change="guardarRA(dato.cz5_id, dato.cz5_gp_id,  dato.cz5_categoria, respuestas_ra[i] )"
-                        rows="4" cols="50" type="text" class="form-control" v-uppercase v-max-length="200">
+                        rows="4" cols="50" type="text" class="form-control" v-uppercase-only v-max-length="200">
                     </textarea>
                 </div>
             </div>

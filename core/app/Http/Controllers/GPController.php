@@ -38,9 +38,16 @@ class GPController extends Controller
         if(Gate::allows('isAdmin') || 
         Gate::allows('isRRHH') || Gate::allows('isSST') || Gate::allows('isJefe')) {
 
-        return z3_gestion_pruebas::select('cz3_id', 'cz3_nombre', 'cz3_categoria',
+        return z3_gestion_pruebas::select('cz3_id', 'cz3_nombre','cz1_nombres', 'cz3_categoria',
             'cz3_descripcion', 'cz3_id_creador', 'cz3_fecha_apertura','cz3_fecha_cierre')
+            ->join(
+                'dbo.z1_usuarios',
+                'dbo.z3_gestion_pruebas.cz3_id_creador',
+                '=',
+                'dbo.z1_usuarios.cz1_id_empleado'
+            )
             ->where('cz3_id_creador', Auth()->user()->cz1_id_empleado)
+            
             ->where('cz3_categoria', $categoria)->get();
         }
     }

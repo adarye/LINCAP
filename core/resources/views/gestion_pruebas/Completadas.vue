@@ -99,7 +99,7 @@
                 })
                 setTimeout(
                 _ => this.carga = false,
-                10000
+                2000
             )
         },
         methods: {

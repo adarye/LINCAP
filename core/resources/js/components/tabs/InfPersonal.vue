@@ -4,7 +4,7 @@
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label>Nombre</label>
-                    <input type="email" class="form-control"  v-model="informacion.c0541_nombres"
+                    <input type="text" class="form-control"  v-model="informacion.c0541_nombres"
                         disabled />
                 </div>
                 <div class="form-group col-md-6">
@@ -57,29 +57,29 @@
                 <div class="form-group col-md-6">
                     <label>Departamento de Nacimiento</label>
                     <input type="text" class="form-control"  disabled
-                        v-uppercase v-max-length="55" v-model="informacion.f012_descripcion" />
+                        v-uppercase-only v-max-length="55" v-model="informacion.f012_descripcion" />
                 </div>
                 <div class="form-group col-md-6">
                     <label>Ciudad de Nacimiento</label>
-                    <input type="text" class="form-control"  disabled v-uppercase
+                    <input type="text" class="form-control"  disabled v-uppercase-only
                         v-numeric-only v-max-length="16" v-model="informacion.f013_descripcion" />
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label>Edad</label>
-                    <input :value="moment().diff(informacion.c0540_fecha_nacimiento, 'years')" type="text" class="form-control"  disabled v-uppercase v-max-length="55" />
+                    <input :value="moment().diff(informacion.c0540_fecha_nacimiento, 'years')" type="text" class="form-control"  disabled v-uppercase-only v-max-length="55" />
                 </div>
                 <div class="form-group col-md-6">
                     <label>Estrato</label>
-                    <input v-model="empleado_info.c0780_descripcion" type="text" class="form-control" disabled v-uppercase v-numeric-only
+                    <input v-model="empleado_info.c0780_descripcion" type="text" class="form-control" disabled v-uppercase-only v-numeric-only
                         v-max-length="16" />
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label>Nivel de Escolaridad</label>
-                    <input type="text" class="form-control" v-model="informacion.c0702_descripcion"  disabled v-uppercase
+                    <input type="text" class="form-control" v-model="informacion.c0702_descripcion"  disabled v-uppercase-only
                         v-max-length="55" />
                 </div>
                 <div class="form-group col-md-6">
@@ -94,7 +94,7 @@
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label>Estado Civil</label>
-                    <input type="text" class="form-control" v-model="estado_civil"  disabled v-uppercase
+                    <input type="text" class="form-control" v-model="estado_civil"  disabled v-uppercase-only
                         v-max-length="55" />
                 </div>
                 <div class="form-group col-md-6">
@@ -106,13 +106,13 @@
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label>Email</label>
-                    <input type="email" class="form-control"  v-model="informacion.f015_email"
-                        :disabled="validated ? false : true" v-uppercase v-max-length="55" />
+                    <input type="text" class="form-control"  v-model="informacion.f015_email"
+                        :disabled="validated ? false : true" v-uppercase-only v-max-length="55" />
                 </div>
                 <div class="form-group col-md-6">
                     <label>Teléfono</label>
                     <input type="text" class="form-control" 
-                        v-model="informacion.f015_telefono" :disabled="validated ? false : true" v-uppercase
+                        v-model="informacion.f015_telefono" :disabled="validated ? false : true" v-uppercase-only
                         v-numeric-only v-max-length="16" />
                 </div>
             </div>
@@ -120,11 +120,11 @@
                 <div class="form-group col-md-6">
                     <label>Dirección</label>
                     <input type="text" class="form-control" v-model="informacion.f015_direccion1"
-                        :disabled="validated ? false : true" v-uppercase v-max-length="55"  />
+                        :disabled="validated ? false : true" v-uppercase-only v-max-length="55"  />
                 </div>
                 <div class="form-group col-md-6">
                     <label>Barrio</label>
-                    <input type="text" class="form-control" v-model="informacion.f015_id_barrio" disabled v-uppercase
+                    <input type="text" class="form-control" v-model="informacion.f015_id_barrio" disabled v-uppercase-only
                         v-alphabetic-only />
                 </div>
             </div>
@@ -152,12 +152,12 @@
                 <div class="form-group col-md-6">
                     <label>Nombre de un Familiar en Linco</label>
                     <input type="text" class="form-control" placeholder="opcional" :disabled="validated ? false : true"
-                        v-model="empleado_info.cz9_nombre_familiar" v-max-length="75" v-uppercase />
+                        v-model="empleado_info.cz9_nombre_familiar" v-max-length="75" v-uppercase-only />
                 </div>
                 <div class="form-group col-md-6">
                     <label>Nombre de un Familiar en caso de Emergencia</label>
                     <input type="text" class="form-control" v-model="empleado_info.cz9_nombre_contacto"
-                        :disabled="validated ? false : true" v-max-length="55" v-uppercase />
+                        :disabled="validated ? false : true" v-max-length="55" v-uppercase-only />
                 </div>
             </div>
             <div class="form-row">
@@ -170,19 +170,19 @@
                 </div>
                 <div class="form-group col-md-6">
                     <label>Genero</label>
-                    <input type="text" class="form-control" disabled v-model="sexo" v-uppercase />
+                    <input type="text" class="form-control" disabled v-model="sexo" v-uppercase-only />
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label>Talla de Uniforme</label>
                     <input type="text" class="form-control" :disabled="validated_admin ? false : true"
-                        v-model="empleado_info.cz9_talla_uniforme" v-max-length="2" v-uppercase required />
+                        v-model="empleado_info.cz9_talla_uniforme" v-max-length="2" v-uppercase-only required />
                 </div>
                 <div class="form-group col-md-6">
                     <label>Talla de Calzado</label>
                     <input type="text" class="form-control" :disabled="validated ? false : true"
-                        v-model="empleado_info.cz9_talla_calzado" v-max-length="2" v-uppercase v-numeric-only />
+                        v-model="empleado_info.cz9_talla_calzado" v-max-length="2" v-uppercase-only v-numeric-only />
                 </div>
             </div>
             <div class="form-row">
@@ -195,7 +195,7 @@
                     <label>Re-entrenamiento</label>
                     <textarea rows="4" cols="50" type="text" class="form-control"
                         :disabled="validated_admin ? false : true" v-model="empleado_info.cz9_reentrenamiento"
-                        v-uppercase v-max-length="200">
+                        v-uppercase-only v-max-length="200">
                     </textarea>
 
                 </div>

@@ -36,7 +36,7 @@
                     <!-- {{  nota_ra.filter(nota => nota.cz11_pp_id == dato.cz5_id)}} -->
 
                     <textarea :disabled="editar ? false : true" v-model="respuestas_ra[i]" rows="4" cols="50"
-                        type="text" class="form-control" v-uppercase v-max-length="200">
+                        type="text" class="form-control" v-uppercase-only v-max-length="200">
                     </textarea>
                 </div>
                 <div class="col-md-3 p-3"

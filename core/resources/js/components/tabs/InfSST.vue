@@ -21,7 +21,7 @@
                         </div>
                         <div class="form-group col-md-6">
                             <label>Lugar de la Vacuna HB</label>
-                            <input type="text" class="form-control" :disabled="validated_admin ? false : true" v-model="empleado_info.cz9_lugar_vacuna" v-uppercase   v-max-length="55" />
+                            <input type="text" class="form-control" :disabled="validated_admin ? false : true" v-model="empleado_info.cz9_lugar_vacuna" v-uppercase-only   v-max-length="55" />
                         </div>
                     </div>
                      <div class="form-row">
@@ -31,7 +31,7 @@
                         </div>
                         <div class="form-group col-md-6">
                             <label>Lugar de la Vacuna Tifoidea</label>
-                            <input type="text" class="form-control" :disabled="validated_admin ? false : true" v-model="empleado_info.cz9_lugar_vacuna_tifoidea" v-uppercase   v-max-length="55" />
+                            <input type="text" class="form-control" :disabled="validated_admin ? false : true" v-model="empleado_info.cz9_lugar_vacuna_tifoidea" v-uppercase-only   v-max-length="55" />
                         </div>
                     </div>
                      <div class="form-row">
@@ -41,13 +41,13 @@
                         </div>
                         <div class="form-group col-md-6">
                             <label>Lugar de la Vacuna Toxoide</label>
-                            <input type="text" class="form-control" :disabled="validated_admin ? false : true" v-model="empleado_info.cz9_lugar_vacuna_toxoide" v-uppercase   v-max-length="55"/>
+                            <input type="text" class="form-control" :disabled="validated_admin ? false : true" v-model="empleado_info.cz9_lugar_vacuna_toxoide" v-uppercase-only   v-max-length="55"/>
                         </div>
                     </div>
                     <div class="form-row">                      
                         <div class="form-group col-md-6">
                             <label>Fecha de Vencimiento del Carné de Vacunación</label>
-                            <input v-model="empleado_info.cz9_fv_carne_vacunacion" type="date" class="form-control" :disabled="validated_admin ? false : true" v-uppercase   v-max-length="55"/>
+                            <input v-model="empleado_info.cz9_fv_carne_vacunacion" type="date" class="form-control" :disabled="validated_admin ? false : true" v-uppercase-only   v-max-length="55"/>
                         </div>
                         <div class="form-group col-md-6">
                             <label>Archivo Escaneado 
@@ -61,7 +61,7 @@
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label>Fecha de Vencimiento del Carné de Alimentos</label>
-                            <input v-model="empleado_info.cz9_fv_carne_alimentos" type="date" class="form-control" :disabled="validated_admin ? false : true" v-uppercase   v-max-length="55"/>
+                            <input v-model="empleado_info.cz9_fv_carne_alimentos" type="date" class="form-control" :disabled="validated_admin ? false : true" v-uppercase-only   v-max-length="55"/>
                         </div>
                     </div>
                 </form>

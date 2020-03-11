@@ -382,9 +382,9 @@
             },
             validarSexo() {
                 if (this.informacion.c0540_ind_sexo == 1) {
-                    this.sexo = "Femenino";
+                    this.sexo = "FEMENINO";
                 } else if (this.informacion.c0540_ind_sexo == 0) {
-                    this.sexo = "Masculino";
+                    this.sexo = "MASCULINO";
                 }
             },
             validarEstadoCivil() {

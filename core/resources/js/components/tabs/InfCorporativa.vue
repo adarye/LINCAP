@@ -62,33 +62,33 @@
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label>FV Curso de Alturas</label>
-                    <input v-model="empleado_info.cz9_fv_ta" type="date" class="form-control" placeholder="Fecha de Vencimiento" :disabled="validated_admin ? false : true"  v-uppercase  v-max-length="25"/>
+                    <input v-model="empleado_info.cz9_fv_ta" type="date" class="form-control" placeholder="Fecha de Vencimiento" :disabled="validated_admin ? false : true"  v-uppercase-only  v-max-length="25"/>
                 </div>
                 <div class="form-group col-md-6">
                     <label>FV de BPM</label>
-                    <input v-model="empleado_info.cz9_fv_bpm" type="date" class="form-control" placeholder="Fecha de Vencimiento" :disabled="validated_admin ? false : true"  v-uppercase  v-max-length="25"/>
+                    <input v-model="empleado_info.cz9_fv_bpm" type="date" class="form-control" placeholder="Fecha de Vencimiento" :disabled="validated_admin ? false : true"  v-uppercase-only  v-max-length="25"/>
                 </div>
                 
             </div>
              <div class="form-row">
                 <div class="form-group col-md-6">
                     <label>FV Curso sobre Manejo Defensivo</label>
-                    <input v-model="empleado_info.cz9_fv_md" type="date" class="form-control"  :disabled="validated_admin ? false : true"  v-uppercase  v-max-length="25"/>
+                    <input v-model="empleado_info.cz9_fv_md" type="date" class="form-control"  :disabled="validated_admin ? false : true"  v-uppercase-only  v-max-length="25"/>
                 </div>
                <div class="form-group col-md-6">
                     <label>Email Corporativo</label>
-                    <input type="email" class="form-control" :disabled="validated ? false : true" v-model="empleado_info.cz9_mail_corp" v-uppercase v-max-length="55"/>
+                    <input type="text" class="form-control" :disabled="validated ? false : true" v-model="empleado_info.cz9_mail_corp" v-uppercase-only v-max-length="55"/>
                 </div>
                 
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label>Teléfono Corporativo con Extensión</label>
-                    <input type="text" class="form-control"  :disabled="validated ? false : true" v-model="empleado_info.cz9_tel_corp" v-uppercase  v-max-length="25"/>
+                    <input type="text" class="form-control"  :disabled="validated ? false : true" v-model="empleado_info.cz9_tel_corp" v-uppercase-only  v-max-length="25"/>
                 </div>
                 <div class="form-group col-md-6">
                     <label>Celular Corporativo</label>
-                    <input type="text" class="form-control"  :disabled="validated ? false : true" v-model="empleado_info.cz9_cel_corp" v-uppercase v-numeric-only v-max-length="25"/>
+                    <input type="text" class="form-control"  :disabled="validated ? false : true" v-model="empleado_info.cz9_cel_corp"  v-uppercase-only v-numeric-only v-max-length="25"/>
                 </div>
                 
             </div>
@@ -96,7 +96,7 @@
                    <label>Premios</label>
                  <textarea rows="4" cols="50" type="text" class="form-control"
                         :disabled="validated_admin ? false : true" v-model="empleado_info.cz9_premios"
-                        v-uppercase v-max-length="4500">
+                        v-uppercase-only v-max-length="4500">
                     </textarea>
                 
                 

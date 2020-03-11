@@ -95,14 +95,14 @@
                 })
             setTimeout(
                 _ => this.carga = false,
-                3000
+                2000
             )
         },
         methods: {
             presentarEva(prueba) {
                 swal({
                         title: "Advertencia",
-                        text: "Si te sales o recargas la pagina despues de estar en la evaluacion, la prueba sera anulada.",
+                        text: "Si te sales o recargas la pagina después de estar en la evaluación, la prueba sera anulada.",
                         icon: "warning",
                         buttons: true,
                         dangerMode: true

@@ -185,7 +185,8 @@
                     if (this.select == null || this.select == 'Todas') {
                         return String(prueba.cz3_id).toUpperCase().includes(this.bprueba.toUpperCase()) ||
                         prueba.cz3_nombre.toUpperCase().includes(this.bprueba.toUpperCase()) ||
-                            prueba.cz3_descripcion.toUpperCase().includes(this.bprueba.toUpperCase()) ||
+                            prueba.cz3_descripcion.toUpperCase().includes(this.bprueba.toUpperCase()) 
+                            ||
                              prueba.cz1_nombres.toUpperCase().includes(this.bprueba.toUpperCase())
                             
                     } else if (this.select == 'Cerradas') {

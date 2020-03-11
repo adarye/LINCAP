@@ -86,15 +86,16 @@ Vue.directive("autofocus", autofocus);
 
 
 // Vue.directive('uppercase', {
-// 	update (el) {
-// 		el.value = el.value.toUpperCase()
-// 	},
-// })
+//         update(el) {
+//             el.value = el.value.toUpperCase()
+//         },
+//     })
 Vue.directive('uppercase', (el, binding) => {
     let processedValue = el.value.toUpperCase();
     el.value = processedValue;
     binding.value = el.value;
 });
+
 
 
 
