@@ -118,7 +118,7 @@ import router from '../../js/router';
             eliminar(id, indice) {
                 swal({
                     title: "Advertencia",
-                    text: "¿Seguro de eliminar este rol?",
+                    text: "¿Esta seguro de eliminar este rol?",
                     icon: "warning",
                     buttons: true,
                     dangerMode: true

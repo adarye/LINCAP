@@ -194,7 +194,7 @@ export default {
                             this.guardarPS(res.data.cz5_id);
                         } else {
                             EventBus.$emit("cargar", "o");
-                           swal("Mensaje", "Pregunta creada exitosamente", "success");
+                           swal("Correcto", "Pregunta creada exitosamente", "success");
                            this.limpiar();
                         }
                     });
@@ -211,7 +211,7 @@ export default {
                       
                         EventBus.$emit("cargar", this.tipo_respuesta);
                         swal(
-                            "Mensaje",
+                            "Correcto",
                             "Pregunta creada exitosamente",
                             "success"
                         );
@@ -259,7 +259,7 @@ export default {
             axios.post('/api/gp/copiarPrueba', {id: this.prueba_seleccionada, prueba: this.$route.params.id})
             .then(res=>{
                  EventBus.$emit("cargar", "o");
-                swal('Mensaje', 'Preguntas copiadas exitosamente', 'success')
+                swal('Correcto', 'Preguntas copiadas exitosamente', 'success')
             })
 
         },

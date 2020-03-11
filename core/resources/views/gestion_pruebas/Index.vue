@@ -230,7 +230,7 @@ import 'pc-bootstrap4-datetimepicker/build/css/bootstrap-datetimepicker.css';
                 .then(res=>{
                    
                   this.traerPruebas();
-                   swal('Guardado', 'El registro se guardo correctamente', 'success')
+                   swal('Correcto', 'El registro se guardo correctamente', 'success')
                    this.$modal.hide('create')
                    this.limpiar();
                 })   
@@ -297,7 +297,7 @@ import 'pc-bootstrap4-datetimepicker/build/css/bootstrap-datetimepicker.css';
                 axios.put('/api/gp/update', this.datos)
                 .then(res=>{
                     this.traerPruebas();
-                    swal('Prueba Actualizada', '', 'success')
+                    swal('Correcto', 'Prueba Actualizada', 'success')
                     this.$modal.hide('editar')
                     //  this.options2.format = 'YYYY-MM-DD LT'
                     this.limpiar();

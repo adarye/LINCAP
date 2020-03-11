@@ -262,11 +262,11 @@ import router from '../../js/router';
                     axios.post("/api/usuarios/create", this.usuario).then(res => {
                         this.created();
                         this.limpiar();
-                        swal("Mensaje", "Usuario creado con exito", "success");
+                        swal("Correcto", "Usuario creado con éxito", "success");
                         this.closeCreate();
                     });
                 } else {
-                    swal("Advertencia", "Selecciona un rol", "warning");
+                    swal("Advertencia", "Seleccione un rol", "warning");
                 }
             },
             buscarTercero() {
@@ -295,7 +295,7 @@ import router from '../../js/router';
             eliminar(id, indice, nombres) {
                 swal({
                     title: "Advertencia",
-                    text: "¿ELIMANARA A " + nombres + " ?",
+                    text: "Esta seguro de eliminar a " + nombres + " ?",
                     icon: "warning",
                     buttons: true,
                     dangerMode: true
@@ -338,13 +338,13 @@ import router from '../../js/router';
                             this.limpiar();
                             this.closeEditar();
                             swal(
-                                "Mensaje",
-                                "Usuario actualizado exitosamente",
+                                "Correcto",
+                                "Usuario actualizado con éxito",
                                 "success"
                             );
                         });
                 } else {
-                    swal("Advertencia", "Selecciona un rol", "warning");
+                    swal("Advertencia", "Seleccione un rol", "warning");
                 }
             },
             cancelar() {
@@ -402,10 +402,10 @@ import router from '../../js/router';
                 });
                 axios.post('/api/usuario/agregar-todos', this.usuarios )
                 .then(res=>{
-                    swal('Se han agregado '+ res.data +' empleado(s) nuevos', '', 'success')
+                    swal('Corrrecto','Se han agregado '+ res.data +' empleado(s) nuevos', '', 'success')
                     this.created()
                 }).catch(res => {
-                    swal('Ha sucedido un error inesperado', '', 'error')
+                    swal('Error','Ha sucedido un error inesperado', 'error')
                     this.created()
                 })
             }

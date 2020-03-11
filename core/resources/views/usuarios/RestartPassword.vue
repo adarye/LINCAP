@@ -59,8 +59,8 @@ export default {
             .then(res=>{
                 if(res.data == 0){
                     swal({
-                        title: "la contrasena actual no coincide",
-                        text: "Se cerrara la sesion para comprobar la cuenta",
+                        title: "Error",
+                        text: "La contraseña actual no coincide, se cerrara la sesion para comprobar la cuenta",
                         icon: "error",
                         closeOnClickOutside: false,
                         closeOnEsc: false
@@ -70,8 +70,8 @@ export default {
                 }
                 else{
                      swal({
-                        title: "Contraseña Actualizada",
-                        text: "Se cerrara la sesion para comprobar la cuenta",
+                        title: "Correcto",
+                        text: "Contraseña actualizada, se cerrara la sesion para comprobar la cuenta",
                         icon: "success",
                         closeOnClickOutside: false,
                         closeOnEsc: false

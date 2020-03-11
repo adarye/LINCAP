@@ -26,7 +26,7 @@
             <div class="row">
                 <div class="col-md-12 col-center col-sm-12 form-group has-feedback">
                     <textarea rows="4" cols="50" v-max-length="300" v-autofocus class="form-control"
-                        placeholder="Descripcion de la noticia" onfocus v-model="descripcion" />
+                        placeholder="Descripción de la noticia" onfocus v-model="descripcion" />
                     </div>
              </div>
               <div class="row">
@@ -86,7 +86,7 @@
             <div class="row">
                 <div class="col-md-12 col-center col-sm-12 form-group has-feedback">
                     <textarea rows="4" cols="50" v-max-length="300" v-autofocus class="form-control"
-                        placeholder="Descripcion de la noticia" onfocus v-model="descripcion" />
+                        placeholder="Descripción de la noticia" onfocus v-model="descripcion" />
                     </div>
              </div>
               <div class="row">
@@ -175,7 +175,7 @@ export default {
                 })
                         .then(res => {
                             
-                            swal('Publicacion guardada','','success')
+                            swal('Correcto','Publicacion guardada','success')
                             .then(select => {
                                  EventBus.$emit("cargar", "o");
                                  this.limpiar()
@@ -185,7 +185,7 @@ export default {
                 } else {
                     swal(
                         "Advertencia",
-                        "Haga una eleccion diferente",
+                        "Haga una elección  diferente",
                         "error"
                     );
                 }
@@ -214,7 +214,7 @@ export default {
             .then(res=>{
                 EventBus.$emit("cargar", "o");
                 this.limpiar();
-                swal('Noticia Actualizada', '', 'success')
+                swal('Correcto', 'Noticia Actualizada', 'success')
             })
                }
 

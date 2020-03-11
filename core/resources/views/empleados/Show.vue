@@ -150,7 +150,9 @@
                 estado2: "",
                 viviendas: [],
                 vivienda: "",
-                rol: ""
+                rol: "",
+                barrio: "",
+                ciudad: ""
             };
         },
         beforeMount() {
@@ -419,6 +421,7 @@
                         );
                     }
                     this.informacion.f015_id_ciudad = event.target.value;
+                    this.ciudad = event.target.value;
                 });
             },
             getImage(event) {
@@ -473,7 +476,7 @@
                         .post(`/api/usuario/avatar/${this.$route.params.id}`, formData)
                         .then(res => {
                             swal({
-                                title: "Mensaje",
+                                title: "Correcto",
                                 text: "La foto ha sido actualizada",
                                 icon: "success"
                             }).then(select => {
@@ -491,6 +494,7 @@
 
             cambiarBarrio(event) {
                 this.informacion.f015_id_barrio = event.target.value;
+                this.barrio = event.target.value;
                 
             },
             cargarContrato() {
@@ -537,8 +541,10 @@
             },
             validarCampos() {
 
-               
-                if (this.informacion.f015_email == "") {
+               if(this.ciudad != "" &&  this.barrio == "" ){
+                    swal("Alerta", "Seleccione un barrio", "warning");
+               }
+               else if (this.informacion.f015_email == "") {
                     swal("Alerta", "El email es obligatorio", "warning");
                 } else if (this.informacion.f015_telefono == "") {
                     swal(
@@ -565,7 +571,7 @@
                         "warning"
                     );
                 } else if (this.informacion.f015_direccion1 == "") {
-                    swal("Alerta", "La direccion es obligatoria", "warning");
+                    swal("Alerta", "La dirección es obligatoria", "warning");
                 } else if (this.informacion.f015_id_barrio == "") {
                     swal("Alerta", "El barrio es obligatorio", "warning");
                 } else if (this.informacion.f015_id_ciudad == "") {
@@ -574,13 +580,13 @@
                 } else if (this.empleado_info.cz9_nombre_contacto == "") {
                     swal(
                         "Alerta",
-                        "El nombre del familiar es obligatorio",
+                        "El nombre del familiar en caso de emergencia es obligatorio",
                         "warning"
                     );
                 } else if (this.empleado_info.cz9_tel_contacto == "") {
                     swal(
                         "Alerta",
-                        "El numero del familiar es obligatorio",
+                        "El numero del familiar en caso de emergencia es obligatorio",
                         "warning"
                     );
                 } else {

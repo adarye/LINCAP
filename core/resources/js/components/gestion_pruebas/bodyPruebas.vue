@@ -36,7 +36,7 @@
                         <th scope="col">Key</th>
                         <th scope="col" v-if="estado">Autor </th>
                         <th scope="col">Nombre</th>
-                        <th scope="col">Descripcion</th>
+                        <th scope="col">Descripción</th>
                         <th scope="col">Fecha de Apertura</th>
                         <th scope="col">Fecha de Cierre</th>
                         <th scope="col">Acciones</th>

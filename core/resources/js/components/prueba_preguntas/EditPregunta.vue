@@ -80,7 +80,7 @@ export default {
             else{
             axios.put('/api/respuestaA/update',this.params)
             .then(res=>{
-            swal('Mensaje', 'Pregunta Actualizada', 'success')
+            swal('Correcto', 'Pregunta Actualizada', 'success')
             this.actualizarRS()
             })
             }

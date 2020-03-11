@@ -35,7 +35,7 @@ class UsuariosController extends Controller
             'z1_usuarios.cz1_id_rol',
             '=',
             'z2_roles.cz2_id'
-        )->get();
+        )->orderBy('z1_usuarios.created_at', 'DESC')->get();
 
     }else{
         return redirect('/accces-denied');   

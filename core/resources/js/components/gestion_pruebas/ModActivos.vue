@@ -413,12 +413,12 @@
                     activos: empleados,
                     seleccionados: this.seleccionados
                 }).then(res => {
-                    swal('Se han seleccionado todos', '', 'success')
+                    swal('Correcto', 'Se han seleccionado todos', 'success')
                     this.traerActivos()
 
 
                 }).catch(res => {
-                    swal('Ha sucedido un error inesperado', '', 'error')
+                    swal('Error', 'Ha sucedido un error inesperado', 'error')
                     this.traerActivos()
                 })
             },
@@ -447,12 +447,12 @@
                     seleccionados: this.seleccionados
                 }).then(res => {
                     this.quitarRelacion();
-                    swal('Se han quitado las asignaciones', '', 'success')
+                    swal('Correcto', 'Se han quitado las asignaciones', 'success')
                     this.traerActivos()
 
 
                 }).catch(res => {
-                    swal('Ha sucedido un error inesperado', '', 'error')
+                    swal('Error', 'Ha sucedido un error inesperado', 'error')
                     this.traerActivos()
                 })
             },

@@ -128,7 +128,7 @@
                         console.log(this.user);
 
                         if (res.data == "inactivo") {
-                            swal("Error", "Tu contrato finalizó", "error");
+                            swal("Advertencia", "Tu contrato finalizó", "warning");
                         } else {
                             swal({
                                 title: "Bienvenido(a)",
