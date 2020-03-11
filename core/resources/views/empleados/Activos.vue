@@ -199,7 +199,6 @@
             };
         },
         beforeMount() {
-            console.log(window.user.rol)
             if (window.user.rol == 1 || window.user.rol == 2 || window.user.rol == 3) {
 
                 this.getCO();
@@ -220,8 +219,6 @@
                 if (value != null) {
                     var fechai = new Date(value)
                     var h = fechai.setDate(fechai.getDate() + 1);
-
-                    console.log(new Date(h))
                     return new Date(h)
                 } else {
                     return "Indefinida"
@@ -248,7 +245,6 @@
                     }
 
                 }
-                console.log(this.cargos_filtro)
             },
             mostrarCaja: function () {
                 if (this.selectPag == 0) {
@@ -261,7 +257,6 @@
             getCO: function () {
                 axios.get("/api/getCO").then(res => {
                     this.CO = res.data;
-                    console.log(this.CO);
                 });
             },
 
@@ -270,14 +265,12 @@
                 if (e == true) {
                     if (item == 'Fecha de Ingreso' || item == 'Fecha de vencimiento del contrato'
                      || item=='Fecha de nacimiento' && campo !='empleado_info') {
-                        console.log('entro')
                         this.columns.push({
                             'label': item,
                             'field': campo,
                             'dataFormat': this.fechaFormat
                         })
                     } else if (campo == 'empleado_info') {
-                        console.log('entre2')
                         this.columns.push({
                             'label': item,
                             'field': campo,
@@ -291,7 +284,6 @@
                                         return new Date(fecha_c)
                                         }
                                     } else {
-                                        console.log(campo[nombre_tabla])
                                         return campo[nombre_tabla];
                                     }
 

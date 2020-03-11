@@ -22,7 +22,7 @@
                 Ver
             </div>
             <div class="col-md-1">
-                <select v-model="selectPag" @click.prevent="mostrarCaja()" class="form-control">
+                <select @change="constantes" v-model="selectPag" @click.prevent="mostrarCaja()" class="form-control">
                     <option value="10">10</option>
                     <option value="25">25</option>
                     <option value="0">Personalizado </option>
@@ -33,8 +33,8 @@
             </div>
 
             <div class="col-md-4 col-center col-sm-2  has-feedback">
-                <select v-model="selectRol" class="form-control">
-                    <option value="Roles">Roles</option>
+                <select @change="constantes" v-model="selectRol" class="form-control">
+                    <option value="Roles">TODOS LOS ROLES</option>
                     <option v-for="(item, indice) in roles" :key="indice" v-bind:value="item.cz2_id">
                         {{ item.cz2_nombre }}
                     </option>
@@ -42,9 +42,9 @@
             </div>
             <div class="col-md-6 mt-2 col-center has-feedback">
                 <input type="text" v-model="bempleado" class="form-control" v-autofocus v-uppercase
-                    placeholder="Buscar empleado" />
+                   @change="constantes" placeholder="Buscar empleado" />
             </div>
-            <span v-if="mostrar == 1"><input class="select mt-2" v-model="numero" /></span>
+            <span v-if="mostrar == 1"><input @change="constantes" class="select mt-2" v-model="numero" /></span>
         </nav>
         <button type="button" class="btn btn-round btn-success" @click="show" title="Nuevo"><i class="fa fa-plus"></i>
         </button>
@@ -160,10 +160,10 @@
         <div class="row">
             <div class="col-md-4 col-float"></div>
             <div v-show="bempleado == ''" class="col-md-4 col-center">
-                <button type="button" @click.prevent="pagina = pagina - 1" :disabled="pagina == 1" class="btn btn-primary">
+                <button type="button" @click.prevent="pagina = Number(pagina) - 1; constantes()" :disabled="pagina == 1" class="btn btn-primary">
                     <li class="fa fa-long-arrow-left"></li>
                 </button>
-                <button type="button" @click.prevent="pagina = pagina + 1"
+                <button type="button" @click.prevent="pagina = Number(pagina) + 1; constantes();"
                    :disabled="(pagina * numero) / mbuscar.length >= 1" class="btn btn-success">
                     <li class="fa fa-long-arrow-right"></li>
                 </button>
@@ -206,8 +206,8 @@ import router from '../../js/router';
                 },
                 cz1_id: 0,
                 selectRol: "Roles",
-                selectPag: 25,
-                numero: 25,
+                selectPag: 10,
+                numero: 10,
                 mostrar: 0,
                 bempleado: "",
                 pagina: 1,
@@ -234,8 +234,52 @@ import router from '../../js/router';
             created() {
                 axios.get("/api/usuarios").then(res => {
                     this.usuarios = res.data;
-                    console.log(this.usuarios);
+                   this.cache()
                 });
+            },
+            cache(){
+                 if(localStorage.input_u == undefined){
+                          localStorage.setItem('input_u', this.bempleado)
+                     
+                    } 
+                    else{
+                        this.bempleado = localStorage.input_u;
+                    }
+                    if(localStorage.pagina_u == undefined){
+                        localStorage.setItem('pagina_u', this.pagina)
+
+                    }
+                    else{
+                          this.pagina = localStorage.pagina_u;
+                    }
+                     if(localStorage.rol_u == undefined){
+                        localStorage.setItem('rol_u', this.selectRol)
+
+                    }
+                    else{
+                          this.selectRol = localStorage.rol_u;
+                    }
+                    if(localStorage.pag_u == undefined){
+                        localStorage.setItem('pag_u', this.selectPag)
+
+                    }
+                    else{
+                          this.selectPag = localStorage.pag_u;
+                    }
+                     if(localStorage.numero_u == undefined){
+                        localStorage.setItem('numero_u', this.numero)
+
+                    }
+                    else{
+                          this.numero = localStorage.numero_u;
+                    }
+            },
+            constantes(){
+                localStorage.setItem('input_u', this.bempleado)
+                localStorage.setItem('pagina_u', this.pagina)
+                localStorage.setItem('rol_u', this.selectRol)
+                 localStorage.setItem('pag_u', this.selectPag)
+                  localStorage.setItem('numero_u', this.numero)
             },
             mostrarCaja: function () {
                 if (this.selectPag == 0) {

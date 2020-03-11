@@ -129,7 +129,7 @@
                 <span class="sr-only">Loading...</span>
             </div>
               <div v-show="carga == false  && pruebas.length == []">
-               <p>No se encontraron resultados</p>
+               <!-- <p>No se encontraron resultados</p> -->
             </div>
         </center>
          
