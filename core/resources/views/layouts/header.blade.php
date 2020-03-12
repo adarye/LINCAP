@@ -17,13 +17,13 @@
                             {{ $name_separado[0]}}
                     </a>
                     <div class="dropdown-menu  " aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item">
-                        <router-link   :to="{name: 'RestartPassword'}"><span>Cambiar
-                                contraseña</span></router-link></a>
+                        
+                        <router-link  class="dropdown-item"  :to="{name: 'RestartPassword'}" tag="button"><span>Cambiar
+                                contraseña</span></router-link>
                                 
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
-                            <button class="dropdown-item" ><i class="fa fa-sign-out pull-right"></i>Salir</button>
+                        <button  class="dropdown-item" ><i class="fa fa-sign-out pull-right"></i>Salir</button>
                         </form>
                     
                             </div>

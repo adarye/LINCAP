@@ -6,7 +6,7 @@
                 Ver
             </div>
             <div class=" mt-2 col-md-2">
-                <select @change="constantes(); validarPagina();" v-model="selectPag" @click.prevent="mostrarCaja()" class="form-control">
+                <select v-model="selectPag" @click.prevent="mostrarCaja()"  @change=" validarPagina(); constantes();" class="form-control">
                     <option value="10">10</option>
                     <option value="25">25</option>
                     <option value="0">PERSONALIZADO </option>
@@ -175,7 +175,7 @@
         },
         methods: {
             validarPagina(){
-                localStorage.setItem('pagina_prueba', 1)
+                localStorage.setItem('pagina_n', 1)
                 this.pagina = 1; 
                 
 

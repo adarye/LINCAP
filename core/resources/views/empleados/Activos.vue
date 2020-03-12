@@ -75,7 +75,7 @@
                 Ver
             </div>
             <div class="col-md-1  mt-2">
-                <select @change="constantes(); pagina = 1" v-model="selectPag" @click.prevent="mostrarCaja()" class="form-control">
+                <select  v-model="selectPag" @change="constantes(); pagina = 1" @click.prevent="mostrarCaja()" class="form-control">
                     <option value="10">10</option>
                     <option value="25">25</option>
                     <option value="0">Personalizado </option>
