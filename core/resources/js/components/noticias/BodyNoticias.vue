@@ -6,10 +6,10 @@
                 Ver
             </div>
             <div class=" mt-2 col-md-2">
-                <select v-model="selectPag" @click.prevent="mostrarCaja()" class="form-control">
-                    <option value="5">5</option>
+                <select @change="constantes(); validarPagina();" v-model="selectPag" @click.prevent="mostrarCaja()" class="form-control">
                     <option value="10">10</option>
-                    <option value="0">Personalizado </option>
+                    <option value="25">25</option>
+                    <option value="0">PERSONALIZADO </option>
                 </select>
             </div>
             <div class=" pull-left">
@@ -17,7 +17,7 @@
             </div>
               
             <div class="col-md-4 mt-2 col-sm-2">
-                <select v-model="select" class="form-control pull-left">
+                <select @change="constantes(); validarPagina();" v-model="select" class="form-control pull-left">
                     <option value="SELECCIONAR CATEGORIA">TODAS LAS CATEGORÍAS </option>
                     <option value="1">NORMAL</option>
                     <option value="2">IMPORTANTE</option>
@@ -28,10 +28,10 @@
             </div>
             
             <div class="col-md-5  has-feedback mt-2">
-                <input type="text" v-model="bnoticia" class="form-control pull-left" v-autofocus placeholder="Buscar noticia" />
+                <input type="text" v-on:keyup="constantes()" v-model="bnoticia" class="form-control pull-left" v-autofocus placeholder="Buscar noticia" />
             </div>
             
-            <div class="col-md-1" v-if="mostrar == 1"><input v-numeric-only class="form-control mt-2" v-model="numero" /></div>
+            <div class="col-md-1" v-if="mostrar == 1"><input v-on:keyup="constantes(); validarPagina();" v-numeric-only class="form-control mt-2" v-model="numero" /></div>
         </nav>
        
         <div class="row mt-4">
@@ -113,11 +113,11 @@
         <div class="row">
             <div class="col-md-5 col-float"></div>
             <div v-show="bnoticia == ''" class="col-md-4 col-center">
-                <button type="button" @click.prevent="pagina=pagina-1" :disabled="pagina == 1" class="btn btn-primary">
+                <button type="button" @click.prevent="pagina = Number(pagina) - 1; constantes()" :disabled="pagina == 1" class="btn btn-primary">
                     <li class="fa fa-long-arrow-left"></li>
                 </button>
-                <button type="button" @click.prevent="pagina=pagina+1" :disabled="(pagina * numero) / mbuscar.length >= 1"
-                    class="btn btn-success">
+                <button type="button" @click.prevent="pagina = Number(pagina) + 1; constantes()"
+                    class="btn btn-success" :disabled="(pagina * numero) / mbuscar.length >= 1">
                     <li class="fa fa-long-arrow-right"></li>
                 </button>
             </div>
@@ -167,12 +167,64 @@
             EventBus.$on('cargar', (item) => {
                 this.index()
             });
+            this.cache();
             setTimeout(
                 _ => this.carga = false,
                 3000
             )
         },
         methods: {
+            validarPagina(){
+                localStorage.setItem('pagina_prueba', 1)
+                this.pagina = 1; 
+                
+
+            },
+            cache(){
+                 if(localStorage.input_n == undefined){
+                          localStorage.setItem('input_n', this.bnoticia)
+                     
+                    } 
+                    else{
+                        this.bnoticia = localStorage.input_n;
+                    }
+                    if(localStorage.pagina_n == undefined){
+                        localStorage.setItem('pagina_n', this.pagina)
+
+                    }
+                    else{
+                          this.pagina = localStorage.pagina_n;
+                    }
+                     if(localStorage.select_n == undefined){
+                        localStorage.setItem('select_n', this.select)
+
+                    }
+                    else{
+                          this.select = localStorage.select_n;
+                    }
+                    if(localStorage.pag_n == undefined){
+                        localStorage.setItem('pag_n', this.selectPag)
+
+                    }
+                    else{
+                          this.selectPag = localStorage.pag_n;
+                    }
+                     if(localStorage.numero_n == undefined){
+                        localStorage.setItem('numero_n', this.numero)
+
+                    }
+                    else{
+                          this.numero = localStorage.numero_n;
+                    }
+            },
+            constantes(){
+                console.log('localStorage')
+                localStorage.setItem('input_n', this.bnoticia)
+                localStorage.setItem('pagina_n', this.pagina)
+                localStorage.setItem('select_n', this.select)
+                 localStorage.setItem('pag_n', this.selectPag)
+                  localStorage.setItem('numero_n', this.numero)
+            },
             index() {
                 axios.get('/api/noticias/')
                     .then(res => {
@@ -221,7 +273,7 @@
         computed: {
             mbuscar: function () {
                 return this.noticias.filter((noticia) => {
-                    this.pagina = 1
+                    // this.pagina = 1
                     if (this.select == null || this.select == 'SELECCIONAR CATEGORIA') {
                         return String(noticia.cz12_id).toUpperCase().includes(this.bnoticia.toUpperCase())
                         || noticia.cz12_nombre.toUpperCase().includes(this.bnoticia.toUpperCase()) ||

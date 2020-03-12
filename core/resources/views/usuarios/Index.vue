@@ -45,7 +45,7 @@
                    v-on:keyup="constantes()" placeholder="Buscar empleado" />
             </div>
             
-            <div class="col-md-1" v-show="mostrar == 1"><input class="form-control mt-2"  v-on:keyup="constantes(); pagina = 1"  v-model="numero" /></div>
+            <div class="col-md-1" v-if="mostrar == 1"><input class="form-control mt-2"  v-on:keyup="constantes(); pagina = 1"  v-model="numero" /></div>
         </nav>
         <button type="button" class="btn btn-round btn-success" @click="show" title="Nuevo"><i class="fa fa-plus"></i>
         </button>

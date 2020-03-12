@@ -198,16 +198,12 @@
                 index: 0
             };
         },
-        beforeMount() {
+        created() {
             if (window.user.rol == 1 || window.user.rol == 2 || window.user.rol == 3) {
 
                 this.getCO();
                 this.buscarCargos();
-                axios.get("/api/registros").then(res => {
-                    this.activos = res.data;
-                    this.cache()
-                    this.validarPagina()
-                });
+                this.traerActivos()     
             } else {
                 router.push('/');
 
@@ -223,6 +219,15 @@
                     this.pagina =  1
 
                 }
+            },
+            traerActivos(){
+                axios.get("/api/registros").then(res => {
+                    this.activos = res.data;
+                    this.cache()
+                    this.validarPagina()
+                    
+                });
+
             },
              cache(){
                  if(localStorage.input_act == undefined){
