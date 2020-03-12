@@ -22,7 +22,7 @@
 
                                 <input type="checkbox" name="eleccion"
                                     :checked="cargos_filtro.filter(id => id == item.c0763_rowid ) != ''"
-                                    @click="incluir(item.c0763_rowid, $event.target.checked)">
+                                    @click="incluir(item.c0763_rowid, $event.target.checked);">
                             </td>
                         </tr>
 
@@ -75,7 +75,7 @@
                 Ver
             </div>
             <div class="col-md-1">
-                <select v-model="selectPag" @click.prevent="mostrarCaja()" class="form-control">
+                <select @change="constantes" v-model="selectPag" @click.prevent="mostrarCaja()" class="form-control">
                     <option value="10">10</option>
                     <option value="25">25</option>
                     <option value="0">Personalizado </option>
@@ -86,14 +86,14 @@
             </div>
 
             <div class="col-md-4 col-center col-sm-2  has-feedback">
-                <select v-model="selectCO" class="form-control">
-                    <option value="co">CENTRO DE OPERACIÓN</option>
+                <select @change="constantes" v-model="selectCO" class="form-control">
+                    <option value="co">TODOS LOS CENTRO DE OPERACIÓN</option>
                     <option v-for="(item, indice) in CO" :key="indice" v-bind:value="item.f285_id">
                         {{ item.f285_descripcion }}</option>
                 </select>
             </div>
             <div class="col-md-4 mt-1 col-center has-feedback">
-                <input type="text" v-model="bempleado" class="form-control" v-autofocus placeholder="Buscar" />
+                <input v-on:keyup="constantes" type="text" v-model="bempleado" class="form-control" v-autofocus placeholder="Buscar" />
             </div>
             <div class="col-md-2 mt-1">
                 <button title="Exportar" type="button" class=" btn btn-success" @click="$modal.show('campos')">
@@ -105,7 +105,7 @@
             </div>
            
            
-            <span v-if="mostrar == 1"><input class="select mt-2" v-model="numero" /></span>
+            <div class="col-md-1" v-if="mostrar == 1"><input  v-on:keyup="constantes" class="form-control mt-2" v-model="numero" /></div>
         </nav>
 
         <div class="table-responsive-md table-responsive-sm">
@@ -153,10 +153,10 @@
         <div class="row">
             <div class="col-md-4 col-float"></div>
             <div v-show="bempleado == ''" class="col-md-4 col-center">
-                <button type="button" @click.prevent="pagina=pagina-1" :disabled="pagina == 1" class="btn btn-primary">
+                <button type="button" @click.prevent="pagina = Number(pagina) - 1; constantes()" :disabled="pagina == 1" class="btn btn-primary">
                     <li class="fa fa-long-arrow-left"></li>
                 </button>
-                <button type="button" @click.prevent="pagina=pagina+1" :disabled="(pagina * numero) / mbuscar.length >= 1"
+                <button type="button" @click.prevent="pagina = Number(pagina) + 1; constantes()" :disabled="(pagina * numero) / mbuscar.length >= 1"
                     class="btn btn-success">
                     <li class="fa fa-long-arrow-right"></li>
                 </button>
@@ -205,7 +205,7 @@
                 this.buscarCargos();
                 axios.get("/api/registros").then(res => {
                     this.activos = res.data;
-                    console.log(this.activos);
+                    this.cache()
                 });
             } else {
                 router.push('/');
@@ -213,6 +213,67 @@
             }
         },
         methods: {
+             cache(){
+                 if(localStorage.input_act == undefined){
+                          localStorage.setItem('input_act', this.bempleado)
+                     
+                    } 
+                    else{
+                        this.bempleado = localStorage.input_act;
+                    }
+
+                    if(localStorage.pagina_act == undefined){
+                       
+                        localStorage.setItem('pagina_act', this.pagina)
+
+                    }
+                    else{
+                        
+                         this.pagina = localStorage.pagina_act
+                     }
+
+                     if(localStorage.selectCo_act == undefined){
+                        localStorage.setItem('selectCo_act', this.selectCO)
+
+                    }
+                    else{
+                          this.selectCO = localStorage.selectCo_act;
+                    }
+                    if(localStorage.pag_act == undefined){
+                        localStorage.setItem('pag_act', this.selectPag)
+
+                    }
+                    else{
+                          this.selectPag = localStorage.pag_act;
+                    }
+                     if(localStorage.numero_act == undefined){
+                        localStorage.setItem('numero_act', this.numero)
+
+                    }
+                    else{
+                          this.numero = localStorage.numero_act;
+                    }
+                     
+
+                     if(localStorage.cargos_act == undefined){
+                        localStorage.setItem('cargos_act', this.cargos_filtro)
+
+                    }
+                    else{
+                        if(localStorage.getItem("cargos_act") != ""){
+                         this.cargos_filtro = JSON.parse(localStorage.getItem("cargos_act"));
+                        }
+                    }
+            },
+            constantes(){
+
+                localStorage.setItem('input_act', this.bempleado)
+                localStorage.setItem('pagina_act', this.pagina)
+                localStorage.setItem('selectCo_act', this.selectCO)
+                 localStorage.setItem('pag_act', this.selectPag)
+                  localStorage.setItem('numero_act', this.numero)
+                    localStorage.setItem('cargos_act', JSON.stringify( this.cargos_filtro))
+            },
             fechaFormat(value) {
                 // return  moment(value).format('YYYY') 
 
@@ -245,6 +306,7 @@
                     }
 
                 }
+                this.constantes()
             },
             mostrarCaja: function () {
                 if (this.selectPag == 0) {
@@ -319,7 +381,7 @@
             mbuscar: function () {
 
                 return this.activos.filter((activo) => {
-                    this.pagina = 1
+                    // this.pagina = 1
                     if (this.selectCO == null || this.selectCO == 'co' && this.cargos_filtro.length == 0) {
                         const nombre_completo = activo.c0541_nombres + ' ' + activo.c0541_apellido1 + ' ' +
                             activo.c0541_apellido2

@@ -119,6 +119,7 @@ export default {
             this.activos = res.data;
             console.log(this.activos);
             this.getCO();
+            this.cache()
         });
          setTimeout(
                 _ => this.carga = false, 
@@ -127,6 +128,52 @@ export default {
 
     },
     methods:{
+         cache(){
+                 if(localStorage.input_cor == undefined){
+                          localStorage.setItem('input_cor', this.bempleado)
+                     
+                    } 
+                    else{
+                        this.bempleado = localStorage.input_cor;
+                    }
+                    if(localStorage.pagina_cor == undefined){
+                        localStorage.setItem('pagina_cor', this.pagina)
+
+                    }
+                    else{
+                          this.pagina = localStorage.pagina_cor;
+                    }
+                    
+                    if(localStorage.pag_cor == undefined){
+                        localStorage.setItem('pag_cor', this.selectPag)
+
+                    }
+                    else{
+                          this.selectPag = localStorage.pag_cor;
+                    }
+                     if(localStorage.numero_cor == undefined){
+                        localStorage.setItem('numero_cor', this.numero)
+
+                    }
+                    else{
+                          this.numero = localStorage.numero_cor;
+                    }
+                    if(localStorage.selectCo_cor == undefined){
+                        localStorage.setItem('selectCo_cor', this.selectCO)
+
+                    }
+                    else{
+                          this.selectCO = localStorage.selectCo_cor;
+                    }
+            },
+            constantes(){
+                console.log('localStorage')
+                localStorage.setItem('input_cor', this.bempleado)
+                localStorage.setItem('pagina_cor', this.pagina)
+                localStorage.setItem('selectCo_cor', this.selectCO)
+                 localStorage.setItem('pag_cor', this.selectPag)
+                  localStorage.setItem('numero_cor', this.numero)
+            },
         mostrarCaja: function() {
 			if(this.selectPag == 0) {
 				this.mostrar = 1

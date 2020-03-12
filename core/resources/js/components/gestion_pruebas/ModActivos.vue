@@ -39,7 +39,7 @@
 
                                 <input type="checkbox" name="eleccion"
                                     :checked="cargos_filtro.filter(id => id == item.c0763_rowid ) != ''"
-                                    @click="incluirCargo(item.c0763_rowid, $event.target.checked)">
+                                    @click="incluirCargo(item.c0763_rowid, $event.target.checked); constantes();">
                             </td>
                         </tr>
 
@@ -64,21 +64,21 @@
                         class="fa fa-users"></i></button>
             </div>
             <div class="col-md-2 col-center col-sm-2  has-feedback">
-                <select v-model="selectEM" class="form-control">
-                    <option value="MOSTRAR TODOS">MOSTRAR TODOS</option>
+                <select @change="constantes" v-model="selectEM" class="form-control">
+                    <option value="MOSTRAR TODOS" >MOSTRAR TODOS</option>
                     <option value="SELECCIONADOS">SELECCIONADOS</option>
                     <option value="NO SELECCIONADOS">NO SELECCIONADOS</option>
                 </select>
             </div>
             <div class="col-md-3 col-center col-sm-2  has-feedback">
-                <select v-model="selectCO" class="form-control">
+                <select @change="constantes" v-model="selectCO" class="form-control">
                     <option value="co">CENTRO DE OPERACIÓN</option>
                     <option v-for="(item, indice) in CO" :key="indice" v-bind:value="item.f285_id">
                         {{ item.f285_descripcion }}</option>
                 </select>
             </div>
             <div class="col-md-3 col-center has-feedback">
-                <input type="text" v-model="bempleado" class="form-control" v-autofocus placeholder="Buscar" />
+                <input v-on:keyup="constantes()" type="text" v-model="bempleado" class="form-control" v-autofocus placeholder="Buscar" />
             </div>
             <div class="col-md-2  col-sm-1 form-group has-feedback">
                 <vue-excel-xlsx :sheetname="'NOTAS'" class="btn btn-sm btn-info mt-1" :data="mbuscar"
@@ -156,10 +156,10 @@
             <div class="col-md-4 col-float"></div>
             <div v-show="bempleado == ''" class="col-md-4 col-center">
 
-                <button type="button" @click.prevent="pagina=pagina-1" :disabled="pagina == 1" class="btn btn-primary">
+                <button type="button" @click.prevent="pagina = Number(pagina) - 1; constantes();" :disabled="pagina == 1" class="btn btn-primary">
                     <li class="fa fa-long-arrow-left"></li>
                 </button>
-                <button type="button" @click.prevent="pagina=pagina+1"
+                <button type="button" @click.prevent="pagina = Number(pagina) + 1; constantes();"
                     :disabled="(pagina * numero) / mbuscar.length >= 1" class="btn btn-success">
                     <li class="fa fa-long-arrow-right"></li>
                 </button>
@@ -259,15 +259,82 @@
                 ]
             };
         },
-        mounted() {
+        created() {
             this.rol = user.rol
             this.id_log = user.id
             this.id_prueba = this.$route.params.id
 
             this.buscar()
             this.buscarCargos()
+            this.cache()
         },
         methods: {
+             cache(){
+                 if(localStorage.input_mac == undefined){
+                          localStorage.setItem('input_mac', this.bempleado)
+                     
+                    } 
+                    else{
+                        this.bempleado = localStorage.input_mac;
+                    }
+
+                    if(localStorage.pagina_mac == undefined){
+                       
+                        localStorage.setItem('pagina_mac', this.pagina)
+
+                    }
+                    else{
+                        
+                         this.pagina = localStorage.pagina_mac
+                     }
+
+                     if(localStorage.selectCo_mac == undefined){
+                        localStorage.setItem('selectCo_mac', this.selectCO)
+
+                    }
+                    else{
+                          this.selectCO = localStorage.selectCo_mac;
+                    }
+                    if(localStorage.pag_mac == undefined){
+                        localStorage.setItem('pag_mac', this.selectPag)
+
+                    }
+                    else{
+                          this.selectPag = localStorage.pag_mac;
+                    }
+                     if(localStorage.numero_mac == undefined){
+                        localStorage.setItem('numero_mac', this.numero)
+
+                    }
+                    else{
+                          this.numero = localStorage.numero_mac;
+                    }
+                      if(localStorage.empleados_mac == undefined){
+                        localStorage.setItem('empleados_mac', this.selectEM)
+
+                    }
+                    else{
+                          this.selectEM = localStorage.empleados_mac;
+                    }
+
+                     if(localStorage.seleccionados_mac == undefined){
+                        localStorage.setItem('seleccionados_mac', this.seleccionados)
+
+                    }
+                    else{
+                          this.seleccionados = localStorage.seleccionados_mac;
+                    }
+            },
+            constantes(){
+
+                localStorage.setItem('input_mac', this.bempleado)
+                localStorage.setItem('pagina_mac', this.pagina)
+                localStorage.setItem('selectCo_mac', this.selectCO)
+                 localStorage.setItem('pag_mac', this.selectPag)
+                  localStorage.setItem('numero_mac', this.numero)
+                   localStorage.setItem('empleados_mac', this.selectEM)
+                    localStorage.setItem('seleccionados_mac', this.seleccionados)
+            },
             incluirCargo(id, event) {
                 if (event == true) {
                     this.cargos_filtro.push(id)
@@ -493,7 +560,7 @@
                 // return this.activos.filter((activo) => activo.c0550_rowid_tercero == this.seleccionados ) 
 
                 return this.activos.filter((activo) => {
-                    this.pagina = 1
+                    // this.pagina = 1
                     if (this.selectCO == null || this.selectCO == 'co' && this.selectEM ==
                         'MOSTRAR TODOS') {
                         const nombre_completo = activo.c0541_nombres + ' ' + activo.c0541_apellido1 + ' ' +

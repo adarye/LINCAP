@@ -42,9 +42,10 @@
             </div>
             <div class="col-md-6 mt-2 col-center has-feedback">
                 <input type="text" v-model="bempleado" class="form-control" v-autofocus v-uppercase
-                   @change="constantes" placeholder="Buscar empleado" />
+                   v-on:keyup="constantes()" placeholder="Buscar empleado" />
             </div>
-            <span v-if="mostrar == 1"><input @change="constantes" class="select mt-2" v-model="numero" /></span>
+            
+            <div class="col-md-1" v-show="mostrar == 1"><input class="form-control mt-2"  v-on:keyup="constantes()"  v-model="numero" /></div>
         </nav>
         <button type="button" class="btn btn-round btn-success" @click="show" title="Nuevo"><i class="fa fa-plus"></i>
         </button>
@@ -275,6 +276,7 @@ import router from '../../js/router';
                     }
             },
             constantes(){
+                console.log('localStorage')
                 localStorage.setItem('input_u', this.bempleado)
                 localStorage.setItem('pagina_u', this.pagina)
                 localStorage.setItem('rol_u', this.selectRol)
@@ -457,6 +459,7 @@ import router from '../../js/router';
 
         computed: {
             mbuscar: function () {
+                this.pagina = 1
                 return this.usuarios.filter(usuario => {
                     if (this.selectRol == null || this.selectRol == "Roles") {
                         return (

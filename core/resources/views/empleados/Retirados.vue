@@ -23,7 +23,7 @@
 
                                 <input type="checkbox" name="eleccion"
                                     :checked="cargos_filtro.filter(id => id == item.c0763_rowid ) != ''"
-                                    @click="incluir(item.c0763_rowid, $event.target.checked)">
+                                    @click="incluir(item.c0763_rowid, $event.target.checked); ">
                             </td>
                         </tr>
 
@@ -70,7 +70,7 @@
                 Ver
             </div>
             <div class="col-md-1">
-                <select v-model="selectPag" @click.prevent="mostrarCaja()" class="form-control">
+                <select @change="constantes" v-model="selectPag" @click.prevent="mostrarCaja()" class="form-control">
                     <option value="10">10</option>
                     <option value="25">25</option>
                     <option value="0">Personalizado </option>
@@ -81,14 +81,14 @@
             </div>
 
             <div class="col-md-4 col-center col-sm-2  has-feedback">
-                <select v-model="selectCO" class="form-control">
+                <select @change="constantes()" v-model="selectCO" class="form-control">
                     <option value="co">CENTRO DE OPERACIÓN</option>
                     <option v-for="(item, indice) in CO" :key="indice" v-bind:value="item.f285_id">
                         {{ item.f285_descripcion }}</option>
                 </select>
             </div>
             <div class="col-md-4 col-center ">
-                <input type="text" v-model="bempleado" class="form-control" v-autofocus placeholder="Buscar" />
+                <input v-on:keyup="constantes" type="text" v-model="bempleado" class="form-control" v-autofocus placeholder="Buscar" />
             </div>
             <div class="col-md-2 mt-1">
                 <button title="Exportar" type="button" class=" btn btn-success" @click="$modal.show('campos')">
@@ -98,7 +98,7 @@
                     <i class="fa fa-filter"></i>
                 </button>
             </div>
-            <span v-if="mostrar == 1"><input class="select mt-2" v-model="numero" /></span>
+            <div class="col-md-1" v-show="mostrar == 1"><input  v-on:keyup="constantes" class="form-control mt-2" v-model="numero" /></div>
         </nav>
         <div class="table-responsive-md table-responsive-sm">
             <table class="table table-striped">
@@ -149,10 +149,10 @@
         <div class="row">
             <div class="col-md-4 col-float"></div>
             <div v-show="bempleado == ''" class="col-md-4 col-center">
-                <button type="button" @click.prevent="pagina=pagina-1" :disabled="pagina == 1" class="btn btn-primary">
+                <button type="button" @click.prevent="pagina = Number(pagina) - 1; constantes()" :disabled="pagina == 1" class="btn btn-primary">
                     <li class="fa fa-long-arrow-left"></li>
                 </button>
-                <button type="button" @click.prevent="pagina=pagina+1" :disabled="(pagina * numero) / mbuscar.length >= 1"
+                <button type="button" @click.prevent="pagina = Number(pagina) + 1; constantes()" :disabled="(pagina * numero) / mbuscar.length >= 1"
                     class="btn btn-success">
                     <li class="fa fa-long-arrow-right"></li>
                 </button>
@@ -207,6 +207,7 @@
                     console.log(this.retirados);
                     this.getCO();
                     this.buscarCargos();
+                    this.cache()
                 });
             } else {
                 router.push('/');
@@ -215,6 +216,67 @@
         },
 
         methods: {
+             cache(){
+                 if(localStorage.input_ret == undefined){
+                          localStorage.setItem('input_ret', this.bempleado)
+                     
+                    } 
+                    else{
+                        this.bempleado = localStorage.input_ret;
+                    }
+
+                    if(localStorage.pagina_ret == undefined){
+                       
+                        localStorage.setItem('pagina_ret', this.pagina)
+
+                    }
+                    else{
+                        
+                         this.pagina = localStorage.pagina_ret
+                     }
+
+                     if(localStorage.selectCo_ret == undefined){
+                        localStorage.setItem('selectCo_ret', this.selectCO)
+
+                    }
+                    else{
+                          this.selectCO = localStorage.selectCo_ret;
+                    }
+                    if(localStorage.pag_ret == undefined){
+                        localStorage.setItem('pag_ret', this.selectPag)
+
+                    }
+                    else{
+                          this.selectPag = localStorage.pag_ret;
+                    }
+                     if(localStorage.numero_ret == undefined){
+                        localStorage.setItem('numero_ret', this.numero)
+
+                    }
+                    else{
+                          this.numero = localStorage.numero_ret;
+                    }
+                     
+
+                     if(localStorage.cargos_ret == undefined){
+                        localStorage.setItem('cargos_ret', this.cargos_filtro)
+
+                    }
+                    else{
+                          if(localStorage.getItem("cargos_ret") != ""){
+                         this.cargos_filtro = JSON.parse(localStorage.getItem("cargos_ret"));
+                    }
+                    }
+            },
+            constantes(){
+
+                localStorage.setItem('input_ret', this.bempleado)
+                localStorage.setItem('pagina_ret', this.pagina)
+                localStorage.setItem('selectCo_ret', this.selectCO)
+                 localStorage.setItem('pag_ret', this.selectPag)
+                  localStorage.setItem('numero_ret', this.numero)
+                    localStorage.setItem('cargos_ret', JSON.stringify( this.cargos_filtro))
+            },
              fechaFormat(value) {
                 // return  moment(value).format('YYYY') 
 
@@ -263,6 +325,7 @@
                     }
 
                 }
+                this.constantes()
                 console.log(this.cargos_filtro)
             },
             
@@ -325,7 +388,7 @@
             mbuscar: function () {
 
                 return this.retirados.filter(retirado => {
-                    this.pagina = 1
+                    // this.pagina = 1
                     if (this.selectCO == null || this.selectCO == 'co' && this.cargos_filtro.length == 0) {
                         const nombre_completo =
                             retirado.c0541_nombres +
