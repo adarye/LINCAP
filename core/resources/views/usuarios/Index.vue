@@ -22,7 +22,7 @@
                 Ver
             </div>
             <div class="col-md-2 mt-2">
-                <select @change="constantes" v-model="selectPag" @click.prevent="mostrarCaja()" class="form-control">
+                <select @change="constantes(); pagina = 1;" v-model="selectPag" @click.prevent="mostrarCaja()" class="form-control">
                     <option value="10">10</option>
                     <option value="25">25</option>
                     <option value="0">Personalizado </option>
@@ -45,7 +45,7 @@
                    v-on:keyup="constantes()" placeholder="Buscar empleado" />
             </div>
             
-            <div class="col-md-1" v-show="mostrar == 1"><input class="form-control mt-2"  v-on:keyup="constantes()"  v-model="numero" /></div>
+            <div class="col-md-1" v-show="mostrar == 1"><input class="form-control mt-2"  v-on:keyup="constantes(); pagina = 1"  v-model="numero" /></div>
         </nav>
         <button type="button" class="btn btn-round btn-success" @click="show" title="Nuevo"><i class="fa fa-plus"></i>
         </button>

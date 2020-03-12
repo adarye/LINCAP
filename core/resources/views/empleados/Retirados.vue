@@ -70,7 +70,7 @@
                 Ver
             </div>
             <div class="col-md-1  mt-2">
-                <select @change="constantes();" v-model="selectPag" @click.prevent="mostrarCaja()" class="form-control">
+                <select @change="constantes(); pagina = 1" v-model="selectPag" @click.prevent="mostrarCaja()" class="form-control">
                     <option value="10">10</option>
                     <option value="25">25</option>
                     <option value="0">Personalizado </option>
@@ -98,7 +98,7 @@
                     <i class="fa fa-filter"></i>
                 </button>
             </div>
-            <div class="col-md-1" v-show="mostrar == 1"><input  v-on:keyup="constantes" class="form-control mt-2" v-model="numero" /></div>
+            <div class="col-md-1" v-show="mostrar == 1"><input  v-on:keyup="constantes(); pagina = 1" class="form-control mt-2" v-model="numero" /></div>
         </nav>
         <div class="table-responsive-md table-responsive-sm">
             <table class="table table-striped">

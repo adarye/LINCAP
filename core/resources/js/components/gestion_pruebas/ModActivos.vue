@@ -196,9 +196,9 @@
                 seleccionados: [],
                 CO: [],
                 activos: [],
-                selectPag: 15,
+                selectPag: 10,
                 selectCO: 'co',
-                numero: 15,
+                numero: 10,
                 mostrar: 0,
                 bempleado: '',
                 pagina: 1,
@@ -267,15 +267,16 @@
             this.buscar()
             this.buscarCargos()
             this.cache()
-            this.validarPagina()
+            
 
         },
+       
         methods: {
              validarPagina(){
-                if( Math.ceil(this.mbuscar.length / this.numero) < this.pagina){
-                    console.log(Math.ceil(this.mbuscar.length / this.numero))
+                 console.log(this.mbuscar.length)
+                if(  Math.ceil(this.mbuscar.length / this.numero) < this.pagina){
+                    // console.log(Math.ceil(this.mbuscar.length / this.numero))
                     this.pagina =  1
-
                 }
              },
              cache(){
@@ -333,6 +334,8 @@
                     else{
                           this.seleccionados = localStorage.seleccionados_mac;
                     }
+                    console.log('ole bro')
+                   
             },
             constantes(){
 
@@ -405,6 +408,7 @@
                 axios.get(`/api/asignacion/traerNotas/${this.id_prueba}`).then(res => {
 
                     this.activos = res.data;
+                    this.validarPagina()
 
                 });
             },
