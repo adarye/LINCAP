@@ -6,7 +6,7 @@
                 Ver
             </div>
             <div class="col-md-2">
-                <select @change="constantes" v-model="selectPag" @click.prevent="mostrarCaja()" class="form-control">
+                <select @change="validarPagina(); constantes();" v-model="selectPag" @click.prevent="mostrarCaja()" class="form-control">
                     <option value="10">10</option>
                     <option value="25">25</option>
                     <option value="0">Personalizado </option>
@@ -16,8 +16,8 @@
                 Registros
             </div>
             <div  class="col-md-4 col-center col-sm-2  has-feedback">
-                <select @change="constantes; pagina = 1" v-model="select" class="form-control">
-                    <option value="Todas">Todas</option>
+                <select @change="validarPagina(); constantes(); " v-model="select" class="form-control">
+                    <option value="Todas">Todas las categorías</option>
                     <option value="Cerradas">Cerradas</option>
                     <option value="Abiertas">Abiertas</option>
                     <option value="Proximas">Proximas</option>
@@ -27,7 +27,7 @@
             <div class="col-md-5 col-center has-feedback mt-2">
                 <input type="text" v-on:keyup="constantes" v-model="bprueba" class="form-control" v-autofocus placeholder="Buscar" />
             </div>
-            <div class="col-md-1" v-if="mostrar == 1"><input v-on:keyup="constantes" class="form-control mt-2" v-model="numero" /></div>
+            <div class="col-md-1" v-if="mostrar == 1"><input v-on:keyup="constantes(); validarPagina();" class="form-control mt-2" v-model="numero" /></div>
         </nav>
         <div class="table-responsive-md table-responsive-sm">
             <table class="table table-striped table-hover">
@@ -139,6 +139,7 @@
 <script>
     import moment from "moment";
     moment.locale("es");
+     import EventBus from '../../bus';
     export default {
         props: ['pruebas', 'estado'],
         data() {
@@ -158,14 +159,23 @@
 
         },
       
-        mounted() {
-            this.user = user.id
+        created() {
+          
+           
+            
+        },
+        beforeMount(){
+              this.user = user.id
             setTimeout(
                 _ => this.carga = false, 
                 3000 
             )
             this.cache()
-            this.validarPagina()
+        //       EventBus.$on('validarPagina', (item) => {
+        //     this.validarPagina();
+        // });
+            
+
         },
         methods: {
                cache(){
@@ -205,6 +215,13 @@
                     else{
                           this.select = localStorage.select_prueba;
                     }
+
+            },
+            validarPagina(){
+                localStorage.setItem('pagina_prueba', 1)
+                this.pagina = 1; 
+                
+
             },
             constantes(){
 
@@ -215,20 +232,15 @@
                   localStorage.setItem('numero_prueba', this.numero)
             },
             mostrarCaja: function () {
+                
                 if (this.selectPag == 0) {
                     this.mostrar = 1
                 } else {
                     this.mostrar = 0
                     this.numero = this.selectPag
                 }
-            },
-             validarPagina(){
-                if( Math.ceil(this.mbuscar.length / this.numero) < this.pagina){
-                    console.log(Math.ceil(this.mbuscar.length / this.numero))
-                    this.pagina =  1
-
-                }
             }
+             
 
         },
         computed: {

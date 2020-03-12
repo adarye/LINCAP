@@ -121,6 +121,7 @@ import moment from "moment";
     import router from '../../js/router'
     import { Datetime } from 'vue-datetime'
 import 'vue-datetime/dist/vue-datetime.min.css'
+import EventBus from "../../js/bus";
 
 import 'pc-bootstrap4-datetimepicker/build/css/bootstrap-datetimepicker.css';
  import datePicker from 'vue-bootstrap-datetimepicker';
@@ -185,8 +186,12 @@ import 'pc-bootstrap4-datetimepicker/build/css/bootstrap-datetimepicker.css';
             traerPruebas(){
 
                 axios.get(`/api/gp/${this.$route.params.categoria}`)
-                .then(res=>{                    
+                .then(res=>{     
+                               
                     this.pruebas = res.data
+                   
+                    //  EventBus.$emit('validarPagina', this.title)   
+                    
                     
                 })
             },
