@@ -33,7 +33,7 @@
             </div>
 
             <div class="col-md-4 mt-2 col-center col-sm-2  has-feedback">
-                <select @change="constantes" v-model="selectRol" class="form-control">
+                <select @change="constantes(); pagina = 1" v-model="selectRol" class="form-control">
                     <option value="Roles">TODOS LOS ROLES</option>
                     <option v-for="(item, indice) in roles" :key="indice" v-bind:value="item.cz2_id">
                         {{ item.cz2_nombre }}
@@ -236,8 +236,16 @@ import router from '../../js/router';
                 axios.get("/api/usuarios").then(res => {
                     this.usuarios = res.data;
                    this.cache()
+                   this.validarPagina()
                 });
             },
+             validarPagina(){
+                if( Math.ceil(this.mbuscar.length / this.numero) < this.pagina){
+                    console.log(Math.ceil(this.mbuscar.length / this.numero))
+                    this.pagina =  1
+
+                }
+             },
             cache(){
                  if(localStorage.input_u == undefined){
                           localStorage.setItem('input_u', this.bempleado)
@@ -459,7 +467,7 @@ import router from '../../js/router';
 
         computed: {
             mbuscar: function () {
-                this.pagina = 1
+
                 return this.usuarios.filter(usuario => {
                     if (this.selectRol == null || this.selectRol == "Roles") {
                         return (

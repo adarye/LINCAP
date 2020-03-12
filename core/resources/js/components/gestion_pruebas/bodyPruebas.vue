@@ -6,7 +6,7 @@
                 Ver
             </div>
             <div class="col-md-2">
-                <select v-model="selectPag" @click.prevent="mostrarCaja()" class="form-control">
+                <select @change="constantes" v-model="selectPag" @click.prevent="mostrarCaja()" class="form-control">
                     <option value="10">10</option>
                     <option value="25">25</option>
                     <option value="0">Personalizado </option>
@@ -15,8 +15,8 @@
             <div class=" pull-left">
                 Registros
             </div>
-            <div class="col-md-4 col-center col-sm-2  has-feedback">
-                <select v-model="select" class="form-control">
+            <div  class="col-md-4 col-center col-sm-2  has-feedback">
+                <select @change="constantes; pagina = 1" v-model="select" class="form-control">
                     <option value="Todas">Todas</option>
                     <option value="Cerradas">Cerradas</option>
                     <option value="Abiertas">Abiertas</option>
@@ -25,9 +25,9 @@
                 </select>
             </div>
             <div class="col-md-5 col-center has-feedback mt-2">
-                <input type="text" v-model="bprueba" class="form-control" v-autofocus placeholder="Buscar" />
+                <input type="text" v-on:keyup="constantes" v-model="bprueba" class="form-control" v-autofocus placeholder="Buscar" />
             </div>
-            <span v-if="mostrar == 1"><input class="select mt-2" v-model="numero" /></span>
+            <div class="col-md-1" v-if="mostrar == 1"><input v-on:keyup="constantes" class="form-control mt-2" v-model="numero" /></div>
         </nav>
         <div class="table-responsive-md table-responsive-sm">
             <table class="table table-striped table-hover">
@@ -106,11 +106,11 @@
                 <div class="col-md-4 "></div>
                 <div v-show="bprueba == ''" class="col-md-4 ">
                   <center>
-                    <button type="button" @click.prevent="pagina=pagina-1" :disabled="pagina == 1" class="btn btn-primary">
+                    <button type="button" @click.prevent="pagina = Number(pagina) - 1; constantes()" :disabled="pagina == 1" class="btn btn-primary">
                         <li class="fa fa-long-arrow-left"></li>
                     </button>
 
-                    <button type="button" @click.prevent="pagina=pagina+1" :disabled="(pagina * numero) / mbuscar.length >= 1"
+                    <button type="button" @click.prevent="pagina = Number(pagina) + 1; constantes()" :disabled="(pagina * numero) / mbuscar.length >= 1"
                         class="btn btn-success">
                         <li class="fa fa-long-arrow-right"></li>
                     </button>
@@ -164,8 +164,56 @@
                 _ => this.carga = false, 
                 3000 
             )
+            this.cache()
+            this.validarPagina()
         },
         methods: {
+               cache(){
+                 if(localStorage.input_prueba == undefined){
+                          localStorage.setItem('input_prueba', this.bprueba)
+                     
+                    } 
+                    else{
+                        this.bprueba = localStorage.input_prueba;
+                    }
+                    if(localStorage.pagina_prueba == undefined){
+                        localStorage.setItem('pagina_prueba', this.pagina)
+
+                    }
+                    else{
+                          this.pagina = localStorage.pagina_prueba;
+                    }
+                    
+                    if(localStorage.pag_prueba == undefined){
+                        localStorage.setItem('pag_prueba', this.selectPag)
+
+                    }
+                    else{
+                          this.selectPag = localStorage.pag_prueba;
+                    }
+                     if(localStorage.numero_prueba == undefined){
+                        localStorage.setItem('numero_prueba', this.numero)
+
+                    }
+                    else{
+                          this.numero = localStorage.numero_prueba;
+                    }
+                    if(localStorage.select_prueba == undefined){
+                        localStorage.setItem('select_prueba', this.select)
+
+                    }
+                    else{
+                          this.select = localStorage.select_prueba;
+                    }
+            },
+            constantes(){
+
+                localStorage.setItem('input_prueba', this.bprueba)
+                localStorage.setItem('pagina_prueba', this.pagina)
+                localStorage.setItem('select_prueba', this.select)
+                 localStorage.setItem('pag_prueba', this.selectPag)
+                  localStorage.setItem('numero_prueba', this.numero)
+            },
             mostrarCaja: function () {
                 if (this.selectPag == 0) {
                     this.mostrar = 1
@@ -174,13 +222,20 @@
                     this.numero = this.selectPag
                 }
             },
+             validarPagina(){
+                if( Math.ceil(this.mbuscar.length / this.numero) < this.pagina){
+                    console.log(Math.ceil(this.mbuscar.length / this.numero))
+                    this.pagina =  1
+
+                }
+            }
 
         },
         computed: {
 
 
             mbuscar: function () {
-                this.pagina = 1
+               
                 return this.pruebas.filter((prueba) => {
                     if (this.select == null || this.select == 'Todas') {
                         return String(prueba.cz3_id).toUpperCase().includes(this.bprueba.toUpperCase()) ||

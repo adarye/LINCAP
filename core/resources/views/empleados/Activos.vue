@@ -22,7 +22,7 @@
 
                                 <input type="checkbox" name="eleccion"
                                     :checked="cargos_filtro.filter(id => id == item.c0763_rowid ) != ''"
-                                    @click="incluir(item.c0763_rowid, $event.target.checked);">
+                                    @click="incluir(item.c0763_rowid, $event.target.checked);  pagina = 1">
                             </td>
                         </tr>
 
@@ -86,7 +86,7 @@
             </div>
 
             <div class="col-md-4  mt-2 col-center col-sm-2  has-feedback">
-                <select @change="constantes" v-model="selectCO" class="form-control">
+                <select @change="constantes(); pagina = 1;" v-model="selectCO" class="form-control">
                     <option value="co">TODOS LOS CENTRO DE OPERACIÓN</option>
                     <option v-for="(item, indice) in CO" :key="indice" v-bind:value="item.f285_id">
                         {{ item.f285_descripcion }}</option>
@@ -206,6 +206,7 @@
                 axios.get("/api/registros").then(res => {
                     this.activos = res.data;
                     this.cache()
+                    this.validarPagina()
                 });
             } else {
                 router.push('/');
@@ -213,6 +214,13 @@
             }
         },
         methods: {
+             validarPagina(){
+                if( Math.ceil(this.mbuscar.length / this.numero) < this.pagina){
+                    console.log(Math.ceil(this.mbuscar.length / this.numero))
+                    this.pagina =  1
+
+                }
+            },
              cache(){
                  if(localStorage.input_act == undefined){
                           localStorage.setItem('input_act', this.bempleado)

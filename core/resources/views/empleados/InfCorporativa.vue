@@ -27,8 +27,8 @@
             </div>
 
             <div class="col-md-4 col-center  mt-2 col-sm-2  has-feedback">
-                <select @change="constantes" v-model="selectCO" class="form-control">
-                    <option value="co">CENTRO DE OPERACIÓN</option>
+                <select @change="constantes(); pagina = 1" v-model="selectCO" class="form-control">
+                    <option value="co">TODOS LOS CENTRO DE OPERACIÓN</option>
                     <option v-for="(item, indice) in CO" :key="indice" v-bind:value="item.f285_id">
                         {{ item.f285_descripcion }}</option>
                 </select>
@@ -120,6 +120,7 @@ export default {
             console.log(this.activos);
             this.getCO();
             this.cache()
+            this.validarPagina()
         });
          setTimeout(
                 _ => this.carga = false, 
@@ -128,6 +129,13 @@ export default {
 
     },
     methods:{
+         validarPagina(){
+                if( Math.ceil(this.mbuscar.length / this.numero) < this.pagina){
+                    console.log(Math.ceil(this.mbuscar.length / this.numero))
+                    this.pagina =  1
+
+                }
+         },
          cache(){
                  if(localStorage.input_cor == undefined){
                           localStorage.setItem('input_cor', this.bempleado)

@@ -64,14 +64,14 @@
                         class="fa fa-users"></i></button>
             </div>
             <div class="col-md-2 col-center col-sm-2  has-feedback">
-                <select @change="constantes" v-model="selectEM" class="form-control">
+                <select @change="constantes(); pagina = 1;" v-model="selectEM" class="form-control">
                     <option value="MOSTRAR TODOS" >MOSTRAR TODOS</option>
                     <option value="SELECCIONADOS">SELECCIONADOS</option>
                     <option value="NO SELECCIONADOS">NO SELECCIONADOS</option>
                 </select>
             </div>
             <div class="col-md-3 col-center col-sm-2  has-feedback">
-                <select @change="constantes" v-model="selectCO" class="form-control">
+                <select @change="constantes(); pagina = 1;" v-model="selectCO" class="form-control">
                     <option value="co">CENTRO DE OPERACIÓN</option>
                     <option v-for="(item, indice) in CO" :key="indice" v-bind:value="item.f285_id">
                         {{ item.f285_descripcion }}</option>
@@ -267,8 +267,17 @@
             this.buscar()
             this.buscarCargos()
             this.cache()
+            this.validarPagina()
+
         },
         methods: {
+             validarPagina(){
+                if( Math.ceil(this.mbuscar.length / this.numero) < this.pagina){
+                    console.log(Math.ceil(this.mbuscar.length / this.numero))
+                    this.pagina =  1
+
+                }
+             },
              cache(){
                  if(localStorage.input_mac == undefined){
                           localStorage.setItem('input_mac', this.bempleado)

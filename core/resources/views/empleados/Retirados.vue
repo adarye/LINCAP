@@ -23,7 +23,7 @@
 
                                 <input type="checkbox" name="eleccion"
                                     :checked="cargos_filtro.filter(id => id == item.c0763_rowid ) != ''"
-                                    @click="incluir(item.c0763_rowid, $event.target.checked); ">
+                                    @click="incluir(item.c0763_rowid, $event.target.checked); pagina = 1; ">
                             </td>
                         </tr>
 
@@ -70,7 +70,7 @@
                 Ver
             </div>
             <div class="col-md-1  mt-2">
-                <select @change="constantes" v-model="selectPag" @click.prevent="mostrarCaja()" class="form-control">
+                <select @change="constantes();" v-model="selectPag" @click.prevent="mostrarCaja()" class="form-control">
                     <option value="10">10</option>
                     <option value="25">25</option>
                     <option value="0">Personalizado </option>
@@ -81,8 +81,8 @@
             </div>
 
             <div class="col-md-4  mt-2 col-center col-sm-2  has-feedback">
-                <select @change="constantes()" v-model="selectCO" class="form-control">
-                    <option value="co">CENTRO DE OPERACIÓN</option>
+                <select @change="constantes(); pagina = 1;" v-model="selectCO" class="form-control">
+                    <option value="co">TODOS LOS CENTRO DE OPERACIÓN</option>
                     <option v-for="(item, indice) in CO" :key="indice" v-bind:value="item.f285_id">
                         {{ item.f285_descripcion }}</option>
                 </select>
@@ -208,6 +208,7 @@
                     this.getCO();
                     this.buscarCargos();
                     this.cache()
+                    this.validarPagina()
                 });
             } else {
                 router.push('/');
@@ -216,6 +217,13 @@
         },
 
         methods: {
+            validarPagina(){
+                if( Math.ceil(this.mbuscar.length / this.numero) < this.pagina){
+                    console.log(Math.ceil(this.mbuscar.length / this.numero))
+                    this.pagina =  1
+
+                }
+            },
              cache(){
                  if(localStorage.input_ret == undefined){
                           localStorage.setItem('input_ret', this.bempleado)

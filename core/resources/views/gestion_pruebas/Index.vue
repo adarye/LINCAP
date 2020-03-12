@@ -106,8 +106,8 @@
             <span v-if="rol == 1 || rol ==2">
              <button  type="button" class="btn btn-round btn-primary" @click="traerPruebasAll(); estado= true; $route.params.categoria == 1 ? title= 'Lincap | Todas las encuestas': title= 'Lincap | Todas las evaluaciónes'"
             title="Ver todas" v-show="!estado "><i class="fa fa-binoculars"></i></button>
-              <button  type="button" class="btn btn-round btn-success" @click="traerPruebas(); estado= false" 
-              title="Volver" v-show="estado"><i class="fa fa-binoculars"></i></button>
+              <button  type="button" class="btn btn-round btn-danger" @click="traerPruebas(); estado= false" 
+              title="Volver" v-show="estado"><i class="fa fa-close"></i></button>
               </span>
              
       <Pruebas v-bind="{pruebas: pruebas, estado: estado}" v-on:asignar="asignar" v-on:eliminar="eliminar"
