@@ -69,7 +69,7 @@
             <div class=" pull-right">
                 Ver
             </div>
-            <div class="col-md-1">
+            <div class="col-md-1  mt-2">
                 <select @change="constantes" v-model="selectPag" @click.prevent="mostrarCaja()" class="form-control">
                     <option value="10">10</option>
                     <option value="25">25</option>
@@ -80,17 +80,17 @@
                 Registros
             </div>
 
-            <div class="col-md-4 col-center col-sm-2  has-feedback">
+            <div class="col-md-4  mt-2 col-center col-sm-2  has-feedback">
                 <select @change="constantes()" v-model="selectCO" class="form-control">
                     <option value="co">CENTRO DE OPERACIÓN</option>
                     <option v-for="(item, indice) in CO" :key="indice" v-bind:value="item.f285_id">
                         {{ item.f285_descripcion }}</option>
                 </select>
             </div>
-            <div class="col-md-4 col-center ">
+            <div class="col-md-4  mt-2 col-center ">
                 <input v-on:keyup="constantes" type="text" v-model="bempleado" class="form-control" v-autofocus placeholder="Buscar" />
             </div>
-            <div class="col-md-2 mt-1">
+            <div class="col-md-2  mt-2">
                 <button title="Exportar" type="button" class=" btn btn-success" @click="$modal.show('campos')">
                     <i class="fa fa-file-excel-o"></i>
                 </button>

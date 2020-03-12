@@ -15,8 +15,8 @@
             <div class=" pull-right">
                 Ver
             </div>
-            <div class="col-md-2">
-                <select v-model="selectPag" @click.prevent="mostrarCaja()" class="form-control">
+            <div class="col-md-2  mt-2">
+                <select @change="constantes" v-model="selectPag" @click.prevent="mostrarCaja()" class="form-control">
                     <option value="10">10</option>
                     <option value="25">25</option>
                     <option value="0">Personalizado </option>
@@ -26,17 +26,17 @@
                 Registros
             </div>
 
-            <div class="col-md-4 col-center col-sm-2  has-feedback">
-                <select v-model="selectCO" class="form-control">
+            <div class="col-md-4 col-center  mt-2 col-sm-2  has-feedback">
+                <select @change="constantes" v-model="selectCO" class="form-control">
                     <option value="co">CENTRO DE OPERACIÓN</option>
                     <option v-for="(item, indice) in CO" :key="indice" v-bind:value="item.f285_id">
                         {{ item.f285_descripcion }}</option>
                 </select>
             </div>
-            <div class="col-md-5 mt-2 col-center has-feedback">
-                <input type="text" v-model="bempleado" class="form-control" v-autofocus placeholder="Buscar" />
+            <div class="col-md-5 mt-2  mt-2 col-center has-feedback">
+                <input v-on:keyup="constantes" type="text" v-model="bempleado" class="form-control" v-autofocus placeholder="Buscar" />
             </div>  
-             <span v-if="mostrar == 1"><input class="select mt-2" v-model="numero" /></span>          
+             <div class="col-md-1" v-if="mostrar == 1"><input v-on:keyup="constantes" class="form-control mt-2" v-model="numero" /></div>          
         </nav> 
         <div class="table-responsive-md table-responsive-sm">
         <table class="table table-striped">
@@ -71,10 +71,10 @@
         <div class="row">
             <div class="col-md-4 col-float"></div>
             <div v-show="bempleado == ''" class="col-md-4 col-center">
-                <button type="button" @click.prevent="pagina=pagina-1" :disabled="pagina == 1" class="btn btn-primary">
+                <button type="button" @click.prevent="pagina = Number(pagina) - 1; constantes()" :disabled="pagina == 1" class="btn btn-primary">
                     <li class="fa fa-long-arrow-left"></li>
                 </button>
-                <button type="button" @click.prevent="pagina=pagina+1" :disabled="(pagina * numero) / mbuscar.length >= 1"
+                <button type="button" @click.prevent="pagina = Number(pagina) + 1; constantes()" :disabled="(pagina * numero) / mbuscar.length >= 1"
                     class="btn btn-success">
                     <li class="fa fa-long-arrow-right"></li>
                 </button>
@@ -193,7 +193,7 @@ export default {
         mbuscar: function(){
             
             return this.activos.filter((activo) => { 
-                this.pagina = 1        
+                // this.pagina = 1        
                 if(this.selectCO == null || this.selectCO == 'co'){
                     const nombre_completo =
                         activo.c0541_nombres +

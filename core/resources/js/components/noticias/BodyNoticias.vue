@@ -5,7 +5,7 @@
             <div class=" pull-right">
                 Ver
             </div>
-            <div class="col-md-1">
+            <div class=" mt-2 col-md-2">
                 <select v-model="selectPag" @click.prevent="mostrarCaja()" class="form-control">
                     <option value="5">5</option>
                     <option value="10">10</option>
@@ -16,9 +16,9 @@
                 Noticias
             </div>
               
-            <div class="col-md-4 col-sm-2">
+            <div class="col-md-4 mt-2 col-sm-2">
                 <select v-model="select" class="form-control pull-left">
-                    <option value="SELECCIONAR CATEGORIA">SELECCIONAR CATEGORIA</option>
+                    <option value="SELECCIONAR CATEGORIA">TODAS LAS CATEGORÍAS </option>
                     <option value="1">NORMAL</option>
                     <option value="2">IMPORTANTE</option>
                     <option value="3">MUY IMPORTANTE</option>
@@ -31,7 +31,7 @@
                 <input type="text" v-model="bnoticia" class="form-control pull-left" v-autofocus placeholder="Buscar noticia" />
             </div>
             
-            <span v-if="mostrar == 1"><input class="select mt-2" v-model="numero" /></span>
+            <div class="col-md-1" v-if="mostrar == 1"><input v-numeric-only class="form-control mt-2" v-model="numero" /></div>
         </nav>
        
         <div class="row mt-4">
@@ -224,7 +224,7 @@
                     this.pagina = 1
                     if (this.select == null || this.select == 'SELECCIONAR CATEGORIA') {
                         return String(noticia.cz12_id).toUpperCase().includes(this.bnoticia.toUpperCase())
-                         noticia.cz12_nombre.toUpperCase().includes(this.bnoticia.toUpperCase()) ||
+                        || noticia.cz12_nombre.toUpperCase().includes(this.bnoticia.toUpperCase()) ||
                             noticia.cz12_descripcion.toUpperCase().includes(this.bnoticia.toUpperCase())
                     } else if (this.select == '4') {
                         return (

@@ -21,7 +21,7 @@
             <div class=" pull-right">
                 Ver
             </div>
-            <div class="col-md-1">
+            <div class="col-md-2 mt-2">
                 <select @change="constantes" v-model="selectPag" @click.prevent="mostrarCaja()" class="form-control">
                     <option value="10">10</option>
                     <option value="25">25</option>
@@ -32,7 +32,7 @@
                 Registros
             </div>
 
-            <div class="col-md-4 col-center col-sm-2  has-feedback">
+            <div class="col-md-4 mt-2 col-center col-sm-2  has-feedback">
                 <select @change="constantes" v-model="selectRol" class="form-control">
                     <option value="Roles">TODOS LOS ROLES</option>
                     <option v-for="(item, indice) in roles" :key="indice" v-bind:value="item.cz2_id">
@@ -40,7 +40,7 @@
                     </option>
                 </select>
             </div>
-            <div class="col-md-6 mt-2 col-center has-feedback">
+            <div class="col-md-5 mt-2 col-center has-feedback">
                 <input type="text" v-model="bempleado" class="form-control" v-autofocus v-uppercase
                    v-on:keyup="constantes()" placeholder="Buscar empleado" />
             </div>
