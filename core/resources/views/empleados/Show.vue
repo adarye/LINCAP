@@ -353,6 +353,7 @@
                        
                         this.validated = false;
                         this.validated_admin = false;
+                        console.log(res.data)
                         swal("Registro actualizado", "Datos Correctos", "success");
                          this.traerEmpleadoInfo()
                     });
@@ -540,7 +541,7 @@
                 }
             },
             validarCampos() {
-
+                if(user.rol == 4){
                if(this.ciudad != "" &&  this.barrio == "" ){
                     swal("Alerta", "Seleccione un barrio", "warning");
                }
@@ -590,6 +591,12 @@
                         "warning"
                     );
                 } else {
+                    this.validated = false;
+                    this.validated_admin = false
+                    this.actualizar();
+                }
+                }
+                else{
                     this.validated = false;
                     this.validated_admin = false
                     this.actualizar();

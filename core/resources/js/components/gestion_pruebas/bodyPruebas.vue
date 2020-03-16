@@ -171,9 +171,9 @@
                 3000 
             )
             this.cache()
-        //       EventBus.$on('validarPagina', (item) => {
-        //     this.validarPagina();
-        // });
+              EventBus.$on('validarPagina', (item) => {
+            this.pagina = 1;
+        });
             
 
         },

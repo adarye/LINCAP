@@ -180,6 +180,7 @@ import 'pc-bootstrap4-datetimepicker/build/css/bootstrap-datetimepicker.css';
                 axios.get(`/api/gp/all/${this.$route.params.categoria}`)
                 .then(res=>{                    
                     this.pruebas = res.data
+                     EventBus.$emit('validarPagina', this.title)
                     
                 })
             },
@@ -190,7 +191,7 @@ import 'pc-bootstrap4-datetimepicker/build/css/bootstrap-datetimepicker.css';
                                
                     this.pruebas = res.data
                    
-                    //  EventBus.$emit('validarPagina', this.title)   
+                      EventBus.$emit('validarPagina', this.title)   
                     
                     
                 })
