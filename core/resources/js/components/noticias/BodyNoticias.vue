@@ -112,7 +112,7 @@
 
         <div class="row">
             <div class="col-md-5 col-float"></div>
-            <div v-show="bnoticia == ''" class="col-md-4 col-center">
+            <div v-if="bnoticia == ''" class="col-md-4 col-center">
                 <button type="button" @click.prevent="pagina = Number(pagina) - 1; constantes()" :disabled="pagina == 1" class="btn btn-primary">
                     <li class="fa fa-long-arrow-left"></li>
                 </button>
@@ -218,7 +218,6 @@
                     }
             },
             constantes(){
-                console.log('localStorage')
                 localStorage.setItem('input_n', this.bnoticia)
                 localStorage.setItem('pagina_n', this.pagina)
                 localStorage.setItem('select_n', this.select)
