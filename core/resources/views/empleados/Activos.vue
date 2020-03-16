@@ -30,7 +30,7 @@
                 </table>
             </div>
           <div class="col-md-12">
-               <button type="button" class="btn btn-danger mt-3" @click="cargos_filtro = [];">
+               <button type="button" class="btn btn-danger mt-3" @click="cargos_filtro = []; constantes();">
                 <i class=" fa fa-refresh" title="Quitar filtro"></i>
             </button>
             <button type="button" class="btn btn-warning mt-3" @click="$modal.hide('cargos');">

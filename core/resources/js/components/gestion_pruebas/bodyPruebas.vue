@@ -3,20 +3,21 @@
         <nav class="navbar navbar-light bg-light my-2">
 
             <div class=" pull-right">
-                Ver
+               <b> Ver</b>
             </div>
-            <div class="col-md-2">
-                <select @change="validarPagina(); constantes();" v-model="selectPag" @click.prevent="mostrarCaja()" class="form-control">
+            <div class="col-md-1">
+                <input v-on:keyup="constantes(); validarPagina();" class="form-control mt-2" v-model="numero" />
+                <!-- <select @change="validarPagina(); constantes();" v-model="selectPag" @click.prevent="mostrarCaja()" class="form-control">
                     <option value="10">10</option>
                     <option value="25">25</option>
                     <option value="0">Personalizado </option>
-                </select>
+                </select> -->
             </div>
             <div class=" pull-left">
-                Registros
+               <b> Registro(s) </b>
             </div>
             <div  class="col-md-4 col-center col-sm-2  has-feedback">
-                <select @change="validarPagina(); constantes(); " v-model="select" class="form-control">
+                <select @change="validarPagina(); constantes(); " v-model="select" class="form-control mt-2">
                     <option value="Todas">Todas las categorías</option>
                     <option value="Cerradas">Cerradas</option>
                     <option value="Abiertas">Abiertas</option>
