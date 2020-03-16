@@ -1,7 +1,12 @@
 <!-- footer content -->
 <footer>
     <div class="pull-right">
-        Desarrollado por <b>David Parra & Jefferson Quintero Rincón</b>
+        Desarrollado por
+        <a class="con_imagen" >
+             <b>David Parra & Jefferson Quintero Rincón</b>
+            <img style="width: 160px; height: 150px" src="https://contenidos.enter.co/custom/uploads/2010/11/googles.jpg">
+          </a>
+        {{-- Desarrollado por <b>David Parra & Jefferson Quintero Rincón</b> --}}
     </div>
     <div class="pull-left">
         Copyright © 2020 <a href="https://www.linco.com.co">LINCO</a>

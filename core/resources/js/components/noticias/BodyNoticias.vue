@@ -6,7 +6,7 @@
                 Ver
             </div>
             <div class=" mt-2 col-md-2">
-                <select v-model="selectPag" @click.prevent="mostrarCaja()"  @change=" validarPagina(); constantes();" class="form-control">
+                <select  v-model="selectPag" @click.prevent="mostrarCaja()"  @change=" validarPagina(); constantes();" class="form-control">
                     <option value="10">10</option>
                     <option value="25">25</option>
                     <option value="0">PERSONALIZADO </option>
@@ -17,7 +17,7 @@
             </div>
               
             <div class="col-md-4 mt-2 col-sm-2">
-                <select @change="constantes(); validarPagina();" v-model="select" class="form-control pull-left">
+                <select @change="constantes(); validarPagina();" v-model="select" class="form-control selectpicker pull-left" data-style="btn-primary">
                     <option value="SELECCIONAR CATEGORIA">TODAS LAS CATEGORÍAS </option>
                     <option value="1">NORMAL</option>
                     <option value="2">IMPORTANTE</option>

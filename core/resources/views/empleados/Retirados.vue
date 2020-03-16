@@ -45,7 +45,7 @@
             <Excel v-on:filtrar="filtrar"></Excel>
 
             <div class="col-md-12  col-sm-8 form-group has-feedback">
-                <vue-excel-xlsx :sheetname="'sheetname'" class="btn btn-sm btn-info mt-3" :data="mbuscar"
+                <vue-excel-xlsx :sheetname="'Empleados retirados'" class="btn btn-sm btn-info mt-3" :data="mbuscar"
                     :columns="columns" :filename="moment().format('L') + '-retirados.xls' " title="Exportar">
                     <i class="fa fa-print"></i>
                 </vue-excel-xlsx>

@@ -140,6 +140,21 @@
     overflow-y: scroll;
 }
 
+a.con_imagen {
+    position: relative;
+}
+
+a.con_imagen img {
+    position: absolute;
+    bottom: 26px;
+    right: 55px;
+    display: none;
+}
+
+a.con_imagen:hover img {
+    display: block;
+}
+
 
 /* borrar */
 
