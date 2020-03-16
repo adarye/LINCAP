@@ -103,7 +103,7 @@
                 <button @click="validarCampos" class="btn btn-primary">
                     Actualizar
                 </button>
-                <button @click="showModal()" class="btn btn-primary">
+                <button v-show="$route.params.id == user" @click="showModal()" class="btn btn-primary">
                     Subir Imagen
                 </button>
                 <button @click="desabilitarFormulario" class="btn btn-danger">
@@ -152,7 +152,8 @@
                 vivienda: "",
                 rol: "",
                 barrio: "",
-                ciudad: ""
+                ciudad: "",
+                user: ""
             };
         },
         beforeMount() {
@@ -163,6 +164,7 @@
                 router.push('/empleado/' + window.user.id);
             }
             axios.get(`/api/empleado/show/${this.$route.params.id}`).then(res => {
+                this.user = user.id
                 this.informacion = res.data[0];
                
                 this.apellidos =
@@ -541,7 +543,7 @@
                 }
             },
             validarCampos() {
-                if(user.rol == 4){
+              
                if(this.ciudad != "" &&  this.barrio == "" ){
                     swal("Alerta", "Seleccione un barrio", "warning");
                }
@@ -550,7 +552,7 @@
                 } else if (this.informacion.f015_telefono == "") {
                     swal(
                         "Alerta",
-                        "El numero de telefono es obligatorio",
+                        "El numero de teléfono es obligatorio",
                         "warning"
                     );
                 } else if (this.informacion.f015_id_barrio == "") {
@@ -595,12 +597,7 @@
                     this.validated_admin = false
                     this.actualizar();
                 }
-                }
-                else{
-                    this.validated = false;
-                    this.validated_admin = false
-                    this.actualizar();
-                }
+               
             },
             showModal() {
                 this.$modal.show("hello-world");

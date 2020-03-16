@@ -113,7 +113,7 @@ class TercerosmmController extends Controller
     //EN UPDATE SE ACTUALIZARA LOS DATOS DE TODAS LAS TABLAS QUE ANTES HICIMOS BUSQUEDAS
     public function update(Request $request, $id)
     {
-         return $request;
+        //  return $request;
         Terceros_mm::select('f015_rowid')
             ->join(
                 't200_mm_terceros',
