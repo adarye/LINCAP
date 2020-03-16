@@ -213,9 +213,7 @@
             
             
              validarPagina(){
-                 console.log(this.mbuscar.length)
                 if( Math.ceil(this.mbuscar.length / this.numero) < this.pagina){
-                    console.log(Math.ceil(this.mbuscar.length / this.numero))
                     this.pagina =  1
 
                 }
