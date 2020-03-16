@@ -193,7 +193,6 @@
             contar() {
                 axios.get(`/api/preguntas/contar/${this.id}`)
                     .then(res => {
-                        console.log(res.data)
                         this.cantidad_preg = res.data;
 
                     })
@@ -212,13 +211,11 @@
                 }
                 axios.put('/api/evaluacion/calificar/RA', params)
                     .then(res => {
-                        console.log(res.data)
                         this.calificacion_final = Math.round(res.data.cz4_calificacion * 100) / 100
                     })
 
             },
             traerRa() {
-                console.log(this.id)
                 axios.get(`/api/respuestaA/buscar/${this.id}`)
                     .then(res => {
                         this.resRA = res.data
@@ -240,11 +237,9 @@
                     })
             },
             traerSMMR() {
-                console.log(this.id)
                 axios.get(`/api/respuestaM/buscar/${this.id}`)
                     .then(res => {
                         this.resSMMR = res.data
-                        console.log(this.resSMMR)
                         this.buscarResmmr()
                     })
             },
@@ -252,7 +247,6 @@
                 axios.get(`/api/pregunta/index/${this.id}`)
                     .then(res => {
                         this.resSMUR = res.data
-                        console.log(this.resSMUR)
                     })
 
             },
