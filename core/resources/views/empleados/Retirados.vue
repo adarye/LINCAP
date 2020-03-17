@@ -59,8 +59,8 @@
         </modal>
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><i class="fa fa-folder-open"> Empleados</i></li>
-                <li class="breadcrumb-item"><i class="fa fa-users"> Retirados</i></li>
+                <li class="breadcrumb-item"><i class="fa fa-folder-open"></i> Empleados</li>
+                <li class="breadcrumb-item"><i class="fa fa-users"></i> Retirados</li>
                 <li class="breadcrumb-item active" aria-current="page"></li>
             </ol>
         </nav>

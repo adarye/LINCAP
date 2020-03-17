@@ -7,10 +7,11 @@
         />
          <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li v-show=" $route.params.cat == 1" class="breadcrumb-item"><i class="fa fa-pencil"> <router-link v-bind:to="'/gestion/pruebas/' + $route.params.cat + '/' + id_log"> Encuestas</router-link></i></li>
-                 <li v-show=" $route.params.cat == 2" class="breadcrumb-item"><i class="fa fa-file-text"> <router-link v-bind:to="'/gestion/pruebas/' + $route.params.cat + '/' + id_log" > Evaluaciones</router-link></i></li>
+                <li v-if=" $route.params.cat == 1" class="breadcrumb-item"><i class="fa fa-pencil"></i> <router-link v-bind:to="'/gestion/pruebas/' + $route.params.cat + '/' + id_log"> Encuestas</router-link></li>
+                 <li v-if=" $route.params.cat == 2" class="breadcrumb-item"><i class="fa fa-file-text"></i> <router-link v-bind:to="'/gestion/pruebas/' + $route.params.cat + '/' + id_log" > Evaluaciones</router-link></li>
                 <li class="breadcrumb-item">{{datos.cz3_nombre}}</li>
-                <li class="breadcrumb-item"><i class="fa fa-gears"> Administrar</i></li>
+                <li class="breadcrumb-item"><i class="fa fa-gears"></i> Administrar</li>
+                <li class="breadcrumb-item active" aria-current="page"></li>
                 
             </ol>
         </nav>

@@ -1,5 +1,12 @@
 <template>
     <div>
+        <nav>
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><i class="fa fa-user"></i> Perfil</li>
+        <li class="breadcrumb-item"><i class="fa fa-newspaper-o"></i> Noticias</li>
+         <li class="breadcrumb-item active" aria-current="page"></li>
+    </ol>
+</nav>
          <vue-headful
             :title="title"
         />

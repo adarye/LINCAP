@@ -5,8 +5,8 @@
         />
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><i class="fa fa-folder-open"> Empleados</i></li>
-                <li class="breadcrumb-item"><i class="fa fa-book"> Informacion Corporativa</i></li>
+                <li class="breadcrumb-item"><i class="fa fa-folder-open"></i> Empleados</li>
+                <li class="breadcrumb-item"><i class="fa fa-book"></i> Informacion Corporativa</li>
                 
             </ol>
         </nav>

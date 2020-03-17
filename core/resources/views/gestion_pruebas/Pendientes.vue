@@ -1,5 +1,18 @@
 <template>
     <div>
+         <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li v-if=" $route.params.categoria == 1" class="breadcrumb-item"><i class="fa fa-pencil">
+                    </i>  Encuestas
+                    </li>
+                <li v-if=" $route.params.categoria == 2" class="breadcrumb-item"><i class="fa fa-file-text">
+                      </i> Evaluaciones
+                    </li>
+                 <li class="breadcrumb-item"><i class="fa fa-clock-o"></i> <router-link v-bind:to="'/pruebas/pendientes/' + $route.params.categoria"> Pendientes</router-link></li>
+                 <li class="breadcrumb-item active" aria-current="page"></li>
+
+            </ol>
+        </nav>
         <vue-headful
             :title="$route.params.categoria == 1 ?  'Lincap | Encuestas pendientes':  'Lincap | Evaluaciones pendientes ' " />
 

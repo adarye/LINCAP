@@ -7,13 +7,13 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
-                    <i class="fa fa-gears"> Configuración</i>
+                    <i class="fa fa-gears"></i> Configuración
                 </li>
                 <li class="breadcrumb-item">
-                    <i class="fa fa-user">
+                    <i class="fa fa-user"></i>
                         <router-link :to="{ name: 'Roles' }">
                             Roles</router-link>
-                    </i>
+                    
                 </li>
                 <li class="breadcrumb-item active" aria-current="page"></li>
             </ol>

@@ -4,17 +4,17 @@
 
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item" v-show="this.$route.params.ruta != null"><i class="fa fa-folder"> Empleados
-                    </i></li>
-                <li class="breadcrumb-item" v-show="this.$route.params.ruta == null"><i class="fa fa-male"> Perfil </i>
+                <li class="breadcrumb-item" v-if="this.$route.params.ruta != null"><i class="fa fa-folder"></i> Empleados
+                    </li>
+                <li class="breadcrumb-item" v-show="this.$route.params.ruta == null"><i class="fa fa-male"></i> Perfil 
                 </li>
 
-                <li class="breadcrumb-item" v-show="this.$route.params.ruta != null"> <i class="fa fa-user">
+                <li class="breadcrumb-item" v-show="this.$route.params.ruta != null"> <i class="fa fa-user"></i>
                         <router-link :to="{ name: this.$route.params.ruta }"> {{ this.$route.params.ruta  }}
                         </router-link>
-                    </i></li>
+                    </li>
 
-                <li class="breadcrumb-item"><i class="fa fa-edit"> Actualizar</i></li>
+                <li class="breadcrumb-item"><i class="fa fa-edit"></i> Actualizar</li>
                 <li class="breadcrumb-item active" aria-current="page"></li>
             </ol>
         </nav>
