@@ -11,7 +11,7 @@
                                             :href="'/../theme/files/sst/'+ empleado_info.cz9_archivo_titulacion" target="_blank" style="text-decoration: underline;" title="Descargar">|| 
                                                 Descargar 
                                         </a></label>
-                            <input type="file" class="form-control" :disabled="validated_admin ? false : true"   v-on:change="$emit('getFileTitulacion', $event)"/>
+                            <input accept="application/pdf" type="file" class="form-control" :disabled="validated_admin ? false : true"   v-on:change="$emit('getFileTitulacion', $event)"/>
                         </div>
                     </div>
                     <div class="form-row">

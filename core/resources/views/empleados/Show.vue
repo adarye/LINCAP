@@ -71,7 +71,7 @@
                         <form @submit.prevent="updateAvatar" anctype="multipart/form-data">
                             <h1>Actualizar avatar</h1>
                             <div class="col-md-12 col-center col-sm-8 form-group has-feedback">
-                                <input type="file" @change="getImage($event)" />
+                                <input type="file" @change="getImage($event)" accept="image/*"/>
                             </div>
                             <div class="col-md-12 col-sm-12 form-group has-feedback">
                                 <button type="submit" class="btn btn-primary">
@@ -432,6 +432,8 @@
                 let file = event.target.files[0];
                 this.imagen = file;
 
+                if(file){
+
                 if (!/\.(jepg|jpg|png|gif)$/i.test(file.name)) {
                     swal(
                         "Advertencia",
@@ -455,8 +457,7 @@
                         this.cargarImagen(file);
                     }
 
-
-
+                }
                 }
             },
             cargarImagen(file) {

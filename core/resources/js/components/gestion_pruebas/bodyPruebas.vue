@@ -7,11 +7,7 @@
             </div>
             <div class="col-md-1">
                 <input v-numeric-only v-on:keyup="constantes(); validarPagina();" class="form-control mt-2" v-model="numero" />
-                <!-- <select @change="validarPagina(); constantes();" v-model="selectPag" @click.prevent="mostrarCaja()" class="form-control">
-                    <option value="10">10</option>
-                    <option value="25">25</option>
-                    <option value="0">Personalizado </option>
-                </select> -->
+              
             </div>
             <div class=" pull-left">
                <b> Registro(s) </b>
@@ -28,7 +24,7 @@
             <div class="col-md-5 col-center has-feedback mt-2">
                 <input type="text" v-on:keyup="constantes" v-model="bprueba" class="form-control" v-autofocus placeholder="Buscar" />
             </div>
-            <div class="col-md-1" v-if="mostrar == 1"><input v-on:keyup="constantes(); validarPagina();" class="form-control mt-2" v-model="numero" /></div>
+            <div class="col-md-2" style="text-align: center"><p class="pull-left" style="font-size: 14px"><span class="badge badge-info">Registros <b> X </b> Pagina</span></p></div>
         </nav>
         <div class="table-responsive-md table-responsive-sm">
             <table class="table table-striped table-hover">
@@ -59,7 +55,7 @@
                                 v-show=" moment().diff(item.cz3_fecha_cierre) > 0"
                                 @click="select = 'Cerradas'">Cerrada</button>
                         </th>
-                        <td>
+                        <td style="text-align: justify">
                             {{ item.cz3_descripcion }}
                         </td>
                         <td>

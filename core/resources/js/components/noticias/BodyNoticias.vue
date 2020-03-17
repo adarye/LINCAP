@@ -2,22 +2,22 @@
     <div>
         <nav class="navbar navbar-light bg-light my-2">
 
-            <div class=" pull-right">
+            <div class="pull-right">
+                <b>
                 Ver
+                </b>
             </div>
-            <div class=" mt-2 col-md-2">
-                <select  v-model="selectPag" @click.prevent="mostrarCaja()"  @change=" validarPagina(); constantes();" class="form-control">
-                    <option value="10">10</option>
-                    <option value="25">25</option>
-                    <option value="0">PERSONALIZADO </option>
-                </select>
+            <div class="col-md-1">
+                  <input v-numeric-only v-on:keyup="constantes(); validarPagina();" class="form-control mt-2" v-model="numero" />
             </div>
-            <div class=" pull-left">
-                Noticias
+            <div class="pull-left">
+                 <b>
+                Noticia(s)
+                </b>
             </div>
               
-            <div class="col-md-4 mt-2 col-sm-2">
-                <select @change="constantes(); validarPagina();" v-model="select" class="form-control selectpicker pull-left" data-style="btn-primary">
+            <div class="col-md-5 mt-2">
+                <select @change="constantes(); validarPagina();" v-model="select" class="form-control mt-2">
                     <option value="SELECCIONAR CATEGORIA">TODAS LAS CATEGORÍAS </option>
                     <option value="1">NORMAL</option>
                     <option value="2">IMPORTANTE</option>
@@ -28,34 +28,17 @@
             </div>
             
             <div class="col-md-5  has-feedback mt-2">
-                <input type="text" v-on:keyup="constantes()" v-model="bnoticia" class="form-control pull-left" v-autofocus placeholder="Buscar noticia" />
+                <input type="text" v-on:keyup="constantes()" v-model="bnoticia" class="form-control mt-2" v-autofocus placeholder="Buscar noticia" />
             </div>
             
-            <div class="col-md-1" v-if="mostrar == 1"><input v-on:keyup="constantes(); validarPagina();" v-numeric-only class="form-control mt-2" v-model="numero" /></div>
+            <div class="col-md-1" v-if="mostrar == 1"></div>
         </nav>
        
         <div class="row mt-4">
             
             <div class="col-md-6 " v-for="(item, indice) in mbuscar" :key="indice"
                 v-show="(pagina-1) * numero <= indice && pagina*numero > indice || bnoticia != ''">
-               <div class="card">
-    <h5 class="card-header">
-        <a class="collapsed d-block" data-toggle="collapse" :href="'#collapse'+item.cz12_id" aria-expanded="true" aria-controls="collapse-collapsed" id="heading-collapsed">
-            <i class="fa fa-chevron-down pull-right"></i>
-            Collapsible Group Item #1
-        </a>
-    </h5>
-    <div :id="'collapse'+item.cz12_id" class="collapse" aria-labelledby="heading-collapsed">
-        <div class="card-body">
-            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon
-            officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3
-            wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et.
-            Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan
-            excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt
-            you probably haven't heard of them accusamus labore sustainable VHS.
-        </div>
-    </div>
-</div>
+      
                 <div class="x_panel">
                     <small>
                                  <h4 style="color: white !important;"><span v-show="item.cz12_nivel_imp == 1"

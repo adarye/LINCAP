@@ -72,17 +72,13 @@
         <nav class="navbar navbar-light bg-light my-2">
 
             <div class=" pull-right">
-                Ver
+                <b>Ver</b>
             </div>
             <div class="col-md-1  mt-2">
-                <select  v-model="selectPag" @change="constantes(); pagina = 1" @click.prevent="mostrarCaja()" class="form-control">
-                    <option value="10">10</option>
-                    <option value="25">25</option>
-                    <option value="0">Personalizado </option>
-                </select>
+                <input v-numeric-only v-on:keyup="constantes(); validarPagina();" class="form-control mt-2" v-model="numero" />
             </div>
             <div class=" pull-left">
-                Registros
+                <b>Registros</b>
             </div>
 
             <div class="col-md-4  mt-2 col-center col-sm-2  has-feedback">
@@ -105,7 +101,7 @@
             </div>
            
            
-            <div class="col-md-1" v-if="mostrar == 1"><input  v-on:keyup="constantes(); pagina = 1" class="form-control mt-2" v-model="numero" /></div>
+            <div class="col-md-1" v-if="mostrar == 1"></div>
         </nav>
 
         <div class="table-responsive-md table-responsive-sm">

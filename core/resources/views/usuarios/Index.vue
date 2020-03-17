@@ -18,18 +18,14 @@
             </ol>
         </nav>
         <nav class="navbar navbar-light bg-light my-2">
-            <div class=" pull-right">
-                Ver
+           <div class=" pull-right">
+               <b> Ver</b>
             </div>
-            <div class="col-md-2 mt-2">
-                <select @change="constantes(); pagina = 1;" v-model="selectPag" @click.prevent="mostrarCaja()" class="form-control">
-                    <option value="10">10</option>
-                    <option value="25">25</option>
-                    <option value="0">Personalizado </option>
-                </select>
+            <div class="col-md-1  mt-2">
+                <input v-numeric-only v-on:keyup="constantes(); validarPagina();" class="form-control mt-2" v-model="numero" />
             </div>
             <div class=" pull-left">
-                Registros
+                <b>Registros</b>
             </div>
 
             <div class="col-md-4 mt-2 col-center col-sm-2  has-feedback">
