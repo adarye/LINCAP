@@ -55,7 +55,7 @@
                                             :href="'/../theme/files/sst/'+ empleado_info.cz9_archivo_vacunacion" target="_blank" style="text-decoration: underline;" title="Descargar">||  
                                                Descargar
                                         </a></label>
-                            <input type="file" class="form-control" :disabled="validated ? false : true"  v-on:change="$emit('getFileVacunacion', $event)"/>
+                            <input accept="application/pdf" type="file" class="form-control" :disabled="validated ? false : true"  v-on:change="$emit('getFileVacunacion', $event)"/>
                         </div>
                     </div>
                     <div class="form-row">

@@ -42,8 +42,8 @@
              </div>
              <div class="row">
                    <div class="col-md-12 col-center col-sm-12 form-group has-feedback">
-                       <label for="imagen" >Imagen...</label>
-                       <input id="imagen"  placeholder="Seleccionar Imagen" type="file" v-on:change="getImage($event)" />
+                       <label for="imagen"  >Imagen...</label>
+                       <input id="imagen" accept="image/*"  placeholder="Seleccionar Imagen" type="file" v-on:change="getImage($event)" />
                     </div>
              </div>
              <div class="row">
