@@ -6,8 +6,8 @@
         />
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                  <li v-if=" $route.params.categoria == 1" class="breadcrumb-item"><i class="fa fa-pencil"></i> <router-link v-bind:to="'/gestion/pruebas/' + $route.params.categoria"> Encuestas</router-link></li>
-                 <li v-if=" $route.params.categoria == 2" class="breadcrumb-item"><i class="fa fa-file-text"></i> <router-link v-bind:to="'/gestion/pruebas/' + $route.params.categoria"> Evaluaciones</router-link></li>
+                  <li v-if=" $route.params.categoria == 1" class="breadcrumb-item"><i class="fa fa-pencil"></i>  Encuestas</li>
+                 <li v-if=" $route.params.categoria == 2" class="breadcrumb-item"><i class="fa fa-file-text"></i>  Evaluaciones</li>
                 <li class="breadcrumb-item">
                     <i class="fa fa-gear"> </i>
                         <router-link :to="{ name: 'IndexGP' }">

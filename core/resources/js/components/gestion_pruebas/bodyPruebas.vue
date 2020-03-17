@@ -24,7 +24,7 @@
             <div class="col-md-5 col-center has-feedback mt-2">
                 <input type="text" v-on:keyup="constantes" v-model="bprueba" class="form-control" v-autofocus placeholder="Buscar" />
             </div>
-            <div class="col-md-2" style="text-align: center"><p class="pull-left" style="font-size: 14px"><span class="badge badge-info">Registros <b> X </b> Pagina</span></p></div>
+
         </nav>
         <div class="table-responsive-md table-responsive-sm">
             <table class="table table-striped table-hover">

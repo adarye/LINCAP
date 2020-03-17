@@ -21,6 +21,7 @@
 .router-link-exact-active {
     font-size: 13px !important;
     background-color: #fcf1f149 !important;
+    color: white !important;
 }
 
 .fade-enter-active,

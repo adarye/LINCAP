@@ -1954,9 +1954,8 @@ a:focus {
     display: none
 }
 
-.nav.child_menu li:hover,
-.nav.child_menu li.active {
-    background-color: rgba(255, 255, 255, 0.06)
+.nav.child_menu li:hover {
+    background-color: #425668;
 }
 
 .nav.child_menu li {
