@@ -38,6 +38,24 @@
             
             <div class="col-md-6 " v-for="(item, indice) in mbuscar" :key="indice"
                 v-show="(pagina-1) * numero <= indice && pagina*numero > indice || bnoticia != ''">
+               <div class="card">
+    <h5 class="card-header">
+        <a class="collapsed d-block" data-toggle="collapse" :href="'#collapse'+item.cz12_id" aria-expanded="true" aria-controls="collapse-collapsed" id="heading-collapsed">
+            <i class="fa fa-chevron-down pull-right"></i>
+            Collapsible Group Item #1
+        </a>
+    </h5>
+    <div :id="'collapse'+item.cz12_id" class="collapse" aria-labelledby="heading-collapsed">
+        <div class="card-body">
+            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon
+            officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3
+            wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et.
+            Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan
+            excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt
+            you probably haven't heard of them accusamus labore sustainable VHS.
+        </div>
+    </div>
+</div>
                 <div class="x_panel">
                     <small>
                                  <h4 style="color: white !important;"><span v-show="item.cz12_nivel_imp == 1"
@@ -66,7 +84,7 @@
                                 </a>
 
                             </li>
-                            <li><a class="collapse-link" data-toggle="collapse"
+                            <li><a  class="collapse show" data-toggle="collapse"
                                     :data-target="'#collapse'+item.cz12_id"><i class="fa fa-chevron-up"></i></a>
                             </li>
                         </ul>
@@ -139,6 +157,7 @@
                 <p>No se encontraron noticias</p>
             </div>
         </center>
+       
     </div>
 </template>
 <script>
