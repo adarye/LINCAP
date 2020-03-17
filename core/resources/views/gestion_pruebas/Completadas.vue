@@ -8,7 +8,7 @@
                 <li v-if=" $route.params.categoria == 2" class="breadcrumb-item"><i class="fa fa-file-text">
                       </i> Evaluaciones
                     </li>
-                 <li class="breadcrumb-item"><i class="fa fa-check-square-o"></i> <router-link v-bind:to="'/pruebas/completadas/' + $route.params.categoria"> Completadas</router-link></li>
+                 <li class="breadcrumb-item"><i class="fa fa-check-square-o"></i>  Completadas</li>
                  <li class="breadcrumb-item active" aria-current="page"></li>
 
             </ol>

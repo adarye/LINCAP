@@ -10,9 +10,7 @@
                  <li v-if=" $route.params.categoria == 2" class="breadcrumb-item"><i class="fa fa-file-text"></i>  Evaluaciones</li>
                 <li class="breadcrumb-item">
                     <i class="fa fa-gear"> </i>
-                        <router-link :to="{ name: 'IndexGP' }">
-                            Administrar</router-link>
-                   
+                            Administrar
                 </li>
                 <li class="breadcrumb-item active" aria-current="page"></li>
             </ol>

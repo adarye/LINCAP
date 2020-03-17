@@ -9,9 +9,8 @@
                     <i class="fa fa-gears"></i> Configuración
                 </li>
                 <li class="breadcrumb-item">
-                    <i class="fa fa-users"> </i>
-                        <router-link :to="{ name: 'IndexUsuario' }">
-                            Usuarios</router-link>
+                    <i class="fa fa-users"> </i>  
+                            Usuarios
                    
                 </li>
                 <li class="breadcrumb-item active" aria-current="page"></li>
