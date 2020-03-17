@@ -556,6 +556,10 @@
                     } else {
                         if (this.id_creador != this.id_log) {
                             this.selectEM = "SELECCIONADOS"
+                            console.log('hOLA')
+                        }
+                        else{
+                            this.selectEM = 'MOSTRAR TODOS'
                         }
                         this.getCO();
                         this.traerActivos();

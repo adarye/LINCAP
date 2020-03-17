@@ -48,7 +48,9 @@ class GPController extends Controller
             )
             ->where('cz3_id_creador', Auth()->user()->cz1_id_empleado)
             
-            ->where('cz3_categoria', $categoria)->get();
+            ->where('cz3_categoria', $categoria)
+            ->orderBy('cz3_id', 'DESC')
+            ->get();
         }
     }
     public function indexAll($categoria)
@@ -65,7 +67,9 @@ class GPController extends Controller
                 'dbo.z1_usuarios.cz1_id_empleado'
             )
             ->where('cz3_id_creador', '!=', Auth()->user()->cz1_id_empleado)
-            ->where('cz3_categoria', $categoria)->get();
+            ->where('cz3_categoria', $categoria)
+            ->orderBy('cz3_id', 'DESC')
+            ->get();
         }
     }
     public function update(Request $request)

@@ -105,7 +105,7 @@ class ApiController extends Controller
             )
             ->with('empleado_info')
                 ->where('c0550_ind_estado', '1')
-                ->orderBy('c0541_nombres', 'ASC')
+                ->orderBy('c0541_rowid', 'DESC')
                 ->get();
 
         } else {

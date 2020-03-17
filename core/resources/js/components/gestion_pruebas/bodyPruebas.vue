@@ -6,7 +6,7 @@
                <b> Ver</b>
             </div>
             <div class="col-md-1">
-                <input v-on:keyup="constantes(); validarPagina();" class="form-control mt-2" v-model="numero" />
+                <input v-numeric-only v-on:keyup="constantes(); validarPagina();" class="form-control mt-2" v-model="numero" />
                 <!-- <select @change="validarPagina(); constantes();" v-model="selectPag" @click.prevent="mostrarCaja()" class="form-control">
                     <option value="10">10</option>
                     <option value="25">25</option>
