@@ -21,7 +21,7 @@
                <b> Ver</b>
             </div>
             <div class="col-md-1  mt-2">
-                <input v-numeric-only v-on:keyup="constantes(); validarPagina();" class="form-control mt-2" v-model="numero" />
+                <input v-numeric-only v-on:keyup="constantes(); validarPagina(); " class="form-control mt-2" v-model="numero" />
             </div>
             <div class=" pull-left">
                 <b>Registros</b>
@@ -37,7 +37,7 @@
             </div>
             <div class="col-md-5 mt-2 col-center has-feedback">
                 <input type="text" v-model="bempleado" class="form-control" v-autofocus v-uppercase
-                   v-on:keyup="constantes()" placeholder="Buscar empleado" />
+                   v-on:keyup="constantes(); validarPagina();" placeholder="Buscar empleado" />
             </div>
             
             <div class="col-md-1" v-if="mostrar == 1"><input class="form-control mt-2"  v-on:keyup="constantes(); pagina = 1"  v-model="numero" /></div>
@@ -130,8 +130,7 @@
             <tbody>
                 <tr v-for="(item, indice) in mbuscar" :key="indice" v-show="
                         ((pagina - 1) * numero <= indice &&
-                            pagina * numero > indice) ||
-                            bempleado != ''
+                            pagina * numero > indice)
                     ">
                     <th scope="row">{{ item.cz1_cc }}</th>
                     <td>{{ item.cz1_nombres }}</td>
@@ -155,7 +154,7 @@
  </div>
         <div class="row">
             <div class="col-md-4 col-float"></div>
-            <div v-show="bempleado == ''" class="col-md-4 col-center">
+            <div  class="col-md-4 col-center">
                 <button type="button" @click.prevent="pagina = Number(pagina) - 1; constantes()" :disabled="pagina == 1" class="btn btn-primary">
                     <li class="fa fa-long-arrow-left"></li>
                 </button>

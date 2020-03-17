@@ -28,7 +28,7 @@
             </div>
             
             <div class="col-md-5  has-feedback mt-2">
-                <input type="text" v-on:keyup="constantes()" v-model="bnoticia" class="form-control mt-2" v-autofocus placeholder="Buscar noticia" />
+                <input type="text" v-on:keyup="constantes(); validarPagina();" v-model="bnoticia" class="form-control mt-2" v-autofocus placeholder="Buscar noticia" />
             </div>
             
             <div class="col-md-1" v-if="mostrar == 1"></div>
@@ -37,7 +37,7 @@
         <div class="row mt-4">
             
             <div class="col-md-6 " v-for="(item, indice) in mbuscar" :key="indice"
-                v-show="(pagina-1) * numero <= indice && pagina*numero > indice || bnoticia != ''">
+                v-show="(pagina-1) * numero <= indice && pagina*numero > indice">
       
                 <div class="x_panel">
                     <small>
@@ -113,7 +113,7 @@
 
         <div class="row">
             <div class="col-md-5 col-float"></div>
-            <div v-if="bnoticia == ''" class="col-md-4 col-center">
+            <div  class="col-md-4 col-center">
                 <button type="button" @click.prevent="pagina = Number(pagina) - 1; constantes()" :disabled="pagina == 1" class="btn btn-primary">
                     <li class="fa fa-long-arrow-left"></li>
                 </button>

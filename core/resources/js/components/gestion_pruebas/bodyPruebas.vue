@@ -13,7 +13,7 @@
                <b> Registro(s) </b>
             </div>
             <div  class="col-md-4 col-center col-sm-2  has-feedback">
-                <select @change="validarPagina(); constantes(); " v-model="select" class="form-control mt-2">
+                <select @change="constantes(); " v-model="select" class="form-control mt-2">
                     <option value="Todas">Todas las categorías</option>
                     <option value="Cerradas">Cerradas</option>
                     <option value="Abiertas">Abiertas</option>
@@ -22,7 +22,7 @@
                 </select>
             </div>
             <div class="col-md-5 col-center has-feedback mt-2">
-                <input type="text" v-on:keyup="constantes" v-model="bprueba" class="form-control" v-autofocus placeholder="Buscar" />
+                <input type="text" v-on:keyup="constantes(); validarPagina();" v-model="bprueba" class="form-control" v-autofocus placeholder="Buscar" />
             </div>
 
         </nav>
@@ -41,7 +41,7 @@
                 </thead>
                 <tbody>
                     <tr v-for="(item, indice) in mbuscar" :key="indice"
-                        v-show="(pagina-1) * numero <= indice && pagina*numero > indice || bprueba != ''">
+                        v-show="(pagina-1) * numero <= indice && pagina*numero > indice">
                         <th>{{item.cz3_id}}</th>
                         <th v-if="estado">{{item.cz1_nombres}}</th>
                         <th scope="row">{{ item.cz3_nombre }}
@@ -101,7 +101,7 @@
         </div>
         <div class="row">
                 <div class="col-md-4 "></div>
-                <div v-show="bprueba == ''" class="col-md-4 ">
+                <div class="col-md-4 ">
                   <center>
                     <button type="button" @click.prevent="pagina = Number(pagina) - 1; constantes()" :disabled="pagina == 1" class="btn btn-primary">
                         <li class="fa fa-long-arrow-left"></li>

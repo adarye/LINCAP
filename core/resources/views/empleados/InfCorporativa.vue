@@ -30,7 +30,7 @@
                 </select>
             </div>
             <div class="col-md-5 mt-2  mt-2 col-center has-feedback">
-                <input v-on:keyup="constantes" type="text" v-model="bempleado" class="form-control" v-autofocus placeholder="Buscar" />
+                <input v-on:keyup="constantes(); validarPagina();" type="text" v-model="bempleado" class="form-control" v-autofocus placeholder="Buscar" />
             </div>  
              <div class="col-md-1" v-if="mostrar == 1"><input v-on:keyup="constantes(); pagina = 1" class="form-control mt-2" v-model="numero" /></div>          
         </nav> 
@@ -48,7 +48,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="(item, indice) in mbuscar" :key="indice" v-show="(pagina-1) * numero <= indice && pagina*numero > indice || bempleado != '' ">
+                <tr v-for="(item, indice) in mbuscar" :key="indice" v-show="(pagina-1) * numero <= indice && pagina*numero > indice">
                     <th>{{ item.cz9_id }}</th>
                     <th scope="row">{{ item.c0541_nombres }} {{ item.c0541_apellido1 }}
                         {{ item.c0541_apellido2 }}  </th>
@@ -66,7 +66,7 @@
         </div>
         <div class="row">
             <div class="col-md-4 col-float"></div>
-            <div v-show="bempleado == ''" class="col-md-4 col-center">
+            <div  class="col-md-4 col-center">
                 <button type="button" @click.prevent="pagina = Number(pagina) - 1; constantes()" :disabled="pagina == 1" class="btn btn-primary">
                     <li class="fa fa-long-arrow-left"></li>
                 </button>
