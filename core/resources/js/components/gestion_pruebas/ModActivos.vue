@@ -79,7 +79,7 @@
                 </select>
             </div>
             <div class="col-md-3 col-center has-feedback">
-                <input v-on:keyup="constantes()" type="text" v-model="bempleado" class="form-control" v-autofocus placeholder="Buscar" />
+                <input v-on:keyup="constantes(); validarPagina()" type="text" v-model="bempleado" class="form-control" v-autofocus placeholder="Buscar" />
             </div>
             <div class="col-md-2  col-sm-1 form-group has-feedback">
                 <vue-excel-xlsx :sheetname="'NOTAS'" class="btn btn-sm btn-info mt-1" :data="mbuscar"
@@ -108,7 +108,7 @@
                 </thead>
                 <tbody>
                     <tr v-for="(item, indice) in mbuscar" :key="indice"
-                        v-show="(pagina-1) * numero <= indice && pagina*numero > indice || bempleado != ''">
+                        v-show="(pagina-1) * numero <= indice && pagina*numero > indice ">
 
 
                         <th scope="row">{{ item.c0541_id }} </th>
@@ -155,7 +155,7 @@
         </div>
         <div class="row">
             <div class="col-md-4 col-float"></div>
-            <div v-show="bempleado == ''" class="col-md-4 col-center">
+            <div class="col-md-4 col-center">
 
                 <button type="button" @click.prevent="pagina = Number(pagina) - 1; constantes();" :disabled="pagina == 1" class="btn btn-primary">
                     <li class="fa fa-long-arrow-left"></li>
@@ -168,8 +168,8 @@
             </div>
 
 
-            <div class="pull-right mt-2">Página {{ pagina }} / {{ Math.ceil(mbuscar.length / numero) }} de
-                {{ mbuscar.length }} Registros</div>
+            <div class="pull-right mt-2"><b>Página {{ pagina }} / {{ Math.ceil(mbuscar.length / numero) }} de
+                {{ mbuscar.length }} Registros</b></div>
 
 
 
@@ -268,6 +268,7 @@
             this.buscar()
             this.buscarCargos()
             this.cache()
+            
             
 
         },

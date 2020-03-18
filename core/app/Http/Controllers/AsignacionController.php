@@ -71,7 +71,7 @@ class AsignacionController extends Controller
                         'dbo.t200_mm_terceros.f200_rowid')
                     ->where('cz3_id', $request->id_prueba)
                     ->first();
-                Mail::to($user_email->f015_email)->send(new AsignacionPrueba($user_email, $prueba));
+                // Mail::to($user_email->f015_email)->send(new AsignacionPrueba($user_email, $prueba));
                 return response()->json(['error' => '', 'mensaje' => 'Se le ha enviado un email a ' . ' ' . $user_email->f015_email]);
             }
         }
