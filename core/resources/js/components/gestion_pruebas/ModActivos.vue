@@ -321,10 +321,12 @@
                           this.numero = localStorage.numero_mac;
                     }
                       if(localStorage.empleados_mac == undefined){
+                          console.log('sa1')
                         localStorage.setItem('empleados_mac', this.selectEM)
 
                     }
                     else{
+                        console.log('sa2')
                           this.selectEM = localStorage.empleados_mac;
                     }
 
@@ -555,13 +557,13 @@
                     if (this.id_creador != user.id && user.rol != 2 && user.rol != 1) {
                         window.location.href = '/'
                     } else {
-                        if (this.id_creador != this.id_log) {
-                            this.selectEM = "SELECCIONADOS"
-                            console.log('hOLA')
-                        }
-                        else{
-                            this.selectEM = 'MOSTRAR TODOS'
-                        }
+                        // if (this.id_creador != this.id_log) {
+                        //     this.selectEM = "SELECCIONADOS"
+                        //     console.log('hOLA')
+                        // }
+                        // else{
+                        //     this.selectEM = 'MOSTRAR TODOS'
+                        // }
                         this.getCO();
                         this.traerActivos();
 
