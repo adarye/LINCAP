@@ -76,8 +76,8 @@
                 </button>
             </div>
 
-            <div class="pull-right mt-2">Página {{ pagina }} / {{ Math.ceil(mbuscar.length / numero) }} de
-                {{ mbuscar.length }} Registros</div>
+            <div class="pull-right mt-2"><b>Página {{ pagina }} / {{ Math.ceil(mbuscar.length / numero) }} de
+                {{ mbuscar.length }} Registros</b></div>
         </div>
         <center>
             

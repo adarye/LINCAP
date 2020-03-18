@@ -115,8 +115,8 @@
                 </div>
                  <div class="col-md-4">
 
-                <div class="pull-right">Página {{ pagina }} / {{ Math.ceil(mbuscar.length / numero) }} de
-                    {{ mbuscar.length }} Registros</div>
+                <div class="pull-right"><b>Página {{ pagina }} / {{ Math.ceil(mbuscar.length / numero) }} de
+                    {{ mbuscar.length }} Registros</b></div>
             </div>
             </div>
        
