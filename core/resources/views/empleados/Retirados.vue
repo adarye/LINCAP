@@ -100,7 +100,7 @@
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th scope="col">Cedula</th>
+                        <th scope="col">Cédula</th>
                         <th scope="col">Nombre</th>
                         <th scope="col">C. O</th>
                         <th scope="col">Cargo</th>

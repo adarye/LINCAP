@@ -108,7 +108,7 @@
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th scope="col" class="texto">Cedula</th>
+                        <th scope="col" class="texto">Cédula</th>
                         <th scope="col" class="texto">Nombre</th>
                         <th scope="col" class="texto">C. O</th>
                         <th scope="col" class="texto">Cargo</th>

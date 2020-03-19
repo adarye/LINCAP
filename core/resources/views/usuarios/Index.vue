@@ -62,7 +62,7 @@
                                     v-model="usuario.cz1_password" />
                             </div>
                             <select v-model="usuario.cz1_id_rol" class="form-control">
-                                <option value="Roles">Roles</option>
+                                <option value="Roles">ROLES</option>
                                 <option class="mb-2" v-for="(item, indice) in roles" :key="indice"
                                     v-bind:value="item.cz2_id">
                                     {{ item.cz2_nombre }}</option>
@@ -97,7 +97,7 @@
                                     v-model="usuario.cz1_password" v-autofocus />
                             </div>
                             <select v-model="usuario.cz1_id_rol" class="form-control">
-                                <option value="Roles">Roles</option>
+                                <option value="Roles">ROLES</option>
                                 <option class="mb-2" v-for="(item, indice) in roles" :key="indice"
                                     v-bind:value="item.cz2_id">
                                     {{ item.cz2_nombre }}</option>

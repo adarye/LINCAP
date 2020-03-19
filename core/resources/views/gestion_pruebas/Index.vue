@@ -23,7 +23,7 @@
 
                         <form @submit.prevent="crear">
 
-                            <h1>Crear</h1>
+                            <h1>Nueva</h1>
 
                             <div class="col-md-12 col-center col-sm-8 form-group has-feedback">
 

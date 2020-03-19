@@ -37,7 +37,7 @@
                 <div class="custom-control custom-checkbox col-md-12  col-sm-8 form-group has-feedback">
                     <input type="checkbox" id="c0702_descripcion" class="custom-control-input"
                         @change="$emit('filtrar','Nivel Academico', $event.target.checked, 'c0702_descripcion', '', '')" />
-                    <label class="custom-control-label" for="c0702_descripcion">Nivel Academico</label>
+                    <label class="custom-control-label" for="c0702_descripcion">Nivel Académico</label>
                 </div>
                  <div class="custom-control custom-checkbox col-md-12  col-sm-8 form-group has-feedback">
                     <input type="checkbox" id="c0780_descripcion" class="custom-control-input"
@@ -103,7 +103,7 @@
                 <div class="custom-control custom-checkbox col-md-12  col-sm-8 form-group has-feedback">
                     <input type="checkbox" class="custom-control-input" id="Fecha_tpp"
                         @change="$emit('filtrar','Fecha de terminacion del periodo de prueba', $event.target.checked, 'empleado_info', 'cz9_fecha_tpprueba', 'fecha')" />
-                    <label class="custom-control-label" for="Fecha_tpp">Fecha de terminacion del periodo de prueba</label>
+                    <label class="custom-control-label" for="Fecha_tpp">Fecha de terminación del periodo de prueba</label>
                 </div>
                 <div class="custom-control custom-checkbox col-md-12  col-sm-8 form-group has-feedback">
                     <input type="checkbox" class="custom-control-input" id="FV_TA"

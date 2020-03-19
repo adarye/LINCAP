@@ -43,7 +43,7 @@
                     <th scope="col" class="texto">C. O</th>
                     <th scope="col" class="texto">Cargo</th>                    
                     <th scope="col" class="texto">Email</th>
-                    <th scope="col" class="texto">Telefono</th>
+                    <th scope="col" class="texto">Teléfono</th>
                     <th scope="col" class="texto">Celular</th>
                 </tr>
             </thead>
