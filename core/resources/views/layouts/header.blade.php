@@ -19,7 +19,7 @@
                     <div class="dropdown-menu  " aria-labelledby="navbarDropdown">
                         
                         <router-link  class="dropdown-item"  :to="{name: 'RestartPassword'}" tag="button"><span>Cambiar
-                                contraseña</span></router-link>
+                                password</span></router-link>
                                 
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf

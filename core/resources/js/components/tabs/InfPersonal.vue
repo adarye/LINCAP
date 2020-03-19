@@ -177,7 +177,7 @@
                 <div class="form-group col-md-6">
                     <label>Talla de Uniforme</label>
                     <input type="text" class="form-control" :disabled="validated_admin ? false : true"
-                        v-model="empleado_info.cz9_talla_uniforme" v-max-length="2" v-uppercase-only required />
+                        v-model="empleado_info.cz9_talla_uniforme" v-max-length="6" v-uppercase-only required />
                 </div>
                 <div class="form-group col-md-6">
                     <label>Talla de Calzado</label>
