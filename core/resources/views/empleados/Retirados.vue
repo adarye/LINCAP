@@ -73,7 +73,7 @@
                 <input v-numeric-only v-on:keyup="constantes(); validarPagina();" class="form-control mt-2" v-model="numero" />
             </div>
             <div class=" pull-left">
-                <b>Registros</b>
+                <b>Registro(s)</b>
             </div>
 
             <div class="col-md-4  mt-2 col-center col-sm-2  has-feedback">
@@ -83,7 +83,7 @@
                         {{ item.f285_descripcion }}</option>
                 </select>
             </div>
-            <div class="col-md-4  mt-2 col-center ">
+            <div class="col-md-3  mt-2 col-center ">
                 <input v-on:keyup="constantes(); validarPagina();" type="text" v-model="bempleado" class="form-control" v-autofocus placeholder="Buscar" />
             </div>
             <div class="col-md-2  mt-2">

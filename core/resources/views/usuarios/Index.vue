@@ -24,7 +24,7 @@
                 <input v-numeric-only v-on:keyup="constantes(); validarPagina(); " class="form-control mt-2" v-model="numero" />
             </div>
             <div class=" pull-left">
-                <b>Registros</b>
+                <b>Registro(s)</b>
             </div>
 
             <div class="col-md-4 mt-2 col-center col-sm-2  has-feedback">
